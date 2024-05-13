@@ -1,32 +1,34 @@
 const mongoose = require("mongoose");
 
 const parentSchema = mongoose.Schema(
-    {
-        name: {
-            type: String,
-            required: true,
-        },
-        email: {
-            type:String,
-            unique:true,
-            required:true,
-           
-            dropDups: true
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-        contact: {
-            type: Number,
-        },
-        parentalStatus: {
-            type: String,
-            required: true,
-        }, password: {
-            type: String
-        }
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    { timestamps: true }
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    contact: {
+      type: Number,
+      required: true
+    },
+    parentalStatus: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true
+    },
+  },
+  { timestamps: true }
 );
-module.exports = mongoose.model("parents", parentSchema);
+const ParentModel = mongoose.model("parents", parentSchema);
+module.exports = {ParentModel}

@@ -1,15 +1,13 @@
-const parents = require("./parentSchema");
 
+const {ParentModel} = require("./parentSchema");
 
 const registerParent = async (req, res) => {
-
-  const newParent = await new parents({
+  const newParent = await new ParentModel({
     name: req.body.name,
     email: req.body.email,
     contact: req.body.contact,
     password: req.body.password,
-    parentalStatus:req.body.parentalStatus
-    
+    parentalStatus: req.body.parentalStatus,
   });
 
   newParent
@@ -18,7 +16,7 @@ const registerParent = async (req, res) => {
       res.json({
         status: 200,
         msg: "Inserted successfully",
-        data: data
+        data: data,
       });
     })
     .catch((err) => {
@@ -43,29 +41,29 @@ const loginParent = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  parents
+  ParentModel
     .findOne({ email: email })
     .exec()
     .then((data) => {
-        if(data!=null){
-      if (password == data.password) {
-        res.json({
-          status: 200,
-          msg: "Login successfully",
-          data: data,
-        });
+      if (data != null) {
+        if (password == data.password) {
+          res.json({
+            status: 200,
+            msg: "Login successfully",
+            data: data,
+          });
+        } else {
+          res.json({
+            status: 405,
+            msg: "password Mismatch",
+          });
+        }
       } else {
         res.json({
           status: 405,
-          msg: "password Mismatch",
+          msg: "User Not Found",
         });
       }
-    }else{
-        res.json({
-            status: 405,
-            msg: "User Not Found",
-          });
-    }
     })
     .catch((err) => {
       res.json({
@@ -81,7 +79,7 @@ const loginParent = (req, res) => {
 //View all Users
 
 const viewParents = (req, res) => {
-  parents
+  ParentModel
     .find()
     .exec()
     .then((data) => {
@@ -111,14 +109,14 @@ const viewParents = (req, res) => {
 
 //update  by id
 const editParentById = (req, res) => {
-  parents
+  ParentModel
     .findByIdAndUpdate(
       { _id: req.params.id },
       {
         name: req.body.name,
         email: req.body.email,
         contact: req.body.contact,
-        parentalStatus:req.body.parentalStatus
+        parentalStatus: req.body.parentalStatus,
       }
     )
     .exec()
@@ -138,7 +136,7 @@ const editParentById = (req, res) => {
 };
 // view  by id
 const viewParentById = (req, res) => {
-  parents
+  ParentModel
     .findById({ _id: req.params.id })
     .exec()
     .then((data) => {
@@ -159,7 +157,7 @@ const viewParentById = (req, res) => {
 };
 
 const deleteParentById = (req, res) => {
-  parents
+  ParentModel
     .findByIdAndDelete({ _id: req.params.id })
     .exec()
     .then((data) => {
@@ -180,7 +178,7 @@ const deleteParentById = (req, res) => {
 };
 //forgotvPawd  by id
 const forgotPwd = (req, res) => {
-  parents
+  ParentModel
     .findOneAndUpdate(
       { email: req.body.email },
       {
@@ -210,14 +208,12 @@ const forgotPwd = (req, res) => {
     });
 };
 
-
-
-module.exports={
-registerParent,
-viewParentById,
-viewParents,
-editParentById,
-forgotPwd,
-deleteParentById,
-loginParent
-}
+module.exports = {
+  registerParent,
+  viewParentById,
+  viewParents,
+  editParentById,
+  forgotPwd,
+  deleteParentById,
+  loginParent,
+};
