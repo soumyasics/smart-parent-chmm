@@ -15,20 +15,29 @@ const parentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    contact: {
+    phoneNumber: {
       type: Number,
-      required: true
+      required: true,
     },
-    parentalStatus: {
+    address: {
       type: String,
       required: true,
     },
-    password: {
+    dateOfBirth: {
       type: String,
-      required: true
+      required: true,
     },
+    parentalStatus: {
+      enum: ["active", "deactived", "suspended"],
+      type: String,
+      default: "active",
+    },
+    profilePicture: {
+      type: Object,
+      default: null
+    }
   },
   { timestamps: true }
 );
 const ParentModel = mongoose.model("parents", parentSchema);
-module.exports = {ParentModel}
+module.exports = { ParentModel };

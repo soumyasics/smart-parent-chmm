@@ -1,0 +1,38 @@
+#common-home-navbar {
+  height: 80px;
+  background-color: black !important;
+}
+#common-home-navbar a:hover {
+  color: rgb(157, 157, 152) !important;
+  font-weight: bold;
+}
+.navitems {
+  font-size: medium;
+  padding-left: 1000px;
+}
+.a1 {
+  /* padding-left: 945px; */
+  position: absolute;
+  right: 0;
+}
+
+#sub {
+  font-size: medium;
+  padding-left: 1000px;
+}
+#blogs {
+  font-size: medium;
+  padding-left: 25px;
+}
+#aboutus {
+  font-size: medium;
+  padding-left: 40px;
+}
+#signin {
+  font-size: medium;
+  padding-left: 40px;
+}
+#signup {
+  font-size: medium;
+  padding-left: 40px;
+}
