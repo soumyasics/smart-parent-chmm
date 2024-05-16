@@ -6,6 +6,7 @@ import { ParentSignupForm } from "./pages/parent/parentSignup/parentSignupForm.t
 
 import "./App.css";
 import { ParentSignupPage } from "./pages/parent/parentSignup/parentSignup.tsx";
+import { ParentNavbar } from "./components/parent/parentNavbar/parentNavbar.tsx";
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
 
         <Route path="/parent/signup" element={<ParentSignupPage />} />
         <Route path="/parent/login" element={<ParentLogin />} />
+        <Route path="/parent/nav" element={<ParentNavbar />} />
 
         {/* testing routes  */}
         <Route path="/footer" element={<CommonFooter />} />
