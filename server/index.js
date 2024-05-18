@@ -1,11 +1,11 @@
 const express = require('express')
 const app = express()
-const port = 3030
+const PORT = 4044;
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
-  console.log(`Server started on http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Server started on http://localhost:${PORT}`)
 })
