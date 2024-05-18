@@ -32,6 +32,7 @@ export const ParentSignupPage = () => {
             <span
               className="user-forgot-password"
               onClick={navigateParentLogin}
+              style={{ cursor: "pointer" }}
             >
               {" "}
               Sign In{" "}
