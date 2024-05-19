@@ -1,2 +1,2 @@
-## This repo have smart parent front-end & backend
+## This repo have ChildCrescendo  front-end & backend
 ### after clonning create a upload folder inside server folder.

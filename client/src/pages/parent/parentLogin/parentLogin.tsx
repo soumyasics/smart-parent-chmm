@@ -15,8 +15,9 @@ export const ParentLogin = () => {
   return (
     <>
       <ParentNavbar />
-      <div className="bg-danger mt-5">
-        <Form className="mt-5" noValidate validated={validated}>
+      <div className=" shadow  mx-auto mt-5 pt-2" style={{width: "45%"}}>
+        <h3 className="text-center mb-5"> Parent Login</h3>
+        <Form className="mt-5 mb-5 " noValidate validated={validated}>
           <Row className="w-75 mx-auto mt-5">
             <Col>
               <Form.Group>
@@ -34,7 +35,7 @@ export const ParentLogin = () => {
             </Col>
           </Row>
 
-          <Row>
+          <Row className="w-75 mx-auto mt-5">
             <Col>
               <Form.Group style={{ position: "relative" }}>
                 <div
