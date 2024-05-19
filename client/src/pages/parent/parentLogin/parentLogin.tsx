@@ -35,7 +35,7 @@ export const ParentLogin = () => {
             </Col>
           </Row>
 
-          <Row className="w-75 mx-auto mt-5">
+          <Row className="w-75 mx-auto mt-3">
             <Col>
               <Form.Group style={{ position: "relative" }}>
                 <div
