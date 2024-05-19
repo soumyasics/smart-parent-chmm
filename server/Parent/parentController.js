@@ -4,10 +4,20 @@ const {
   comparePasswords,
 } = require("../utils/passwordEncryption");
 
+const { generateToken } = require("../utils/auth");
+
 const registerParent = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, address } = req.body;
-    if (!name || !email || !password || !phoneNumber || !address) {
+    const { name, email, password, phoneNumber, address, dateOfBirth } =
+      req.body;
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !phoneNumber ||
+      !address ||
+      !dateOfBirth
+    ) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await encryptPassword(password);
@@ -17,6 +27,7 @@ const registerParent = async (req, res) => {
       password: hashedPassword,
       phoneNumber,
       address,
+      dateOfBirth
     });
 
     await newParent.save();
@@ -30,9 +41,6 @@ const registerParent = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-// Registration -- finished
-
-//Login
 const loginParent = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -42,28 +50,28 @@ const loginParent = async (req, res) => {
         message: "User not found. Please check your email and password",
       });
     }
-    const isPasswordMatch = await comparePasswords(parent.password, password);
+    const isPasswordMatch = await comparePasswords(password, parent.password);
     if (!isPasswordMatch) {
       return res
-        .status(404)
+        .status(401)
         .json({ message: "Please check your email and password" });
     }
 
-    //todo=> generate token here
-    return res
-      .status(200)
-      .json({
-        message: "Parent login successfull",
-        data: parent,
-        token: "todo=> send token",
-      });
-  } catch (err) {
+    const parentCopy = parent.toObject();
+    delete parentCopy.password;
+
+    const token = generateToken(parentCopy);
+
+    return res.status(200).json({
+      message: "Parent login successfull",
+      data: parentCopy,
+      token,
+    });
+  } catch (error) {
     console.error("Error logging in parent:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error", error });
   }
 };
-
-//View all Users
 
 const viewParents = (req, res) => {
   ParentModel.find()

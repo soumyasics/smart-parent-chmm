@@ -10,6 +10,11 @@ const {
 const {
   validateEmailForLogin,
 } = require("./middlewares/validation/emailValidateForLogin");
+
+
+
+
+
 //Parent routes
 router.post(
   "/registerParent",

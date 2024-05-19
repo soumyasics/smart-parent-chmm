@@ -1,6 +1,6 @@
 const { ParentModel } = require("../../Parent/parentModel");
 
-export const validateEmailForRegistration = async (req, res, next) => {
+const validateEmailForRegistration = async (req, res, next) => {
   try {
     const { email } = req.body;
     if (!email) {
@@ -11,6 +11,7 @@ export const validateEmailForRegistration = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid email format" });
     }
     // todo=> use all models for check mail already taken or not
+    console.log()
     const existingParent = await ParentModel.findOne({ email });
     if (existingParent) {
       return res.status(400).json({ message: "Email already in use" });
@@ -22,3 +23,5 @@ export const validateEmailForRegistration = async (req, res, next) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+module.exports = { validateEmailForRegistration };
