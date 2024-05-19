@@ -1,4 +1,8 @@
 const { ParentModel } = require("./parentModel");
+const {
+  encryptPassword,
+  comparePasswords,
+} = require("../utils/passwordEncryption");
 
 const registerParent = async (req, res) => {
   try {
@@ -6,11 +10,11 @@ const registerParent = async (req, res) => {
     if (!name || !email || !password || !phoneNumber || !address) {
       return res.status(400).json({ message: "All fields are required." });
     }
-
+    const hashedPassword = await encryptPassword(password);
     const newParent = new ParentModel({
       name,
       email,
-      password,
+      password: hashedPassword,
       phoneNumber,
       address,
     });
@@ -34,13 +38,25 @@ const loginParent = async (req, res) => {
     const { email, password } = req.body;
     const parent = await ParentModel.findOne({ email });
     if (!parent) {
+      return res.status(404).json({
+        message: "User not found. Please check your email and password",
+      });
+    }
+    const isPasswordMatch = await comparePasswords(parent.password, password);
+    if (!isPasswordMatch) {
       return res
         .status(404)
-        .json({
-          message: "User not found. Please check your email id and password",
-        });
+        .json({ message: "Please check your email and password" });
     }
-    
+
+    //todo=> generate token here
+    return res
+      .status(200)
+      .json({
+        message: "Parent login successfull",
+        data: parent,
+        token: "todo=> send token",
+      });
   } catch (err) {
     console.error("Error logging in parent:", error);
     return res.status(500).json({ message: "Internal server error" });
