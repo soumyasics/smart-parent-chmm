@@ -30,8 +30,9 @@ export const ParentSignupPage = () => {
           <p>
             Already have an account?{" "}
             <span
-              className="user-forgot-password"
+              className="font-weight-bold user-forgot-password text-primary"
               onClick={navigateParentLogin}
+              style={{ cursor: "pointer" }}
             >
               {" "}
               Sign In{" "}

@@ -17,12 +17,12 @@ export const CommonFooter = () => {
     <div className="my-footer">
       <div>
         <Stack>
-          <h4 className="footer-logo">Smart Parent </h4>
-          <InputGroup className="footer-mail">
+          <h4 className="footer-logo">Child Crescendo  </h4>
+          <InputGroup className="w-75 footer-mail">
             <InputGroup.Text>
               <AiOutlineMail />
             </InputGroup.Text>
-            <Form.Control type="text" placeholder="Enter Your Email" />
+            <Form.Control  type="text" placeholder="Enter Your Email" />
           </InputGroup>
           <div className="socialmedia-icons">
             <FaSquareInstagram style={iconStyle} />
@@ -55,7 +55,7 @@ export const CommonFooter = () => {
         <Stack className="my-stack">
           <p>Contact us</p>
           <p>(+91) 123-456-7890</p>
-          <p>smartparent@gmail.com</p>
+          <p>ChildCrescendo@gmail.com</p>
         </Stack>
 
         <Stack className="download-app-stack my-stack">
@@ -71,7 +71,7 @@ export const CommonFooter = () => {
         </Stack>
       </div>
       <div className="footer-credit">
-        <p>© 2024 Smart Parent</p>
+        <p>© 2024 Child Crescendo </p>
         <div>
           <p>Terms of Service</p>
           <p>Privacy Policy</p>

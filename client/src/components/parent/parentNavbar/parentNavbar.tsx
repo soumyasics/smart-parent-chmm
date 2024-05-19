@@ -10,7 +10,7 @@ export const ParentNavbar = () => {
     navigate("/parent/login");
   };
   return (
-    <div className="bg-dark text-white">
+    <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
         <Container>
           <Navbar.Brand className="text-white" href="#home">
