@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const parent = require("./Parent/parentController");
+const kids = require("./Kids/kidsController");
+
+
 const {
   validateEmailForRegistration,
 } = require("./middlewares/validation/emailValidationForReg");
@@ -15,11 +18,13 @@ const {
 
 
 
+
 //Parent routes
 router.post(
   "/registerParent",
-  validateEmailForRegistration,
-  validatePassword,
+  parent.upload,
+//   validateEmailForRegistration,
+//   validatePassword,
   parent.registerParent
 );
 router.post(
@@ -33,5 +38,17 @@ router.post("/viewParents", parent.viewParents);
 router.post("/editParentById/:id", parent.editParentById);
 router.post("/deleteParentById/:id", parent.deleteParentById);
 router.post("/forgotPwdParent", parent.forgotPwd);
+
+
+
+//Kids
+router.post("/addKid", kids.upload,kids.addKid);
+router.post("/viewKids", kids.viewKids);
+router.post("/viewKidsByParentId/:id", kids.viewKidsByParentId);
+router.post("/viewKidById/:id", kids.viewKidById);
+router.post("/editKidById/:id", kids.upload,kids.editKidById);
+
+
+module.exports = router;
 
 module.exports = router;

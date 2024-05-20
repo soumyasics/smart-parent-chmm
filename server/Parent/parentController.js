@@ -1,4 +1,21 @@
-const { ParentModel } = require("./parentModel");
+const { ParentModel } = require("./parentSchema");
+const multer = require("multer");
+
+
+const storage = multer.diskStorage({
+  destination: function (req, res, cb) {
+    cb(null, "./upload");
+  },
+  filename: function (req, file, cb) {
+    const uniquePrefix = 'prefix-'; // Add your desired prefix here
+    const originalname = file.originalname;
+    const extension = originalname.split('.').pop();
+    const filename = uniquePrefix + originalname.substring(0, originalname.lastIndexOf('.')) + '-' + Date.now() + '.' + extension;
+    cb(null, filename);
+  },
+});
+const upload = multer({ storage: storage }).single("profilePicture");
+
 const {
   encryptPassword,
   comparePasswords,
@@ -8,7 +25,7 @@ const { generateToken } = require("../utils/auth");
 
 const registerParent = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, address, dateOfBirth } =
+    const { name, email, password, phoneNumber, address, dateOfBirth,parentalStatus} =
       req.body;
     if (
       !name ||
@@ -16,7 +33,8 @@ const registerParent = async (req, res) => {
       !password ||
       !phoneNumber ||
       !address ||
-      !dateOfBirth
+      !dateOfBirth||
+      !parentalStatus
     ) {
       return res.status(400).json({ message: "All fields are required." });
     }
@@ -24,10 +42,12 @@ const registerParent = async (req, res) => {
     const newParent = new ParentModel({
       name,
       email,
-      password: hashedPassword,
+      password:hashedPassword,
       phoneNumber,
       address,
-      dateOfBirth
+      dateOfBirth,
+      parentalStatus,
+      profilePicture:req.file
     });
 
     await newParent.save();
@@ -206,4 +226,5 @@ module.exports = {
   forgotPwd,
   deleteParentById,
   loginParent,
+  upload
 };
