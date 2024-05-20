@@ -1,10 +1,10 @@
-const { ParentModel } = require("../../Parent/parentModel");
+const { ParentModel } = require("../../Parent/parentSchema");
 
-const validateEmailForRegistration = async (req, res, next) => {
+const validateEmailForRegistration = async (req, res) => {
   try {
     const { email } = req.body;
     if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+      return res.status(400).json({ message: "Email is required 1" });
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -17,7 +17,6 @@ const validateEmailForRegistration = async (req, res, next) => {
       return res.status(400).json({ message: "Email already in use" });
     }
 
-    next();
   } catch (error) {
     console.error("Error in email validation middleware: ", error);
     return res.status(500).json({ message: "Internal server error" });
