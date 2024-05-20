@@ -1,4 +1,4 @@
-const { ParentModel } = require("./parentSchema");
+const { hpModel } = require("./hpSchema");
 const multer = require("multer");
 
 
@@ -7,14 +7,14 @@ const storage = multer.diskStorage({
     cb(null, "./upload");
   },
   filename: function (req, file, cb) {
-    const uniquePrefix = 'prefix-'; // Add your desired prefix here
+    const uniquePrefix = 'prefix-'; 
     const originalname = file.originalname;
     const extension = originalname.split('.').pop();
     const filename = uniquePrefix + originalname.substring(0, originalname.lastIndexOf('.')) + '-' + Date.now() + '.' + extension;
     cb(null, filename);
   },
 });
-const upload = multer({ storage: storage }).single("profilePicture");
+const upload = multer({ storage: storage }).array("files", 2);
 
 const {
   encryptPassword,
@@ -23,54 +23,52 @@ const {
 
 const { generateToken } = require("../utils/auth");
 
-const registerParent = async (req, res) => {
+const registerHP= async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, address, dateOfBirth,parentalStatus} =
+    const { name, email, password, phoneNumber,category} =
       req.body;
     if (
       !name ||
       !email ||
       !password ||
       !phoneNumber ||
-      !address ||
-      !dateOfBirth||
-      !parentalStatus
+      !category
     ) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await encryptPassword(password);
-    const newParent = new ParentModel({
+    const newHP = new hpModel({
       name,
       email,
       password:hashedPassword,
       phoneNumber,
-      address,
-      dateOfBirth,
-      parentalStatus,
-      profilePicture:req.file
+      category,
+      certificate:req.files[0],
+      profilePicture:req.files[1]
+    
     });
 
-    await newParent.save();
+    await newHP.save();
     return res.status(200).json({
       status: 200,
-      message: "Parent Registration completed successfully.",
-      data: newParent,
+      message: "Health Professional Registration completed successfully.",
+      data: newHP,
     });
   } catch (error) {
-    console.error("Error in email parent registration: ", error);
+    console.error("Error in email Health Professional registration: ", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-const loginParent = async (req, res) => {
+const loginHP = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const parent = await ParentModel.findOne({ email });
-    if (!parent) {
+    const hp = await hpModel.findOne({ email });
+    if (!hp) {
       return res.status(404).json({
         message: "User not found. Please check your email and password",
       });
     }
-    const isPasswordMatch = await comparePasswords(password, parent.password);
+    const isPasswordMatch = await comparePasswords(password, hp.password);
     if (!isPasswordMatch) {
       return res
         .status(401)
@@ -88,13 +86,13 @@ const loginParent = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error("Error logging in parent:", error);
+    console.error("Error logging in hp:", error);
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
 
-const viewParents = (req, res) => {
-  ParentModel.find()
+const viewHps = (req, res) => {
+  hpModel.find()
     .exec()
     .then((data) => {
       if (data.length > 0) {
@@ -122,14 +120,14 @@ const viewParents = (req, res) => {
 // view  finished
 
 //update  by id
-const editParentById = (req, res) => {
-  ParentModel.findByIdAndUpdate(
+const editHPById = (req, res) => {
+  hpModel.findByIdAndUpdate(
     { _id: req.params.id },
     {
       name: req.body.name,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
-      parentalStatus: req.body.parentalStatus,
+ 
     }
   )
     .exec()
@@ -148,8 +146,8 @@ const editParentById = (req, res) => {
     });
 };
 // view  by id
-const viewParentById = (req, res) => {
-  ParentModel.findById({ _id: req.params.id })
+const viewHpById = (req, res) => {
+  hpModel.findById({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
@@ -168,8 +166,8 @@ const viewParentById = (req, res) => {
     });
 };
 
-const deleteParentById = (req, res) => {
-  ParentModel.findByIdAndDelete({ _id: req.params.id })
+const deleteHpById = (req, res) => {
+  hpModel.findByIdAndDelete({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
@@ -189,7 +187,7 @@ const deleteParentById = (req, res) => {
 };
 //forgotvPawd  by id
 const forgotPwd = (req, res) => {
-  ParentModel.findOneAndUpdate(
+  hpModel.findOneAndUpdate(
     { email: req.body.email },
     {
       password: req.body.password,
@@ -219,12 +217,12 @@ const forgotPwd = (req, res) => {
 };
 
 module.exports = {
-  registerParent,
-  viewParentById,
-  viewParents,
-  editParentById,
+  registerHP,
+  viewHpById,
+  viewHps,
+  editHPById,
   forgotPwd,
-  deleteParentById,
-  loginParent,
+  deleteHpById,
+  loginHP,
   upload
 };
