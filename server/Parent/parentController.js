@@ -27,7 +27,7 @@ const registerParent = async (req, res) => {
       password: hashedPassword,
       phoneNumber,
       address,
-      dateOfBirth
+      dateOfBirth,
     });
 
     await newParent.save();
@@ -69,6 +69,14 @@ const loginParent = async (req, res) => {
     });
   } catch (error) {
     console.error("Error logging in parent:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const getParentDataWithToken = (req, res) => {
+  try {
+    return res.json({ message: "Parent data ", data: req.user });
+  } catch (error) {
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
@@ -205,5 +213,5 @@ module.exports = {
   editParentById,
   forgotPwd,
   deleteParentById,
-  loginParent,
+  loginParent,getParentDataWithToken
 };
