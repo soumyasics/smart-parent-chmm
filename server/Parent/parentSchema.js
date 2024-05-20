@@ -27,10 +27,15 @@ const parentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    parentalStatus: {
+    isActive: {
       enum: ["active", "deactived", "suspended"],
       type: String,
       default: "active",
+    },
+    parentalStatus: {
+      enum: ["Mother", "Father", "Expected"],
+      type: String,
+      default: "Mother",
     },
     profilePicture: {
       type: Object,
