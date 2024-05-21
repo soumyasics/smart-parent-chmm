@@ -1,16 +1,21 @@
 const { ParentModel } = require("./parentSchema");
 const multer = require("multer");
 
-
 const storage = multer.diskStorage({
   destination: function (req, res, cb) {
     cb(null, "./upload");
   },
   filename: function (req, file, cb) {
-    const uniquePrefix = 'prefix-'; // Add your desired prefix here
+    const uniquePrefix = "prefix-"; // Add your desired prefix here
     const originalname = file.originalname;
-    const extension = originalname.split('.').pop();
-    const filename = uniquePrefix + originalname.substring(0, originalname.lastIndexOf('.')) + '-' + Date.now() + '.' + extension;
+    const extension = originalname.split(".").pop();
+    const filename =
+      uniquePrefix +
+      originalname.substring(0, originalname.lastIndexOf(".")) +
+      "-" +
+      Date.now() +
+      "." +
+      extension;
     cb(null, filename);
   },
 });
@@ -25,7 +30,7 @@ const { generateToken } = require("../utils/auth");
 
 const registerParent = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, address, dateOfBirth,parentalStatus} =
+    const { name, email, password, phoneNumber, address, dateOfBirth } =
       req.body;
     if (
       !name ||
@@ -33,21 +38,23 @@ const registerParent = async (req, res) => {
       !password ||
       !phoneNumber ||
       !address ||
-      !dateOfBirth||
-      !parentalStatus
+      !dateOfBirth
     ) {
-      return res.status(400).json({ message: "All fields are required." });
+      return res.status(400).json({
+        message: "All fields are required.",
+        existingFields: req.body,
+      });
     }
+    //todo=> will use this hashsed password after development works completed
     const hashedPassword = await encryptPassword(password);
     const newParent = new ParentModel({
       name,
       email,
-      password:hashedPassword,
+      password,
       phoneNumber,
       address,
       dateOfBirth,
-      parentalStatus,
-      profilePicture:req.file
+      profilePicture: req.file,
     });
 
     await newParent.save();
@@ -70,8 +77,17 @@ const loginParent = async (req, res) => {
         message: "User not found. Please check your email and password",
       });
     }
-    const isPasswordMatch = await comparePasswords(password, parent.password);
-    if (!isPasswordMatch) {
+
+    // todo=> this will un comment for checking encypted passwords
+    // const isPasswordMatch = await comparePasswords(password, parent.password);
+
+    // if (!isPasswordMatch) {
+    //   return res
+    //     .status(401)
+    //     .json({ message: "Please check your email and password" });
+    // }
+
+    if (password !== parent.password) {
       return res
         .status(401)
         .json({ message: "Please check your email and password" });
@@ -233,7 +249,8 @@ module.exports = {
   editParentById,
   forgotPwd,
   deleteParentById,
-  loginParent,getParentDataWithToken,
   loginParent,
-  upload
+  getParentDataWithToken,
+  loginParent,
+  upload,
 };

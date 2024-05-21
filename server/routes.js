@@ -22,9 +22,9 @@ const {
 //Parent routes
 router.post(
   "/registerParent",
+  validateEmailForRegistration,
+  validatePassword,
   parent.upload,
-//   validateEmailForRegistration,
-//   validatePassword,
   parent.registerParent
 );
 router.post(
