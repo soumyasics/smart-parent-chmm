@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const parent = require("./Parent/parentController");
 const kids = require("./Kids/kidsController");
+const hp = require("./HealthProfessionals/hpController");
 
 
 const {
@@ -49,6 +50,13 @@ router.post("/viewKidById/:id", kids.viewKidById);
 router.post("/editKidById/:id", kids.upload,kids.editKidById);
 
 
-module.exports = router;
 
+//HP routes
+router.post("/registerHP",hp.upload,hp.registerHP);
+router.post("/loginHP", hp.loginHP);
+router.post("/viewHpById/:id", hp.viewHpById);
+router.post("/viewHps", hp.viewHps);
+router.post("/editHPById/:id", hp.editHPById);
+router.post("/deleteHpById/:id", hp.deleteHpById);
+router.post("/forgotPwdHP", hp.forgotPwd);
 module.exports = router;
