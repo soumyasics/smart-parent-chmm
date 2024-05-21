@@ -10,6 +10,7 @@ export const ParentSignupPage = () => {
   const navigateParentLogin = () => {
     navigate("/parent/login");
   };
+  
   return (
     <>
       <ParentNavbar />
@@ -18,16 +19,16 @@ export const ParentSignupPage = () => {
           <div className="user-signup-form">
             <div className="user-signup-form-heading">
               {" "}
-              <h6>Register as Parent</h6>{" "}
+              <h3 className="text-center">Register as Parent</h3>{" "}
             </div>
 
             <div className="user-signup-input-container">
-              <div className="users-signup-form-components">
+              <div className="users-signup-form-components p-3 shadow">
                 <ParentSignupForm />
               </div>
             </div>
           </div>
-          <p>
+          <p className="ms-3">
             Already have an account?{" "}
             <span
               className="font-weight-bold user-forgot-password text-primary"
