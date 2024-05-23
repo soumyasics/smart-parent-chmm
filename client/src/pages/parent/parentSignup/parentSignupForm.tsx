@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import axiosInstance from "../../../apis/axiosInstance.ts";
 import {
   validateEmail,
   validatePassword,
   validatePhoneNumber,
-  validatePincode,
 } from "../../../utils/validation";
-import "./parentSignup.css";
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
-import { isAxiosError } from "axios";
-
+import { useNavigate } from "react-router-dom";
+import "./parentSignup.css";
 interface ParentData {
   name: string;
   email: string;
@@ -23,7 +20,7 @@ interface ParentData {
 }
 export const ParentSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
-
+  const navigate = useNavigate();
   const [parentData, setParentData] = useState<ParentData>({
     name: "parent",
     email: "parent1@gmail.com",
@@ -62,7 +59,6 @@ export const ParentSignupForm = () => {
     sendDataToServer();
   };
   const sendDataToServer = async () => {
-    console.log("parn dat", parentData);
     const formData = new FormData();
     const {
       name,
@@ -85,18 +81,13 @@ export const ParentSignupForm = () => {
     }
 
     try {
-      let res = await axios.post(
-        "http://localhost:4044/child_crescendo_api/registerParent",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      let res = await axiosMultipartInstance.post("registerParent", formData);
 
       if (res.status === 201) {
         alert("Parent registration successfull.");
+        setTimeout(() => {
+          navigate("../parent/login");
+        }, 1200);
       } else {
         console.log("Some issues on parent registsration.", res);
       }
