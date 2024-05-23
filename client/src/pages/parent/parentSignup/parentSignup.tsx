@@ -28,7 +28,7 @@ export const ParentSignupPage = () => {
               </div>
             </div>
           </div>
-          <p className="ms-3">
+          <p className="ms-3 mt-5">
             Already have an account?{" "}
             <span
               className="font-weight-bold user-forgot-password text-primary"
