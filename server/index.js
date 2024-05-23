@@ -3,8 +3,10 @@ const cors = require('cors')
 const app = express()
 const PORT = 4044;
 const db = require('./dbConnection.js')
-app.use(cors())
 const router = require('./routes.js');
+
+// middlewares 
+app.use(cors())
 app.use(express.static(`${__dirname}/upload`));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

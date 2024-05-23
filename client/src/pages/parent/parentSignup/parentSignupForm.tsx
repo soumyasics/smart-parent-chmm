@@ -10,10 +10,21 @@ import {
 import "./parentSignup.css";
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
-export const ParentSignupForm = () => {
-  const [validated, setValidated] = useState(false);
+import { isAxiosError } from "axios";
 
-  const [parentData, setParentData] = useState({
+interface ParentData {
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: string;
+  dateOfBirth: string;
+  profilePicture: File | null;
+}
+export const ParentSignupForm = () => {
+  const [validated, setValidated] = useState<boolean>(false);
+
+  const [parentData, setParentData] = useState<ParentData>({
     name: "parent",
     email: "parent1@gmail.com",
     password: "12341234",
@@ -26,7 +37,6 @@ export const ParentSignupForm = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const form = e.currentTarget;
-    console.log("fo", form.checkValidity());
     if (form.checkValidity() === false) {
       e.stopPropagation();
     }
@@ -52,15 +62,67 @@ export const ParentSignupForm = () => {
     sendDataToServer();
   };
   const sendDataToServer = async () => {
+    console.log("parn dat", parentData);
+    const formData = new FormData();
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      address,
+      dateOfBirth,
+      profilePicture,
+    } = parentData;
+
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("address", address);
+    formData.append("dateOfBirth", dateOfBirth);
+    if (profilePicture) {
+      formData.append("profilePicture", profilePicture);
+    }
+
     try {
       let res = await axios.post(
         "http://localhost:4044/child_crescendo_api/registerParent",
-        parentData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
-      console.log("ress", res);
-    } catch (error) {
+      if (res.status === 201) {
+        alert("Parent registration successfull.");
+      } else {
+        console.log("Some issues on parent registsration.", res);
+      }
+    } catch (error: unknown) {
       console.log("Error occued on parent registration.", error);
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if (error.response.status === 400 || error.response.status === 500) {
+            const errMsg = error.response.data.message;
+            if (errMsg) {
+              alert(errMsg);
+            }
+          } else {
+            console.log(
+              "Unexpected error occued on parent registration.1",
+              error
+            );
+          }
+        } else {
+          alert(
+            "No response received from the server. Please check your network"
+          );
+        }
+      } else {
+        console.log("Unexpected error occued on parent registration.2", error);
+      }
     }
   };
 
@@ -80,7 +142,7 @@ export const ParentSignupForm = () => {
     <Form
       id="user-signup-form-input"
       noValidate
-      validated={true}
+      validated={validated}
       onSubmit={handleSubmit}
     >
       <div className="signup-form-flex-div">

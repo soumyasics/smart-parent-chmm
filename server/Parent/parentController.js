@@ -1,25 +1,18 @@
 const { ParentModel } = require("./parentSchema");
 const multer = require("multer");
 
+
 const storage = multer.diskStorage({
-  destination: function (req, res, cb) {
+  destination: function (req, file, cb) {
     cb(null, "./upload");
   },
   filename: function (req, file, cb) {
-    const uniquePrefix = "prefix-"; // Add your desired prefix here
-    const originalname = file.originalname;
-    const extension = originalname.split(".").pop();
-    const filename =
-      uniquePrefix +
-      originalname.substring(0, originalname.lastIndexOf(".")) +
-      "-" +
-      Date.now() +
-      "." +
-      extension;
-    cb(null, filename);
+    cb(null, file.originalname);
   },
 });
+
 const upload = multer({ storage: storage }).single("profilePicture");
+
 
 const {
   encryptPassword,
@@ -29,6 +22,8 @@ const {
 const { generateToken } = require("../utils/auth");
 
 const registerParent = async (req, res) => {
+  console.log('req file', req.file)
+  console.log('req body', req.body)
   try {
     const { name, email, password, phoneNumber, address, dateOfBirth } =
       req.body;
@@ -50,22 +45,22 @@ const registerParent = async (req, res) => {
     const newParent = new ParentModel({
       name,
       email,
-      password,
+      password: hashedPassword,
       phoneNumber,
       address,
       dateOfBirth,
-      profilePicture: req.file,
+      profilePicture: req.file?.path ? req.file : null,
     });
 
     await newParent.save();
-    return res.status(200).json({
-      status: 200,
-      message: "Parent Registration completed successfully.",
+    return res.status(201).json({
+      status: 201,
+      message: "Parent registration completed successfully.",
       data: newParent,
     });
   } catch (error) {
     console.error("Error in email parent registration: ", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" , error: error});
   }
 };
 const loginParent = async (req, res) => {
@@ -79,19 +74,15 @@ const loginParent = async (req, res) => {
     }
 
     // todo=> this will un comment for checking encypted passwords
-    // const isPasswordMatch = await comparePasswords(password, parent.password);
+    const isPasswordMatch = await comparePasswords(password, parent.password);
 
-    // if (!isPasswordMatch) {
-    //   return res
-    //     .status(401)
-    //     .json({ message: "Please check your email and password" });
-    // }
-
-    if (password !== parent.password) {
+    if (!isPasswordMatch) {
       return res
         .status(401)
         .json({ message: "Please check your email and password" });
     }
+
+
 
     const parentCopy = parent.toObject();
     delete parentCopy.password;
