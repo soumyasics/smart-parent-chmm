@@ -1,4 +1,3 @@
-import React from "react";
 import parenting4 from "../Assets/parenting4.jpg";
 import parenting5 from "../Assets/parenting5.jpg";
 import parenting6 from "../Assets/parenting6.jpg";

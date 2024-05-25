@@ -1,4 +1,3 @@
-import React from "react";
 import "./Freev.css";
 function Freev() {
   return (

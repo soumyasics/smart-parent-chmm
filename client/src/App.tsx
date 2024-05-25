@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CommonHomePage } from "./pages/commonHomePage/commonHomePage.tsx";
 import { CommonFooter } from "./components/common/footer/footer.tsx";
 import { ParentLogin } from "./pages/parent/parentLogin/parentLogin.tsx";
-import { ParentSignupForm } from "./pages/parent/parentSignup/parentSignupForm.tsx";
 
 import "./App.css";
 import { ParentSignupPage } from "./pages/parent/parentSignup/parentSignup.tsx";
