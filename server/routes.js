@@ -3,6 +3,7 @@ const router = express.Router();
 const parent = require("./Parent/parentController");
 const kids = require("./Kids/kidsController");
 const hp = require("./HealthProfessionals/hpController");
+const todo = require("./ToDoList/todoListController");
 
 const {
   validateEmailForRegistration,
@@ -50,4 +51,13 @@ router.post("/viewHps", hp.viewHps);
 router.post("/editHPById/:id", hp.editHPById);
 router.post("/deleteHpById/:id", hp.deleteHpById);
 router.post("/forgotPwdHP", hp.forgotPwd);
+
+//ToDo List
+router.post("/addToDo", todo.addToDo);
+router.post("/viewActivityById/:id", todo.viewActivityById);
+router.post("/deleteToDOById/:id", todo.deleteToDOById);
+
+
+
+
 module.exports = router;
