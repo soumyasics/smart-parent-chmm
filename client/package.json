@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "homepage": "http://hybrid.srishticampus.in/child_crescendo/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
