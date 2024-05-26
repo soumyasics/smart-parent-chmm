@@ -8,7 +8,7 @@
   import { ParentNavbar } from "./components/parent/parentNavbar/parentNavbar.tsx";
   function App() {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/child_crescendo">
         <Routes>
           <Route path="/" element={<CommonHomePage />} />
           {/* parent routes  */}
