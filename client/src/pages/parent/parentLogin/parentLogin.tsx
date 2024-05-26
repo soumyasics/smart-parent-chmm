@@ -2,7 +2,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
+import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { validateEmail } from "../../../utils/validation";
 import { validatePassword } from "../../../utils/validation";
@@ -75,7 +75,7 @@ export const ParentLogin = () => {
 
   return (
     <>
-      <ParentNavbar />
+      <LandingPageNavbar />
       <div className="shadow mx-auto mt-5 pt-2" style={{ width: "45%" }}>
         <h3 className="text-center mb-5"> Parent Login</h3>
         <Form
