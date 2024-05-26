@@ -16,15 +16,17 @@ export interface UserData {
     phoneNumber: number,
     address: string,
     profilePicture: ProfilePicture | null, 
-    specaility?: string, // this optional field only for health professsional
-    licenseNumber?: string // this optional field only for vaccination center
+    specaility?: string, // optional
+    licenseNumber?: string ,
+    noData: string
 }
 export type UserType = 'parent' | 'healthProfessional' | 'ashaWorker' | 'vaccineCenter';
 
 export interface UserState {
     isAuthenticated: boolean,
     userId: string| null,
+    jsonWebToken: string | null,
     userType: UserType | null, 
-    userData: UserData | null
+    userData: UserData | null,
 }
 

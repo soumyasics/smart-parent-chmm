@@ -6,6 +6,7 @@ import { ParentLogin } from "./pages/parent/parentLogin/parentLogin.tsx";
 import { ParentSignupPage } from "./pages/parent/parentSignup/parentSignup.tsx";
 import { LandingPageNavbar } from "./components/landingPage/landingPageNavbar/landingPageNavbar.tsx";
 import "./App.css";
+import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 function App() {
   return (
     <BrowserRouter basename="/child_crescendo">
@@ -15,6 +16,8 @@ function App() {
 
         <Route path="/parent/signup" element={<ParentSignupPage />} />
         <Route path="/parent/login" element={<ParentLogin />} />
+        <Route path="/parent/home" element={<ParentHome />} />
+
         <Route path="/ladning/nav" element={<LandingPageNavbar />} />
 
         {/* testing routes  */}

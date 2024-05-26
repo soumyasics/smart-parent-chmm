@@ -5,6 +5,7 @@ import { UserState } from "../types";
 const initialState: UserState = {
   isAuthenticated: false,
   userId: null,
+  jsonWebToken: null,
   userType: null,
   userData: null,
 };
@@ -13,21 +14,23 @@ const userSlice = createSlice({
   initialState,
   name: "user",
   reducers: {
-    setUser: (state, action: PayloadAction<UserState>) => {
+    userLoggedIn: (state, action: PayloadAction<UserState>) => {
       state.isAuthenticated = true;
       state.userId = action.payload.userId;
       state.userType = action.payload.userType;
       state.userData = action.payload.userData;
+      state.jsonWebToken = action.payload.jsonWebToken;
     },
-    clearUser: (state) => {
+    userLoggedOut: (state) => {
       state.isAuthenticated = false;
       state.userId = null;
       state.userType = null;
       state.userData = null;
+      state.jsonWebToken = null;
     },
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { userLoggedIn, userLoggedOut } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

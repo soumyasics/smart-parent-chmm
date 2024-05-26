@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import styles from "./landingPageNavbar.module.css";
-import {Form} from 'react-bootstrap'
+import { Form } from "react-bootstrap";
 export const LandingPageNavbar = () => {
   const navigate = useNavigate();
 
@@ -36,20 +36,16 @@ export const LandingPageNavbar = () => {
         </Container>
         <Navbar.Collapse className="justify-content-end">
           <div>
-
-          <Form.Select onChange={handleLoginPageNavigate}>
-            {navigateOptions.map((option) => {
-              return (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              );
-            })}
-          </Form.Select>
+            <Form.Select onChange={handleLoginPageNavigate}>
+              {navigateOptions.map((option) => {
+                return (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                );
+              })}
+            </Form.Select>
           </div>
-          
-          
-
         </Navbar.Collapse>
       </Navbar>
     </div>
