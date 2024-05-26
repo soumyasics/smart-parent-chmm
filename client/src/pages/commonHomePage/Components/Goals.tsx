@@ -1,6 +1,6 @@
-import parenting4 from "../Assets/parenting4.jpg";
-import parenting5 from "../Assets/parenting5.jpg";
-import parenting6 from "../Assets/parenting6.jpg";
+import parenting4 from "../../../assets/parenting4.jpg";
+import parenting5 from "../../../assets/parenting5.jpg";
+import parenting6 from "../../../assets/parenting6.jpg";
 import "./Goals.css";
 function Goals() {
   return (
