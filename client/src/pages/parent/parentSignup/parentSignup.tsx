@@ -1,5 +1,4 @@
-import { Container, Form } from "react-bootstrap";
-import { useState } from "react";
+import { Container } from "react-bootstrap";
 import { ParentSignupForm } from "./parentSignupForm";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import "./parentSignup.css";

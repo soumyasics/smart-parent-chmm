@@ -1,6 +1,6 @@
-import parenting1 from '../Assets/parenting1.jpeg'
-import parenting3 from '../Assets/parenting3.jpg'
-import parenting2 from '../Assets/parenting2.jpeg'
+import parenting1 from '../../../assets/parenting1.jpeg'
+import parenting2 from '../../../assets/parenting2.jpeg'
+import parenting3 from '../../../assets/parenting3.jpg'
 
 
 

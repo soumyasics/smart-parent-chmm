@@ -7,7 +7,6 @@ import { CommonFooter } from "../../../components/common/footer/footer";
 import { validateEmail } from "../../../utils/validation";
 import { validatePassword } from "../../../utils/validation";
 import "./parentLogin.css";
-import axiosMultipartInstance from "../../../apis/axiosMultipartInstance";
 import axios from "axios";
 import axiosInstance from "../../../apis/axiosInstance";
 export const ParentLogin = () => {
@@ -21,7 +20,6 @@ export const ParentLogin = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const form = e.currentTarget;
     setValidated(true);
     // if (form.checkValidity() === false) {
 
