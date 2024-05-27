@@ -2,7 +2,6 @@ import { Button, Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { validateEmail } from "../../../utils/validation";
 import { validatePassword } from "../../../utils/validation";

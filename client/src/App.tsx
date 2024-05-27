@@ -9,7 +9,7 @@ import "./App.css";
 import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 function App() {
   return (
-    <BrowserRouter basename="/child_crescendo">
+    <BrowserRouter basename="child_crescendo">
       <Routes>
         <Route path="/" element={<CommonHomePage />} />
         {/* parent routes  */}
