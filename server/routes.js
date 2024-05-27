@@ -44,7 +44,12 @@ router.post("/viewKidById/:id", kids.viewKidById);
 router.post("/editKidById/:id", kids.upload, kids.editKidById);
 
 //HP routes
-router.post("/registerHP", hp.upload, hp.registerHP);
+router.post(
+  "/registerHP",
+  hp.uploadCertificate,
+  hp.uploadProfilePic,
+  hp.registerHP
+);
 router.post("/loginHP", hp.loginHP);
 router.post("/viewHpById/:id", hp.viewHpById);
 router.post("/viewHps", hp.viewHps);
@@ -56,8 +61,5 @@ router.post("/forgotPwdHP", hp.forgotPwd);
 router.post("/addToDo", todo.addToDo);
 router.post("/viewActivityById/:id", todo.viewActivityById);
 router.post("/deleteToDOById/:id", todo.deleteToDOById);
-
-
-
 
 module.exports = router;

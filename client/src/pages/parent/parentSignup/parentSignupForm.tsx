@@ -22,14 +22,23 @@ export const ParentSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const navigate = useNavigate();
   const [parentData, setParentData] = useState<ParentData>({
-    name: "parent",
-    email: "parent1@gmail.com",
-    password: "12341234",
-    phoneNumber: "1234123412",
-    address: "trivandrum",
-    dateOfBirth: "2024-05-17",
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    address: "",
+    dateOfBirth: "",
     profilePicture: null,
   });
+  // const [parentData, setParentData] = useState<ParentData>({
+  //   name: "parent",
+  //   email: "parent1@gmail.com",
+  //   password: "12341234",
+  //   phoneNumber: "1234123412",
+  //   address: "trivandrum",
+  //   dateOfBirth: "2024-05-17",
+  //   profilePicture: null,
+  // });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

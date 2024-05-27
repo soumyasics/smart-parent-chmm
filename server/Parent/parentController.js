@@ -22,8 +22,6 @@ const {
 const { generateToken } = require("../utils/auth");
 
 const registerParent = async (req, res) => {
-  console.log('req file', req.file)
-  console.log('req body', req.body)
   try {
     const { name, email, password, phoneNumber, address, dateOfBirth } =
       req.body;

@@ -3,18 +3,16 @@ const multer = require("multer");
 
 
 const storage = multer.diskStorage({
-  destination: function (req, res, cb) {
+  destination: function (req, file, cb) {
     cb(null, "./upload");
   },
   filename: function (req, file, cb) {
-    const uniquePrefix = 'prefix-'; 
-    const originalname = file.originalname;
-    const extension = originalname.split('.').pop();
-    const filename = uniquePrefix + originalname.substring(0, originalname.lastIndexOf('.')) + '-' + Date.now() + '.' + extension;
-    cb(null, filename);
+    cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage }).array("files", 2);
+
+const uploadProfilePic = multer({ storage: storage }).single("profilePicture");
+const uploadCertificate = multer({ storage: storage }).single("certificateImg");
 
 const {
   encryptPassword,
@@ -23,29 +21,21 @@ const {
 
 const { generateToken } = require("../utils/auth");
 
-const registerHP= async (req, res) => {
+const registerHP = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber,category} =
-      req.body;
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !phoneNumber ||
-      !category
-    ) {
+    const { name, email, password, phoneNumber, category } = req.body;
+    if (!name || !email || !password || !phoneNumber || !category) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await encryptPassword(password);
     const newHP = new hpModel({
       name,
       email,
-      password:hashedPassword,
+      password: hashedPassword,
       phoneNumber,
       category,
-      certificate:req.files[0],
-      profilePicture:req.files[1]
-    
+      certificate: req.files[0]?.path ? req.files[0] : null,
+      profilePicture: req.files[1]?.path ? req.files[1] : null,
     });
 
     await newHP.save();
@@ -92,7 +82,8 @@ const loginHP = async (req, res) => {
 };
 
 const viewHps = (req, res) => {
-  hpModel.find()
+  hpModel
+    .find()
     .exec()
     .then((data) => {
       if (data.length > 0) {
@@ -121,15 +112,15 @@ const viewHps = (req, res) => {
 
 //update  by id
 const editHPById = (req, res) => {
-  hpModel.findByIdAndUpdate(
-    { _id: req.params.id },
-    {
-      name: req.body.name,
-      email: req.body.email,
-      phoneNumber: req.body.phoneNumber,
- 
-    }
-  )
+  hpModel
+    .findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        name: req.body.name,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+      }
+    )
     .exec()
     .then((data) => {
       res.json({
@@ -147,7 +138,8 @@ const editHPById = (req, res) => {
 };
 // view  by id
 const viewHpById = (req, res) => {
-  hpModel.findById({ _id: req.params.id })
+  hpModel
+    .findById({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
@@ -167,7 +159,8 @@ const viewHpById = (req, res) => {
 };
 
 const deleteHpById = (req, res) => {
-  hpModel.findByIdAndDelete({ _id: req.params.id })
+  hpModel
+    .findByIdAndDelete({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
@@ -187,12 +180,13 @@ const deleteHpById = (req, res) => {
 };
 //forgotvPawd  by id
 const forgotPwd = (req, res) => {
-  hpModel.findOneAndUpdate(
-    { email: req.body.email },
-    {
-      password: req.body.password,
-    }
-  )
+  hpModel
+    .findOneAndUpdate(
+      { email: req.body.email },
+      {
+        password: req.body.password,
+      }
+    )
     .exec()
     .then((data) => {
       if (data != null)
@@ -224,5 +218,6 @@ module.exports = {
   forgotPwd,
   deleteHpById,
   loginHP,
-  upload
+  uploadCertificate,
+  uploadProfilePic,
 };
