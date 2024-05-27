@@ -1,29 +1,28 @@
 import { Container } from "react-bootstrap";
-import { ParentSignupForm } from "./parentSignupForm";
 import { CommonFooter } from "../../../components/common/footer/footer";
-import "./parentSignup.css";
+import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
+import { HPSignupForm } from "./hpSignupForm";
 import { useNavigate } from "react-router-dom";
-import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
-export const ParentSignupPage = () => {
-  const navigate = useNavigate();
-  const navigateParentLogin = () => {
-    navigate("/parent/login");
-  };
 
+export const HPSignup = () => {
+  const navigate = useNavigate();
+  const navigateHPLogin = () => {
+    navigate("/hp/login");
+  };
   return (
     <>
-      <ParentNavbar />
+      <HPNavbar />
       <div className="mt-5" id="user-signup-page">
         <Container className="user-signup-container">
           <div className="user-signup-form">
             <div className="user-signup-form-heading">
               {" "}
-              <h3 className="text-center">Register as Parent</h3>{" "}
+              <h3 className="text-center">Register as Health Professional</h3>{" "}
             </div>
 
             <div className="user-signup-input-container">
               <div className="users-signup-form-components p-3 shadow">
-                <ParentSignupForm />
+                <HPSignupForm />
               </div>
             </div>
           </div>
@@ -31,7 +30,7 @@ export const ParentSignupPage = () => {
             Already have an account?{" "}
             <span
               className="font-weight-bold user-forgot-password text-primary"
-              onClick={navigateParentLogin}
+              onClick={navigateHPLogin}
               style={{ cursor: "pointer" }}
             >
               {" "}

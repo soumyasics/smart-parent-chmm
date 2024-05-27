@@ -8,7 +8,6 @@ import {
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./parentSignup.css";
 interface ParentData {
   name: string;
   email: string;
@@ -18,27 +17,18 @@ interface ParentData {
   dateOfBirth: string;
   profilePicture: File | null;
 }
-export const ParentSignupForm = () => {
+export const HPSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const navigate = useNavigate();
   const [parentData, setParentData] = useState<ParentData>({
-    name: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
-    address: "",
-    dateOfBirth: "",
+    name: "parent",
+    email: "parent1@gmail.com",
+    password: "12341234",
+    phoneNumber: "1234123412",
+    address: "trivandrum",
+    dateOfBirth: "2024-05-17",
     profilePicture: null,
   });
-  // const [parentData, setParentData] = useState<ParentData>({
-  //   name: "parent",
-  //   email: "parent1@gmail.com",
-  //   password: "12341234",
-  //   phoneNumber: "1234123412",
-  //   address: "trivandrum",
-  //   dateOfBirth: "2024-05-17",
-  //   profilePicture: null,
-  // });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
