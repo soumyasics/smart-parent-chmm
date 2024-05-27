@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import styles from "./parentNavbar.module.css";
-import { Button, Form, Image } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -30,10 +30,6 @@ export const ParentNavbar = () => {
     }
   }, []);
 
-  const handleLoginPageNavigate = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    navigate(e.target.value);
-  };
-  const navigateOptions = [{ value: "/parent/login", label: "Parent" }];
 
   const navigateParentLogin = () => {
     navigate("/parent/login");
