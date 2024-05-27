@@ -23,23 +23,23 @@ const hpSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    
+
     isActive: {
-      enum: ["active", "pending","deactived", "suspended"],
+      enum: ["active", "pending", "deactivated", "suspended"],
       type: String,
       default: "active",
     },
-    
+
     profilePicture: {
       type: Object,
-      default: null
+      default: null,
     },
     certificate: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   { timestamps: true }
 );
-const hpModel = mongoose.model("healthprofessionals", hpSchema);
-module.exports = { hpModel };
+const HpModel = mongoose.model("healthprofessionals", hpSchema);
+module.exports = { HpModel };
