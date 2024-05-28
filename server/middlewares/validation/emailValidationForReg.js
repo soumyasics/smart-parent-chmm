@@ -1,9 +1,8 @@
 const { ParentModel } = require("../../Parent/parentSchema");
-
+const { HPModel } = require("../../HealthProfessionals/hpSchema");
 const validateEmailForRegistration = async (req, res, next) => {
   try {
     const { email } = req.body;
-    console.log("em", req.body)
 
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
@@ -12,13 +11,16 @@ const validateEmailForRegistration = async (req, res, next) => {
     if (!emailRegex.test(email)) {
       return res.status(400).json({ message: "Invalid email format" });
     }
+
     // todo=> use all models for check mail already taken or not
-   
+
     const existingParent = await ParentModel.findOne({ email });
-    if (existingParent) {
+
+    const existingHP = await HPModel.findOne({ email });
+
+    if (existingParent || existingHP) {
       return res.status(400).json({ message: "Email already in use" });
     }
-
     next();
   } catch (error) {
     console.error("Error in email validation middleware: ", error);

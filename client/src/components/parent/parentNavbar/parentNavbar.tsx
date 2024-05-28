@@ -39,11 +39,15 @@ export const ParentNavbar = () => {
     dispatch(userLoggedOut());
     navigate("../parent/login");
   };
+
+  const redirectParentHome = () => {
+    navigate('../parent/home')
+  }
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
         <Container>
-          <Navbar.Brand className="text-white" href="#home">
+          <Navbar.Brand onClick={redirectParentHome} className="text-white" >
             Child Crescendo
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -52,6 +56,9 @@ export const ParentNavbar = () => {
               <p className="my-0 ">Home</p>
               <p className="my-0 ">Todo</p>
               <p className="my-0 ">Vaccination Center</p>
+              <p className="my-0 ">Link 3</p>
+              <p className="my-0 ">Link 4</p>
+              <p className="my-0 ">Link 5</p>
             </Nav>
           </Navbar.Collapse>
         </Container>
