@@ -1,4 +1,4 @@
-export interface ProfilePicture {
+export interface Image {
     fieldname: string, 
     originalname: string,
     encoding: string, 
@@ -14,11 +14,7 @@ export interface UserData {
     name: string,
     email: string,
     phoneNumber: number,
-    address: string,
-    profilePicture: ProfilePicture | null, 
-    specaility?: string, // optional
-    licenseNumber?: string ,
-    noData: string
+    profilePicture: Image | null, 
 }
 export type UserType = 'parent' | 'healthProfessional' | 'ashaWorker' | 'vaccineCenter';
 

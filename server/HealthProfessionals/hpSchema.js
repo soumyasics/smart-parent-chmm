@@ -23,7 +23,14 @@ const hpSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-
+    profilePicture: {
+      type: Object,
+      default: null,
+    },
+    certificateImg: {
+      type: Object,
+      default: null,
+    },
     isActive: {
       enum: ["active", "pending", "deactivated", "suspended"],
       type: String,
@@ -33,15 +40,6 @@ const hpSchema = mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       type: String,
       default: "pending",
-    },
-
-    profilePicture: {
-      type: Object,
-      default: null,
-    },
-    certificateImg: {
-      type: Object,
-      default: null,
     },
   },
   { timestamps: true }
