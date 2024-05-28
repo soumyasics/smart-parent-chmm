@@ -8,27 +8,38 @@ import {
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-interface ParentData {
+interface HPData {
   name: string;
   email: string;
   password: string;
   phoneNumber: string;
-  address: string;
-  dateOfBirth: string;
+  category: string;
   profilePicture: File | null;
+  certificateImg: File | null;
 }
 export const HPSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const navigate = useNavigate();
-  const [parentData, setParentData] = useState<ParentData>({
-    name: "parent",
-    email: "parent1@gmail.com",
-    password: "12341234",
-    phoneNumber: "1234123412",
-    address: "trivandrum",
-    dateOfBirth: "2024-05-17",
+  const [hpData, setHpData] = useState<HPData>({
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    category: "",
     profilePicture: null,
+    certificateImg: null,
   });
+
+  // Development only
+  // const [hpData, setHpData] = useState<HPData>({
+  //   name: "hp",
+  //   email: "hp@gmail.com",
+  //   password: "12341234",
+  //   phoneNumber: "1234123412",
+  //   category: "doctor",
+  //   profilePicture: null,
+  //   certificateImg: null,
+  // });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -38,18 +49,18 @@ export const HPSignupForm = () => {
     }
     setValidated(true);
 
-    const isEmailValid = validateEmail(parentData.email);
+    const isEmailValid = validateEmail(hpData.email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
       return;
     }
-    const isPhoneNumberValid = validatePhoneNumber(parentData.phoneNumber);
+    const isPhoneNumberValid = validatePhoneNumber(hpData.phoneNumber);
     if (!isPhoneNumberValid) {
       alert("Please provide a valid phone number.");
       return;
     }
 
-    const isPasswordValid = validatePassword(parentData.password);
+    const isPasswordValid = validatePassword(hpData.password);
     if (!isPasswordValid) {
       alert("Please proive a valid password");
       return;
@@ -64,34 +75,37 @@ export const HPSignupForm = () => {
       email,
       password,
       phoneNumber,
-      address,
-      dateOfBirth,
+      category,
+      certificateImg,
       profilePicture,
-    } = parentData;
+    } = hpData;
 
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
     formData.append("phoneNumber", phoneNumber);
-    formData.append("address", address);
-    formData.append("dateOfBirth", dateOfBirth);
+    formData.append("category", category);
+
+    if (certificateImg) {
+      formData.append("certificateImg", certificateImg);
+    }
     if (profilePicture) {
       formData.append("profilePicture", profilePicture);
     }
 
     try {
-      let res = await axiosMultipartInstance.post("registerParent", formData);
+      let res = await axiosMultipartInstance.post("registerHP", formData);
 
       if (res.status === 201) {
-        alert("Parent registration successfull.");
+        alert("Registration successfull.");
         setTimeout(() => {
-          navigate("../parent/login");
+          navigate("../hp/login");
         }, 1200);
       } else {
-        console.log("Some issues on parent registsration.", res);
+        console.log("Some issues on hp registsration.", res);
       }
     } catch (error: unknown) {
-      console.log("Error occued on parent registration.", error);
+      console.log("Error occued on hp registration.", error);
       if (axios.isAxiosError(error)) {
         if (error.response) {
           if (error.response.status === 400 || error.response.status === 500) {
@@ -118,14 +132,22 @@ export const HPSignupForm = () => {
 
   const handleChanges = (e: any) => {
     const { name, value } = e.target;
-    setParentData((prevData) => ({ ...prevData, [name]: value }));
+    setHpData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleProfilePictureUpload = (e: any) => {
     const pic = e.target.files[0];
-    setParentData((prevData) => ({
+    setHpData((prevData) => ({
       ...prevData,
       profilePicture: pic,
+    }));
+  };
+
+  const handleCertificateImgUpload = (e: any) => {
+    const pic = e.target.files[0];
+    setHpData((prevData) => ({
+      ...prevData,
+      certificateImg: pic,
     }));
   };
   return (
@@ -141,10 +163,10 @@ export const HPSignupForm = () => {
             <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Enter Your Name"
+                placeholder="Enter your name"
                 name="name"
                 onChange={handleChanges}
-                value={parentData.name}
+                value={hpData.name}
                 required
               />
               <Form.Control.Feedback type="invalid">
@@ -155,15 +177,18 @@ export const HPSignupForm = () => {
           <Col>
             <Form.Group>
               <Form.Control
-                type="email"
-                placeholder="Enter Your Email"
+                type="text"
                 required
-                name="email"
+                minLength={10}
+                maxLength={10}
+                pattern="[0-9]{10}"
+                placeholder="Enter your phone number."
                 onChange={handleChanges}
-                value={parentData.email}
+                value={hpData.phoneNumber}
+                name="phoneNumber"
               />
               <Form.Control.Feedback type="invalid">
-                Please Enter Your Email
+                Please provide 10 digit Phone number.
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -174,15 +199,15 @@ export const HPSignupForm = () => {
         <Col>
           <Form.Group>
             <Form.Control
+              type="email"
+              placeholder="Enter your email"
               required
-              type="date"
-              placeholder="Please Select Your Date Of Birth"
-              name="dateOfBirth"
+              name="email"
               onChange={handleChanges}
-              value={parentData.dateOfBirth}
+              value={hpData.email}
             />
             <Form.Control.Feedback type="invalid">
-              Please Select Your Date Of Birth.
+              Please Enter Your Email
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -197,10 +222,10 @@ export const HPSignupForm = () => {
               type="password"
               minLength={8}
               className="password-input-eye-btn-hide"
-              placeholder="Password"
+              placeholder="Enter your password"
               name="password"
               onChange={handleChanges}
-              value={parentData.password}
+              value={hpData.password}
             />
             <Form.Control.Feedback type="invalid">
               Please enter your password with atleast 8 characters.
@@ -217,49 +242,44 @@ export const HPSignupForm = () => {
           <Form.Group>
             <Form.Control
               type="text"
-              placeholder="Please Enter Your Address."
+              placeholder="Enter Your category."
               required
-              name="address"
+              name="category"
               minLength={3}
               onChange={handleChanges}
-              value={parentData.address}
+              value={hpData.category}
             />
             <Form.Control.Feedback type="invalid">
-              Please Enter Your Address.
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Control
-              type="text"
-              required
-              minLength={10}
-              maxLength={10}
-              pattern="[0-9]{10}"
-              placeholder="Please enter your phone number."
-              onChange={handleChanges}
-              value={parentData.phoneNumber}
-              name="phoneNumber"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide 10 digit Phone number.
+              Please Enter Your category.
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>
 
-      <div className="signup-form-flex-div">
-        <Form.Group className="position-relative mt-3">
-          <Form.Label>Upload your photo (Square image)</Form.Label>
-          <Form.Control
-            type="file"
-            name="file"
-            accept="image/*"
-            onChange={handleProfilePictureUpload}
-          />
-        </Form.Group>
-      </div>
+      <Row>
+        <Col>
+          <Form.Group className="position-relative mt-3">
+            <Form.Label>Upload your photo </Form.Label>
+            <Form.Control
+              type="file"
+              name="file"
+              accept="image/*"
+              onChange={handleProfilePictureUpload}
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group className="position-relative mt-3">
+            <Form.Label>Upload your certificate image </Form.Label>
+            <Form.Control
+              type="file"
+              name="file"
+              accept="image/*"
+              onChange={handleCertificateImgUpload}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
 
       <div className="d-flex justify-content-center mt-3">
         <Button id="user-signup-btn" type="submit">

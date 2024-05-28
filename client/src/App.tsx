@@ -9,6 +9,7 @@ import "./App.css";
 import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 import { HPLogin } from "./pages/hp/hpLogin/hpLogin.tsx";
 import { HPSignup } from "./pages/hp/hpSignup/hpSignup.tsx";
+import { HpHome } from "./pages/hp/hpHome/hpHome.tsx";
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
@@ -27,6 +28,7 @@ function App() {
        {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
         <Route path="/hp/signup" element={<HPSignup />} />
+        <Route path="/hp/home" element={<HpHome />} />
 
 
         {/* testing routes  */}

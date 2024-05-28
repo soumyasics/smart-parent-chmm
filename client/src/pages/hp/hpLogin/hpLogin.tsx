@@ -10,13 +10,12 @@ import axiosInstance from "../../../apis/axiosInstance";
 import { UserState } from "../../../redux/types";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
-
 import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
 
 export const HPLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
-//   const [email, setEmail] = useState<string>("parent1@gmail.com");
-//   const [password, setPassword] = useState<string>("12341234");
+  //   const [email, setEmail] = useState<string>("parent1@gmail.com");
+  //   const [password, setPassword] = useState<string>("12341234");
   const [email, setEmail] = useState<string>("hp1@gmail.com");
   const [password, setPassword] = useState<string>("12341234");
 
@@ -70,7 +69,16 @@ export const HPLogin = () => {
         if (error.response) {
           const status = error.response.status;
           if (status === 400 || status === 404 || status === 500) {
-            const errMsg = error.response.data.message;
+            const errMsg =
+              error.response?.data?.message ||
+              "Somethng went wrong. Please try again later.";
+            if (errMsg) {
+              alert(errMsg);
+            }
+          } else if (status === 403) {
+            const errMsg =
+              error.response?.data?.message ||
+              "Somethng went wrong. Please try again later.";
             if (errMsg) {
               alert(errMsg);
             }

@@ -32,9 +32,12 @@ export const HPNavbar = () => {
   }, []);
 
   const navigateHPLogin = () => {
-    navigate("/parent/login");
+    navigate("/..parent/login");
   };
 
+  const navigateHPHome = () => {
+    navigate("../hp/home");
+  };
   const handleHPLogout = () => {
     dispatch(userLoggedOut());
     navigate("../hp/login");
@@ -43,7 +46,10 @@ export const HPNavbar = () => {
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
         <Container>
-          <Navbar.Brand className="text-white" href="#home">
+          <Navbar.Brand
+            className={`text-white ${styles.cursorPointer}`}
+            onClick={navigateHPHome}
+          >
             Child Crescendo
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
