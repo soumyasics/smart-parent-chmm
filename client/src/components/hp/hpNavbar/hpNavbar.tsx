@@ -49,9 +49,12 @@ export const HPNavbar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto  text-white w-50 justify-content-between">
-              <p className="my-0 ">Home</p>
+              <p className="my-0 ms-4">Home</p>
               <p className="my-0 ">Blog</p>
-              <p className="my-0 ">Video</p>
+              <p className="my-0 ">Link 1</p>
+              <p className="my-0 ">Link 2 </p>
+              <p className="my-0 ">Link 3 </p>
+              <p className="my-0 ">Link 4</p>
             </Nav>
           </Navbar.Collapse>
         </Container>

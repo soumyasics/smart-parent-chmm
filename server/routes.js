@@ -6,17 +6,12 @@ const hp = require("./HealthProfessionals/hpController");
 const todo = require("./ToDoList/todoListController");
 
 const {
-  validateEmailForRegistration,
-} = require("./middlewares/validation/emailValidationForReg");
-const {
-  validatePassword,
-} = require("./middlewares/validation/passwordValidation");
-const {
   validateEmailForLogin,
-} = require("./middlewares/validation/emailValidateForLogin");
+  validateEmailForRegistration,
+  validatePassword,
+  validateMongooseId,
+} = require("./middlewares");
 
-// upload middleware should called & it should be first as well (if not other middlewares wont' work),
-// upload middleware is responsible for populates req.body and req.file from the request.
 router.post(
   "/registerParent",
   parent.upload,
@@ -30,6 +25,7 @@ router.post(
   validatePassword,
   parent.loginParent
 );
+
 router.post("/viewParentById/:id", parent.viewParentById);
 router.post("/viewParents", parent.viewParents);
 router.post("/editParentById/:id", parent.editParentById);
@@ -46,10 +42,24 @@ router.post("/editKidById/:id", kids.upload, kids.editKidById);
 //HP routes
 router.post(
   "/registerHP",
-  hp.uploadCertificate,
-  hp.uploadProfilePic,
+  hp.upload,
+  validateEmailForRegistration,
+  validatePassword,
   hp.registerHP
 );
+
+router.patch(
+  "/adminApprovedHPRequest/:id",
+  validateMongooseId,
+  hp.adminApprovedHPRequest
+);
+
+router.patch(
+  "/adminRejectedHPRequest/:id",
+  validateMongooseId,
+  hp.adminRejectedHPRequest
+);
+
 router.post("/loginHP", hp.loginHP);
 router.post("/viewHpById/:id", hp.viewHpById);
 router.post("/viewHps", hp.viewHps);

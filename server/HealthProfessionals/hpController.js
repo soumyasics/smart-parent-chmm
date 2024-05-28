@@ -1,6 +1,5 @@
-const { hpModel } = require("./hpSchema");
+const { HPModel } = require("./hpSchema");
 const multer = require("multer");
-
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -11,8 +10,10 @@ const storage = multer.diskStorage({
   },
 });
 
-const uploadProfilePic = multer({ storage: storage }).single("profilePicture");
-const uploadCertificate = multer({ storage: storage }).single("certificateImg");
+const upload = multer({ storage: storage }).any();
+
+// const uploadProfilePic = multer({ storage: storage }).single("profilePicture");
+// const uploadCertificate = multer({ storage: storage }).single("certificateImg");
 
 const {
   encryptPassword,
@@ -28,19 +29,27 @@ const registerHP = async (req, res) => {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await encryptPassword(password);
-    const newHP = new hpModel({
+
+    const certificateFile = req.files.find((file) => {
+      return file.fieldname === "certificateImg";
+    });
+
+    const profilePictureFile = req.files.find((file) => {
+      return file.fieldname === "profilePicture";
+    });
+    const newHP = new HPModel({
       name,
       email,
       password: hashedPassword,
       phoneNumber,
       category,
-      certificate: req.files[0]?.path ? req.files[0] : null,
-      profilePicture: req.files[1]?.path ? req.files[1] : null,
+      certificateImg: certificateFile,
+      profilePicture: profilePictureFile,
     });
 
     await newHP.save();
-    return res.status(200).json({
-      status: 200,
+    return res.status(201).json({
+      status: 201,
       message: "Health Professional Registration completed successfully.",
       data: newHP,
     });
@@ -52,7 +61,7 @@ const registerHP = async (req, res) => {
 const loginHP = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const hp = await hpModel.findOne({ email });
+    const hp = await HPModel.findOne({ email });
     if (!hp) {
       return res.status(404).json({
         message: "User not found. Please check your email and password",
@@ -65,14 +74,26 @@ const loginHP = async (req, res) => {
         .json({ message: "Please check your email and password" });
     }
 
-    const parentCopy = parent.toObject();
-    delete parentCopy.password;
+    if (hp.isAdminApproved === "pending") {
+      return res
+        .status(403)
+        .json({ message: "Please wait for admin approval" });
+    }
 
-    const token = generateToken(parentCopy);
+    if (hp.isAdminApproved === "rejected") {
+      return res
+        .status(403)
+        .json({ message: "Your account has been rejected by admin" });
+    }
+
+    const hpCopy = hp.toObject();
+    delete hpCopy.password;
+    console.log("hpp", hpCopy);
+    const token = generateToken(hpCopy);
 
     return res.status(200).json({
-      message: "Parent login successfull",
-      data: parentCopy,
+      message: "Login successfull",
+      data: hpCopy,
       token,
     });
   } catch (error) {
@@ -81,9 +102,57 @@ const loginHP = async (req, res) => {
   }
 };
 
+const adminApprovedHPRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const hp = await HPModel.findById(id);
+
+    if (!hp) {
+      return res.status(404).json({
+        message: "Health Professional not found",
+      });
+    }
+
+   
+
+    hp.isAdminApproved = "approved";
+
+    await hp.save();
+
+    return res.status(200).json({
+      message: "Health Professional approved successfully",
+      data: hp,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const adminRejectedHPRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const hp = await HPModel.findById(id);
+    if (!hp) {
+      return res.status(404).json({
+        message: "Health Professional not found",
+      });
+    }
+
+
+    hp.isAdminApproved = "rejected";
+    await hp.save();
+    return res.status(200).json({
+      message: "Health Professional rejected successfully",
+      data: hp,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
 const viewHps = (req, res) => {
-  hpModel
-    .find()
+  HPModel.find()
     .exec()
     .then((data) => {
       if (data.length > 0) {
@@ -112,15 +181,14 @@ const viewHps = (req, res) => {
 
 //update  by id
 const editHPById = (req, res) => {
-  hpModel
-    .findByIdAndUpdate(
-      { _id: req.params.id },
-      {
-        name: req.body.name,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
-      }
-    )
+  HPModel.findByIdAndUpdate(
+    { _id: req.params.id },
+    {
+      name: req.body.name,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+    }
+  )
     .exec()
     .then((data) => {
       res.json({
@@ -138,8 +206,7 @@ const editHPById = (req, res) => {
 };
 // view  by id
 const viewHpById = (req, res) => {
-  hpModel
-    .findById({ _id: req.params.id })
+  HPModel.findById({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
@@ -159,8 +226,7 @@ const viewHpById = (req, res) => {
 };
 
 const deleteHpById = (req, res) => {
-  hpModel
-    .findByIdAndDelete({ _id: req.params.id })
+  HPModel.findByIdAndDelete({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
@@ -180,13 +246,12 @@ const deleteHpById = (req, res) => {
 };
 //forgotvPawd  by id
 const forgotPwd = (req, res) => {
-  hpModel
-    .findOneAndUpdate(
-      { email: req.body.email },
-      {
-        password: req.body.password,
-      }
-    )
+  HPModel.findOneAndUpdate(
+    { email: req.body.email },
+    {
+      password: req.body.password,
+    }
+  )
     .exec()
     .then((data) => {
       if (data != null)
@@ -212,12 +277,13 @@ const forgotPwd = (req, res) => {
 
 module.exports = {
   registerHP,
+  loginHP,
+  adminApprovedHPRequest,
+  adminRejectedHPRequest,
   viewHpById,
   viewHps,
   editHPById,
   forgotPwd,
   deleteHpById,
-  loginHP,
-  uploadCertificate,
-  uploadProfilePic,
+  upload,
 };
