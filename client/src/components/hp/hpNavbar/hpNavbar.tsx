@@ -32,7 +32,7 @@ export const HPNavbar = () => {
   }, []);
 
   const navigateHPLogin = () => {
-    navigate("/..parent/login");
+    navigate("../hp/login");
   };
 
   const navigateHPHome = () => {

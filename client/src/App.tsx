@@ -10,26 +10,27 @@ import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 import { HPLogin } from "./pages/hp/hpLogin/hpLogin.tsx";
 import { HPSignup } from "./pages/hp/hpSignup/hpSignup.tsx";
 import { HpHome } from "./pages/hp/hpHome/hpHome.tsx";
+import { HPProfilePage } from "./pages/hp/hpProfile/hpProfilePage.tsx";
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
       <Routes>
         <Route path="/" element={<CommonHomePage />} />
-       
-      {/* common pages  */}
+
+        {/* common pages  */}
         <Route path="/ladning/nav" element={<LandingPageNavbar />} />
-       
+
         {/* parent routes  */}
 
         <Route path="/parent/signup" element={<ParentSignupPage />} />
         <Route path="/parent/login" element={<ParentLogin />} />
         <Route path="/parent/home" element={<ParentHome />} />
-       
-       {/* health professional routes */}
+
+        {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
-
+        <Route path="/hp/profile" element={<HPProfilePage />} />
 
         {/* testing routes  */}
         <Route path="/footer" element={<CommonFooter />} />
