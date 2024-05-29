@@ -1,5 +1,5 @@
 const { TodoModel } = require("./todoListSchema");
-
+const { ParentModel } = require("../Parent/parentSchema");
 const addToDo = async (req, res) => {
   try {
     const {
@@ -9,7 +9,6 @@ const addToDo = async (req, res) => {
       activityTimeHrs,
       activityTimeMins,
     } = req.body;
-
 
     if (
       !parentId ||
@@ -83,8 +82,25 @@ const deleteToDOById = (req, res) => {
     });
 };
 
+const getTodoItemsByParentId = async (req, res) => {
+  try {
+    const { parentId } = req.params;
+    const parent = await ParentModel.findById(parentId);
+    if (!parent) {
+      return res
+        .status(404)
+        .json({ message: "Parent not found, id is invalid" });
+    }
+    const todos = await TodoModel.find({ parentId });
+    return res.status(200).json({ message: "All todo items", data: todos });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error", error });
+  }
+};
+
 module.exports = {
   addToDo,
   viewActivityById,
+  getTodoItemsByParentId,
   deleteToDOById,
 };
