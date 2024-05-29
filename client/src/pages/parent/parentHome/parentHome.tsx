@@ -2,6 +2,10 @@ import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavb
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { HomeCarousel } from "../../../components/common/carousel/carousel";
+import FeaturedHealthTips from "../../../components/featuredHealthTips/featuredHealthTips";
+import ProfessionalTestimonials from "../../../components/professionalTestimonials/professionalTestimonials";
+import LatestArticles from "../../../components/latestArticles/latestArticles";
 export const ParentHome = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const { user } = useSelector((state: RootState) => state);
@@ -11,9 +15,11 @@ export const ParentHome = () => {
   return (
     <div>
       <ParentNavbar />
-      <div style={{ minHeight: "500px" }}>
-        <h1> Parent Home </h1>
-      </div>
+      <HomeCarousel />
+      <FeaturedHealthTips />
+      <ProfessionalTestimonials />
+      <LatestArticles />
+     
       <CommonFooter />
     </div>
   );

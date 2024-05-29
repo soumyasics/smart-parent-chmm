@@ -32,8 +32,12 @@ export const ParentNavbar = () => {
 
 
   const navigateParentLogin = () => {
-    navigate("/parent/login");
+    navigate("../parent/login");
   };
+
+  const navigateParentAddTodo = () => {
+    navigate("../parent/add-todo")
+  }
 
   const handleParentLogout = () => {
     dispatch(userLoggedOut());
@@ -54,7 +58,7 @@ export const ParentNavbar = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto  text-white w-50 justify-content-between">
               <p className="my-0 ">Home</p>
-              <p className="my-0 ">Todo</p>
+              <p className="my-0 " onClick={navigateParentAddTodo}>Add Todo</p>
               <p className="my-0 ">Vaccination Center</p>
               <p className="my-0 ">Link 3</p>
               <p className="my-0 ">Link 4</p>

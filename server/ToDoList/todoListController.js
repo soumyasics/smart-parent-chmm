@@ -1,33 +1,50 @@
-const { todo } = require("./todoListSchema");
+const { TodoModel } = require("./todoListSchema");
 
 const addToDo = async (req, res) => {
-  const newParent = new ParentModel({
-    activityName: req.body.activityName,
-    activityDate: req.body.activityDate,
-    activityTimeHrs: req.body.activityTimeHrs,
-    activityTimeMins: req.body.activityTimeMins,
-  });
+  try {
+    const {
+      parentId,
+      activityName,
+      activityDate,
+      activityTimeHrs,
+      activityTimeMins,
+    } = req.body;
 
-  await newParent
-    .save()
-    .then((data) => {
-      return res.status(201).json({
-        status: 201,
-        message: "Parent registration completed successfully.",
-        data: data,
-      });
-    })
-    .catch((error) => {
-      console.error("Error in email parent registration: ", error);
-      return res
-        .status(500)
-        .json({ message: "Internal server error", error: error });
+
+    if (
+      !parentId ||
+      !activityDate ||
+      !activityName ||
+      !activityTimeHrs ||
+      !activityTimeMins
+    ) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const newTodo = new TodoModel({
+      parentId,
+      activityName,
+      activityDate,
+      activityTimeHrs,
+      activityTimeMins,
     });
+
+    await newTodo.save();
+    return res.status(201).json({
+      status: 201,
+      message: "Todo item added  successfully.",
+      data: newTodo,
+    });
+  } catch (error) {
+    console.error("Error on adding todo : ", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error });
+  }
 };
 //view by id
 const viewActivityById = (req, res) => {
-  todo
-    .findById({ _id: req.params.id })
+  TodoModel.findById({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
@@ -47,8 +64,7 @@ const viewActivityById = (req, res) => {
 };
 
 const deleteToDOById = (req, res) => {
-  todo
-    .findByIdAndDelete({ _id: req.params.id })
+  TodoModel.findByIdAndDelete({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
