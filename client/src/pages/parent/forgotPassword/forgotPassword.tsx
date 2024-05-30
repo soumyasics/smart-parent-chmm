@@ -6,6 +6,14 @@ import forgotPasswordImg from "../../../assets/forgot-password-img.png";
 import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../apis/axiosInstance";
+import axios from "axios";
+
+interface PasswordResetData {
+  email: string;
+  newPassword: string;
+}
+
 export const ParentForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,8 +24,6 @@ export const ParentForgotPassword: React.FC = () => {
     e.preventDefault();
     setIsSubmitted(true);
 
-
-    console.log("pass", password, confirmPassword)
     if (
       !email ||
       !password ||
@@ -28,7 +34,31 @@ export const ParentForgotPassword: React.FC = () => {
       return;
     }
     // Handle the form submission logic here
-    console.log("Email:", email);
+    let serializedData: PasswordResetData = { email, newPassword: password };
+    resetPassword(serializedData);
+  };
+
+  const resetPassword = async (data: PasswordResetData) => {
+    try {
+      let res = await axiosInstance.patch("resetParentPasswordByEmail", data);
+      if (res.status === 200) {
+        console.log("Password reset successfully");
+        alert("Password reset successfully");
+        redirectToParentLogin();
+      } else {
+        console.log("Something went wrong.", res);
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const errResponseStatus = error.response?.status;
+        if (errResponseStatus === 404) {
+          alert("Please check your email id");
+        } else {
+          alert("Something went wrong. Please try again later.");
+        }
+        console.log("Error on resetting password", error);
+      }
+    }
   };
 
   const redirectToParentLogin = () => {
@@ -93,10 +123,9 @@ export const ParentForgotPassword: React.FC = () => {
                   <p className="text-success">Passwords match</p>
                 )}
 
-                {isSubmitted && password !== confirmPassword &&  (
+                {isSubmitted && password !== confirmPassword && (
                   <p className="text-danger">Passwords do not match</p>
                 )}
-                
               </Form.Group>
               <div className="d-flex mt-3 justify-content-center">
                 <Button
