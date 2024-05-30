@@ -61,7 +61,7 @@ export const HPLogin = () => {
         dispatch(userLoggedIn(serializedUserData));
         alert("Login Successful");
         setTimeout(() => {
-          navigate("../hp/home");
+          navigate("/hp/home");
         }, 1200);
       }
     } catch (error) {

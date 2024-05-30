@@ -117,7 +117,7 @@ export const ParentSignupForm = () => {
       if (res.status === 201) {
         alert("Parent registration successfull.");
         setTimeout(() => {
-          navigate("../parent/login");
+          navigate("/parent/login");
         }, 1200);
       } else {
         console.log("Some issues on parent registsration.", res);

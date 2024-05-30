@@ -28,26 +28,26 @@ export const ParentNavbar = () => {
       }
       setUserName(name);
     }
-  }, []);
+  }, [userData]);
 
   const navigateParentLogin = () => {
-    navigate("../parent/login");
+    navigate("/parent/login");
   };
 
   const navigateParentAddTodo = () => {
-    navigate("../parent/add-todo");
+    navigate("/parent/add-todo");
   };
   const navigateParentDisplayTodo = () => {
-    navigate("../parent/display-todo");
+    navigate("/parent/display-todo");
   };
 
   const handleParentLogout = () => {
     dispatch(userLoggedOut());
-    navigate("../parent/login");
+    navigate("/parent/login");
   };
 
   const redirectParentHome = () => {
-    navigate("../parent/home");
+    navigate("/parent/home");
   };
 
   return (
@@ -87,9 +87,7 @@ export const ParentNavbar = () => {
           {!isAuthenticated ? (
             <Button
               variant={"outline-light"}
-              onClick={() => {
-                navigateParentLogin();
-              }}
+              onClick={navigateParentLogin}
             >
               {" "}
               Login{" "}
