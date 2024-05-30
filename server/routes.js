@@ -71,5 +71,6 @@ router.post("/forgotPwdHP", hp.forgotPwd);
 router.post("/addToDo", todo.addToDo);
 router.post("/viewActivityById/:id", todo.viewActivityById);
 router.post("/deleteToDOById/:id", todo.deleteToDOById);
+router.get("/getTodoItemsByParentId/:parentId", todo.getTodoItemsByParentId);
 
 module.exports = router;

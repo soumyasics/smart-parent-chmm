@@ -12,6 +12,7 @@ import { HPSignup } from "./pages/hp/hpSignup/hpSignup.tsx";
 import { HpHome } from "./pages/hp/hpHome/hpHome.tsx";
 import { HPProfilePage } from "./pages/hp/hpProfile/hpProfilePage.tsx";
 import {AddTodo} from "./pages/parent/addTodo/addTodo.tsx"
+import { DisplayTodo } from "./pages/parent/displayTodo/displayTodo.tsx";
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
@@ -26,6 +27,7 @@ function App() {
         <Route path="/parent/login" element={<ParentLogin />} />
         <Route path="/parent/home" element={<ParentHome />} />
         <Route path="/parent/add-todo" element={<AddTodo />} />
+        <Route path="/parent/display-todo" element={<DisplayTodo />} />
 
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
