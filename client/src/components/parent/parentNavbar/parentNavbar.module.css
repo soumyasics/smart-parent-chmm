@@ -1,6 +1,11 @@
 .loginBtn {
   cursor: pointer;
 }
+
+.parentNavbar p:hover {
+  cursor: pointer;
+  font-weight: 600;
+}
 .loginBtn:hover {
   font-weight: bold;
 }

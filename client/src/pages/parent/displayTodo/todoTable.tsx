@@ -1,61 +1,63 @@
-import { Table, Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
-import { useEffect, useState } from 'react';
-import axiosInstance from '../../../apis/axiosInstance';
+import { Table, Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../../apis/axiosInstance";
+import { ActivityData } from "../../../types/types";
+import { ItemsNotFound } from "../itemsNotFound/itemsNotFound";
+
 export const DisplayTodoTable = () => {
-  const userType = useSelector((state: RootState) => state.user.userType);
-  const {userId} = useSelector((state: RootState) => state.user);
-  const [todos, setTodos] = useState([]);
+  const { userId } = useSelector((state: RootState) => state.user);
+  const [todos, setTodos] = useState<ActivityData[]>([]);
   useEffect(() => {
     if (userId) {
-        getTodoItems(userId)        
-    }else {
-        console.log("Please loggin again")
+      getTodoItems(userId);
+    } else {
+      console.log("Please loggin again");
     }
-  },[userId])
+  }, [userId]);
 
   const getTodoItems = async (parentId: string) => {
     try {
-
-        let res = await axiosInstance.get(`/getTodoItemsByParentId/${parentId}`);
-        console.log("ress", res);
-        if (res.status === 200) {
-            let data = res.data?.data || [];
-            setTodos(data);
-            console.log("data", data)
-        }
-        
+      let res = await axiosInstance.get(`/getTodoItemsByParentId/${parentId}`);
+      if (res.status === 200) {
+        let data = res.data?.data || [];
+        setTodos(data);
+        console.log("data", data);
+      }
     } catch (error) {
-        console.log("Error on getting parent todo items", error)
+      console.log("Error on getting parent todo items", error);
     }
-  }
+  };
 
   return (
-    <Container className="mt-5">
+    <Container className="my-5" style={{ minHeight: "300px" }}>
       <h2 className="text-center">Todo List</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Activity Name</th>
-            <th>Activity Date</th>
-            <th>Activity Time (Hrs)</th>
-            <th>Activity Time (Mins)</th>
-            {userType === 'parent' && <th>Parent ID</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {todos.length > 0 && todos.map((todo, index) => (
-            <tr key={index}>
-              <td>{todo?.activityName}</td>
-              <td>{todo?.activityDate}</td>
-              <td>{todo?.activityTimeHrs}</td>
-              <td>{todo?.activityTimeMins}</td>
+      {todos.length === 0 ? (
+        <ItemsNotFound />
+      ) : (
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Activity Name</th>
+              <th>Activity Date</th>
+              <th>Activity Time (Hrs)</th>
+              <th>Activity Time (Mins)</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {todos.length > 0 &&
+              todos.map((todo, index) => (
+                <tr key={index}>
+                  <td>{todo?.activityName}</td>
+                  <td>{todo?.activityDate}</td>
+                  <td>{todo?.activityTimeHrs}</td>
+                  <td>{todo?.activityTimeMins}</td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      )}
     </Container>
   );
 };
-

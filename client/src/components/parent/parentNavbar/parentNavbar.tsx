@@ -2,7 +2,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
-import styles from "./parentNavbar.module.css";
 import { Button, Image } from "react-bootstrap";
 import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
 import { userLoggedOut } from "../../../redux/reducers/userSlilce";
+import styles from "./parentNavbar.module.css";
 export const ParentNavbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
@@ -30,17 +30,16 @@ export const ParentNavbar = () => {
     }
   }, []);
 
-
   const navigateParentLogin = () => {
     navigate("../parent/login");
   };
 
   const navigateParentAddTodo = () => {
-    navigate("../parent/add-todo")
-  }
+    navigate("../parent/add-todo");
+  };
   const navigateParentDisplayTodo = () => {
-    navigate("../parent/display-todo")
-  }
+    navigate("../parent/display-todo");
+  };
 
   const handleParentLogout = () => {
     dispatch(userLoggedOut());
@@ -48,24 +47,35 @@ export const ParentNavbar = () => {
   };
 
   const redirectParentHome = () => {
-    navigate('../parent/home')
-  }
+    navigate("../parent/home");
+  };
 
   return (
     <div className="bg-dark text-white px-4">
-      <Navbar expand="lg" className="text-white pe-5">
+      <Navbar expand="lg" className={`text-white pe-5 ${styles.parentNavbar}`}>
         <Container>
-          <Navbar.Brand onClick={redirectParentHome} className="text-white" >
+          <Navbar.Brand onClick={redirectParentHome} className="text-white">
             Child Crescendo
-          </Navbar.Brand>
+          </Navbar.Brand> 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto  text-white w-50 justify-content-between">
-              <p className="my-0 ">Home</p>
-              <p className="my-0 " onClick={navigateParentAddTodo}>Add Todo</p>
-              <p className="my-0 " onClick={navigateParentDisplayTodo}>Display Todo</p>
-              <p className="my-0 ">Vaccination Center</p>
-        
+          <Navbar.Collapse id="basic-navbar-n av">
+            <Nav className="ms-5 text-white w-50 justify-content-between">
+              <p className="my-0" role="button">
+                Home
+              </p>
+              <p className="my-0" role="button" onClick={navigateParentAddTodo}>
+                Add Todo
+              </p>
+              <p
+                className="my-0"
+                role="button"
+                onClick={navigateParentDisplayTodo}
+              >
+                Display Todo
+              </p>
+              <p className="my-0" role="button">
+                Vaccination Center
+              </p>
             </Nav>
           </Navbar.Collapse>
         </Container>
