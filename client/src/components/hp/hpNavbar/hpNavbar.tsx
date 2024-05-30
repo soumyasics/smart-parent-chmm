@@ -32,15 +32,15 @@ export const HPNavbar = () => {
   }, []);
 
   const navigateHPLogin = () => {
-    navigate("../hp/login");
+    navigate("/hp/login");
   };
 
   const navigateHPHome = () => {
-    navigate("../hp/home");
+    navigate("/hp/home");
   };
   const handleHPLogout = () => {
     dispatch(userLoggedOut());
-    navigate("../hp/login");
+    navigate("/hp/login");
   };
   return (
     <div className="bg-dark text-white px-4">

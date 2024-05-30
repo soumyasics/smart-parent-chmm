@@ -62,7 +62,7 @@ export const ParentForgotPassword: React.FC = () => {
   };
 
   const redirectToParentLogin = () => {
-    navigate("../parent/login");
+    navigate("/parent/login");
   };
   return (
     <>

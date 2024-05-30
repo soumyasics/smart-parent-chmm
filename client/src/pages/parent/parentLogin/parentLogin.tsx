@@ -62,7 +62,7 @@ export const ParentLogin = () => {
         dispatch(userLoggedIn(serializedUserData));
         alert("Login Successful");
         setTimeout(() => {
-          navigate("../parent/home");
+          navigate("/parent/home");
         }, 1200);
       }
     } catch (error) {
@@ -94,7 +94,7 @@ export const ParentLogin = () => {
   };
 
   const navigateToParentForgotPassword = () => {
-    navigate('../parent/forgot-password')
+    navigate('/parent/forgot-password')
   }
 
   return (

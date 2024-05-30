@@ -99,7 +99,7 @@ export const HPSignupForm = () => {
       if (res.status === 201) {
         alert("Registration successfull.");
         setTimeout(() => {
-          navigate("../hp/login");
+          navigate("/hp/login");
         }, 1200);
       } else {
         console.log("Some issues on hp registsration.", res);

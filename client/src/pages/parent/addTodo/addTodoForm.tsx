@@ -5,16 +5,16 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import axiosInstance from "../../../apis/axiosInstance";
 import "./addTodoForm.css";
-import {ActivityData} from "../../../types/types";
+import { ActivityData } from "../../../types/types";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 export const AddTodoForm = () => {
-    const [activityName, setActivityName] = useState('');
-    const [activityDate, setActivityDate] = useState('');
-    const [activityTimeHrs, setActivityTimeHrs] = useState('');
-    const [activityTimeMins, setActivityTimeMins] = useState('');
-
+  const [activityName, setActivityName] = useState("");
+  const [activityDate, setActivityDate] = useState("");
+  const [activityTimeHrs, setActivityTimeHrs] = useState("");
+  const [activityTimeMins, setActivityTimeMins] = useState("");
+  const navigate = useNavigate();
   // const [activityName, setActivityName] = useState("abc");
   // const [activityDate, setActivityDate] = useState("2024-05-22");
   // const [activityTimeHrs, setActivityTimeHrs] = useState("3");
@@ -27,7 +27,7 @@ export const AddTodoForm = () => {
     if (userId) {
       setParentId(userId);
     } else {
-      console.log("Please loggin again");
+      navigate("/parent/login");
     }
   }, [userId]);
 
@@ -41,6 +41,7 @@ export const AddTodoForm = () => {
       activityTimeMins,
       parentId,
     };
+
 
     if (
       !activityName ||
@@ -61,6 +62,7 @@ export const AddTodoForm = () => {
       let res = await axiosInstance.post("addToDo", serializedData);
       if (res.status === 201) {
         alert("Item Added Successfully");
+        navigate('/parent/display-todo')
         return;
       }
     } catch (error: unknown) {
