@@ -54,13 +54,17 @@ export const ParentNavbar = () => {
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className={`text-white pe-5 ${styles.parentNavbar}`}>
         <Container>
-          <Navbar.Brand onClick={redirectParentHome} className="text-white">
+          <Navbar.Brand
+            onClick={redirectParentHome}
+            role="button"
+            className="fw-bold text-white"
+          >
             Child Crescendo
-          </Navbar.Brand> 
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-n av">
             <Nav className="ms-5 text-white w-50 justify-content-between">
-              <p className="my-0" role="button">
+              <p className="my-0" role="button" onClick={redirectParentHome}>
                 Home
               </p>
               <p className="my-0" role="button" onClick={navigateParentAddTodo}>
