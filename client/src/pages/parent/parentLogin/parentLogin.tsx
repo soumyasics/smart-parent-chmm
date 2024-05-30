@@ -28,7 +28,7 @@ export const ParentLogin = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setValidated(true);
-  
+
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
@@ -69,7 +69,12 @@ export const ParentLogin = () => {
       if (axios.isAxiosError(error)) {
         if (error.response) {
           const status = error.response.status;
-          if (status === 400 || status === 401 || status === 404 || status === 500) {
+          if (
+            status === 400 ||
+            status === 401 ||
+            status === 404 ||
+            status === 500
+          ) {
             const errMsg = error.response.data.message;
             if (errMsg) {
               alert(errMsg);
@@ -87,6 +92,10 @@ export const ParentLogin = () => {
       }
     }
   };
+
+  const navigateToParentForgotPassword = () => {
+    navigate('../parent/forgot-password')
+  }
 
   return (
     <>
@@ -147,6 +156,9 @@ export const ParentLogin = () => {
             </Col>
           </Row>
           <div className="user-login-btn-container-2">
+            <p role="button" onClick={navigateToParentForgotPassword} className="text-primary mb-3 text-start fw-bold">
+              forgot password?
+            </p>
             <p>
               Don’t have an account?{" "}
               <span

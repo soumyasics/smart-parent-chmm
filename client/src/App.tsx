@@ -4,15 +4,15 @@ import { CommonFooter } from "./components/common/footer/footer.tsx";
 import { ParentLogin } from "./pages/parent/parentLogin/parentLogin.tsx";
 
 import { ParentSignupPage } from "./pages/parent/parentSignup/parentSignup.tsx";
-import { LandingPageNavbar } from "./components/landingPage/landingPageNavbar/landingPageNavbar.tsx";
-import "./App.css";
 import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 import { HPLogin } from "./pages/hp/hpLogin/hpLogin.tsx";
 import { HPSignup } from "./pages/hp/hpSignup/hpSignup.tsx";
 import { HpHome } from "./pages/hp/hpHome/hpHome.tsx";
 import { HPProfilePage } from "./pages/hp/hpProfile/hpProfilePage.tsx";
-import {AddTodo} from "./pages/parent/addTodo/addTodo.tsx"
+import { AddTodo } from "./pages/parent/addTodo/addTodo.tsx";
 import { DisplayTodo } from "./pages/parent/displayTodo/displayTodo.tsx";
+import { ParentForgotPassword } from "./pages/parent/forgotPassword/forgotPassword.tsx";
+import "./App.css";
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
@@ -26,8 +26,15 @@ function App() {
         <Route path="/parent/signup" element={<ParentSignupPage />} />
         <Route path="/parent/login" element={<ParentLogin />} />
         <Route path="/parent/home" element={<ParentHome />} />
-        <Route path="/parent/add-todo" element={<AddTodo />} />
+        <Route path="/parent/add-todo" element={<AddTodo />
+      
+      
+      } />
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
+        <Route
+          path="/parent/forgot-password"
+          element={<ParentForgotPassword />}
+        />
 
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />

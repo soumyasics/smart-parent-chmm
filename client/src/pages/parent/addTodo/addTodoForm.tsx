@@ -1,77 +1,79 @@
 // ActivityForm.js
-import { useEffect, useState } from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import {useSelector} from 'react-redux';
-import { RootState } from '../../../redux/store';
-import axiosInstance from '../../../apis/axiosInstance';
-import './addTodoForm.css'
+import { useEffect, useState } from "react";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import axiosInstance from "../../../apis/axiosInstance";
+import "./addTodoForm.css";
+import {ActivityData} from "../../../types/types";
+import axios from "axios";
 
-interface ActivityData  {
-    
-        activityDate: string;
-        activityName: string;
-        activityTimeHrs: string;
-        activityTimeMins: string;
-        parentId: string | null;
-    
-}
 
 export const AddTodoForm = () => {
-//   const [activityName, setActivityName] = useState('');
-//   const [activityDate, setActivityDate] = useState('');
-//   const [activityTimeHrs, setActivityTimeHrs] = useState('');
-//   const [activityTimeMins, setActivityTimeMins] = useState('');
+  //   const [activityName, setActivityName] = useState('');
+  //   const [activityDate, setActivityDate] = useState('');
+  //   const [activityTimeHrs, setActivityTimeHrs] = useState('');
+  //   const [activityTimeMins, setActivityTimeMins] = useState('');
 
-  const [activityName, setActivityName] = useState('abc');
-  const [activityDate, setActivityDate] = useState('2024-05-22');
-  const [activityTimeHrs, setActivityTimeHrs] = useState('3');
-  const [activityTimeMins, setActivityTimeMins] = useState('3');
+  const [activityName, setActivityName] = useState("abc");
+  const [activityDate, setActivityDate] = useState("2024-05-22");
+  const [activityTimeHrs, setActivityTimeHrs] = useState("3");
+  const [activityTimeMins, setActivityTimeMins] = useState("3");
   const [parentId, setParentId] = useState<null | string>(null);
-  const {userId} = useSelector((state: RootState) => state.user);
+  const { userId } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     if (userId) {
-        setParentId(userId);
-    }else {
-        console.log("Please loggin again")
+      setParentId(userId);
+    } else {
+      console.log("Please loggin again");
     }
-  },[userId])
+  }, [userId]);
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     // Handle form submission
     let serializedData: ActivityData = {
-        activityDate,
-        activityName,
-        activityTimeHrs,
-        activityTimeMins, 
-        parentId
+      activityDate,
+      activityName,
+      activityTimeHrs,
+      activityTimeMins,
+      parentId,
+    };
+
+    if (
+      !activityName ||
+      !activityDate ||
+      !activityTimeHrs ||
+      !activityTimeMins ||
+      !parentId
+    ) {
+      console.log(serializedData, "All fields are required");
+      return;
     }
 
-    if (!activityName || !activityDate || !activityTimeHrs || !activityTimeMins || !parentId){
-        console.log(serializedData, "All fields are required")
-        return;
-    } 
-
-    sendDataToServer(serializedData)
+    sendDataToServer(serializedData);
   };
 
   const sendDataToServer = async (serializedData: ActivityData) => {
     try {
-        
-        let res = await axiosInstance.post('addToDo', serializedData);
-        if (res.status === 201) {
-            alert("Item Added Successfully");
-            return;
-        }
+      let res = await axiosInstance.post("addToDo", serializedData);
+      if (res.status === 201) {
+        alert("Item Added Successfully");
+        return;
+      }
     } catch (error: unknown) {
-        let errStatus = error.response?.status; 
-        if (errStatus === 400 || errStatus === 500){
-            alert("Internal Server Error");
+      if (axios.isAxiosError(error)) {
+        const errStatus = error.response?.status;
+        if (errStatus === 400 || errStatus === 500) {
+          alert("Internal Server Error");
         }
-        console.log("Error on send activity data to server", error)
+        console.log("Error on send activity data to server", error);
+      } else {
+        console.log("Unknown error", error);
+      }
     }
-  }
+  };
 
   return (
     <Container className="form-container">
@@ -137,4 +139,3 @@ export const AddTodoForm = () => {
     </Container>
   );
 };
-

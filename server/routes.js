@@ -30,7 +30,7 @@ router.post("/viewParentById/:id", parent.viewParentById);
 router.post("/viewParents", parent.viewParents);
 router.post("/editParentById/:id", parent.editParentById);
 router.post("/deleteParentById/:id", parent.deleteParentById);
-router.post("/forgotPwdParent", parent.forgotPwd);
+router.patch("/resetParentPasswordByEmail", parent.resetParentPasswordByEmail);
 
 //Kids
 router.post("/addKid", kids.upload, kids.addKid);
