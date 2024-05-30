@@ -10,15 +10,16 @@ import axios from "axios";
 
 
 export const AddTodoForm = () => {
-  //   const [activityName, setActivityName] = useState('');
-  //   const [activityDate, setActivityDate] = useState('');
-  //   const [activityTimeHrs, setActivityTimeHrs] = useState('');
-  //   const [activityTimeMins, setActivityTimeMins] = useState('');
+    const [activityName, setActivityName] = useState('');
+    const [activityDate, setActivityDate] = useState('');
+    const [activityTimeHrs, setActivityTimeHrs] = useState('');
+    const [activityTimeMins, setActivityTimeMins] = useState('');
 
-  const [activityName, setActivityName] = useState("abc");
-  const [activityDate, setActivityDate] = useState("2024-05-22");
-  const [activityTimeHrs, setActivityTimeHrs] = useState("3");
-  const [activityTimeMins, setActivityTimeMins] = useState("3");
+  // const [activityName, setActivityName] = useState("abc");
+  // const [activityDate, setActivityDate] = useState("2024-05-22");
+  // const [activityTimeHrs, setActivityTimeHrs] = useState("3");
+  // const [activityTimeMins, setActivityTimeMins] = useState("3");
+
   const [parentId, setParentId] = useState<null | string>(null);
   const { userId } = useSelector((state: RootState) => state.user);
 

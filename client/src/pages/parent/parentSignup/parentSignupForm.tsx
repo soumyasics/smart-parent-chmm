@@ -4,11 +4,15 @@ import {
   validateEmail,
   validatePassword,
   validatePhoneNumber,
+  isValidDob,
+  isOnlyAlphabets,
+  isOnlyNumbers,
 } from "../../../utils/validation";
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./parentSignup.css";
+
 interface ParentData {
   name: string;
   email: string;
@@ -20,25 +24,27 @@ interface ParentData {
 }
 export const ParentSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
+  const [dobError, setDobError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const [parentData, setParentData] = useState<ParentData>({
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    address: "",
+    dateOfBirth: "",
+    profilePicture: null,
+  });
   // const [parentData, setParentData] = useState<ParentData>({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  //   phoneNumber: "",
-  //   address: "",
+  //   name: "parent",
+  //   email: "parent1@gmail.com",
+  //   password: "12341234",
+  //   phoneNumber: "1234123412",
+  //   address: "trivandrum",
   //   dateOfBirth: "",
   //   profilePicture: null,
   // });
-  const [parentData, setParentData] = useState<ParentData>({
-    name: "parent",
-    email: "parent1@gmail.com",
-    password: "12341234",
-    phoneNumber: "1234123412",
-    address: "trivandrum",
-    dateOfBirth: "2024-05-17",
-    profilePicture: null,
-  });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -47,7 +53,19 @@ export const ParentSignupForm = () => {
       e.stopPropagation();
     }
     setValidated(true);
-
+    const { name, email, password, phoneNumber, dateOfBirth, address } =
+      parentData;
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !phoneNumber ||
+      !dateOfBirth ||
+      !address
+    ) {
+      alert("Please fill all the fields");
+      return;
+    }
     const isEmailValid = validateEmail(parentData.email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
@@ -65,6 +83,10 @@ export const ParentSignupForm = () => {
       return;
     }
 
+    if (dobError) {
+      alert("Please provide a valid date of birth");
+      return;
+    }
     sendDataToServer();
   };
   const sendDataToServer = async () => {
@@ -128,6 +150,24 @@ export const ParentSignupForm = () => {
 
   const handleChanges = (e: any) => {
     const { name, value } = e.target;
+
+    if (name === "dateOfBirth") {
+      const isValid: boolean = isValidDob(value);
+      if (isValid) {
+        setDobError(null);
+      } else {
+        setDobError("Invalid date of birth");
+      }
+    } else if (name === "name" && value) {
+      if (!isOnlyAlphabets(value)) {
+        return;
+      }
+    } else if (name === "phoneNumber" && value) {
+      if (!isOnlyNumbers(value)) {
+        return;
+      }
+    }
+
     setParentData((prevData) => ({ ...prevData, [name]: value }));
   };
 
@@ -192,7 +232,7 @@ export const ParentSignupForm = () => {
               value={parentData.dateOfBirth}
             />
             <Form.Control.Feedback type="invalid">
-              Please Select Your Date Of Birth.
+              Please provide your Date of Birth
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -261,7 +301,7 @@ export const ParentSignupForm = () => {
 
       <div className="signup-form-flex-div">
         <Form.Group className="position-relative mt-3">
-          <Form.Label>Upload your photo (Square image)</Form.Label>
+          <Form.Label>Upload your photo </Form.Label>
           <Form.Control
             type="file"
             name="file"

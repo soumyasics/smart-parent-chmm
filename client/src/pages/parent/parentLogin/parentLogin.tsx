@@ -16,8 +16,8 @@ import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavb
 
 export const ParentLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("parent1@gmail.com");
-  const [password, setPassword] = useState<string>("12341234");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -4,3 +4,14 @@
 .loginBtn:hover {
   font-weight: bold;
 }
+
+.commonNavbarBrandLogo {
+  font-weight: 600;
+}
+.commonNavbarBrandLogo :hover {
+  cursor: pointer;
+}
+.commonNavbarItemsContainer p:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
