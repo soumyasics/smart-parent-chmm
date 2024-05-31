@@ -2,21 +2,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CommonHomePage } from "./pages/commonHomePage/commonHomePage.tsx";
 import { CommonFooter } from "./components/common/footer/footer.tsx";
 import { ParentLogin } from "./pages/parent/parentLogin/parentLogin.tsx";
-import { ParentSignupForm } from "./pages/parent/parentSignup/parentSignupForm.tsx";
 
-import "./App.css";
 import { ParentSignupPage } from "./pages/parent/parentSignup/parentSignup.tsx";
-import { ParentNavbar } from "./components/parent/parentNavbar/parentNavbar.tsx";
+import { LandingPageNavbar } from "./components/landingPage/landingPageNavbar/landingPageNavbar.tsx";
+import "./App.css";
+import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/child_crescendo">
       <Routes>
         <Route path="/" element={<CommonHomePage />} />
         {/* parent routes  */}
 
         <Route path="/parent/signup" element={<ParentSignupPage />} />
         <Route path="/parent/login" element={<ParentLogin />} />
-        <Route path="/parent/nav" element={<ParentNavbar />} />
+        <Route path="/parent/home" element={<ParentHome />} />
+
+        <Route path="/ladning/nav" element={<LandingPageNavbar />} />
 
         {/* testing routes  */}
         <Route path="/footer" element={<CommonFooter />} />

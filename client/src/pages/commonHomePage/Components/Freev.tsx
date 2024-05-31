@@ -1,4 +1,3 @@
-import React from "react";
 import "./Freev.css";
 function Freev() {
   return (
@@ -39,7 +38,11 @@ function Freev() {
               <p className="card-text">
                 Why Child Care Is So Damn Expensive Now
               </p>
-              <a href="https://www.youtube.com/embed/0ovaWK4mONY?si=TuNUMmdMO30cl9RG" target='_blank' className="btn btn-primary">
+              <a
+                href="https://www.youtube.com/embed/0ovaWK4mONY?si=TuNUMmdMO30cl9RG"
+                target="_blank"
+                className="btn btn-primary"
+              >
                 video link
               </a>
             </div>
@@ -62,7 +65,11 @@ function Freev() {
               <p className="card-text">
                 A Short Guide To Take Care Of Children
               </p>
-              <a href="https://www.youtube.com/embed/CXWzqbe1i9c?si=4H2MHWPB3HvPRaCD" target='_blank' className="btn btn-primary">
+              <a
+                href="https://www.youtube.com/embed/CXWzqbe1i9c?si=4H2MHWPB3HvPRaCD"
+                target="_blank"
+                className="btn btn-primary"
+              >
                 Video link
               </a>
             </div>
@@ -86,7 +93,11 @@ function Freev() {
                 Child Development, What is it? The 5 stages of a child
                 development explained in this video.
               </p>
-              <a href="https://www.youtube.com/embed/fojOMDS-PqI?si=3Kyc90mz_fAkE7MP" target='_blank' className="btn btn-primary">
+              <a
+                href="https://www.youtube.com/embed/fojOMDS-PqI?si=3Kyc90mz_fAkE7MP"
+                target="_blank"
+                className="btn btn-primary"
+              >
                 Video link
               </a>
             </div>

@@ -2,18 +2,24 @@ import { Button, Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { validateEmail } from "../../../utils/validation";
 import { validatePassword } from "../../../utils/validation";
-import "./parentLogin.css";
-import axiosMultipartInstance from "../../../apis/axiosMultipartInstance";
 import axios from "axios";
 import axiosInstance from "../../../apis/axiosInstance";
+import { UserState } from "../../../redux/types";
+import { useDispatch } from "react-redux";
+import { userLoggedIn } from "../../../redux/reducers/userSlilce";
+
+import "./parentLogin.css";
+import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
+
 export const ParentLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("parent1@gmail.com");
+  const [password, setPassword] = useState<string>("12341234");
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const navigateParentSignup = () => {
     navigate("/parent/signup");
@@ -21,7 +27,6 @@ export const ParentLogin = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const form = e.currentTarget;
     setValidated(true);
     // if (form.checkValidity() === false) {
 
@@ -47,9 +52,19 @@ export const ParentLogin = () => {
 
       const res = await axiosInstance.post("/loginParent", credentials);
       if (res.status === 200) {
+        let data = res.data || null;
+
+        let serializedUserData: UserState = {
+          isAuthenticated: true,
+          userData: data?.data || null,
+          jsonWebToken: data?.token || null,
+          userId: data?.data?._id || null,
+          userType: "parent",
+        };
+        dispatch(userLoggedIn(serializedUserData));
         alert("Login Successful");
         setTimeout(() => {
-          navigate("../");
+          navigate("../parent/home");
         }, 1200);
       }
     } catch (error) {
@@ -94,6 +109,7 @@ export const ParentLogin = () => {
                   type="email"
                   placeholder="Email"
                   required
+                  value={email}
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -119,8 +135,9 @@ export const ParentLogin = () => {
                 <Form.Control
                   required
                   className="user-login-input password-input-eye-btn-hide"
-                  type="text"
+                  type="password"
                   minLength={8}
+                  value={password}
                   placeholder="Password"
                   name="password"
                   onChange={(e) => setPassword(e.target.value)}

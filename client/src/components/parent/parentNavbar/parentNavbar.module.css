@@ -1,6 +1,20 @@
 .loginBtn {
-    cursor: pointer;
+  cursor: pointer;
 }
-.loginBtn:hover{
-    font-weight: bold;
+.loginBtn:hover {
+  font-weight: bold;
+}
+
+.dropdownOption {
+  display: flex;
+  align-items: center;
+}
+
+.dropdownOption img {
+  margin-right: 10px;
+}
+
+.parentNavDropdown p:hover {
+  background-color: #eee;
+  font-weight: bold;
 }
