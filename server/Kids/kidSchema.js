@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const schema = mongoose.Schema(
+const kidSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -33,8 +33,10 @@ const schema = mongoose.Schema(
     },
     image: {
       type: Object,
+      default: null
     },
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("kids", schema);
+const KidModel = mongoose.model("Kids", kidSchema);
+module.exports = {KidModel}

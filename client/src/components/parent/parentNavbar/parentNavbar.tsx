@@ -49,6 +49,9 @@ export const ParentNavbar = () => {
   const redirectParentHome = () => {
     navigate("/parent/home");
   };
+  const redirectRegisterChild = () => {
+    navigate("/parent/register-child");
+  };
 
   return (
     <div className="bg-dark text-white px-4">
@@ -70,6 +73,7 @@ export const ParentNavbar = () => {
               <p className="my-0" role="button" onClick={navigateParentAddTodo}>
                 Add Todo
               </p>
+
               <p
                 className="my-0"
                 role="button"
@@ -77,6 +81,10 @@ export const ParentNavbar = () => {
               >
                 Display Todo
               </p>
+              <p className="my-0" role="button" onClick={redirectRegisterChild}>
+                Register Child
+              </p>
+
               <p className="my-0" role="button">
                 Vaccination Center
               </p>
@@ -85,10 +93,7 @@ export const ParentNavbar = () => {
         </Container>
         <Navbar.Collapse className="justify-content-end">
           {!isAuthenticated ? (
-            <Button
-              variant={"outline-light"}
-              onClick={navigateParentLogin}
-            >
+            <Button variant={"outline-light"} onClick={navigateParentLogin}>
               {" "}
               Login{" "}
             </Button>

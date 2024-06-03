@@ -6,7 +6,7 @@ import myVideo from "./assets/video/my-vid.mp4";
 export const VideoPlayer = () => {
   return (
     <div>
-      <video width="600" controls autoPlay muted>
+      <video width="600" controls autoPlay muted loop>
         <source src={myVideo} type="video/mp4"  />
         Your browser does not support the video tag.
       </video>
