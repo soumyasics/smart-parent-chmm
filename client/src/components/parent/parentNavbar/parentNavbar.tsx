@@ -66,7 +66,7 @@ export const ParentNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-n av">
-            <Nav className="ms-5 text-white w-50 justify-content-between">
+            <Nav className="ms-5 text-white w-75 justify-content-between">
               <p className="my-0" role="button" onClick={redirectParentHome}>
                 Home
               </p>

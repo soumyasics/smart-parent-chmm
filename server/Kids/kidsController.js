@@ -30,13 +30,13 @@ const addKid = async (req, res) => {
       });
     }
     const newKid = new KidModel({
-      name: name,
-      dob: dob,
-      birthWeight: birthWeight,
-      weight: weight,
-      height: height,
-      parentId: parentId,
-      bloodGroup: bloodGroup,
+      name,
+      dob,
+      birthWeight,
+      weight,
+      height,
+      parentId,
+      bloodGroup,
       image: req.file?.path ? req.file : null,
     });
 

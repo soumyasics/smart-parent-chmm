@@ -6,9 +6,8 @@ export const RegisterChild = () => {
   return (
     <div>
       <ParentNavbar />
-      <div style={{ minHeight: "500px" }}>
-            <h1> register child</h1>
-            <RegisterKidForm />
+      <div style={{ minHeight: "600px" }}>
+        <RegisterKidForm />
       </div>
       <CommonFooter />
     </div>
