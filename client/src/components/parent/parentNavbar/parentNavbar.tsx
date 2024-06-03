@@ -53,6 +53,10 @@ export const ParentNavbar = () => {
     navigate("/parent/register-child");
   };
 
+  const redirectToParentProfile = () => {
+    navigate('/parent/profile')
+  }
+
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className={`text-white pe-5 ${styles.parentNavbar}`}>
@@ -120,7 +124,7 @@ export const ParentNavbar = () => {
                 className={`dropdown-menu ${styles.parentNavDropdown}`}
                 aria-labelledby="dropdownMenuLink"
               >
-                <p className="  dropdown-item mb-0">Profile</p>
+                <p className="  dropdown-item mb-0" onClick={redirectToParentProfile}>Profile</p>
                 <p className="  dropdown-item mb-0">Account</p>
                 <p className=" dropdown-item mb-0" onClick={handleParentLogout}>
                   Logout

@@ -13,6 +13,7 @@ import { DisplayTodo } from "./pages/parent/displayTodo/displayTodo.tsx";
 import { ParentForgotPassword } from "./pages/parent/forgotPassword/forgotPassword.tsx";
 import "./App.css";
 import { RegisterChild } from "./pages/parent/registerChild/registerChild.tsx";
+import { ParentProfilePage } from "./pages/parent/parentProfile/parentProfilePage.tsx";
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
@@ -26,6 +27,7 @@ function App() {
         <Route path="/parent/home" element={<ParentHome />} />
         <Route path="/parent/add-todo" element={<AddTodo />} />
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
+        <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
         <Route
           path="/parent/forgot-password"
