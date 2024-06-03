@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CommonHomePage } from "./pages/commonHomePage/commonHomePage.tsx";
 import { CommonFooter } from "./components/common/footer/footer.tsx";
 import { ParentLogin } from "./pages/parent/parentLogin/parentLogin.tsx";
-
 import { ParentSignupPage } from "./pages/parent/parentSignup/parentSignup.tsx";
 import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 import { HPLogin } from "./pages/hp/hpLogin/hpLogin.tsx";
@@ -12,6 +11,7 @@ import { HPProfilePage } from "./pages/hp/hpProfile/hpProfilePage.tsx";
 import { AddTodo } from "./pages/parent/addTodo/addTodo.tsx";
 import { DisplayTodo } from "./pages/parent/displayTodo/displayTodo.tsx";
 import { ParentForgotPassword } from "./pages/parent/forgotPassword/forgotPassword.tsx";
+import {VideoPlayer} from './video.jsx'
 import "./App.css";
 function App() {
   return (
@@ -19,17 +19,12 @@ function App() {
       <Routes>
         <Route path="/" element={<CommonHomePage />} />
 
-        {/* common pages  */}
-
         {/* parent routes  */}
 
         <Route path="/parent/signup" element={<ParentSignupPage />} />
         <Route path="/parent/login" element={<ParentLogin />} />
         <Route path="/parent/home" element={<ParentHome />} />
-        <Route path="/parent/add-todo" element={<AddTodo />
-      
-      
-      } />
+        <Route path="/parent/add-todo" element={<AddTodo />} />
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
         <Route
           path="/parent/forgot-password"
@@ -41,10 +36,11 @@ function App() {
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
+        {/* common pages  */}
+        <Route path="/footer" element={<CommonFooter />} />
+        <Route path="/vid" element={<VideoPlayer />} />
 
         {/* testing routes  */}
-        <Route path="/footer" element={<CommonFooter />} />
-
         <Route path="/*" element={<h1> 404 Please check your URL</h1>} />
       </Routes>
     </BrowserRouter>
