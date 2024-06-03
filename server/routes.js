@@ -35,6 +35,7 @@ router.patch("/resetParentPasswordByEmail", parent.resetParentPasswordByEmail);
 //Kids
 router.post("/addKid", kids.upload, kids.addKid);
 router.post("/viewKids", kids.viewKids);
+router.get('/getAllKidsByParentId/:id', kids.getAllKidsByParentId)
 router.post("/viewKidsByParentId/:id", kids.viewKidsByParentId);
 router.post("/viewKidById/:id", kids.viewKidById);
 router.post("/editKidById/:id", kids.upload, kids.editKidById);

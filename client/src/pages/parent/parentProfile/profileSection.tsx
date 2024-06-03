@@ -1,7 +1,6 @@
 
 import { Form, Button, Row, Col } from "react-bootstrap";
 import "./profileSection.css";
-import { useState } from "react";
 
 
 export const ParentProfileSection = () => {

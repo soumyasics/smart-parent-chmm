@@ -6,6 +6,7 @@ import { ParentProfileSection } from "./profileSection";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { useState } from "react";
+import { ViewChild } from "../viewChild/viewChild";
 
 export const ParentProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -23,6 +24,7 @@ export const ParentProfilePage = () => {
           </Col>
           <Col md={9} className="profile-container">
             {activePage === "profile" && <ParentProfileSection />}
+            {activePage === "child" && <ViewChild />}
           </Col>
         </Row>
       </Container>

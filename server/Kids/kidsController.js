@@ -1,6 +1,7 @@
 const multer = require("multer");
 const parents = require("../Parent/parentSchema");
 const { KidModel } = require("./kidSchema");
+const { isValidObjectId } = require("mongoose");
 
 const storage = multer.diskStorage({
   destination: function (req, res, cb) {
@@ -51,6 +52,35 @@ const addKid = async (req, res) => {
     return res.status(500).json({
       status: 500,
       message: "Kid registration failed, Internal Server Error",
+      error: error,
+    });
+  }
+};
+
+const getAllKidsByParentId = async (req, res) => {
+  try {
+    const { id: parentId } = req.params;
+    if (!parentId) {
+      return res.status(400).json({
+        message: "Parent id is required",
+      });
+    }
+    if (!isValidObjectId(parentId)) {
+      return res.status(400).json({
+        message: "Invalid parent id",
+      });
+    }
+
+    const kids = await KidModel.find({ parentId }).populate("parentId").exec();
+
+    return res.status(200).json({
+      message: "Kids data based on parent id fetched successfully",
+      data: kids,
+    });
+  } catch (error) {
+    console.log("Error on getAllKidsByParentId", error);
+    return res.status(500).json({
+      message: "Internal Server Error",
       error: error,
     });
   }
@@ -164,4 +194,5 @@ module.exports = {
   viewKids,
   upload,
   viewKidsByParentId,
+  getAllKidsByParentId,
 };
