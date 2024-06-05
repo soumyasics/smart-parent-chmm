@@ -10,7 +10,7 @@ import {
 import "./profileLeftSidebar.css";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { userLoggedOut } from "../../../redux/reducers/userSlilce";
+import { userLoggedOut } from "../../../../redux/reducers/userSlilce";
 import { useNavigate } from "react-router-dom";
 
 interface ParentProfileLeftSidebarProps {

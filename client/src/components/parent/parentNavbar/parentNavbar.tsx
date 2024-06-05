@@ -125,9 +125,6 @@ export const ParentNavbar = () => {
               >
                 <p className="  dropdown-item mb-0" onClick={redirectToParentProfile}>Profile</p>
                 <p className="  dropdown-item mb-0">Account</p>
-                <p className=" dropdown-item mb-0" onClick={handleParentLogout}>
-                  Logout
-                </p>
               </div>
             </div>
           )}

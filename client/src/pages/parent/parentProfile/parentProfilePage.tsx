@@ -1,18 +1,18 @@
 // ProfilePage.js
 import { Container, Row, Col } from "react-bootstrap";
-import "./parentProfilePage.css";
-import { ParentProfileLeftSidebar } from "./profileLeftSidebar";
+import { ParentProfileLeftSidebar } from "./leftSidebar/profileLeftSidebar";
 import { ParentProfileSection } from "./profileSection";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { useState } from "react";
 import { ViewChild } from "../viewChild/viewChild";
+import "./parentProfilePage.css";
 
 export const ParentProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
   const changeActivePage = (page: string) => {
     setActivePage(page);
-  }
+  };
   return (
     <>
       <ParentNavbar />
