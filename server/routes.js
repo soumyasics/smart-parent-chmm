@@ -26,6 +26,7 @@ router.post(
   parent.loginParent
 );
 
+router.get("/getParentDataById/:id", parent.getParentDataById);
 router.post("/viewParentById/:id", parent.viewParentById);
 router.post("/viewParents", parent.viewParents);
 router.post("/editParentById/:id", parent.editParentById);

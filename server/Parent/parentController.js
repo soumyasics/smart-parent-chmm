@@ -18,6 +18,7 @@ const {
 } = require("../utils/passwordEncryption");
 
 const { generateToken } = require("../utils/auth");
+const { isValidObjectId } = require("mongoose");
 
 const registerParent = async (req, res) => {
   try {
@@ -118,14 +119,31 @@ const resetParentPasswordByEmail = async (req, res) => {
       { new: true }
     );
 
-    return res
-      .status(200)
-      .json({
-        message: "Password updated successfully.",
-        data: parentWithNewPassword,
-      });
+    return res.status(200).json({
+      message: "Password updated successfully.",
+      data: parentWithNewPassword,
+    });
   } catch (error) {
     console.error("Error on updating password:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const getParentDataById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const parent = await ParentModel.findById(id);
+    return res.status(200).json({ message: "Parent data ", data: parent });
+  } catch (error) {
+    console.log("Error on get parent data by id", error);
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
@@ -235,6 +253,7 @@ const deleteParentById = (req, res) => {
 
 module.exports = {
   registerParent,
+  getParentDataById,
   viewParentById,
   viewParents,
   editParentById,

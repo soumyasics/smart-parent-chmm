@@ -77,7 +77,6 @@ export const ParentNavbar = () => {
               <p className="my-0" role="button" onClick={navigateParentAddTodo}>
                 Add Todo
               </p>
-
               <p
                 className="my-0"
                 role="button"

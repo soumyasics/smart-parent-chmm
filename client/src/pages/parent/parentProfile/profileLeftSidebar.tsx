@@ -8,7 +8,10 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import "./profileLeftSidebar.css";
-import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import { userLoggedOut } from "../../../redux/reducers/userSlilce";
+import { useNavigate } from "react-router-dom";
 
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
@@ -16,6 +19,12 @@ interface ParentProfileLeftSidebarProps {
 export const ParentProfileLeftSidebar: React.FC<
   ParentProfileLeftSidebarProps
 > = ({ changeActivePage }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleParentLogout = () => {
+    dispatch(userLoggedOut());
+    navigate("/parent/login");
+  };
   return (
     <div className="left-sidebar">
       <h2 className="sidebar-title">Parent Profile</h2>
@@ -51,7 +60,10 @@ export const ParentProfileLeftSidebar: React.FC<
           <FaCog className="sidebar-icon" /> Settings
         </ListGroup.Item>
 
-        <ListGroup.Item className="sidebar-item logout text-danger fw-bold">
+        <ListGroup.Item
+          className="sidebar-item logout text-danger fw-bold"
+          onClick={handleParentLogout}
+        >
           <FaSignOutAlt className="sidebar-icon" /> Log out
         </ListGroup.Item>
       </ListGroup>
@@ -60,5 +72,5 @@ export const ParentProfileLeftSidebar: React.FC<
 };
 
 ParentProfileLeftSidebar.propTypes = {
-  changeActivePage: PropTypes.func.isRequired
-}
+  changeActivePage: PropTypes.func.isRequired,
+};
