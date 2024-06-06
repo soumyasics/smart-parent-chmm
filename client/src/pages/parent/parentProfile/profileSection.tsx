@@ -1,4 +1,4 @@
-import { Form, Button, Row, Col } from "react-bootstrap";
+import {  Button } from "react-bootstrap";
 import "./profileSection.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -43,10 +43,13 @@ export const ParentProfileSection = () => {
       return;
     }
 
+    console.log("paaa", userType, userId);
     if (userType === "parent" && userId) {
       getParentData(userId);
     }
   }, []);
+
+  console.log('parnt data', parentData);
 
   useEffect(() => {
     if (parentData) {
@@ -59,14 +62,16 @@ export const ParentProfileSection = () => {
     }
   }, [parentData]);
 
-  function capitalizeFirstLetter(str: string) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+  // function capitalizeFirstLetter(str: string) {
+  //   return str.charAt(0).toUpperCase() + str.slice(1);
+  // }
 
   const getParentData = async (userId: string) => {
+    console.log('cch')
     try {
       setIsLoading(true);
       const res = await axiosInstance.get(`/getParentDataById/${userId}`);
+      console.log('ress', res);
       if (res.status === 200) {
         setParentData(res.data.data);
       } else {
@@ -105,41 +110,41 @@ export const ParentProfileSection = () => {
     setIsEditProfileActive(false);
   };
 
-  const handleUpdateProfile = async () => {
-    try {
-      setIsLoading(true);
-      const res = await axiosInstance.put(`/updateParentProfile/${userId}`, {
-        name: parentData?.name,
-        email: parentData?.email,
-        phoneNumber: parentData?.phoneNumber,
-        address: parentData?.address,
-      });
-      if (res.status === 200) {
-        alert("Profile updated successfully");
-        setIsEditProfileActive(false);
-      } else {
-        throw new Error(`Unexpected error occurred, status: ${res.status}`);
-      }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        const status = error.response?.status;
-        if (status === 400 || status === 500) {
-          const errorMsg =
-            error.response?.data?.message ||
-            "Some error occurred. Please try again later.";
-          setError(errorMsg);
-        } else {
-          setError("Please check your network.");
-        }
-      } else {
-        setError("Something went wrong. Please try again later.");
-      }
-    } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1500);
-    }
-  };
+  // const handleUpdateProfile = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const res = await axiosInstance.put(`/updateParentProfile/${userId}`, {
+  //       name: parentData?.name,
+  //       email: parentData?.email,
+  //       phoneNumber: parentData?.phoneNumber,
+  //       address: parentData?.address,
+  //     });
+  //     if (res.status === 200) {
+  //       alert("Profile updated successfully");
+  //       setIsEditProfileActive(false);
+  //     } else {
+  //       throw new Error(`Unexpected error occurred, status: ${res.status}`);
+  //     }
+  //   } catch (error: unknown) {
+  //     if (axios.isAxiosError(error)) {
+  //       const status = error.response?.status;
+  //       if (status === 400 || status === 500) {
+  //         const errorMsg =
+  //           error.response?.data?.message ||
+  //           "Some error occurred. Please try again later.";
+  //         setError(errorMsg);
+  //       } else {
+  //         setError("Please check your network.");
+  //       }
+  //     } else {
+  //       setError("Something went wrong. Please try again later.");
+  //     }
+  //   } finally {
+  //     setTimeout(() => {
+  //       setIsLoading(false);
+  //     }, 1500);
+  //   }
+  // };
 
   return (
     <div className="profile-section">

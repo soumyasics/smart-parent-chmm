@@ -4,11 +4,10 @@ import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Button, Image } from "react-bootstrap";
 import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
-import { userLoggedOut } from "../../../redux/reducers/userSlilce";
 import styles from "./parentNavbar.module.css";
 export const ParentNavbar = () => {
   const navigate = useNavigate();
@@ -16,7 +15,6 @@ export const ParentNavbar = () => {
   const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
   const [userName, setUserName] = useState("User Name");
-  const dispatch = useDispatch();
   useEffect(() => {
     if (userData) {
       const name = userData.name.substring(0, 15) || "";
@@ -41,10 +39,6 @@ export const ParentNavbar = () => {
     navigate("/parent/display-todo");
   };
 
-  const handleParentLogout = () => {
-    dispatch(userLoggedOut());
-    navigate("/parent/login");
-  };
 
   const redirectParentHome = () => {
     navigate("/parent/home");

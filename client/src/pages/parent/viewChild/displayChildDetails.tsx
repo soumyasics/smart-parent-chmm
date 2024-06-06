@@ -30,6 +30,8 @@ interface DisplayChildDetailsProps {
   childData: Child[];
 }
 
+
+
 export const DisplayChildDetails: React.FC<DisplayChildDetailsProps> = ({
   childData,
 }) => {

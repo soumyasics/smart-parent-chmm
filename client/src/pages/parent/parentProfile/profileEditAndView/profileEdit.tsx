@@ -39,10 +39,10 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Handle form submission
-  };
+//   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+//     event.preventDefault();
+//     // Handle form submission
+//   };
 
   return (
     <div>

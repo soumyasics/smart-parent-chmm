@@ -2,8 +2,11 @@ import React from "react";
 import { Container, Image } from "react-bootstrap";
 import "./itemsNotFound.css";
 import notFoundImg1 from "../../../assets/not-found-1.jpg";
-
-export const ItemsNotFound: React.FC = ({
+interface ItemsNotFoundProps {
+  title?: string;
+  description?: string;
+}
+export const ItemsNotFound: React.FC<ItemsNotFoundProps> = ({
   title = "No Todo Items Found",
   description = "  You have no pending tasks. Enjoy your free time!",
 }) => {
