@@ -4,10 +4,10 @@ import styles from "./viewChild.module.css";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
-import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/errorHandlingUi";
-import {DisplayChildDetails} from "./displayChildDetails";
+import { DisplayChildDetails } from "./displayChildDetails";
+import { PageLoading } from "../../../components/pageLoading/pageLoading.tsx";
 export const ViewChild = () => {
   const [childData, setChildData] = useState([]);
   const [error, setError] = useState<null | string>(null);
@@ -22,7 +22,7 @@ export const ViewChild = () => {
       getChildDataFromDB();
     } else {
       alert("Please Login again. ");
-      navigate('/parent/login')
+      navigate("/parent/login");
     }
   }, [isAuthenticated, userType, userId]);
 
@@ -31,7 +31,7 @@ export const ViewChild = () => {
       const res = await axiosInstance.get(`/getAllKidsByParentId/${userId}`);
       if (res.status === 200) {
         setChildData(res.data?.data);
-      }else {
+      } else {
         throw new Error(`Unexpected error occurred, status: ${res.status}`);
       }
     } catch (error: unknown) {
@@ -42,25 +42,23 @@ export const ViewChild = () => {
         } else {
           setError("Please check your network!");
         }
-      }else {
+      } else {
         setError("Something went wrong. Please try again later.");
       }
     } finally {
       setTimeout(() => {
         setIsLoading(false);
-      }, 2000)
+      }, 2000);
     }
   };
 
   return (
     <div className={`${styles.viewChildContainer}`}>
-      {isLoading  ? (
-        <div className="d-flex justify-content-center">
-          <Spinner animation="grow" />
-        </div>
-      ): error ?
-        <ErrorHandlingUI error={error}/>
-      : (
+      {isLoading ? (
+        <PageLoading />
+      ) : error ? (
+        <ErrorHandlingUI error={error} />
+      ) : (
         <DisplayChildDetails childData={childData} />
       )}
     </div>

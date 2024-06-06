@@ -58,7 +58,7 @@ export const CommonFooter = () => {
           <p>ChildCrescendo@gmail.com</p>
         </Stack>
 
-        <Stack className="download-app-stack my-stack">
+        {/* <Stack className="download-app-stack my-stack">
           <p>Download App</p>
           <img
             src="https://pbs.twimg.com/media/F8K8X3_XMAAKWYp?format=jpg&name=small"
@@ -68,7 +68,7 @@ export const CommonFooter = () => {
             src="https://pbs.twimg.com/media/F8K9Y0mXUAA7itL?format=png&name=small"
             alt="play-store"
           />
-        </Stack>
+        </Stack> */}
       </div>
       <div className="footer-credit">
         <p>© 2024 Child Crescendo </p>

@@ -50,7 +50,7 @@ export const DisplayTodoTable = () => {
               todos.map((todo, index) => (
                 <tr key={index}>
                   <td>{todo?.activityName}</td>
-                  <td>{todo?.activityDate}</td>
+                  <td>{todo?.activityDate.substring(0, 10)}</td>
                   <td>{todo?.activityTimeHrs}</td>
                   <td>{todo?.activityTimeMins}</td>
                 </tr>

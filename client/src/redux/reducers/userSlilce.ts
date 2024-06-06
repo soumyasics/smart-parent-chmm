@@ -21,6 +21,9 @@ const userSlice = createSlice({
       state.userData = action.payload.userData;
       state.jsonWebToken = action.payload.jsonWebToken;
     },
+    updateUserData: (state, action) => {
+      state.userData = action.payload;
+    },
     userLoggedOut: (state) => {
       state.isAuthenticated = false;
       state.userId = null;
@@ -31,6 +34,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { userLoggedIn, userLoggedOut } = userSlice.actions;
+export const { userLoggedIn, userLoggedOut, updateUserData } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

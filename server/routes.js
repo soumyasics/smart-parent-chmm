@@ -26,6 +26,12 @@ router.post(
   parent.loginParent
 );
 
+router.get("/getParentDataById/:id", parent.getParentDataById);
+router.patch(
+  "/updateParentDataById/:id",
+  parent.upload,
+  parent.updateParentById,
+);
 router.post("/viewParentById/:id", parent.viewParentById);
 router.post("/viewParents", parent.viewParents);
 router.post("/editParentById/:id", parent.editParentById);
@@ -35,7 +41,7 @@ router.patch("/resetParentPasswordByEmail", parent.resetParentPasswordByEmail);
 //Kids
 router.post("/addKid", kids.upload, kids.addKid);
 router.post("/viewKids", kids.viewKids);
-router.get('/getAllKidsByParentId/:id', kids.getAllKidsByParentId)
+router.get("/getAllKidsByParentId/:id", kids.getAllKidsByParentId);
 router.post("/viewKidsByParentId/:id", kids.viewKidsByParentId);
 router.post("/viewKidById/:id", kids.viewKidById);
 router.post("/editKidById/:id", kids.upload, kids.editKidById);

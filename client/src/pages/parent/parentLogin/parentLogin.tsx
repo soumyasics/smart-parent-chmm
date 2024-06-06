@@ -10,9 +10,8 @@ import axiosInstance from "../../../apis/axiosInstance";
 import { UserState } from "../../../redux/types";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
-
+import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 import "./parentLogin.css";
-import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 
 export const ParentLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
@@ -94,12 +93,12 @@ export const ParentLogin = () => {
   };
 
   const navigateToParentForgotPassword = () => {
-    navigate('/parent/forgot-password')
-  }
+    navigate("/parent/forgot-password");
+  };
 
   return (
     <>
-      <ParentNavbar />
+      <LandingPageNavbar />
       <div className="shadow mx-auto mt-5 pt-2" style={{ width: "45%" }}>
         <h3 className="text-center mb-5"> Parent Login</h3>
         <Form
@@ -156,7 +155,11 @@ export const ParentLogin = () => {
             </Col>
           </Row>
           <div className="user-login-btn-container-2">
-            <p role="button" onClick={navigateToParentForgotPassword} className="text-primary mb-3 text-start fw-bold">
+            <p
+              role="button"
+              onClick={navigateToParentForgotPassword}
+              className="text-primary mb-3 text-start fw-bold"
+            >
               forgot password?
             </p>
             <p>

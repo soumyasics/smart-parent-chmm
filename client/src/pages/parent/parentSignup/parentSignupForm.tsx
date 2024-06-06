@@ -63,7 +63,8 @@ export const ParentSignupForm = () => {
       !dateOfBirth ||
       !address
     ) {
-      alert("Please fill all the fields");
+      // alert("Please fill all the fields");
+      console.log("parent data", parentData);
       return;
     }
     const isEmailValid = validateEmail(parentData.email);
@@ -189,6 +190,7 @@ export const ParentSignupForm = () => {
         <Row className="mt-3">
           <Col>
             <Form.Group>
+            <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Your Name"
@@ -204,6 +206,7 @@ export const ParentSignupForm = () => {
           </Col>
           <Col>
             <Form.Group>
+            <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter Your Email"
@@ -223,6 +226,7 @@ export const ParentSignupForm = () => {
       <Row className="mt-3">
         <Col>
           <Form.Group>
+            <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               required
               type="date"
@@ -242,6 +246,7 @@ export const ParentSignupForm = () => {
               position: "relative",
             }}
           >
+            <Form.Label>Password</Form.Label>
             <Form.Control
               required
               type="password"
@@ -265,6 +270,7 @@ export const ParentSignupForm = () => {
       <Row className="mt-3">
         <Col>
           <Form.Group>
+          <Form.Label>Address</Form.Label>
             <Form.Control
               type="text"
               placeholder="Please Enter Your Address."
@@ -281,6 +287,7 @@ export const ParentSignupForm = () => {
         </Col>
         <Col>
           <Form.Group>
+          <Form.Label>Phone Number</Form.Label>
             <Form.Control
               type="text"
               required
