@@ -1,4 +1,4 @@
-import {  Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "./profileSection.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -30,8 +30,9 @@ export const ParentProfileSection = () => {
   const [parentData, setParentData] = useState<null | ParentData>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [profilePicture, setProfilePicture] = useState<string>(userPlaceholderImg);
-  const { isAuthenticated, userType, userId } = useSelector(
+  const [profilePicture, setProfilePicture] =
+    useState<string>(userPlaceholderImg);
+  const { isAuthenticated, userType, userId, userData } = useSelector(
     (state: RootState) => state.user
   );
   const [isEditProfileActive, setIsEditProfileActive] = useState(false);
@@ -43,17 +44,14 @@ export const ParentProfileSection = () => {
       return;
     }
 
-    console.log("paaa", userType, userId);
     if (userType === "parent" && userId) {
       getParentData(userId);
     }
-  }, []);
-
-  console.log('parnt data', parentData);
+  }, [userData]);
 
   useEffect(() => {
     if (parentData) {
-      const pic: string | null = parentData?.profilePicture?.filename || null;
+      const pic: string = parentData?.profilePicture?.filename || "";
       if (pic) {
         setProfilePicture(`${BASE_URL}${pic}`);
       } else {
@@ -67,11 +65,9 @@ export const ParentProfileSection = () => {
   // }
 
   const getParentData = async (userId: string) => {
-    console.log('cch')
     try {
       setIsLoading(true);
       const res = await axiosInstance.get(`/getParentDataById/${userId}`);
-      console.log('ress', res);
       if (res.status === 200) {
         setParentData(res.data.data);
       } else {
@@ -106,46 +102,6 @@ export const ParentProfileSection = () => {
     setIsEditProfileActive(false);
   };
 
-  const saveNewChanges = () => {
-    setIsEditProfileActive(false);
-  };
-
-  // const handleUpdateProfile = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const res = await axiosInstance.put(`/updateParentProfile/${userId}`, {
-  //       name: parentData?.name,
-  //       email: parentData?.email,
-  //       phoneNumber: parentData?.phoneNumber,
-  //       address: parentData?.address,
-  //     });
-  //     if (res.status === 200) {
-  //       alert("Profile updated successfully");
-  //       setIsEditProfileActive(false);
-  //     } else {
-  //       throw new Error(`Unexpected error occurred, status: ${res.status}`);
-  //     }
-  //   } catch (error: unknown) {
-  //     if (axios.isAxiosError(error)) {
-  //       const status = error.response?.status;
-  //       if (status === 400 || status === 500) {
-  //         const errorMsg =
-  //           error.response?.data?.message ||
-  //           "Some error occurred. Please try again later.";
-  //         setError(errorMsg);
-  //       } else {
-  //         setError("Please check your network.");
-  //       }
-  //     } else {
-  //       setError("Something went wrong. Please try again later.");
-  //     }
-  //   } finally {
-  //     setTimeout(() => {
-  //       setIsLoading(false);
-  //     }, 1500);
-  //   }
-  // };
-
   return (
     <div className="profile-section">
       {isLoading ? (
@@ -160,6 +116,7 @@ export const ParentProfileSection = () => {
             <ProfileEdit
               parentData={parentData}
               profilePicture={profilePicture}
+              handleCancelEditProfile={handleCancelEditProfile}
             />
           ) : (
             <ProfileView
@@ -168,26 +125,7 @@ export const ParentProfileSection = () => {
             />
           )}
 
-          {isEditProfileActive ? (
-            <div className="d-flex w-75  justify-content-between ">
-              <Button
-                variant="success"
-                type="submit"
-                className="save-button"
-                onClick={saveNewChanges}
-              >
-                Save Changes
-              </Button>
-              <Button
-                variant="danger"
-                type="submit"
-                className="save-button"
-                onClick={handleCancelEditProfile}
-              >
-                Cancel
-              </Button>
-            </div>
-          ) : (
+          {!isEditProfileActive && (
             <Button
               variant="primary"
               type="submit"

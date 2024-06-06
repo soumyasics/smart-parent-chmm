@@ -156,6 +156,47 @@ const getParentDataWithToken = (req, res) => {
   }
 };
 
+const updateParentById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const parent = await ParentModel.findById(id);
+
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found" });
+    }
+
+    const { name, email, phoneNumber, address } = req.body;
+
+    const updatedParent = await ParentModel.findByIdAndUpdate(
+      id,
+      {
+        name,
+        email,
+        phoneNumber,
+        address,
+        profilePicture: req.file?.path ? req.file : null,
+      },
+      { new: true }
+    );
+
+    if (updatedParent) {
+      return res.status(200).json({
+        message: "Parent updated successfully",
+        data: updatedParent,
+      });
+    } else {
+      throw new Error("Failed to update parent");
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
 const viewParents = (req, res) => {
   ParentModel.find()
     .exec()
@@ -254,6 +295,7 @@ const deleteParentById = (req, res) => {
 module.exports = {
   registerParent,
   getParentDataById,
+  updateParentById,
   viewParentById,
   viewParents,
   editParentById,
