@@ -1,4 +1,4 @@
-const { vcModel } = require("./vcModel");
+const  {vcModel}  = require("./vcSchema");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -59,7 +59,7 @@ const loginVC = async (req, res) => {
     const vc = await vcModel.findOne({ email });
     if (!vc) {
       return res.status(404).json({
-        message: "User not found. Please check your email and password",
+        message: "User not found",
       });
     }
 
@@ -67,7 +67,7 @@ const loginVC = async (req, res) => {
     if (!isPasswordMatch) {
       return res
         .status(401)
-        .json({ message: "Please check your email and password" });
+        .json({ message: "Please check your password" });
     }
 
     const vcCopy = vc.toObject();
@@ -92,7 +92,7 @@ const resetVCPasswordByEmail = async (req, res) => {
     if (!email || !newPassword) {
       return res
         .status(400)
-        .json({ message: "Email and new password are required." });
+        .json({ message: "Email and  password are required." });
     }
 
     let existingVC = await vcModel.findOne({ email });

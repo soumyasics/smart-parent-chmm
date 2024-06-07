@@ -24,7 +24,7 @@ const vcSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    cateogry: {
+    category: {
         enum: ["anganvadi","hospital"],
 
       type: String,
