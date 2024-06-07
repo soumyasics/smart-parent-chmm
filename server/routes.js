@@ -6,17 +6,12 @@ const hp = require("./HealthProfessionals/hpController");
 const todo = require("./ToDoList/todoListController");
 
 const {
-  validateEmailForRegistration,
-} = require("./middlewares/validation/emailValidationForReg");
-const {
-  validatePassword,
-} = require("./middlewares/validation/passwordValidation");
-const {
   validateEmailForLogin,
-} = require("./middlewares/validation/emailValidateForLogin");
+  validateEmailForRegistration,
+  validatePassword,
+  validateMongooseId,
+} = require("./middlewares");
 
-// upload middleware should called & it should be first as well (if not other middlewares wont' work),
-// upload middleware is responsible for populates req.body and req.file from the request.
 router.post(
   "/registerParent",
   parent.upload,
@@ -30,11 +25,12 @@ router.post(
   validatePassword,
   parent.loginParent
 );
+
 router.post("/viewParentById/:id", parent.viewParentById);
 router.post("/viewParents", parent.viewParents);
 router.post("/editParentById/:id", parent.editParentById);
 router.post("/deleteParentById/:id", parent.deleteParentById);
-router.post("/forgotPwdParent", parent.forgotPwd);
+router.patch("/resetParentPasswordByEmail", parent.resetParentPasswordByEmail);
 
 //Kids
 router.post("/addKid", kids.upload, kids.addKid);
@@ -44,7 +40,26 @@ router.post("/viewKidById/:id", kids.viewKidById);
 router.post("/editKidById/:id", kids.upload, kids.editKidById);
 
 //HP routes
-router.post("/registerHP", hp.upload, hp.registerHP);
+router.post(
+  "/registerHP",
+  hp.upload,
+  validateEmailForRegistration,
+  validatePassword,
+  hp.registerHP
+);
+
+router.patch(
+  "/adminApprovedHPRequest/:id",
+  validateMongooseId,
+  hp.adminApprovedHPRequest
+);
+
+router.patch(
+  "/adminRejectedHPRequest/:id",
+  validateMongooseId,
+  hp.adminRejectedHPRequest
+);
+
 router.post("/loginHP", hp.loginHP);
 router.post("/viewHpById/:id", hp.viewHpById);
 router.post("/viewHps", hp.viewHps);
@@ -56,8 +71,6 @@ router.post("/forgotPwdHP", hp.forgotPwd);
 router.post("/addToDo", todo.addToDo);
 router.post("/viewActivityById/:id", todo.viewActivityById);
 router.post("/deleteToDOById/:id", todo.deleteToDOById);
-
-
-
+router.get("/getTodoItemsByParentId/:parentId", todo.getTodoItemsByParentId);
 
 module.exports = router;

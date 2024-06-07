@@ -6,6 +6,11 @@ const todoSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    parentId: {
+      ref: "parents",
+      type: mongoose.Types.ObjectId,
+      required: true
+    },
     activityDate: {
       type: Date,
       required: true,
@@ -25,5 +30,5 @@ const todoSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-const todoModel = mongoose.model("todos", todoSchema);
-module.exports = { todoModel };
+const TodoModel = mongoose.model("todos", todoSchema);
+module.exports = { TodoModel };

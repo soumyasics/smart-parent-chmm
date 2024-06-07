@@ -16,8 +16,8 @@ import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavb
 
 export const ParentLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("parent1@gmail.com");
-  const [password, setPassword] = useState<string>("12341234");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,9 +28,7 @@ export const ParentLogin = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setValidated(true);
-    // if (form.checkValidity() === false) {
 
-    // }
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
@@ -64,14 +62,19 @@ export const ParentLogin = () => {
         dispatch(userLoggedIn(serializedUserData));
         alert("Login Successful");
         setTimeout(() => {
-          navigate("../parent/home");
+          navigate("/parent/home");
         }, 1200);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
           const status = error.response.status;
-          if (status === 400 || status === 404 || status === 500) {
+          if (
+            status === 400 ||
+            status === 401 ||
+            status === 404 ||
+            status === 500
+          ) {
             const errMsg = error.response.data.message;
             if (errMsg) {
               alert(errMsg);
@@ -89,6 +92,10 @@ export const ParentLogin = () => {
       }
     }
   };
+
+  const navigateToParentForgotPassword = () => {
+    navigate('/parent/forgot-password')
+  }
 
   return (
     <>
@@ -149,6 +156,9 @@ export const ParentLogin = () => {
             </Col>
           </Row>
           <div className="user-login-btn-container-2">
+            <p role="button" onClick={navigateToParentForgotPassword} className="text-primary mb-3 text-start fw-bold">
+              forgot password?
+            </p>
             <p>
               Don’t have an account?{" "}
               <span

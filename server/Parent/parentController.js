@@ -1,7 +1,6 @@
 const { ParentModel } = require("./parentSchema");
 const multer = require("multer");
 
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./upload");
@@ -13,7 +12,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).single("profilePicture");
 
-
 const {
   encryptPassword,
   comparePasswords,
@@ -22,8 +20,6 @@ const {
 const { generateToken } = require("../utils/auth");
 
 const registerParent = async (req, res) => {
-  console.log('req file', req.file)
-  console.log('req body', req.body)
   try {
     const { name, email, password, phoneNumber, address, dateOfBirth } =
       req.body;
@@ -60,7 +56,9 @@ const registerParent = async (req, res) => {
     });
   } catch (error) {
     console.error("Error in email parent registration: ", error);
-    return res.status(500).json({ message: "Internal server error" , error: error});
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error });
   }
 };
 const loginParent = async (req, res) => {
@@ -82,8 +80,6 @@ const loginParent = async (req, res) => {
         .json({ message: "Please check your email and password" });
     }
 
-
-
     const parentCopy = parent.toObject();
     delete parentCopy.password;
 
@@ -96,6 +92,40 @@ const loginParent = async (req, res) => {
     });
   } catch (error) {
     console.error("Error logging in parent:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const resetParentPasswordByEmail = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+    if (!email || !newPassword) {
+      return res
+        .status(400)
+        .json({ message: "Email and new password is required." });
+    }
+
+    let existingParent = await ParentModel.findOne({ email });
+
+    if (!existingParent) {
+      return res.status(404).json({ message: "Email id is not valid." });
+    }
+
+    const hashedPassword = await encryptPassword(newPassword);
+    const parentWithNewPassword = await ParentModel.findByIdAndUpdate(
+      existingParent._id,
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    return res
+      .status(200)
+      .json({
+        message: "Password updated successfully.",
+        data: parentWithNewPassword,
+      });
+  } catch (error) {
+    console.error("Error on updating password:", error);
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
@@ -202,43 +232,13 @@ const deleteParentById = (req, res) => {
       });
     });
 };
-//forgotvPawd  by id
-const forgotPwd = (req, res) => {
-  ParentModel.findOneAndUpdate(
-    { email: req.body.email },
-    {
-      password: req.body.password,
-    }
-  )
-    .exec()
-    .then((data) => {
-      if (data != null)
-        res.json({
-          status: 200,
-          msg: "Updated successfully",
-        });
-      else
-        res.json({
-          status: 500,
-          msg: "User Not Found",
-        });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.json({
-        status: 500,
-        msg: "Data not Updated",
-        Error: err,
-      });
-    });
-};
 
 module.exports = {
   registerParent,
   viewParentById,
   viewParents,
   editParentById,
-  forgotPwd,
+  resetParentPasswordByEmail,
   deleteParentById,
   loginParent,
   getParentDataWithToken,

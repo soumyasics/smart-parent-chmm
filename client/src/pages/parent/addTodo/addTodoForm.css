@@ -1,0 +1,23 @@
+/* CustomForm.css */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-button {
+  display: flex;
+  justify-content: center;
+}
+
+.form-button button {
+  width: 100%;
+}

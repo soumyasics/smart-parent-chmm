@@ -1,0 +1,24 @@
+.loginBtn {
+  cursor: pointer;
+}
+.loginBtn:hover {
+  font-weight: bold;
+}
+
+.dropdownOption {
+  display: flex;
+  align-items: center;
+}
+
+.dropdownOption img {
+  margin-right: 10px;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.parentNavDropdown p:hover {
+  background-color: #eee;
+  font-weight: bold;
+}

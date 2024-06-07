@@ -1,9 +1,11 @@
 import { Container } from "react-bootstrap";
 import { ParentSignupForm } from "./parentSignupForm";
 import { CommonFooter } from "../../../components/common/footer/footer";
-import "./parentSignup.css";
-import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 import { useNavigate } from "react-router-dom";
+import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
+
+import "./parentSignup.css";
+
 export const ParentSignupPage = () => {
   const navigate = useNavigate();
   const navigateParentLogin = () => {
@@ -12,7 +14,7 @@ export const ParentSignupPage = () => {
 
   return (
     <>
-      <LandingPageNavbar />
+      <ParentNavbar />
       <div className="mt-5" id="user-signup-page">
         <Container className="user-signup-container">
           <div className="user-signup-form">
