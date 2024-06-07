@@ -18,6 +18,7 @@ const {
 } = require("../utils/passwordEncryption");
 
 const { generateToken } = require("../utils/auth");
+const { isValidObjectId } = require("mongoose");
 
 const registerParent = async (req, res) => {
   try {
@@ -98,7 +99,7 @@ const loginParent = async (req, res) => {
 
 const resetParentPasswordByEmail = async (req, res) => {
   try {
-    const { email, newPassword } = req.body;
+    const { email, oldPassword, newPassword } = req.body;
     if (!email || !newPassword) {
       return res
         .status(400)
@@ -106,11 +107,22 @@ const resetParentPasswordByEmail = async (req, res) => {
     }
 
     let existingParent = await ParentModel.findOne({ email });
-
     if (!existingParent) {
       return res.status(404).json({ message: "Email id is not valid." });
     }
 
+    if (oldPassword) {
+      const isOldPasswordMatch = await comparePasswords(
+        oldPassword,
+        existingParent.password
+      );
+
+      
+      if (!isOldPasswordMatch) {
+        return res.status(400).json({ message: "Old password is incorrect." });
+      }
+    }
+  
     const hashedPassword = await encryptPassword(newPassword);
     const parentWithNewPassword = await ParentModel.findByIdAndUpdate(
       existingParent._id,
@@ -118,14 +130,31 @@ const resetParentPasswordByEmail = async (req, res) => {
       { new: true }
     );
 
-    return res
-      .status(200)
-      .json({
-        message: "Password updated successfully.",
-        data: parentWithNewPassword,
-      });
+    return res.status(200).json({
+      message: "Password updated successfully.",
+      data: parentWithNewPassword,
+    });
   } catch (error) {
     console.error("Error on updating password:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const getParentDataById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const parent = await ParentModel.findById(id);
+    return res.status(200).json({ message: "Parent data ", data: parent });
+  } catch (error) {
+    console.log("Error on get parent data by id", error);
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
@@ -133,6 +162,47 @@ const resetParentPasswordByEmail = async (req, res) => {
 const getParentDataWithToken = (req, res) => {
   try {
     return res.json({ message: "Parent data ", data: req.user });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const updateParentById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const parent = await ParentModel.findById(id);
+
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found" });
+    }
+
+    const { name, email, phoneNumber, address } = req.body;
+
+    const updatedParent = await ParentModel.findByIdAndUpdate(
+      id,
+      {
+        name,
+        email,
+        phoneNumber,
+        address,
+        profilePicture: req.file?.path ? req.file : null,
+      },
+      { new: true }
+    );
+
+    if (updatedParent) {
+      return res.status(200).json({
+        message: "Parent updated successfully",
+        data: updatedParent,
+      });
+    } else {
+      throw new Error("Failed to update parent");
+    }
   } catch (error) {
     return res.status(500).json({ message: "Internal server error", error });
   }
@@ -235,6 +305,8 @@ const deleteParentById = (req, res) => {
 
 module.exports = {
   registerParent,
+  getParentDataById,
+  updateParentById,
   viewParentById,
   viewParents,
   editParentById,

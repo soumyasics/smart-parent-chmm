@@ -8,6 +8,8 @@ import "./addTodoForm.css";
 import { ActivityData } from "../../../types/types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { isPastDay } from "../../../utils/validation/dateValidation";
+import { isOnlyAlphabets } from "../../../utils/validation";
 
 export const AddTodoForm = () => {
   const [activityName, setActivityName] = useState("");
@@ -42,7 +44,6 @@ export const AddTodoForm = () => {
       parentId,
     };
 
-
     if (
       !activityName ||
       !activityDate ||
@@ -62,7 +63,7 @@ export const AddTodoForm = () => {
       let res = await axiosInstance.post("addToDo", serializedData);
       if (res.status === 201) {
         alert("Item Added Successfully");
-        navigate('/parent/display-todo')
+        navigate("/parent/display-todo");
         return;
       }
     } catch (error: unknown) {
@@ -78,6 +79,41 @@ export const AddTodoForm = () => {
     }
   };
 
+  const handleActivityDateChange = (e: any) => {
+    const isPreviousDay: boolean = isPastDay(e.target.value);
+    if (isPreviousDay) {
+      alert("Activity date cannot be in the past");
+      return;
+    }
+    setActivityDate(e.target.value);
+  };
+
+  const handleActivityNameChange = (e: any) => {
+    const activity = e.target.value;
+    if (isOnlyAlphabets(activity)) {
+      setActivityName(activity);
+    }
+  };
+
+  const handleActivityHours = (e: any) => {
+    const hour = e.target.value;
+
+    if (hour.length > 2 || hour > 23 || hour < 0) {
+      alert("Hours must be between 0 and 24");
+      return;
+    }
+    setActivityTimeHrs(hour);
+  };
+  const handleActivityMins = (e: any) => {
+    const mins = e.target.value;
+
+    if (mins.length > 2 || mins > 59 || mins < 0) {
+      alert("Minutes must be between 0 and 60");
+      return;
+    }
+    setActivityTimeMins(mins);
+  };
+
   return (
     <Container className="form-container">
       <h2 className="form-header">Activity Form</h2>
@@ -88,7 +124,7 @@ export const AddTodoForm = () => {
             type="text"
             placeholder="Enter activity name"
             value={activityName}
-            onChange={(e) => setActivityName(e.target.value)}
+            onChange={handleActivityNameChange}
             required
           />
         </Form.Group>
@@ -98,7 +134,7 @@ export const AddTodoForm = () => {
           <Form.Control
             type="date"
             value={activityDate}
-            onChange={(e) => setActivityDate(e.target.value)}
+            onChange={handleActivityDateChange}
             required
           />
         </Form.Group>
@@ -111,7 +147,7 @@ export const AddTodoForm = () => {
                 type="number"
                 placeholder="Hrs"
                 value={activityTimeHrs}
-                onChange={(e) => setActivityTimeHrs(e.target.value)}
+                onChange={handleActivityHours}
                 required
                 min="0"
               />
@@ -124,7 +160,7 @@ export const AddTodoForm = () => {
                 type="number"
                 placeholder="Mins"
                 value={activityTimeMins}
-                onChange={(e) => setActivityTimeMins(e.target.value)}
+                onChange={handleActivityMins}
                 required
                 min="0"
                 max="59"

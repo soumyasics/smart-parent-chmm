@@ -54,13 +54,17 @@ export const LandingPageNavbar = () => {
             <Form.Select
               onChange={handleLoginPageNavigate}
               defaultValue=""
+              style={{ cursor: "pointer" }}
             >
               <option value="" disabled hidden>
                 Login
               </option>
               {navigateOptions.map((option) => {
                 return (
-                  <option key={option.value} value={option.value}>
+                  <option
+                    key={option.value}
+                    value={option.value}
+                  >
                     {option.label}
                   </option>
                 );

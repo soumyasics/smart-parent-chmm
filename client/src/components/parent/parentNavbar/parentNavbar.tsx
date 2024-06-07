@@ -8,11 +8,10 @@ import styles from "./parentNavbar.module.css";
 >>>>>>> 346cc9d6194f4e19020df4c61c48968c9dc945d9
 import { Button, Image } from "react-bootstrap";
 import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
-import { userLoggedOut } from "../../../redux/reducers/userSlilce";
 import styles from "./parentNavbar.module.css";
 export const ParentNavbar = () => {
   const navigate = useNavigate();
@@ -20,7 +19,6 @@ export const ParentNavbar = () => {
   const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
   const [userName, setUserName] = useState("User Name");
-  const dispatch = useDispatch();
   useEffect(() => {
     if (userData) {
       const name = userData.name.substring(0, 15) || "";
@@ -50,14 +48,17 @@ export const ParentNavbar = () => {
     navigate("/parent/display-todo");
   };
 
-  const handleParentLogout = () => {
-    dispatch(userLoggedOut());
-    navigate("/parent/login");
-  };
 
   const redirectParentHome = () => {
     navigate("/parent/home");
   };
+  const redirectRegisterChild = () => {
+    navigate("/parent/register-child");
+  };
+
+  const redirectToParentProfile = () => {
+    navigate('/parent/profile')
+  }
 
   return (
     <div className="bg-dark text-white px-4">
@@ -72,7 +73,7 @@ export const ParentNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-n av">
-            <Nav className="ms-5 text-white w-50 justify-content-between">
+            <Nav className="ms-5 text-white w-75 justify-content-between">
               <p className="my-0" role="button" onClick={redirectParentHome}>
                 Home
               </p>
@@ -86,6 +87,10 @@ export const ParentNavbar = () => {
               >
                 Display Todo
               </p>
+              <p className="my-0" role="button" onClick={redirectRegisterChild}>
+                Register Child
+              </p>
+
               <p className="my-0" role="button">
                 Vaccination Center
               </p>
@@ -94,10 +99,7 @@ export const ParentNavbar = () => {
         </Container>
         <Navbar.Collapse className="justify-content-end">
           {!isAuthenticated ? (
-            <Button
-              variant={"outline-light"}
-              onClick={navigateParentLogin}
-            >
+            <Button variant={"outline-light"} onClick={navigateParentLogin}>
               {" "}
               Login{" "}
             </Button>
@@ -124,11 +126,8 @@ export const ParentNavbar = () => {
                 className={`dropdown-menu ${styles.parentNavDropdown}`}
                 aria-labelledby="dropdownMenuLink"
               >
-                <p className="  dropdown-item mb-0">Profile</p>
+                <p className="  dropdown-item mb-0" onClick={redirectToParentProfile}>Profile</p>
                 <p className="  dropdown-item mb-0">Account</p>
-                <p className=" dropdown-item mb-0" onClick={handleParentLogout}>
-                  Logout
-                </p>
               </div>
             </div>
           )}
