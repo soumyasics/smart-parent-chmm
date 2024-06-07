@@ -2,6 +2,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+import styles from "./parentNavbar.module.css";
+=======
+>>>>>>> 346cc9d6194f4e19020df4c61c48968c9dc945d9
 import { Button, Image } from "react-bootstrap";
 import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useSelector } from "react-redux";
@@ -26,7 +30,12 @@ export const ParentNavbar = () => {
       }
       setUserName(name);
     }
+<<<<<<< HEAD
+  }, []);
+
+=======
   }, [userData]);
+>>>>>>> 346cc9d6194f4e19020df4c61c48968c9dc945d9
 
   const navigateParentLogin = () => {
     navigate("/parent/login");

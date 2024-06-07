@@ -4,6 +4,7 @@ const parent = require("./Parent/parentController");
 const kids = require("./Kids/kidsController");
 const hp = require("./HealthProfessionals/hpController");
 const todo = require("./ToDoList/todoListController");
+const vcController = require("./VaccinationCenters/vcController");
 
 const {
   validateEmailForLogin,
@@ -79,5 +80,14 @@ router.post("/addToDo", todo.addToDo);
 router.post("/viewActivityById/:id", todo.viewActivityById);
 router.post("/deleteToDOById/:id", todo.deleteToDOById);
 router.get("/getTodoItemsByParentId/:parentId", todo.getTodoItemsByParentId);
+
+
+//VC routes
+
+router.post('/registerVC',vcController.upload, 
+   validateEmailForRegistration,
+  vcController.registerVC)
+router.post('/loginVC',vcController.loginVC)
+
 
 module.exports = router;
