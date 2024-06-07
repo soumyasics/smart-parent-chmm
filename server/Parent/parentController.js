@@ -99,7 +99,7 @@ const loginParent = async (req, res) => {
 
 const resetParentPasswordByEmail = async (req, res) => {
   try {
-    const { email, newPassword } = req.body;
+    const { email, oldPassword, newPassword } = req.body;
     if (!email || !newPassword) {
       return res
         .status(400)
@@ -107,11 +107,22 @@ const resetParentPasswordByEmail = async (req, res) => {
     }
 
     let existingParent = await ParentModel.findOne({ email });
-
     if (!existingParent) {
       return res.status(404).json({ message: "Email id is not valid." });
     }
 
+    if (oldPassword) {
+      const isOldPasswordMatch = await comparePasswords(
+        oldPassword,
+        existingParent.password
+      );
+
+      
+      if (!isOldPasswordMatch) {
+        return res.status(400).json({ message: "Old password is incorrect." });
+      }
+    }
+  
     const hashedPassword = await encryptPassword(newPassword);
     const parentWithNewPassword = await ParentModel.findByIdAndUpdate(
       existingParent._id,

@@ -14,6 +14,7 @@ import { ParentForgotPassword } from "./pages/parent/forgotPassword/forgotPasswo
 import "./App.css";
 import { RegisterChild } from "./pages/parent/registerChild/registerChild.tsx";
 import { ParentProfilePage } from "./pages/parent/parentProfile/parentProfilePage.tsx";
+import { ParentResetPassword } from "./pages/parent/resetPassword/resetPassword.tsx";
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
@@ -29,6 +30,7 @@ function App() {
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
+        <Route path="/parent/reset-password" element={<ParentResetPassword />} />
         <Route
           path="/parent/forgot-password"
           element={<ParentForgotPassword />}

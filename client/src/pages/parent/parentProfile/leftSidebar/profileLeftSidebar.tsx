@@ -55,9 +55,9 @@ export const ParentProfileLeftSidebar: React.FC<
         </ListGroup.Item>
         <ListGroup.Item
           className="sidebar-item"
-          onClick={() => changeActivePage("settings")}
+          onClick={() => changeActivePage("reset-password")}
         >
-          <FaCog className="sidebar-icon" /> Settings
+          <FaCog className="sidebar-icon" /> Reset Password
         </ListGroup.Item>
 
         <ListGroup.Item
