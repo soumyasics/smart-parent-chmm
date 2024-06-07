@@ -7,6 +7,7 @@ import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavb
 import { useState } from "react";
 import { ViewChild } from "../viewChild/viewChild";
 import "./parentProfilePage.css";
+import { ParentResetPassword } from "../resetPassword/resetPassword";
 
 export const ParentProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -25,6 +26,7 @@ export const ParentProfilePage = () => {
           <Col md={9} className="profile-container">
             {activePage === "profile" && <ParentProfileSection />}
             {activePage === "child" && <ViewChild />}
+            {activePage === "reset-password" && <ParentResetPassword />}
           </Col>
         </Row>
       </Container>
