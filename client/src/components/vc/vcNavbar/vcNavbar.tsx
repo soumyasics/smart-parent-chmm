@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
 export const VCNavbar = () => {
   const navigate = useNavigate();
-  let temp = false;
+  
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
@@ -77,7 +77,7 @@ export const VCNavbar = () => {
           </Navbar.Collapse>
         </Container>
         <Navbar.Collapse className="justify-content-end">
-          {!temp ? (
+          {!isAuthenticated ? (
             <Button variant={"outline-light"} onClick={navigateVCLogin}>
               {" "}
               Login{" "}

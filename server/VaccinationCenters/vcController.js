@@ -75,7 +75,8 @@ const loginVC = async (req, res) => {
       });
     }
 
-    const isPasswordMatch = await comparePasswords(password, vc.password);
+    console.log("passs",vc.password, password)
+    const isPasswordMatch = await comparePasswords(password, vc?.password || "");
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Please check your password" });
     }

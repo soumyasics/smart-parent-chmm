@@ -28,6 +28,10 @@ export const VCLogin = () => {
     e.preventDefault();
     setValidated(true);
 
+    if (!email || !password) {
+      return;
+    }
+
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
@@ -47,7 +51,7 @@ export const VCLogin = () => {
     try {
       let credentials = { email, password };
 
-      const res = await axiosInstance.post("/loginParent", credentials);
+      const res = await axiosInstance.post("/loginVC", credentials);
       if (res.status === 200) {
         let data = res.data || null;
 
