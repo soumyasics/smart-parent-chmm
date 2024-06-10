@@ -1,4 +1,4 @@
-const  {vcModel}  = require("./vcSchema");
+const { VCModel } = require("./vcSchema");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -22,20 +22,32 @@ const { isValidObjectId } = require("mongoose");
 
 const registerVC = async (req, res) => {
   try {
-    const { name, email, password, contact, location, category } = req.body;
-    if (!name || !email || !password || !contact || !location || !category) {
+    const { name, email, password, phoneNumber, location, category } = req.body;
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !phoneNumber ||
+      !location ||
+      !category
+    ) {
       return res.status(400).json({
         message: "All fields are required.",
         existingFields: req.body,
       });
     }
+    if (category !== "hospital" && category !== "anganvadi") {
+      return res.status(400).json({
+        message: "Invalid category",
+      });
+    }
 
     const hashedPassword = await encryptPassword(password);
-    const newVC = new vcModel({
+    const newVC = new VCModel({
       name,
       email,
       password: hashedPassword,
-      contact,
+      phoneNumber,
       location,
       category,
       profilePicture: req.file?.path ? req.file : null,
@@ -56,18 +68,16 @@ const registerVC = async (req, res) => {
 const loginVC = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const vc = await vcModel.findOne({ email });
+    const vc = await VCModel.findOne({ email });
     if (!vc) {
       return res.status(404).json({
-        message: "User not found",
+        message: "Vaccination center not found",
       });
     }
 
     const isPasswordMatch = await comparePasswords(password, vc.password);
     if (!isPasswordMatch) {
-      return res
-        .status(401)
-        .json({ message: "Please check your password" });
+      return res.status(401).json({ message: "Please check your password" });
     }
 
     const vcCopy = vc.toObject();
@@ -95,7 +105,7 @@ const resetVCPasswordByEmail = async (req, res) => {
         .json({ message: "Email and  password are required." });
     }
 
-    let existingVC = await vcModel.findOne({ email });
+    let existingVC = await VCModel.findOne({ email });
     if (!existingVC) {
       return res.status(404).json({ message: "Email id is not valid." });
     }
@@ -112,7 +122,7 @@ const resetVCPasswordByEmail = async (req, res) => {
     }
 
     const hashedPassword = await encryptPassword(newPassword);
-    const vcWithNewPassword = await vcModel.findByIdAndUpdate(
+    const vcWithNewPassword = await VCModel.findByIdAndUpdate(
       existingVC._id,
       { password: hashedPassword },
       { new: true }
@@ -139,8 +149,10 @@ const getVCDataById = async (req, res) => {
       return res.status(400).json({ message: "Id is not valid" });
     }
 
-    const vc = await vcModel.findById(id);
-    return res.status(200).json({ message: "Vaccination center data", data: vc });
+    const vc = await VCModel.findById(id);
+    return res
+      .status(200)
+      .json({ message: "Vaccination center data", data: vc });
   } catch (error) {
     console.error("Error getting vaccination center data by id:", error);
     return res.status(500).json({ message: "Internal server error", error });
@@ -163,20 +175,20 @@ const updateVCById = async (req, res) => {
       return res.status(400).json({ message: "Id is not valid" });
     }
 
-    const vc = await vcModel.findById(id);
+    const vc = await VCModel.findById(id);
 
     if (!vc) {
       return res.status(404).json({ message: "Vaccination center not found" });
     }
 
-    const { name, email, contact, location, category } = req.body;
+    const { name, email, phoneNumber, location, category } = req.body;
 
-    const updatedVC = await vcModel.findByIdAndUpdate(
+    const updatedVC = await VCModel.findByIdAndUpdate(
       id,
       {
         name,
         email,
-        contact,
+        phoneNumber,
         location,
         category,
         profilePicture: req.file?.path ? req.file : null,
@@ -198,7 +210,7 @@ const updateVCById = async (req, res) => {
 };
 
 const viewVCs = (req, res) => {
-  vcModel.find()
+  VCModel.find()
     .exec()
     .then((data) => {
       if (data.length > 0) {
@@ -224,7 +236,7 @@ const viewVCs = (req, res) => {
 };
 
 const viewVCById = (req, res) => {
-  vcModel.findById({ _id: req.params.id })
+  VCModel.findById({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
@@ -244,7 +256,7 @@ const viewVCById = (req, res) => {
 };
 
 const deleteVCById = (req, res) => {
-  vcModel.findByIdAndDelete({ _id: req.params.id })
+  VCModel.findByIdAndDelete({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({

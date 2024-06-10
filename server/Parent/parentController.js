@@ -117,12 +117,11 @@ const resetParentPasswordByEmail = async (req, res) => {
         existingParent.password
       );
 
-      
       if (!isOldPasswordMatch) {
         return res.status(400).json({ message: "Old password is incorrect." });
       }
     }
-  
+
     const hashedPassword = await encryptPassword(newPassword);
     const parentWithNewPassword = await ParentModel.findByIdAndUpdate(
       existingParent._id,
@@ -208,6 +207,14 @@ const updateParentById = async (req, res) => {
   }
 };
 
+const viewAllParents = async (req, res) => {
+  try {
+    const parents = await ParentModel.find();
+    return res.status(200).json({ message: "Parent data ", data: parents });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
 const viewParents = (req, res) => {
   ParentModel.find()
     .exec()
@@ -308,12 +315,12 @@ module.exports = {
   getParentDataById,
   updateParentById,
   viewParentById,
+  viewAllParents,
   viewParents,
   editParentById,
   resetParentPasswordByEmail,
   deleteParentById,
   loginParent,
   getParentDataWithToken,
-  loginParent,
   upload,
 };

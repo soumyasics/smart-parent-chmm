@@ -1,6 +1,9 @@
 import { Table } from "react-bootstrap";
 import "./adminUserTable.css";
-export const AdminUserTable = () => {
+
+
+export const AdminUserTable = ({}) => {
+  
   return (
     <>
       <Table striped bordered hover id="admin-users-table-container">

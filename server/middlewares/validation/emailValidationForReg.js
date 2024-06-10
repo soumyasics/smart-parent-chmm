@@ -1,6 +1,6 @@
 const { ParentModel } = require("../../Parent/parentSchema");
 const { HPModel } = require("../../HealthProfessionals/hpSchema");
-const { vcModel } = require("../../VaccinationCenters/vcSchema");
+const { VCModel } = require("../../VaccinationCenters/vcSchema");
 const validateEmailForRegistration = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -16,9 +16,8 @@ const validateEmailForRegistration = async (req, res, next) => {
     // todo=> use all models for check mail already taken or not
 
     const existingParent = await ParentModel.findOne({ email });
-
     const existingHP = await HPModel.findOne({ email });
-    const existingVC = await vcModel.findOne({ email });
+    const existingVC = await VCModel.findOne({ email });
 
     if (existingParent || existingHP ||existingVC) {
       return res.status(400).json({ message: "Email already in use" });

@@ -11,11 +11,13 @@ import { HPProfilePage } from "./pages/hp/hpProfile/hpProfilePage.tsx";
 import { AddTodo } from "./pages/parent/addTodo/addTodo.tsx";
 import { DisplayTodo } from "./pages/parent/displayTodo/displayTodo.tsx";
 import { ParentForgotPassword } from "./pages/parent/forgotPassword/forgotPassword.tsx";
-import "./App.css";
 import { RegisterChild } from "./pages/parent/registerChild/registerChild.tsx";
 import { ParentProfilePage } from "./pages/parent/parentProfile/parentProfilePage.tsx";
 import { ParentResetPassword } from "./pages/parent/resetPassword/resetPassword.tsx";
 import { AdminLogin } from "./pages/admin/AdminLogin/AdminLogin.tsx";
+import { AdminDashboard } from "./pages/admin/AdminDashboard/adminDashboard.tsx";
+import "./App.css";
+
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
@@ -46,6 +48,8 @@ function App() {
         {/* admin routes */}
 
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
           {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
 

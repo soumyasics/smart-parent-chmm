@@ -1,16 +1,8 @@
 import { IoMdNotifications } from "react-icons/io";
 import { IoMdContacts } from "react-icons/io";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./adminDashboardNav.css";
 const AdminDashboardNav = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    let admin = localStorage.getItem("cc-admin") || false;
-    if (!admin) {
-      navigate("/admin/login");
-    }
-  }, []);
   return (
     <div id="admin-dashboard-nav">
       <div className="admin-dashboard-nav-logo-container">

@@ -23,8 +23,9 @@ export const AdminLoginForm = () => {
     if (email === inputEmail && password === inputPassword) {
       alert("login successfull");
       setTimeout(() => {
-        navigate("/admin");
+        navigate("/admin/dashboard");
       }, 1500);
+      // localStorage.setItem("crescendo-admin", true);
     } else {
       alert("Please check your email and password");
     }
