@@ -15,6 +15,7 @@ import "./App.css";
 import { RegisterChild } from "./pages/parent/registerChild/registerChild.tsx";
 import { ParentProfilePage } from "./pages/parent/parentProfile/parentProfilePage.tsx";
 import { ParentResetPassword } from "./pages/parent/resetPassword/resetPassword.tsx";
+import { AdminLogin } from "./pages/admin/AdminLogin/AdminLogin.tsx";
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
@@ -41,7 +42,11 @@ function App() {
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
-        {/* common pages  */}
+
+        {/* admin routes */}
+
+        <Route path="/admin/login" element={<AdminLogin />} />
+          {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
 
         {/* testing routes  */}

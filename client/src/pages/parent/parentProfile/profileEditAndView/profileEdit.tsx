@@ -160,6 +160,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
       }
     } finally {
       setTimeout(() => {
+        console.log("load", isLoading)
         setIsLoading(false);
       }, 1500);
     }

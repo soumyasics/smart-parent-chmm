@@ -71,7 +71,7 @@ export const ParentResetPassword: React.FC = () => {
   };
 
   const redirectToParentProfile = () => {
-    // navigate("/parent/profile");
+    navigate("/parent/profile");
   };
   return (
     <>
