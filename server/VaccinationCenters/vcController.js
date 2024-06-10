@@ -22,13 +22,13 @@ const { isValidObjectId } = require("mongoose");
 
 const registerVC = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, location, category } = req.body;
+    const { name, email, password, phoneNumber, address, category } = req.body;
     if (
       !name ||
       !email ||
       !password ||
       !phoneNumber ||
-      !location ||
+      !address ||
       !category
     ) {
       return res.status(400).json({
@@ -48,7 +48,7 @@ const registerVC = async (req, res) => {
       email,
       password: hashedPassword,
       phoneNumber,
-      location,
+      address,
       category,
       profilePicture: req.file?.path ? req.file : null,
     });
@@ -181,7 +181,7 @@ const updateVCById = async (req, res) => {
       return res.status(404).json({ message: "Vaccination center not found" });
     }
 
-    const { name, email, phoneNumber, location, category } = req.body;
+    const { name, email, phoneNumber, address, category } = req.body;
 
     const updatedVC = await VCModel.findByIdAndUpdate(
       id,
@@ -189,7 +189,7 @@ const updateVCById = async (req, res) => {
         name,
         email,
         phoneNumber,
-        location,
+        address,
         category,
         profilePicture: req.file?.path ? req.file : null,
       },

@@ -16,7 +16,10 @@ import { ParentProfilePage } from "./pages/parent/parentProfile/parentProfilePag
 import { ParentResetPassword } from "./pages/parent/resetPassword/resetPassword.tsx";
 import { AdminLogin } from "./pages/admin/AdminLogin/AdminLogin.tsx";
 import { AdminDashboard } from "./pages/admin/AdminDashboard/adminDashboard.tsx";
+import { VCHome } from "./pages/vc/vcHome/vcHome.tsx";
 import "./App.css";
+import { VCSignup } from "./pages/vc/vcSignup/vcSignup.tsx";
+import { VCLogin } from "./pages/vc/vcLogin/vcLogin.tsx";
 
 function App() {
   return (
@@ -33,7 +36,10 @@ function App() {
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
-        <Route path="/parent/reset-password" element={<ParentResetPassword />} />
+        <Route
+          path="/parent/reset-password"
+          element={<ParentResetPassword />}
+        />
         <Route
           path="/parent/forgot-password"
           element={<ParentForgotPassword />}
@@ -50,7 +56,12 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
-          {/* common pages  */}
+        {/* vaccination center routes  */}
+        <Route path="/vc/home" element={<VCHome />} />
+        <Route path="/vc/signup" element={<VCSignup />} />
+        <Route path="/vc/login" element={<VCLogin />} />
+
+        {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
 
         {/* testing routes  */}

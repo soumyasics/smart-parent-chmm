@@ -19,7 +19,7 @@ const vcSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    location: {
+    address: {
       type: String,
       required: true,
     },
@@ -28,15 +28,21 @@ const vcSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    isActive: {
-      type: Boolean,
-      default: false,
-    },
-
     profilePicture: {
       type: Object,
       default: null,
     },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    isAdminApproved: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+
+   
   },
   { timestamps: true }
 );
