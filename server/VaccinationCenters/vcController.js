@@ -23,14 +23,7 @@ const { isValidObjectId } = require("mongoose");
 const registerVC = async (req, res) => {
   try {
     const { name, email, password, phoneNumber, address, category } = req.body;
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !phoneNumber ||
-      !address ||
-      !category
-    ) {
+    if (!name || !email || !password || !phoneNumber || !address || !category) {
       return res.status(400).json({
         message: "All fields are required.",
         existingFields: req.body,
@@ -75,10 +68,24 @@ const loginVC = async (req, res) => {
       });
     }
 
-    console.log("passs",vc.password, password)
-    const isPasswordMatch = await comparePasswords(password, vc?.password || "");
+    const isPasswordMatch = await comparePasswords(
+      password,
+      vc?.password || ""
+    );
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Please check your password" });
+    }
+
+    if (vc.isAdminApproved === "pending") {
+      return res
+        .status(400)
+        .json({ message: "Your registration request is not approved yet!" });
+    }
+
+    if (vc.isAdminApproved === "rejected") {
+      return res.status(400).json({
+        message: "Your registration request has been rejected!",
+      });
     }
 
     const vcCopy = vc.toObject();
@@ -93,6 +100,54 @@ const loginVC = async (req, res) => {
     });
   } catch (error) {
     console.error("Error logging in vaccination center:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const approveVCById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const vc = await VCModel.findById(id);
+
+    if (!vc) {
+      return res.status(404).json({ message: "Vaccination center not found." });
+    }
+
+    const approvedVc = await VCModel.findByIdAndUpdate(
+      id,
+      { isAdminApproved: "approved" },
+      { new: true }
+    );
+    return res.status(200).json({
+      message: "Vaccination center registration approved.",
+      data: approvedVc,
+    });
+  } catch (error) {
+    console.error("Error approving vaccination center:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const rejectVCById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const vc = await VCModel.findById(id);
+
+    if (!vc) {
+      return res.status(404).json({ message: "Vaccination center not found." });
+    }
+
+    const approvedVc = await VCModel.findByIdAndUpdate(
+      id,
+      { isAdminApproved: "rejected" },
+      { new: true }
+    );
+    return res.status(200).json({
+      message: "Vaccination center registration rejected.",
+      data: approvedVc,
+    });
+  } catch (error) {
+    onsole.error("Error approving vaccination center:", error);
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
@@ -279,6 +334,8 @@ const deleteVCById = (req, res) => {
 module.exports = {
   registerVC,
   loginVC,
+  approveVCById,
+  rejectVCById,
   resetVCPasswordByEmail,
   getVCDataById,
   getVCDataWithToken,

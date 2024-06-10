@@ -65,7 +65,7 @@ export const VCLogin = () => {
         dispatch(userLoggedIn(serializedUserData));
         alert("Login Successful");
         setTimeout(() => {
-          navigate("/vc/home");
+          // navigate("/vc/home");
         }, 1200);
       }
     } catch (error) {
