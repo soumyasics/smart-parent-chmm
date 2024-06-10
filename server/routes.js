@@ -31,8 +31,10 @@ router.get("/getParentDataById/:id", parent.getParentDataById);
 router.patch(
   "/updateParentDataById/:id",
   parent.upload,
-  parent.updateParentById,
+  parent.updateParentById
 );
+
+router.get("/getAllParents", parent.viewAllParents);
 router.post("/viewParentById/:id", parent.viewParentById);
 router.post("/viewParents", parent.viewParents);
 router.post("/editParentById/:id", parent.editParentById);
@@ -81,13 +83,14 @@ router.post("/viewActivityById/:id", todo.viewActivityById);
 router.post("/deleteToDOById/:id", todo.deleteToDOById);
 router.get("/getTodoItemsByParentId/:parentId", todo.getTodoItemsByParentId);
 
-
 //VC routes
 
-router.post('/registerVC',vcController.upload, 
-   validateEmailForRegistration,
-  vcController.registerVC)
-router.post('/loginVC',vcController.loginVC)
-
+router.post(
+  "/registerVC",
+  vcController.upload,
+  validateEmailForRegistration,
+  vcController.registerVC
+);
+router.post("/loginVC", validateEmailForLogin, vcController.loginVC);
 
 module.exports = router;

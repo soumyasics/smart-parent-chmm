@@ -11,11 +11,16 @@ import { HPProfilePage } from "./pages/hp/hpProfile/hpProfilePage.tsx";
 import { AddTodo } from "./pages/parent/addTodo/addTodo.tsx";
 import { DisplayTodo } from "./pages/parent/displayTodo/displayTodo.tsx";
 import { ParentForgotPassword } from "./pages/parent/forgotPassword/forgotPassword.tsx";
-import "./App.css";
 import { RegisterChild } from "./pages/parent/registerChild/registerChild.tsx";
 import { ParentProfilePage } from "./pages/parent/parentProfile/parentProfilePage.tsx";
 import { ParentResetPassword } from "./pages/parent/resetPassword/resetPassword.tsx";
 import { AdminLogin } from "./pages/admin/AdminLogin/AdminLogin.tsx";
+import { AdminDashboard } from "./pages/admin/AdminDashboard/adminDashboard.tsx";
+import { VCHome } from "./pages/vc/vcHome/vcHome.tsx";
+import "./App.css";
+import { VCSignup } from "./pages/vc/vcSignup/vcSignup.tsx";
+import { VCLogin } from "./pages/vc/vcLogin/vcLogin.tsx";
+
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
@@ -31,7 +36,10 @@ function App() {
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
-        <Route path="/parent/reset-password" element={<ParentResetPassword />} />
+        <Route
+          path="/parent/reset-password"
+          element={<ParentResetPassword />}
+        />
         <Route
           path="/parent/forgot-password"
           element={<ParentForgotPassword />}
@@ -46,7 +54,14 @@ function App() {
         {/* admin routes */}
 
         <Route path="/admin/login" element={<AdminLogin />} />
-          {/* common pages  */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+        {/* vaccination center routes  */}
+        <Route path="/vc/home" element={<VCHome />} />
+        <Route path="/vc/signup" element={<VCSignup />} />
+        <Route path="/vc/login" element={<VCLogin />} />
+
+        {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
 
         {/* testing routes  */}

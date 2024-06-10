@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const vcSchema = mongoose.Schema(
@@ -16,40 +15,36 @@ const vcSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    contact: {
+    phoneNumber: {
       type: Number,
       required: true,
     },
-    location: {
+    address: {
       type: String,
       required: true,
     },
     category: {
-        enum: ["anganvadi","hospital"],
-
+      enum: ["anganvadi", "hospital"],
       type: String,
       required: true,
     },
-    isActive: {
-  
-      type: Boolean,
-      default:false,
-    },
-  
     profilePicture: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    isAdminApproved: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+
+   
   },
   { timestamps: true }
 );
-const  vcModel = mongoose.model("vaccinationcenters", vcSchema);
-module.exports = { vcModel };
-
-
-
-
-
-
-
-
+const VCModel = mongoose.model("vaccinationcenters", vcSchema);
+module.exports = { VCModel };

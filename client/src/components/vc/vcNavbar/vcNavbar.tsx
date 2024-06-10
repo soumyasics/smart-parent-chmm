@@ -2,22 +2,20 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
-import styles from "./hpNavbar.module.css";
+import styles from "./vcNavbar.module.css";
 import { Button, Image } from "react-bootstrap";
 import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
-import { userLoggedOut } from "../../../redux/reducers/userSlilce";
-
-export const HPNavbar = () => {
+export const VCNavbar = () => {
   const navigate = useNavigate();
+  let temp = false;
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
   const [userName, setUserName] = useState("User Name");
-  const dispatch = useDispatch();
   useEffect(() => {
     if (userData) {
       const name = userData.name.substring(0, 15) || "";
@@ -29,49 +27,58 @@ export const HPNavbar = () => {
       }
       setUserName(name);
     }
-  }, []);
+  }, [userData]);
 
-  const navigateHPLogin = () => {
-    navigate("/hp/login");
+  const navigateVCLogin = () => {
+    navigate("/vc/login");
   };
 
-  const navigateHPHome = () => {
-    navigate("/hp/home");
+  const redirectVCHome = () => {
+    navigate("/vc/home");
   };
-  const handleHPLogout = () => {
-    dispatch(userLoggedOut());
-    navigate("/hp/login");
+  const redirectToVCProfile = () => {
+    navigate("/vc/profile");
   };
+
   return (
     <div className="bg-dark text-white px-4">
-      <Navbar expand="lg" className="text-white pe-5">
+      <Navbar expand="lg" className={`text-white pe-5 ${styles.parentNavbar}`}>
         <Container>
           <Navbar.Brand
-            className={`text-white ${styles.cursorPointer}`}
-            onClick={navigateHPHome}
+            onClick={redirectVCHome}
+            role="button"
+            className="fw-bold text-white"
           >
             Child Crescendo
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto  text-white w-50 justify-content-between">
-              <p className="my-0 ms-4">Home</p>
-              <p className="my-0 ">Blog</p>
-              <p className="my-0 ">Link 1</p>
-              <p className="my-0 ">Link 2 </p>
-              <p className="my-0 ">Link 3 </p>
-              <p className="my-0 ">Link 4</p>
+          <Navbar.Collapse id="basic-navbar-n av">
+            <Nav className="ms-5 text-white w-75 justify-content-between">
+              <p className="my-0" role="button" onClick={redirectVCHome}>
+                Home
+              </p>
+
+              <p className="my-0" role="button">
+                Link 1
+              </p>
+              <p className="my-0" role="button">
+                Link 2
+              </p>
+              <p className="my-0" role="button">
+                Link 3
+              </p>
+              <p className="my-0" role="button">
+                Link 4
+              </p>
+              <p className="my-0" role="button">
+                Link 5
+              </p>
             </Nav>
           </Navbar.Collapse>
         </Container>
         <Navbar.Collapse className="justify-content-end">
-          {!isAuthenticated ? (
-            <Button
-              variant={"outline-light"}
-              onClick={() => {
-                navigateHPLogin();
-              }}
-            >
+          {!temp ? (
+            <Button variant={"outline-light"} onClick={navigateVCLogin}>
               {" "}
               Login{" "}
             </Button>
@@ -98,11 +105,13 @@ export const HPNavbar = () => {
                 className={`dropdown-menu ${styles.parentNavDropdown}`}
                 aria-labelledby="dropdownMenuLink"
               >
-                <p className="  dropdown-item mb-0">Profile</p>
-                <p className="  dropdown-item mb-0">Account</p>
-                <p className=" dropdown-item mb-0" onClick={handleHPLogout}>
-                  Logout
+                <p
+                  className="  dropdown-item mb-0"
+                  onClick={redirectToVCProfile}
+                >
+                  Profile
                 </p>
+                <p className="  dropdown-item mb-0">Account</p>
               </div>
             </div>
           )}
