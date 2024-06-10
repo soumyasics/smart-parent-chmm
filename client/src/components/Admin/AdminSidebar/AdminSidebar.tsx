@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 import {
   FcBinoculars,
   FcBusinessman,
-  FcBusinesswoman,
+  FcShop,
   FcVoicePresentation,
 } from "react-icons/fc";
+
 import { LuLogOut } from "react-icons/lu";
 import "./AdminSidebar.css";
 
@@ -51,6 +52,14 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         >
           <FcBusinessman />
           <h5>Health Professionals</h5>
+        </div>
+
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("vcPending")}
+        >
+          <FcShop />
+          <h5>Pending Vaccination Centers</h5>
         </div>
         <div className="admin-sidebar-link" onClick={handleLogout}>
           <LuLogOut />
