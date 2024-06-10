@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import {
+  isOnlyNumbers,
   validateEmail,
   validatePassword,
   validatePhoneNumber,
@@ -20,18 +21,19 @@ interface VCData {
 export const VCSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const navigate = useNavigate();
-  const [vcData, setHpData] = useState<VCData>({
+  const [vcData, setVcData] = useState<VCData>({
     name: "",
     email: "",
     password: "",
     phoneNumber: "",
     address: "",
     category: "",
-    profilePicture: null
+    profilePicture: null,
   });
 
+  console.log("vc ", vcData);
   // Development only
-  // const [vcData, setHpData] = useState<HPData>({
+  // const [vcData, setVcData] = useState<HPData>({
   //   name: "hp",
   //   email: "hp@gmail.com",
   //   password: "12341234",
@@ -49,11 +51,18 @@ export const VCSignupForm = () => {
     }
     setValidated(true);
 
+    const { name, email, password, phoneNumber, address, category, profilePicture } = vcData;
+
+    if (!name || !email || !password || !phoneNumber || !address || !category) {
+      return;
+    }
+
     const isEmailValid = validateEmail(vcData.email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
       return;
     }
+
     const isPhoneNumberValid = validatePhoneNumber(vcData.phoneNumber);
     if (!isPhoneNumberValid) {
       alert("Please provide a valid phone number.");
@@ -66,37 +75,31 @@ export const VCSignupForm = () => {
       return;
     }
 
-    sendDataToServer();
-  };
-  const sendDataToServer = async () => {
     const formData = new FormData();
-    const {
-      name,
-      email,
-      password,
-      phoneNumber,
-      category,
-      profilePicture,
-    } = vcData;
 
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
     formData.append("phoneNumber", phoneNumber);
+    formData.append("address", address);
     formData.append("category", category);
-
-   
     if (profilePicture) {
       formData.append("profilePicture", profilePicture);
     }
+    sendDataToServer(formData);
+  };
+  const sendDataToServer = async (formData: FormData) => {
+
+
+    
 
     try {
-      let res = await axiosMultipartInstance.post("registerHP", formData);
+      let res = await axiosMultipartInstance.post("registerVC", formData);
 
       if (res.status === 201) {
         alert("Registration successfull.");
         setTimeout(() => {
-          navigate("/hp/login");
+          navigate("/vc/login");
         }, 1200);
       } else {
         console.log("Some issues on hp registsration.", res);
@@ -129,24 +132,20 @@ export const VCSignupForm = () => {
 
   const handleChanges = (e: any) => {
     const { name, value } = e.target;
-    setHpData((prevData) => ({ ...prevData, [name]: value }));
+    if (name === "phoneNumber" && value.length !== 0 && !isOnlyNumbers(value)) {
+      return;
+    }
+    setVcData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleProfilePictureUpload = (e: any) => {
     const pic = e.target.files[0];
-    setHpData((prevData) => ({
+    setVcData((prevData) => ({
       ...prevData,
       profilePicture: pic,
     }));
   };
 
-  const handleCertificateImgUpload = (e: any) => {
-    const pic = e.target.files[0];
-    setHpData((prevData) => ({
-      ...prevData,
-      certificateImg: pic,
-    }));
-  };
   return (
     <Form
       id="user-signup-form-input"
@@ -160,14 +159,14 @@ export const VCSignupForm = () => {
             <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Enter your name"
+                placeholder="Name"
                 name="name"
                 onChange={handleChanges}
                 value={vcData.name}
                 required
               />
               <Form.Control.Feedback type="invalid">
-                Please Enter Your Name
+                Please enter vaccine center Name
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -179,7 +178,7 @@ export const VCSignupForm = () => {
                 minLength={10}
                 maxLength={10}
                 pattern="[0-9]{10}"
-                placeholder="Enter your phone number."
+                placeholder="Phone number."
                 onChange={handleChanges}
                 value={vcData.phoneNumber}
                 name="phoneNumber"
@@ -197,7 +196,7 @@ export const VCSignupForm = () => {
           <Form.Group>
             <Form.Control
               type="email"
-              placeholder="Enter your email"
+              placeholder="Email"
               required
               name="email"
               onChange={handleChanges}
@@ -219,7 +218,7 @@ export const VCSignupForm = () => {
               type="password"
               minLength={8}
               className="password-input-eye-btn-hide"
-              placeholder="Enter your password"
+              placeholder="Password"
               name="password"
               onChange={handleChanges}
               value={vcData.password}
@@ -237,17 +236,36 @@ export const VCSignupForm = () => {
       <Row className="mt-3">
         <Col>
           <Form.Group>
-            <Form.Control
-              type="text"
-              placeholder="Enter Your category."
+            <Form.Select
               required
               name="category"
-              minLength={3}
-              onChange={handleChanges}
               value={vcData.category}
-            />
+              onChange={handleChanges}
+            >
+              <option value="">Select Category</option>
+              <option value="anganvadi">Anganvadi</option>
+              <option value="hospital">Hospital</option>
+            </Form.Select>
+
             <Form.Control.Feedback type="invalid">
               Please Enter Your category.
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+
+          <Form.Control
+              required
+              type="text"
+              placeholder="Address"
+              name="address"
+              onChange={handleChanges}
+              value={vcData.address}
+            />
+
+            <Form.Control.Feedback type="invalid">
+              Please Enter address.
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -265,7 +283,6 @@ export const VCSignupForm = () => {
             />
           </Form.Group>
         </Col>
-      
       </Row>
 
       <div className="d-flex justify-content-center mt-3">

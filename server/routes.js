@@ -92,5 +92,19 @@ router.post(
   vcController.registerVC
 );
 router.post("/loginVC", validateEmailForLogin, vcController.loginVC);
+router.patch(
+  "/approveVCById/:id",
+  validateMongooseId,
+  vcController.approveVCById
+);
+router.patch(
+  "/rejectVCById/:id",
+  validateMongooseId,
+  vcController.rejectVCById
+);
+
+router.get('/getAllPendingVc', vcController.allPendingVC);
+router.get('/getAllApprovedVc', vcController.allApprovedVC);
+router.get('/getAllRejectedVc', vcController.allRejectedVC);
 
 module.exports = router;

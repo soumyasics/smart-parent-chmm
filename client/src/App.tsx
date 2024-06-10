@@ -51,10 +51,6 @@ function App() {
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
 
-        {/* admin routes */}
-
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />
@@ -63,6 +59,11 @@ function App() {
 
         {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
+        {/* admin routes */}
+
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        
 
         {/* testing routes  */}
         <Route path="/*" element={<h1> 404 Please check your URL</h1>} />
