@@ -147,7 +147,51 @@ const rejectVCById = async (req, res) => {
       data: approvedVc,
     });
   } catch (error) {
-    onsole.error("Error approving vaccination center:", error);
+    console.error("Error approving vaccination center:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const allPendingVC = async (req, res) => {
+  try {
+    const allPendingVCs = await VCModel.find({ isAdminApproved: "pending" });
+    return res
+      .status(200)
+      .json({
+        message: "All pending vaccination centers",
+        data: allPendingVCs,
+      });
+  } catch (error) {
+    console.error("Error getting all pending vaccination center:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+const allApprovedVC = async (req, res) => {
+  try {
+    const allApprovedVc = await VCModel.find({ isAdminApproved: "approved" });
+    return res
+      .status(200)
+      .json({
+        message: "All approved vaccination centers",
+        data: allApprovedVc,
+      });
+  } catch (error) {
+    console.error("Error getting all approved vaccination center:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const allRejectedVC = async (req, res) => {
+  try {
+    const allRejectedVc = await VCModel.find({ isAdminApproved: "rejected" });
+    return res
+      .status(200)
+      .json({
+        message: "All rjected vaccination centers.",
+        data: allRejectedVc,
+      });
+  } catch (error) {
+    console.error("Error getting all rejected vaccination center:", error);
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
@@ -336,6 +380,9 @@ module.exports = {
   loginVC,
   approveVCById,
   rejectVCById,
+  allPendingVC,
+  allApprovedVC,
+  allRejectedVC,
   resetVCPasswordByEmail,
   getVCDataById,
   getVCDataWithToken,

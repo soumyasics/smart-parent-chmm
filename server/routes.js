@@ -103,4 +103,8 @@ router.patch(
   vcController.rejectVCById
 );
 
+router.get('/getAllPendingVc', vcController.allPendingVC);
+router.get('/getAllApprovedVc', vcController.allApprovedVC);
+router.get('/getAllRejectedVc', vcController.allRejectedVC);
+
 module.exports = router;
