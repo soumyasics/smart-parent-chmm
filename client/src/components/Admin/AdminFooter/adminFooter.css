@@ -1,0 +1,15 @@
+.admin-footer {
+    background-color: #000;
+    height: 96px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.admin-footer p {
+    margin-bottom: 7px;
+    font-size: 12px;
+    color: #e4dddd;
+}

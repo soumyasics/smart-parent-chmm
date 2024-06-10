@@ -1,0 +1,17 @@
+#admin-navbar-container {
+    color: white;
+}
+#admin-navbar {
+    background-color: #000 !important;
+    height: 70px;
+}
+#admin-navbar .navbar-brand {
+    color: white;
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+#admin-navbar .navbar-brand .brand-connect {
+    /* background-color: black; */
+    height: 30px;
+}
