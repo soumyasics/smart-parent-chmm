@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import {
   validateEmail,
@@ -26,6 +26,8 @@ export const ParentSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const [dobError, setDobError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
 
   const [parentData, setParentData] = useState<ParentData>({
     name: "",
@@ -36,6 +38,14 @@ export const ParentSignupForm = () => {
     dateOfBirth: "",
     profilePicture: null,
   });
+  useEffect(() => {
+    const password = parentData.password;
+    if (!password || !confirmPassword || password !== confirmPassword) {
+      setIsPasswordMatch(false);
+    } else {
+      setIsPasswordMatch(true);
+    }
+  }, [parentData.password, confirmPassword]);
   // const [parentData, setParentData] = useState<ParentData>({
   //   name: "parent",
   //   email: "parent1@gmail.com",
@@ -78,9 +88,13 @@ export const ParentSignupForm = () => {
       return;
     }
 
+    if (parentData.password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
     const isPasswordValid = validatePassword(parentData.password);
     if (!isPasswordValid) {
-      alert("Please proive a valid password");
+      alert("Please provide a valid password");
       return;
     }
 
@@ -149,7 +163,7 @@ export const ParentSignupForm = () => {
     }
   };
 
-  const handleChanges = (e: any) => {
+  const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === "dateOfBirth") {
@@ -179,6 +193,11 @@ export const ParentSignupForm = () => {
       profilePicture: pic,
     }));
   };
+
+  const checkPasswordsMatch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+  };
   return (
     <Form
       id="user-signup-form-input"
@@ -190,7 +209,7 @@ export const ParentSignupForm = () => {
         <Row className="mt-3">
           <Col>
             <Form.Group>
-            <Form.Label>Name</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Your Name"
@@ -204,9 +223,27 @@ export const ParentSignupForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
+
           <Col>
             <Form.Group>
-            <Form.Label>Email</Form.Label>
+              <Form.Label>Date of Birth</Form.Label>
+              <Form.Control
+                required
+                type="date"
+                placeholder="Please Select Your Date Of Birth"
+                name="dateOfBirth"
+                onChange={handleChanges}
+                value={parentData.dateOfBirth}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please provide your Date of Birth
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+
+          <Col>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter Your Email"
@@ -224,22 +261,6 @@ export const ParentSignupForm = () => {
       </div>
 
       <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Label>Date of Birth</Form.Label>
-            <Form.Control
-              required
-              type="date"
-              placeholder="Please Select Your Date Of Birth"
-              name="dateOfBirth"
-              onChange={handleChanges}
-              value={parentData.dateOfBirth}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide your Date of Birth
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
         <Col>
           <Form.Group
             style={{
@@ -265,12 +286,40 @@ export const ParentSignupForm = () => {
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+
+        <Col>
+          <Form.Group
+            style={{
+              position: "relative",
+            }}
+          >
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              required
+              type="password"
+              minLength={8}
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              onChange={checkPasswordsMatch}
+              value={confirmPassword}
+            />
+            {validated && (
+              <div>
+                {isPasswordMatch ? (
+                  <p className="text-success"> Password is match.</p>
+                ) : (
+                  <p className="text-danger">Password is not match.</p>
+                )}
+              </div>
+            )}
+          </Form.Group>
+        </Col>
       </Row>
 
       <Row className="mt-3">
         <Col>
           <Form.Group>
-          <Form.Label>Address</Form.Label>
+            <Form.Label>Address</Form.Label>
             <Form.Control
               type="text"
               placeholder="Please Enter Your Address."
@@ -287,7 +336,7 @@ export const ParentSignupForm = () => {
         </Col>
         <Col>
           <Form.Group>
-          <Form.Label>Phone Number</Form.Label>
+            <Form.Label>Phone Number</Form.Label>
             <Form.Control
               type="text"
               required
