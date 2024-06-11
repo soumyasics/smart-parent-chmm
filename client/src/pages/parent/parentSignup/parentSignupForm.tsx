@@ -11,6 +11,7 @@ import {
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
 import "./parentSignup.css";
 
 interface ParentData {
@@ -262,57 +263,32 @@ export const ParentSignupForm = () => {
 
       <Row className="mt-3">
         <Col>
-          <Form.Group
-            style={{
-              position: "relative",
-            }}
-          >
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              required
-              type="password"
-              minLength={8}
-              className="password-input-eye-btn-hide"
-              placeholder="Password"
-              name="password"
-              onChange={handleChanges}
-              value={parentData.password}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter your password with atleast 8 characters.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Your password is strong.
-            </Form.Control.Feedback>
-          </Form.Group>
+          <PasswordInput
+            name="password"
+            value={parentData.password}
+            handleChanges={handleChanges}
+            label="Password"
+            isLabelReq={true}
+          />
         </Col>
 
         <Col>
-          <Form.Group
-            style={{
-              position: "relative",
-            }}
-          >
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              required
-              type="password"
-              minLength={8}
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              onChange={checkPasswordsMatch}
-              value={confirmPassword}
-            />
-            {validated && (
-              <div>
-                {isPasswordMatch ? (
-                  <p className="text-success"> Password is match.</p>
-                ) : (
-                  <p className="text-danger">Password is not match.</p>
-                )}
-              </div>
-            )}
-          </Form.Group>
+          <PasswordInput
+            name="confirmPassword"
+            value={confirmPassword}
+            handleChanges={checkPasswordsMatch}
+            label="Confirm Password"
+            isLabelReq={true}
+          />
+          {validated && (
+            <div>
+              {isPasswordMatch ? (
+                <p className="text-success"> Password is match.</p>
+              ) : (
+                <p className="text-danger">Password is not match.</p>
+              )}
+            </div>
+          )}
         </Col>
       </Row>
 
