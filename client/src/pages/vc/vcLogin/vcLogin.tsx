@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
 import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 import "./vcLogin.css";
+import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
 
 export const VCLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
@@ -132,7 +133,13 @@ export const VCLogin = () => {
 
           <Row className="w-75 mx-auto mt-3">
             <Col>
-              <Form.Group style={{ position: "relative" }}>
+              <PasswordInput
+                value={password}
+                handleChanges={(e) => setPassword(e.target.value)}
+                label="Password"
+                name="password"
+              />
+              {/* <Form.Group style={{ position: "relative" }}>
                 <div
                   style={{
                     display: "inline-block",
@@ -155,7 +162,7 @@ export const VCLogin = () => {
                 <Form.Control.Feedback type="invalid">
                   Please Enter atleast 8 characters.
                 </Form.Control.Feedback>
-              </Form.Group>
+              </Form.Group> */}
             </Col>
           </Row>
           <div className="user-login-btn-container-2">

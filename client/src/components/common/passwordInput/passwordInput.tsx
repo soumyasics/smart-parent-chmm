@@ -10,7 +10,6 @@ interface PasswordInputProps {
   handleChanges: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   isLabelReq?: boolean; // optional field
-  isFieldReq?: boolean;
 }
 
 export const PasswordInput: React.FC<PasswordInputProps> = ({
@@ -19,7 +18,6 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
   handleChanges,
   name,
   isLabelReq = false,
-  isFieldReq = false,
 }) => {
   const { passwordType, toggleType } = usePasswordToggle();
 
@@ -31,7 +29,6 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
         <Form.Control
           placeholder={label}
           type={passwordType}
-          required={isFieldReq}
           value={value}
           onChange={handleChanges}
           minLength={8}
@@ -40,8 +37,9 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
         <InputGroup.Text style={{ cursor: "pointer" }} onClick={toggleType}>
           {passwordType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
         </InputGroup.Text>
+
         <Form.Control.Feedback type="invalid">
-          Please enter your {label.toLowerCase()} with at least 8 characters.
+          <p className="text-danger">Please Enter atleast 8 characters.</p>
         </Form.Control.Feedback>
       </InputGroup>
     </Form>
