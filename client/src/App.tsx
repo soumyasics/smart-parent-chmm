@@ -20,6 +20,7 @@ import { VCHome } from "./pages/vc/vcHome/vcHome.tsx";
 import "./App.css";
 import { VCSignup } from "./pages/vc/vcSignup/vcSignup.tsx";
 import { VCLogin } from "./pages/vc/vcLogin/vcLogin.tsx";
+import { PasswordInput } from "./components/common/passwordInput/passwordInput.tsx";
 
 function App() {
   return (
@@ -51,7 +52,6 @@ function App() {
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
 
-
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />
         <Route path="/vc/signup" element={<VCSignup />} />
@@ -63,9 +63,9 @@ function App() {
 
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        
 
         {/* testing routes  */}
+
         <Route path="/*" element={<h1> 404 Please check your URL</h1>} />
       </Routes>
     </BrowserRouter>

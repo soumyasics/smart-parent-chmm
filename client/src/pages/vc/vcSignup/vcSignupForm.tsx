@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import {
   isOnlyNumbers,
@@ -21,6 +21,9 @@ interface VCData {
 export const VCSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
+
   const [vcData, setVcData] = useState<VCData>({
     name: "",
     email: "",
@@ -30,18 +33,14 @@ export const VCSignupForm = () => {
     category: "",
     profilePicture: null,
   });
-
-  console.log("vc ", vcData);
-  // Development only
-  // const [vcData, setVcData] = useState<HPData>({
-  //   name: "hp",
-  //   email: "hp@gmail.com",
-  //   password: "12341234",
-  //   phoneNumber: "1234123412",
-  //   category: "doctor",
-  //   profilePicture: null,
-  //   certificateImg: null,
-  // });
+  useEffect(() => {
+    const password = vcData.password;
+    if (!password || !confirmPassword || password !== confirmPassword) {
+      setIsPasswordMatch(false);
+    } else {
+      setIsPasswordMatch(true);
+    }
+  }, [vcData.password, confirmPassword]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -51,7 +50,15 @@ export const VCSignupForm = () => {
     }
     setValidated(true);
 
-    const { name, email, password, phoneNumber, address, category, profilePicture } = vcData;
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      address,
+      category,
+      profilePicture,
+    } = vcData;
 
     if (!name || !email || !password || !phoneNumber || !address || !category) {
       return;
@@ -60,6 +67,11 @@ export const VCSignupForm = () => {
     const isEmailValid = validateEmail(vcData.email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
+      return;
+    }
+
+    if (vcData.password !== confirmPassword) {
+      alert("Passwords do not match");
       return;
     }
 
@@ -89,10 +101,6 @@ export const VCSignupForm = () => {
     sendDataToServer(formData);
   };
   const sendDataToServer = async (formData: FormData) => {
-
-
-    
-
     try {
       let res = await axiosMultipartInstance.post("registerVC", formData);
 
@@ -130,7 +138,7 @@ export const VCSignupForm = () => {
     }
   };
 
-  const handleChanges = (e: any) => {
+  const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "phoneNumber" && value.length !== 0 && !isOnlyNumbers(value)) {
       return;
@@ -231,6 +239,34 @@ export const VCSignupForm = () => {
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+        <Col>
+          <Form.Group
+            style={{
+              position: "relative",
+            }}
+          >
+            <Form.Control
+              required
+              type="password"
+              minLength={8}
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+              value={confirmPassword}
+            />
+            {validated && (
+              <div>
+                {isPasswordMatch ? (
+                  <p className="text-success"> Password is match.</p>
+                ) : (
+                  <p className="text-danger">Password is not match.</p>
+                )}
+              </div>
+            )}
+          </Form.Group>
+        </Col>
       </Row>
 
       <Row className="mt-3">
@@ -240,7 +276,12 @@ export const VCSignupForm = () => {
               required
               name="category"
               value={vcData.category}
-              onChange={handleChanges}
+              onChange={(e: any) => {
+                setVcData((prevData) => ({
+                  ...prevData,
+                  category: e.target.value,
+                }));
+              }}
             >
               <option value="">Select Category</option>
               <option value="anganvadi">Anganvadi</option>
@@ -254,8 +295,7 @@ export const VCSignupForm = () => {
         </Col>
         <Col>
           <Form.Group>
-
-          <Form.Control
+            <Form.Control
               required
               type="text"
               placeholder="Address"

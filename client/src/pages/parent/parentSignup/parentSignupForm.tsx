@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import {
   validateEmail,
@@ -11,6 +11,7 @@ import {
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
 import "./parentSignup.css";
 
 interface ParentData {
@@ -26,6 +27,8 @@ export const ParentSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const [dobError, setDobError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
 
   const [parentData, setParentData] = useState<ParentData>({
     name: "",
@@ -36,6 +39,14 @@ export const ParentSignupForm = () => {
     dateOfBirth: "",
     profilePicture: null,
   });
+  useEffect(() => {
+    const password = parentData.password;
+    if (!password || !confirmPassword || password !== confirmPassword) {
+      setIsPasswordMatch(false);
+    } else {
+      setIsPasswordMatch(true);
+    }
+  }, [parentData.password, confirmPassword]);
   // const [parentData, setParentData] = useState<ParentData>({
   //   name: "parent",
   //   email: "parent1@gmail.com",
@@ -78,9 +89,13 @@ export const ParentSignupForm = () => {
       return;
     }
 
+    if (parentData.password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
     const isPasswordValid = validatePassword(parentData.password);
     if (!isPasswordValid) {
-      alert("Please proive a valid password");
+      alert("Please provide a valid password");
       return;
     }
 
@@ -149,7 +164,7 @@ export const ParentSignupForm = () => {
     }
   };
 
-  const handleChanges = (e: any) => {
+  const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === "dateOfBirth") {
@@ -179,6 +194,11 @@ export const ParentSignupForm = () => {
       profilePicture: pic,
     }));
   };
+
+  const checkPasswordsMatch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+  };
   return (
     <Form
       id="user-signup-form-input"
@@ -190,7 +210,7 @@ export const ParentSignupForm = () => {
         <Row className="mt-3">
           <Col>
             <Form.Group>
-            <Form.Label>Name</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Your Name"
@@ -204,9 +224,27 @@ export const ParentSignupForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
+
           <Col>
             <Form.Group>
-            <Form.Label>Email</Form.Label>
+              <Form.Label>Date of Birth</Form.Label>
+              <Form.Control
+                required
+                type="date"
+                placeholder="Please Select Your Date Of Birth"
+                name="dateOfBirth"
+                onChange={handleChanges}
+                value={parentData.dateOfBirth}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please provide your Date of Birth
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+
+          <Col>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter Your Email"
@@ -225,52 +263,39 @@ export const ParentSignupForm = () => {
 
       <Row className="mt-3">
         <Col>
-          <Form.Group>
-            <Form.Label>Date of Birth</Form.Label>
-            <Form.Control
-              required
-              type="date"
-              placeholder="Please Select Your Date Of Birth"
-              name="dateOfBirth"
-              onChange={handleChanges}
-              value={parentData.dateOfBirth}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide your Date of Birth
-            </Form.Control.Feedback>
-          </Form.Group>
+          <PasswordInput
+            name="password"
+            value={parentData.password}
+            handleChanges={handleChanges}
+            label="Password"
+            isLabelReq={true}
+          />
         </Col>
+
         <Col>
-          <Form.Group
-            style={{
-              position: "relative",
-            }}
-          >
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              required
-              type="password"
-              minLength={8}
-              className="password-input-eye-btn-hide"
-              placeholder="Password"
-              name="password"
-              onChange={handleChanges}
-              value={parentData.password}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter your password with atleast 8 characters.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Your password is strong.
-            </Form.Control.Feedback>
-          </Form.Group>
+          <PasswordInput
+            name="confirmPassword"
+            value={confirmPassword}
+            handleChanges={checkPasswordsMatch}
+            label="Confirm Password"
+            isLabelReq={true}
+          />
+          {validated && (
+            <div>
+              {isPasswordMatch ? (
+                <p className="text-success"> Password is match.</p>
+              ) : (
+                <p className="text-danger">Password is not match.</p>
+              )}
+            </div>
+          )}
         </Col>
       </Row>
 
       <Row className="mt-3">
         <Col>
           <Form.Group>
-          <Form.Label>Address</Form.Label>
+            <Form.Label>Address</Form.Label>
             <Form.Control
               type="text"
               placeholder="Please Enter Your Address."
@@ -287,7 +312,7 @@ export const ParentSignupForm = () => {
         </Col>
         <Col>
           <Form.Group>
-          <Form.Label>Phone Number</Form.Label>
+            <Form.Label>Phone Number</Form.Label>
             <Form.Control
               type="text"
               required

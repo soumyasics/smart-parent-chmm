@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import "./forgotPassword.css";
 
@@ -8,6 +8,7 @@ import { CommonFooter } from "../../../components/common/footer/footer";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
+import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
 
 interface PasswordResetData {
   email: string;
@@ -18,8 +19,18 @@ export const ParentForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!password || !confirmPassword || password !== confirmPassword) {
+      setIsPasswordMatch(false);
+    } else {
+      setIsPasswordMatch(true);
+    }
+  }, [password, confirmPassword]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
@@ -31,6 +42,10 @@ export const ParentForgotPassword: React.FC = () => {
       password !== confirmPassword
     ) {
       alert("Password and confirm password should match.");
+      return;
+    }
+    if (password.length < 8) {
+      alert("Password should be at least 8 characters long.");
       return;
     }
     // Handle the form submission logic here
@@ -97,39 +112,35 @@ export const ParentForgotPassword: React.FC = () => {
                   Please provide a valid email.
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group className="mt-3" controlId="formPassword">
-                <Form.Label>New Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter your new password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={8}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please provide atleast 8 characters password
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-3" controlId="formEmail">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Please confirm your password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  minLength={8}
-                />
 
-                {isSubmitted && password === confirmPassword && (
-                  <p className="text-success">Passwords match</p>
-                )}
+              <PasswordInput
+                label="New Password"
+                handleChanges={(e) => {
+                  setPassword(e.target.value);
+                }}
+                isLabelReq={true}
+                name="password"
+                value={password}
+              />
+              <PasswordInput
+                label="Confirm Password"
+                handleChanges={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+                isLabelReq={true}
+                name="confirmPassword"
+                value={confirmPassword}
+              />
+              {isSubmitted && password.length >= 8 && (
+                <div>
+                  {isPasswordMatch ? (
+                    <p className="text-success">Passwords match</p>
+                  ) : (
+                    <p className="text-danger">Passwords do not match</p>
+                  )}
+                </div>
+              )}
 
-                {isSubmitted && password !== confirmPassword && (
-                  <p className="text-danger">Passwords do not match</p>
-                )}
-              </Form.Group>
               <div className="d-flex mt-3 justify-content-center">
                 <Button
                   variant="primary"
@@ -140,8 +151,9 @@ export const ParentForgotPassword: React.FC = () => {
                 </Button>
                 <Button
                   variant="success"
-                  onClick={redirectToParentLogin}
-                  type="submit"
+                  onClick={() => {
+                    navigate("/parent/login");
+                  }}
                   className="mx-auto mt-3"
                 >
                   Go Back
