@@ -62,7 +62,7 @@ export const HPSignupForm = () => {
 
     const isPasswordValid = validatePassword(hpData.password);
     if (!isPasswordValid) {
-      alert("Please proive a valid password");
+      alert("Please provide valid password");
       return;
     }
 

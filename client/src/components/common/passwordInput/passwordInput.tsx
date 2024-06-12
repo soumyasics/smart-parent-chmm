@@ -22,7 +22,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
   const { passwordType, toggleType } = usePasswordToggle();
 
   return (
-    <Form>
+    <div>
       {isLabelReq && <Form.Label>{label}</Form.Label>}
 
       <InputGroup>
@@ -43,6 +43,6 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
           <p className="text-danger">Please Enter atleast 8 characters.</p>
         </Form.Control.Feedback>
       </InputGroup>
-    </Form>
+    </div>
   );
 };

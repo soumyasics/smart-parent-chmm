@@ -128,7 +128,6 @@ export const ParentNavbar = () => {
                 >
                   Profile
                 </p>
-                <p className="dropdown-item mb-0">Account</p>
                 <p className="dropdown-item mb-0 text-danger" onClick={handleLogout}>
                   Log out
                 </p>

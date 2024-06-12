@@ -6,6 +6,8 @@ import resetPasswordImg from "../../../assets/pass-reset.jpg";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
+import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import { current } from "@reduxjs/toolkit";
 
 interface PasswordResetData {
   email: string;
@@ -18,15 +20,36 @@ export const ParentResetPassword: React.FC = () => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
-  console.log("p", password, "ne", newPassword, "c", confirmPassword);
+  
+
+  const resetFields = () => {
+    setEmail("");
+    setPassword("");
+    setNewPassword("");
+    setConfirmPassword("")
+  }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+
+    if (!password) {
+      alert("Please enter current password");
+      return;
+    }
+
+    if (password.length < 8) {
+      alert("Password should be at least 8 characters long.");
+      return;
+    }
+    if (!newPassword || newPassword.length < 8) {
+      alert("New password should be at least 8 characters long.");
+      return;
+    }
 
     if (newPassword !== confirmPassword) {
-      alert("Password and confirm password should match.");
+      alert(
+        "New password and confirm password are not same! Please try agian."
+      );
       return;
     }
     // Handle the form submission logic here
@@ -42,9 +65,8 @@ export const ParentResetPassword: React.FC = () => {
     try {
       let res = await axiosInstance.patch("resetParentPasswordByEmail", data);
       if (res.status === 200) {
-        console.log("Password reset successfully");
         alert("Password reset successfully");
-        redirectToParentProfile();
+        resetFields()
       } else {
         console.log("Something went wrong.", res);
       }
@@ -61,7 +83,7 @@ export const ParentResetPassword: React.FC = () => {
             error?.response?.data?.message ||
             "Something went wrong. Please try again later.";
 
-            console.log("mss", msg)
+          console.log("mss", msg);
           alert(msg);
         } else {
           alert("Something went wrong. Please try again later.");
@@ -103,53 +125,38 @@ export const ParentResetPassword: React.FC = () => {
                   Please provide a valid email.
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group className="mt-3" controlId="formPassword">
-                <Form.Label>Current Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter your current password"
+
+              <Row className="mt-3">
+                <PasswordInput
+                  label="Current Password"
+                  isLabelReq={true}
+                  name="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={8}
+                  handleChanges={(e) => setPassword(e.target.value)}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Please provide atleast 8 characters password
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-3" controlId="formPassword">
-                <Form.Label>New Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter your new password"
+              </Row>
+
+              <Row className="mt-3">
+                <PasswordInput
+                  handleChanges={(e) => setNewPassword(e.target.value)}
+                  label="New Password"
                   value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
-                  minLength={8}
+                  name="new password"
+                  isLabelReq={true}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Please provide atleast 8 characters password
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-3" controlId="formEmail">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Please confirm your password"
+              </Row>
+
+              <Row className="mt-3">
+                <PasswordInput
+                  handleChanges={(e) => setConfirmPassword(e.target.value)}
+                  label="Confirm Password"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  minLength={8}
+                  name="confirmPassword"
+                  isLabelReq={true}
                 />
+              </Row>
 
-                {isSubmitted && newPassword === confirmPassword && (
-                  <p className="text-success">Passwords match</p>
-                )}
-
-                {isSubmitted && newPassword !== confirmPassword && (
-                  <p className="text-danger">Passwords do not match</p>
-                )}
-              </Form.Group>
+              
               <div className="d-flex mt-3 justify-content-center">
                 <Button
                   variant="primary"
@@ -157,14 +164,6 @@ export const ParentResetPassword: React.FC = () => {
                   className="mx-auto mt-3"
                 >
                   Reset Password
-                </Button>
-                <Button
-                  variant="success"
-                  onClick={redirectToParentProfile}
-                  type="submit"
-                  className="mx-auto mt-3"
-                >
-                  Go Back
                 </Button>
               </div>
             </Form>

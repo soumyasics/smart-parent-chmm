@@ -20,10 +20,10 @@ interface ProfileViewProps {
 }
 
 export interface NewParentData {
-  name: string;
-  phoneNumber: string;
-  address: string;
-  profilePicture: string | File | null;
+  name?: string;
+  phoneNumber?: string;
+  address?: string;
+  profilePicture?: string | File | null;
 }
 
 export const ProfileEdit: React.FC<ProfileViewProps> = ({

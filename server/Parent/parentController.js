@@ -22,15 +22,23 @@ const { isValidObjectId } = require("mongoose");
 
 const registerParent = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, address, dateOfBirth } =
-      req.body;
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      address,
+      dateOfBirth,
+      parentalStatus,
+    } = req.body;
     if (
       !name ||
       !email ||
       !password ||
       !phoneNumber ||
       !address ||
-      !dateOfBirth
+      !dateOfBirth ||
+      !parentalStatus
     ) {
       return res.status(400).json({
         message: "All fields are required.",
@@ -46,6 +54,7 @@ const registerParent = async (req, res) => {
       phoneNumber,
       address,
       dateOfBirth,
+      parentalStatus,
       profilePicture: req.file?.path ? req.file : null,
     });
 

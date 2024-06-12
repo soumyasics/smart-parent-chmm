@@ -84,7 +84,7 @@ export const VCSignupForm = () => {
 
     const isPasswordValid = validatePassword(vcData.password);
     if (!isPasswordValid) {
-      alert("Please proive a valid password");
+      alert("Please provide a valid password");
       return;
     }
 

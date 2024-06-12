@@ -33,9 +33,9 @@ const parentSchema = mongoose.Schema(
       default: "active",
     },
     parentalStatus: {
-      enum: ["Mother", "Father", "Expected"],
+      enum: ["Mother", "Father","Guardian","Expected"],
       type: String,
-      default: "Mother",
+      required: true
     },
     profilePicture: {
       type: Object,
