@@ -9,12 +9,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
+import { useDispatch } from "react-redux";
+import { userLoggedOut } from "../../../redux/reducers/userSlilce";
 export const ParentNavbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
   const [userName, setUserName] = useState("User Name");
+  const dispatch = useDispatch();
   useEffect(() => {
     if (userData) {
       const name = userData.name.substring(0, 15) || "";
@@ -32,14 +35,6 @@ export const ParentNavbar = () => {
     navigate("/parent/login");
   };
 
-  const navigateParentAddTodo = () => {
-    navigate("/parent/add-todo");
-  };
-  const navigateParentDisplayTodo = () => {
-    navigate("/parent/display-todo");
-  };
-
-
   const redirectParentHome = () => {
     navigate("/parent/home");
   };
@@ -48,8 +43,13 @@ export const ParentNavbar = () => {
   };
 
   const redirectToParentProfile = () => {
-    navigate('/parent/profile')
-  }
+    navigate("/parent/profile");
+  };
+
+  const handleLogout = () => {
+    dispatch(userLoggedOut());
+    navigate("/parent/login");
+  };
 
   return (
     <div className="bg-dark text-white px-4">
@@ -68,15 +68,20 @@ export const ParentNavbar = () => {
               <p className="my-0" role="button" onClick={redirectParentHome}>
                 Home
               </p>
-              <p className="my-0" role="button" onClick={navigateParentAddTodo}>
-                Add Todo
+
+              <p
+                className="my-0"
+                role="button"
+                // onClick={navigateParentDisplayTodo}
+              >
+                Asha Workers
               </p>
               <p
                 className="my-0"
                 role="button"
-                onClick={navigateParentDisplayTodo}
+                // onClick={navigateParentDisplayTodo}
               >
-                Display Todo
+                Health Professional
               </p>
               <p className="my-0" role="button" onClick={redirectRegisterChild}>
                 Register Child
@@ -117,8 +122,16 @@ export const ParentNavbar = () => {
                 className={`dropdown-menu ${styles.parentNavDropdown}`}
                 aria-labelledby="dropdownMenuLink"
               >
-                <p className="  dropdown-item mb-0" onClick={redirectToParentProfile}>Profile</p>
-                <p className="  dropdown-item mb-0">Account</p>
+                <p
+                  className="dropdown-item mb-0"
+                  onClick={redirectToParentProfile}
+                >
+                  Profile
+                </p>
+                <p className="dropdown-item mb-0">Account</p>
+                <p className="dropdown-item mb-0 text-danger" onClick={handleLogout}>
+                  Log out
+                </p>
               </div>
             </div>
           )}

@@ -27,6 +27,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
 
       <InputGroup>
         <Form.Control
+          required
           placeholder={label}
           type={passwordType}
           value={value}

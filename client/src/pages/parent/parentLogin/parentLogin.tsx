@@ -11,8 +11,8 @@ import { UserState } from "../../../redux/types";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
 import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
-import "./parentLogin.css";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import "./parentLogin.css";
 
 export const ParentLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
@@ -21,12 +21,25 @@ export const ParentLogin = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const { isAuthenticated, userType } = useSelector(
+  //   (state: RootState) => state.user
+  // );
+  // useEffect(() => {
+  //   if (isAuthenticated && userType === "parent") {
+  //     navigate("/parent/home");
+  //   }
+  // }, [isAuthenticated, userType]);
   const navigateParentSignup = () => {
     navigate("/parent/signup");
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    }
+
     setValidated(true);
 
     const isEmailValid = validateEmail(email);
@@ -135,30 +148,6 @@ export const ParentLogin = () => {
                 name="password"
                 value={password}
               />
-              {/* <Form.Group style={{ position: "relative" }}>
-                <div
-                  style={{
-                    display: "inline-block",
-                    cursor: "pointer",
-                    position: "absolute",
-                    top: "7px",
-                    right: "75px",
-                  }}
-                ></div>
-                <Form.Control
-                  required
-                  className="user-login-input password-input-eye-btn-hide"
-                  type="password"
-                  minLength={8}
-                  value={password}
-                  placeholder="Password"
-                  name="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please Enter atleast 8 characters.
-                </Form.Control.Feedback>
-              </Form.Group> */}
             </Col>
           </Row>
           <div className="user-login-btn-container-2">

@@ -9,6 +9,7 @@ import {
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
 interface VCData {
   name: string;
   email: string;
@@ -216,7 +217,13 @@ export const VCSignupForm = () => {
           </Form.Group>
         </Col>
         <Col>
-          <Form.Group
+          <PasswordInput
+            handleChanges={handleChanges}
+            value={vcData.password}
+            label="Password"
+            name="password"
+          />
+          {/* <Form.Group
             style={{
               position: "relative",
             }}
@@ -237,10 +244,18 @@ export const VCSignupForm = () => {
             <Form.Control.Feedback>
               Your password is strong.
             </Form.Control.Feedback>
-          </Form.Group>
+          </Form.Group> */}
         </Col>
         <Col>
-          <Form.Group
+          <PasswordInput
+            handleChanges={(e) => {
+              setConfirmPassword(e.target.value);
+            }}
+            value={confirmPassword}
+            label="Confirm Password"
+            name="confirmPassword"
+          />
+          {/* <Form.Group
             style={{
               position: "relative",
             }}
@@ -256,16 +271,17 @@ export const VCSignupForm = () => {
               }}
               value={confirmPassword}
             />
-            {validated && (
-              <div>
-                {isPasswordMatch ? (
-                  <p className="text-success"> Password is match.</p>
-                ) : (
-                  <p className="text-danger">Password is not match.</p>
-                )}
-              </div>
-            )}
-          </Form.Group>
+            
+          </Form.Group> */}
+          {validated && (
+            <div>
+              {isPasswordMatch ? (
+                <p className="text-success"> Password is match.</p>
+              ) : (
+                <p className="text-danger">Password is not match.</p>
+              )}
+            </div>
+          )}
         </Col>
       </Row>
 

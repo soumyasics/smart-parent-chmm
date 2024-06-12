@@ -21,6 +21,7 @@ import "./App.css";
 import { VCSignup } from "./pages/vc/vcSignup/vcSignup.tsx";
 import { VCLogin } from "./pages/vc/vcLogin/vcLogin.tsx";
 import { PasswordInput } from "./components/common/passwordInput/passwordInput.tsx";
+import { ProtectLoginPage } from "./components/common/protectRoutes/protectLoginPage.tsx";
 
 function App() {
   return (
@@ -31,7 +32,14 @@ function App() {
         {/* parent routes  */}
 
         <Route path="/parent/signup" element={<ParentSignupPage />} />
-        <Route path="/parent/login" element={<ParentLogin />} />
+        <Route
+          path="/parent/login"
+          element={
+            <ProtectLoginPage>
+              <ParentLogin />
+            </ProtectLoginPage>
+          }
+        />
         <Route path="/parent/home" element={<ParentHome />} />
         <Route path="/parent/add-todo" element={<AddTodo />} />
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
@@ -47,7 +55,14 @@ function App() {
         />
 
         {/* health professional routes */}
-        <Route path="/hp/login" element={<HPLogin />} />
+        <Route
+          path="/hp/login"
+          element={
+            <ProtectLoginPage>
+              <HPLogin />
+            </ProtectLoginPage>
+          }
+        />
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
