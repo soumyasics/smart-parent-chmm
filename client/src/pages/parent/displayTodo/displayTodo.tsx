@@ -5,10 +5,7 @@ import { DisplayTodoTable } from "./todoTable";
 export const DisplayTodo = () => {
   return (
     <div>
-      <ParentNavbar />
-
       <DisplayTodoTable />
-      <CommonFooter />
     </div>
   );
 };

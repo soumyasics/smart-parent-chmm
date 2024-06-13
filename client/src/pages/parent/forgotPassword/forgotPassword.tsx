@@ -41,7 +41,7 @@ export const ParentForgotPassword: React.FC = () => {
       !confirmPassword ||
       password !== confirmPassword
     ) {
-      alert("Password and confirm password should match.");
+      alert("Password and confirm password do not match! Please try agian.");
       return;
     }
     if (password.length < 8) {

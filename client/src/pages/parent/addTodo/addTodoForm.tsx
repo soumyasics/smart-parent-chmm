@@ -58,12 +58,19 @@ export const AddTodoForm = () => {
     sendDataToServer(serializedData);
   };
 
+  const resetForm = () => {
+    setActivityName("");
+    setActivityDate("");
+    setActivityTimeHrs("");
+    setActivityTimeMins("");
+  }
+
   const sendDataToServer = async (serializedData: ActivityData) => {
     try {
       let res = await axiosInstance.post("addToDo", serializedData);
       if (res.status === 201) {
         alert("Item Added Successfully");
-        navigate("/parent/display-todo");
+        resetForm()
         return;
       }
     } catch (error: unknown) {

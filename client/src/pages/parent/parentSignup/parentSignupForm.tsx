@@ -21,6 +21,7 @@ interface ParentData {
   phoneNumber: string;
   address: string;
   dateOfBirth: string;
+  parentalStatus: string;
   profilePicture: File | null;
 }
 export const ParentSignupForm = () => {
@@ -36,6 +37,7 @@ export const ParentSignupForm = () => {
     password: "",
     phoneNumber: "",
     address: "",
+    parentalStatus: "",
     dateOfBirth: "",
     profilePicture: null,
   });
@@ -57,22 +59,31 @@ export const ParentSignupForm = () => {
   //   profilePicture: null,
   // });
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  console.log("pard", parentData)
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      e.stopPropagation();
+      event.stopPropagation();
     }
     setValidated(true);
-    const { name, email, password, phoneNumber, dateOfBirth, address } =
-      parentData;
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      dateOfBirth,
+      address,
+      parentalStatus,
+    } = parentData;
     if (
       !name ||
       !email ||
       !password ||
       !phoneNumber ||
       !dateOfBirth ||
-      !address
+      !address ||
+      !parentalStatus
     ) {
       // alert("Please fill all the fields");
       console.log("parent data", parentData);
@@ -115,6 +126,7 @@ export const ParentSignupForm = () => {
       address,
       dateOfBirth,
       profilePicture,
+      parentalStatus,
     } = parentData;
 
     formData.append("name", name);
@@ -123,6 +135,7 @@ export const ParentSignupForm = () => {
     formData.append("phoneNumber", phoneNumber);
     formData.append("address", address);
     formData.append("dateOfBirth", dateOfBirth);
+    formData.append("parentalStatus", parentalStatus);
     if (profilePicture) {
       formData.append("profilePicture", profilePicture);
     }
@@ -164,8 +177,13 @@ export const ParentSignupForm = () => {
     }
   };
 
-  const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setParentData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
     if (name === "dateOfBirth") {
       const isValid: boolean = isValidDob(value);
@@ -227,23 +245,6 @@ export const ParentSignupForm = () => {
 
           <Col>
             <Form.Group>
-              <Form.Label>Date of Birth</Form.Label>
-              <Form.Control
-                required
-                type="date"
-                placeholder="Please Select Your Date Of Birth"
-                name="dateOfBirth"
-                onChange={handleChanges}
-                value={parentData.dateOfBirth}
-              />
-              <Form.Control.Feedback type="invalid">
-                Please provide your Date of Birth
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
-
-          <Col>
-            <Form.Group>
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -280,15 +281,45 @@ export const ParentSignupForm = () => {
             label="Confirm Password"
             isLabelReq={true}
           />
-          {validated && (
-            <div>
-              {isPasswordMatch ? (
-                <p className="text-success"> Password is match.</p>
-              ) : (
-                <p className="text-danger">Password is not match.</p>
-              )}
-            </div>
-          )}
+        </Col>
+      </Row>
+
+      <Row className="mt-3">
+        <Col>
+          <Form.Group>
+            <Form.Label>Date of Birth</Form.Label>
+            <Form.Control
+              required
+              type="date"
+              placeholder="Please Select Your Date Of Birth"
+              name="dateOfBirth"
+              onChange={handleChanges}
+              value={parentData.dateOfBirth}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide your Date of Birth
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label>Parental Status</Form.Label>
+            <Form.Select
+              required
+              name="parentalStatus"
+              onChange={handleSelectChange}
+              value={parentData.parentalStatus}
+            >
+              <option value="">Select Parental Status</option>
+              <option value="Mother">Mother</option>
+              <option value="Father">Father</option>
+              <option value="Expected">Expected</option>
+              <option value="Guardian">Guardian</option>
+            </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              Please choose your parental Status
+            </Form.Control.Feedback>
+          </Form.Group>
         </Col>
       </Row>
 

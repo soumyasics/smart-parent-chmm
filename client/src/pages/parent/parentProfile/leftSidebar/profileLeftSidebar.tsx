@@ -7,6 +7,8 @@ import {
   FaBell,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { RiTodoFill } from "react-icons/ri";
+import { CgDisplayGrid } from "react-icons/cg";
 import "./profileLeftSidebar.css";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -37,9 +39,15 @@ export const ParentProfileLeftSidebar: React.FC<
         </ListGroup.Item>
         <ListGroup.Item
           className="sidebar-item"
-          onClick={() => changeActivePage("todos")}
+          onClick={() => changeActivePage("add-todo")}
         >
-          <FaHeart className="sidebar-icon" /> Todos
+          <RiTodoFill className="sidebar-icon" /> Add Todos
+        </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item"
+          onClick={() => changeActivePage("display-todo")}
+        >
+          <CgDisplayGrid className="sidebar-icon" /> Display Todos
         </ListGroup.Item>
         <ListGroup.Item
           className="sidebar-item"

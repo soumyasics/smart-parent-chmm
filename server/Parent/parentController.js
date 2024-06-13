@@ -22,15 +22,23 @@ const { isValidObjectId } = require("mongoose");
 
 const registerParent = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, address, dateOfBirth } =
-      req.body;
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      address,
+      dateOfBirth,
+      parentalStatus,
+    } = req.body;
     if (
       !name ||
       !email ||
       !password ||
       !phoneNumber ||
       !address ||
-      !dateOfBirth
+      !dateOfBirth ||
+      !parentalStatus
     ) {
       return res.status(400).json({
         message: "All fields are required.",
@@ -46,6 +54,7 @@ const registerParent = async (req, res) => {
       phoneNumber,
       address,
       dateOfBirth,
+      parentalStatus,
       profilePicture: req.file?.path ? req.file : null,
     });
 
@@ -179,20 +188,28 @@ const updateParentById = async (req, res) => {
     if (!parent) {
       return res.status(404).json({ message: "Parent not found" });
     }
-
     const { name, email, phoneNumber, address } = req.body;
 
-    const updatedParent = await ParentModel.findByIdAndUpdate(
-      id,
-      {
-        name,
-        email,
-        phoneNumber,
-        address,
-        profilePicture: req.file?.path ? req.file : null,
-      },
-      { new: true }
-    );
+    let newValues = {};
+    if (name) {
+      newValues.name = name;
+    }
+    if (email) {
+      newValues.email = email;
+    }
+    if (phoneNumber) {
+      newValues.phoneNumber = phoneNumber;
+    }
+    if (address) {
+      newValues.address = address;
+    }
+    if (req.file?.path) {
+      newValues.profilePicture = req.file;
+    }
+
+    const updatedParent = await ParentModel.findByIdAndUpdate(id, newValues, {
+      new: true,
+    });
 
     if (updatedParent) {
       return res.status(200).json({
