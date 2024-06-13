@@ -6,7 +6,7 @@ import { ParentData } from "../types.ts";
 import { FC } from "react";
 interface ConversationProps {
   activeParticipant: ParentData | null;
-  chooseParticipant: (participant: ParentData ) => void;
+  chooseParticipant: (participant: ParentData) => void;
 }
 
 const Conversations: FC<ConversationProps> = ({
@@ -37,6 +37,7 @@ const Conversations: FC<ConversationProps> = ({
           {Array.isArray(allParents) &&
             allParents?.map((parent) => (
               <Conversation
+                key={parent?._id}
                 parent={parent}
                 activeParticipant={activeParticipant}
                 chooseParticipant={chooseParticipant}

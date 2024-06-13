@@ -110,6 +110,6 @@ router.get("/getVCDataById/:id", vcController.getVCDataById);
 
 // Parent and vc conversation routes
 router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
-router.get("/getSingleConversation", parentAndVCChat.getSingleConversation);
+router.post("/getSingleConversation", parentAndVCChat.getSingleConversation);
 
 module.exports = router;

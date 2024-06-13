@@ -2,15 +2,62 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { ParentData } from "../types.ts";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../../../utils/modification/capitalizeFirstLetter.ts";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store.ts";
+import { useCustomNavigate } from "../../../../hooks/useCustomNavigate.ts";
+import axiosInstance from "../../../../apis/axiosInstance.ts";
+import axios from "axios";
 interface MessageContainerProps {
   activeParticipant: ParentData | null;
+}
+
+interface GetConversation {
+  VCId: string;
+  parentId: string;
 }
 export const MessageContainer: FC<MessageContainerProps> = ({
   activeParticipant,
 }) => {
+  const [conversation, setConversation] = useState([]);
+  const [error, setError] = useState("");
   const isChatSelected = activeParticipant ? true : null;
+  const navigateTo = useCustomNavigate();
+  const { userId: VCId } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    const parentId = activeParticipant?._id;
+    if (VCId && parentId) {
+      getConversation({
+        VCId,
+        parentId,
+      });
+    } else {
+      console.log("Choose a parent first");
+    }
+  }, [activeParticipant, VCId]);
+
+  const getConversation = async (payload: GetConversation) => {
+    try {
+      const res = await axiosInstance.post("getSingleConversation", payload);
+      if (res.status === 200) {
+        const data = res.data?.data || [];
+
+        setConversation(data);
+      } else {
+        throw new Error("Something went wrong.");
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const errMsg =
+          error?.response?.data?.message || "Something went wrong.";
+        setError(errMsg);
+      } else {
+        setError("Something went wrong.");
+      }
+    }
+  };
 
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">
@@ -25,8 +72,8 @@ export const MessageContainer: FC<MessageContainerProps> = ({
 
         {isChatSelected ? (
           <div>
-            <Messages />
-            <MessageInput />
+            <Messages conversation={conversation} />
+            <MessageInput activeParticipant={activeParticipant} />
           </div>
         ) : (
           <NoChatSelected />

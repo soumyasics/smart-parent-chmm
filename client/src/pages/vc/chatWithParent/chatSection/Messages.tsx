@@ -1,26 +1,13 @@
-import { Message, Message2, Message3 } from "./Message";
+import { Message } from "./Message";
 
-const Messages = () => {
+const Messages = ({ conversation }) => {
   return (
     <div className="tw-px-4 tw-flex-1 tw-overflow-auto">
-      <Message />
-      <Message2 />
-      <Message3 />
-      <Message />
-      <Message2 />
-      <Message3 />
-      <Message />
-      <Message2 />
-      <Message3 />
-      <Message />
-      <Message2 />
-      <Message3 />
-      <Message />
-      <Message2 />
-      <Message3 />
-      <Message />
-      <Message2 />
-      <Message3 />
+      {conversation?.map((message) => {
+
+
+        return <Message message={message} key={message?._id} />;
+      })}
     </div>
   );
 };
