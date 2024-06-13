@@ -102,7 +102,8 @@ export const ParentNavbar = () => {
           ) : (
             <div className="dropdown show">
               <button
-                className="btn btn-secondary dropdown-toggle bg-dark"
+                style={{ width: "180px" }}
+                className="btn d-flex btn-secondary  bg-dark"
                 role="button"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
@@ -114,7 +115,7 @@ export const ParentNavbar = () => {
                   className="me-2"
                   style={{ width: "30px", height: "30px", borderRadius: "50%" }}
                 />
-                <span>{userName}</span>
+                <span>{userName.split(" ")[0].substring(0, 15)}</span>
               </button>
 
               <div
@@ -128,7 +129,10 @@ export const ParentNavbar = () => {
                 >
                   Profile
                 </p>
-                <p className="dropdown-item mb-0 text-danger" onClick={handleLogout}>
+                <p
+                  className="dropdown-item mb-0 text-danger"
+                  onClick={handleLogout}
+                >
                   Log out
                 </p>
               </div>

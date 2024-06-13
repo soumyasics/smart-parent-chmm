@@ -31,44 +31,44 @@ export const ParentProfileLeftSidebar: React.FC<
       <h2 className="sidebar-title">Parent Profile</h2>
       <ListGroup variant="flush" id="profile-page-sidebar">
         <ListGroup.Item
-          className="sidebar-item"
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("profile")}
         >
           <FaUser className="sidebar-icon" /> Profile
         </ListGroup.Item>
         <ListGroup.Item
-          className="sidebar-item"
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("add-todo")}
         >
           <RiTodoFill className="sidebar-icon" /> Add Todos
         </ListGroup.Item>
         <ListGroup.Item
-          className="sidebar-item"
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("display-todo")}
         >
           <CgDisplayGrid className="sidebar-icon" /> Display Todos
         </ListGroup.Item>
         <ListGroup.Item
-          className="sidebar-item"
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("notifications")}
         >
           <FaBell className="sidebar-icon" /> Notifications
         </ListGroup.Item>
         <ListGroup.Item
-          className="sidebar-item"
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("child")}
         >
           <FaStar className="sidebar-icon" /> Child
         </ListGroup.Item>
         <ListGroup.Item
-          className="sidebar-item"
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("reset-password")}
         >
           <FaCog className="sidebar-icon" /> Reset Password
         </ListGroup.Item>
 
         <ListGroup.Item
-          className="sidebar-item logout text-danger fw-bold"
+          className="sidebar-item logout text-danger fw-bold d-flex"
           onClick={handleParentLogout}
         >
           <FaSignOutAlt className="sidebar-icon" /> Log out
