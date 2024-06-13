@@ -9,9 +9,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
+import { useDispatch } from "react-redux";
+import { userLoggedOut } from "../../../redux/reducers/userSlilce";
 export const VCNavbar = () => {
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
+
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
@@ -40,6 +43,11 @@ export const VCNavbar = () => {
     navigate("/vc/profile");
   };
 
+  const handleLogout = () => {
+    dispatch(userLoggedOut());
+    navigate("/vc/login");
+  };
+
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className={`text-white pe-5 ${styles.parentNavbar}`}>
@@ -58,8 +66,8 @@ export const VCNavbar = () => {
                 Home
               </p>
 
-              <p className="my-0" role="button">
-                Link 1
+              <p className="my-0" role="button" >
+                Chat
               </p>
               <p className="my-0" role="button">
                 Link 2
@@ -111,7 +119,12 @@ export const VCNavbar = () => {
                 >
                   Profile
                 </p>
-                <p className="  dropdown-item mb-0">Account</p>
+                <p
+                  className="text-danger  dropdown-item mb-0"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </p>
               </div>
             </div>
           )}

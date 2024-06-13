@@ -8,6 +8,7 @@ export const AdminVCPending = () => {
   const [vcPendingData, setVCPendingData] = useState([]);
   const [error, setError] = useState("");
 
+  console.log("err", error)
   useEffect(() => {
     getPendingVCs();
   }, []);

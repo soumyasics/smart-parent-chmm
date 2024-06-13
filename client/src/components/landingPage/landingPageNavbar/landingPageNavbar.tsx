@@ -29,7 +29,7 @@ export const LandingPageNavbar = () => {
           <Navbar.Brand
             className={`text-white ${styles.commonNavbarBrandLogo}`}
             role="button"
-            href="#home"
+            onClick={() => navigate("/")}
           >
             Child Crescendo
           </Navbar.Brand>
@@ -61,10 +61,7 @@ export const LandingPageNavbar = () => {
               </option>
               {navigateOptions.map((option) => {
                 return (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
+                  <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
                 );

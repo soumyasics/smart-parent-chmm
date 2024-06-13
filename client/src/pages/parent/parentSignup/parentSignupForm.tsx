@@ -30,6 +30,7 @@ export const ParentSignupForm = () => {
   const navigate = useNavigate();
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
+  console.log("isPas", isPasswordMatch)
 
   const [parentData, setParentData] = useState<ParentData>({
     name: "",

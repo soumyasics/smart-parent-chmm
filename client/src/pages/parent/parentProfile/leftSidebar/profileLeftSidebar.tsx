@@ -1,7 +1,6 @@
 import { ListGroup } from "react-bootstrap";
 import {
   FaUser,
-  FaHeart,
   FaStar,
   FaCog,
   FaBell,

@@ -20,7 +20,6 @@ import { VCHome } from "./pages/vc/vcHome/vcHome.tsx";
 import "./App.css";
 import { VCSignup } from "./pages/vc/vcSignup/vcSignup.tsx";
 import { VCLogin } from "./pages/vc/vcLogin/vcLogin.tsx";
-import { PasswordInput } from "./components/common/passwordInput/passwordInput.tsx";
 import { ProtectLoginPage } from "./components/common/protectRoutes/protectLoginPage.tsx";
 import { VCProfilePage } from "./pages/vc/vcProfile/profilePage.tsx";
 

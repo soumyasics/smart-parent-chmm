@@ -1,8 +1,7 @@
-import { FC } from "react";
 import { Button, Table } from "react-bootstrap";
 import "./adminVCPendingTable.css";
 
-export const AdminVCPendingTable = ({ vcPendingData, rejectVc, approveVc }) => {
+export const AdminVCPendingTable = ({ vcPendingData, rejectVc, approveVc }: any) => {
   return (
     <>
       <Table striped bordered hover id="admin-users-table-container">
@@ -18,7 +17,7 @@ export const AdminVCPendingTable = ({ vcPendingData, rejectVc, approveVc }) => {
           </tr>
         </thead>
         <tbody>
-          {vcPendingData?.map((v, i) => {
+          {vcPendingData?.map((v: any, i: any) => {
             return (
               <tr key={v._id}>
                 <td>{i + 1}</td>

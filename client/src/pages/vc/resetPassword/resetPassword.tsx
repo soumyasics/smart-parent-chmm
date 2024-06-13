@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import resetPasswordImg from "../../../assets/pass-reset.jpg";
-
-import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
@@ -19,7 +17,7 @@ export const ParentResetPassword: React.FC = () => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
+
   
 
   const resetFields = () => {
@@ -91,9 +89,7 @@ export const ParentResetPassword: React.FC = () => {
     }
   };
 
-  const redirectToParentProfile = () => {
-    navigate("/parent/profile");
-  };
+
   return (
     <>
       <Container className="my-5 shadow forgot-password-container">

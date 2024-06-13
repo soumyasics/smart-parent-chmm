@@ -1,6 +1,5 @@
 import { IoMdNotifications } from "react-icons/io";
 import { IoMdContacts } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
 import "./adminDashboardNav.css";
 const AdminDashboardNav = () => {
   return (

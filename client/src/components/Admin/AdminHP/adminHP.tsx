@@ -1,8 +1,6 @@
-import { InputGroup, Form } from "react-bootstrap";
-import { IoIosSearch } from "react-icons/io";
+
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../apis/axiosInstance.ts";
-import { AdminParentsTable } from "../AdminParentsTable/adminParentsTable.tsx";
 import AdminDashboardNav from "../AdminDashboardNav/adminDashboardNav.tsx";
 import "./adminHP.css";
 import { AdminHPTable } from "../AdminHPTable/adminHPTable.tsx";
@@ -10,6 +8,8 @@ import { AdminHPTable } from "../AdminHPTable/adminHPTable.tsx";
 export const AdminHP = () => {
   const [parentsData, setparentsData] = useState([]);
   const [error, setError] = useState("");
+
+  console.log("err", error)
 
   useEffect(() => {
     getParentsData();
