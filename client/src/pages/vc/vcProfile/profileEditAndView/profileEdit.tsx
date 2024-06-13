@@ -1,6 +1,6 @@
 import { Button, Col, Row } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { ParentData } from "../profileSection/profileSection";
+import { VCData } from "../profileSection/profileSection";
 import { useEffect, useState } from "react";
 import { isOnlyAlphabets, isOnlyNumbers } from "../../../../utils/validation";
 import axiosMultipartInstance from "../../../../apis/axiosMultipartInstance";
@@ -14,7 +14,7 @@ function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 interface ProfileViewProps {
-  parentData: ParentData | null;
+  vcData: VCData | null;
   profilePicture: string;
   handleCancelEditProfile: () => void;
 }
@@ -27,11 +27,11 @@ export interface NewParentData {
 }
 
 export const ProfileEdit: React.FC<ProfileViewProps> = ({
-  parentData,
+  vcData,
   profilePicture,
   handleCancelEditProfile,
 }) => {
-  const [newParentData, setNewParentData] = useState<NewParentData>({
+  const [newVCData, setNewVCData] = useState<NewParentData>({
     name: "",
     phoneNumber: "",
     address: "",
@@ -39,7 +39,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [parentId, setParentId] = useState<string | null>("");
+  const [vcId, setVcId] = useState<string | null>("");
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -51,20 +51,20 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
   useEffect(() => {
     if (!isAuthenticated) {
       alert("Please login again.");
-      navigate("/parent/login");
+      navigate("/vc/login");
       return;
     }
-    if (userType === "parent") {
-      setParentId(userId);
+    if (userType === "vaccineCenter") {
+      setVcId(userId);
     }
   }, []);
 
   useEffect(() => {
-    if (parentData) {
-      setNewParentData({
-        address: parentData.address,
-        name: parentData.name,
-        phoneNumber: String(parentData.phoneNumber),
+    if (vcData) {
+      setNewVCData({
+        address: vcData.address,
+        name: vcData.name,
+        phoneNumber: String(vcData.phoneNumber),
         profilePicture: null,
       });
     }
@@ -83,7 +83,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
       }
     }
 
-    setNewParentData((prevData) => ({
+    setNewVCData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -91,7 +91,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
 
   const handleProfilePictureUpload = (e: any) => {
     const pic = e.target.files[0];
-    setNewParentData((prevData) => ({
+    setNewVCData((prevData) => ({
       ...prevData,
       profilePicture: pic,
     }));
@@ -99,12 +99,12 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
 
   const saveNewChanges = (e: any) => {
     e.preventDefault();
-    const { name, address, phoneNumber, profilePicture } = newParentData;
+    const { name, address, phoneNumber, profilePicture } = newVCData;
     if (!name || !address || !phoneNumber) {
       alert("Fields can't be empty");
       return;
     }
-    console.log("ph", newParentData);
+    console.log("ph", newVCData);
     console.log("ph", phoneNumber.length);
     if (phoneNumber.length !== 10) {
       alert("Invalid phone number");
@@ -119,7 +119,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
       formData.append("profilePicture", profilePicture);
     }
 
-    if (parentId) {
+    if (vcId) {
       sendDataToServer(formData);
     } else {
       alert("Something went wrong. Please login again.");
@@ -169,11 +169,9 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
       <div className="profile-header">
         <img src={profilePicture} alt="Profile" className="profile-image" />
         <div>
-          <h3>
-            {parentData?.name ? capitalizeFirstLetter(parentData.name) : ""}
-          </h3>
+          <h3>{vcData?.name ? capitalizeFirstLetter(vcData.name) : ""}</h3>
 
-          <p>{parentData?.address}</p>
+          <p>{vcData?.address}</p>
         </div>
       </div>
       <Form onSubmit={saveNewChanges}>
@@ -185,7 +183,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
                 type="text"
                 placeholder="Name"
                 name="name"
-                value={newParentData?.name}
+                value={newVCData?.name}
                 onChange={handleChanges}
               />
             </Form.Group>
@@ -198,7 +196,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
                 type="text"
                 placeholder="New Phone Number"
                 name="phoneNumber"
-                value={newParentData?.phoneNumber}
+                value={newVCData?.phoneNumber}
                 onChange={handleChanges}
                 maxLength={10}
                 minLength={10}
@@ -214,7 +212,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
                 type="text"
                 placeholder="New address"
                 name="address"
-                value={newParentData?.address}
+                value={newVCData?.address}
                 onChange={handleChanges}
               />
             </Form.Group>

@@ -11,23 +11,25 @@ import userPlaceholderImg from "../../../../assets/user-placeholder-img.jpg";
 import { BASE_URL } from "../../../../apis/baseUrl";
 import { PageLoading2 } from "../../../../components/pageLoading/pageLoading2";
 import { ProfileEdit } from "../profileEditAndView/profileEdit";
-import { ProfileView } from "../profileEditAndView/profileView";
+import { ProfileView } from "../profileEditAndView/profileView.tsx";
 
 type ProfilePicture = {
   filename: string;
 };
-export interface ParentData {
+
+export interface VCData {
+  _id: string;
   name: string;
   email: string;
   password: string;
   phoneNumber: string;
   address: string;
-  dateOfBirth: string;
-  createdAt: string;
+  category: string;
   profilePicture: ProfilePicture | null;
+  createdAt: string;
 }
 export const VCProfileSection = () => {
-  const [parentData, setParentData] = useState<null | ParentData>(null);
+  const [vcData, setVCData] = useState<null | VCData>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [profilePicture, setProfilePicture] =
@@ -40,36 +42,36 @@ export const VCProfileSection = () => {
   useEffect(() => {
     if (!isAuthenticated) {
       alert("Please login again.");
-      navigate("/parent/login");
+      navigate("/vc/login");
       return;
     }
 
-    if (userType === "parent" && userId) {
-      getParentData(userId);
+    if (userType === "vaccineCenter" && userId) {
+      getVCData(userId);
     }
   }, [userData]);
 
   useEffect(() => {
-    if (parentData) {
-      const pic: string = parentData?.profilePicture?.filename || "";
+    if (vcData) {
+      const pic: string = vcData?.profilePicture?.filename || "";
       if (pic) {
         setProfilePicture(`${BASE_URL}${pic}`);
       } else {
         setProfilePicture(userPlaceholderImg);
       }
     }
-  }, [parentData]);
+  }, [vcData]);
 
   // function capitalizeFirstLetter(str: string) {
   //   return str.charAt(0).toUpperCase() + str.slice(1);
   // }
 
-  const getParentData = async (userId: string) => {
+  const getVCData = async (userId: string) => {
     try {
       setIsLoading(true);
-      const res = await axiosInstance.get(`/getParentDataById/${userId}`);
+      const res = await axiosInstance.get(`/getVCDataById/${userId}`);
       if (res.status === 200) {
-        setParentData(res.data.data);
+        setVCData(res.data.data);
       } else {
         throw new Error(`Unexpected error occurred, status: ${res.status}`);
       }
@@ -114,13 +116,13 @@ export const VCProfileSection = () => {
         <>
           {isEditProfileActive ? (
             <ProfileEdit
-              parentData={parentData}
+              vcData={vcData}
               profilePicture={profilePicture}
               handleCancelEditProfile={handleCancelEditProfile}
             />
           ) : (
             <ProfileView
-              parentData={parentData}
+              vcData={vcData}
               profilePicture={profilePicture}
             />
           )}

@@ -1,28 +1,29 @@
 import { Col, Row } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { ParentData } from "../profileSection/profileSection";
+import { VCData } from "../profileSection/profileSection";
 function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 interface ProfileViewProps {
-  parentData: ParentData | null;
+  vcData: VCData | null;
   profilePicture: string;
 }
 export const ProfileView: React.FC<ProfileViewProps> = ({
-  parentData,
+  vcData,
   profilePicture,
 }) => {
-  console.log("parnt dat", parentData);
+
+  console.log('vcc', vcData)
   return (
     <div>
       <div className="profile-header">
         <img src={profilePicture} alt="Profile" className="profile-image" />
         <div>
           <h3>
-            {parentData?.name ? capitalizeFirstLetter(parentData.name) : ""}
+            {vcData?.name ? capitalizeFirstLetter(vcData.name) : ""}
           </h3>
-          <p>{parentData?.address}</p>
+          <p>{vcData?.address}</p>
         </div>
       </div>
       <div>
@@ -31,7 +32,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <Form.Group controlId="formEmail">
               <Form.Label className="fw-bold">Email Address</Form.Label>
               <p>
-                <em>{parentData?.email}</em>
+                <em>{vcData?.email}</em>
               </p>
             </Form.Group>
           </Col>
@@ -39,7 +40,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <Form.Group controlId="formPhoneNumber">
               <Form.Label className="fw-bold">Phone Number</Form.Label>
               <p>
-                <em>{parentData?.phoneNumber}</em>
+                <em>{vcData?.phoneNumber}</em>
               </p>
             </Form.Group>
           </Col>
@@ -47,18 +48,18 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
         <Row>
           <Col md={6}>
             <Form.Group controlId="formLocation">
-              <Form.Label className="fw-bold">Date of Birth</Form.Label>
+              <Form.Label className="fw-bold">Category</Form.Label>
               <p>
-                <em>{parentData?.dateOfBirth}</em>
+                <em>{vcData?.category}</em>
               </p>
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group controlId="formPostalCode">
-              <Form.Label className="fw-bold">Account created</Form.Label>
+              <Form.Label className="fw-bold">Joining Date</Form.Label>
 
               <p>
-                <em>{parentData?.createdAt.substring(0, 10)}</em>
+                <em>{vcData?.createdAt.substring(0, 10)}</em>
               </p>
             </Form.Group>
           </Col>
