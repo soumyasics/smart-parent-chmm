@@ -99,7 +99,6 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
 
   const saveNewChanges = (e:any) => {
     e.preventDefault()
-    console.log("sdkjfk")
     const { name, address, phoneNumber, profilePicture } = newParentData;
     if (!name || !address || !phoneNumber) {
       alert("Fields can't be empty");
