@@ -106,5 +106,5 @@ router.patch(
 router.get('/getAllPendingVc', vcController.allPendingVC);
 router.get('/getAllApprovedVc', vcController.allApprovedVC);
 router.get('/getAllRejectedVc', vcController.allRejectedVC);
-
+router.get('/getVCDataById/:id', vcController.getVCDataById);
 module.exports = router;

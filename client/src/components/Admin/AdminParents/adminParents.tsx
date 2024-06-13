@@ -9,6 +9,7 @@ import "./adminParents.css";
 export const AdminParents = () => {
   const [parentsData, setparentsData] = useState([]);
   const [error, setError] = useState("");
+  console.log("err", error)
 
   useEffect(() => {
     getParentsData();

@@ -1,13 +1,9 @@
 import { ListGroup } from "react-bootstrap";
 import {
   FaUser,
-  FaStar,
   FaCog,
-  FaBell,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { RiTodoFill } from "react-icons/ri";
-import { CgDisplayGrid } from "react-icons/cg";
 import "./profileLeftSidebar.css";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -17,18 +13,18 @@ import { useNavigate } from "react-router-dom";
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
 }
-export const ParentProfileLeftSidebar: React.FC<
+export const VCProfileLeftSidebar: React.FC<
   ParentProfileLeftSidebarProps
 > = ({ changeActivePage }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleParentLogout = () => {
     dispatch(userLoggedOut());
-    navigate("/parent/login");
+    navigate("/vc/login");
   };
   return (
     <div className="left-sidebar">
-      <h2 className="sidebar-title">Parent Profile</h2>
+      <h2 className="sidebar-title">Vaccination Center</h2>
       <ListGroup variant="flush" id="profile-page-sidebar">
         <ListGroup.Item
           className="sidebar-item"
@@ -36,30 +32,9 @@ export const ParentProfileLeftSidebar: React.FC<
         >
           <FaUser className="sidebar-icon" /> Profile
         </ListGroup.Item>
-        <ListGroup.Item
-          className="sidebar-item"
-          onClick={() => changeActivePage("add-todo")}
-        >
-          <RiTodoFill className="sidebar-icon" /> Add Todos
-        </ListGroup.Item>
-        <ListGroup.Item
-          className="sidebar-item"
-          onClick={() => changeActivePage("display-todo")}
-        >
-          <CgDisplayGrid className="sidebar-icon" /> Display Todos
-        </ListGroup.Item>
-        <ListGroup.Item
-          className="sidebar-item"
-          onClick={() => changeActivePage("notifications")}
-        >
-          <FaBell className="sidebar-icon" /> Notifications
-        </ListGroup.Item>
-        <ListGroup.Item
-          className="sidebar-item"
-          onClick={() => changeActivePage("child")}
-        >
-          <FaStar className="sidebar-icon" /> Child
-        </ListGroup.Item>
+    
+       
+      
         <ListGroup.Item
           className="sidebar-item"
           onClick={() => changeActivePage("reset-password")}
@@ -78,6 +53,7 @@ export const ParentProfileLeftSidebar: React.FC<
   );
 };
 
-ParentProfileLeftSidebar.propTypes = {
+
+VCProfileLeftSidebar.propTypes = {
   changeActivePage: PropTypes.func.isRequired,
 };

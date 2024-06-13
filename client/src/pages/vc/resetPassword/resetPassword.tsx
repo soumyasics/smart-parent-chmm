@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
-import "./resetPassword.css";
 import resetPasswordImg from "../../../assets/pass-reset.jpg";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import "./resetPassword.css";
 
 interface PasswordResetData {
   email: string;

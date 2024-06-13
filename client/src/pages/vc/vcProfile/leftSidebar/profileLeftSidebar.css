@@ -1,0 +1,29 @@
+/* LeftSidebar.css */
+.left-sidebar {
+  background-color: #f8f9fa;
+  height: 100vh;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-title {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+}
+
+.logout {
+  color: red;
+}
+

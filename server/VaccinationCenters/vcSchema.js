@@ -46,5 +46,5 @@ const vcSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-const VCModel = mongoose.model("vaccinationcenters", vcSchema);
+const VCModel = mongoose.model("VC", vcSchema);
 module.exports = { VCModel };
