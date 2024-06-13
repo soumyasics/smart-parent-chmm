@@ -2,8 +2,17 @@ import { Conversation } from "./Conversation";
 import { PageLoading } from "../../../../components/pageLoading/pageLoading";
 import { useFetchData } from "../../../../hooks/useFetchData";
 import { useCustomNavigate } from "../../../../hooks/useCustomNavigate";
+import { ParentData } from "../types.ts";
+import { FC } from "react";
+interface ConversationProps {
+  activeParticipant: ParentData | null;
+  chooseParticipant: (participant: ParentData ) => void;
+}
 
-const Conversations = () => {
+const Conversations: FC<ConversationProps> = ({
+  activeParticipant,
+  chooseParticipant,
+}) => {
   const { isLoading, data: allParents, error } = useFetchData("/getAllParents");
   const navigateTo = useCustomNavigate();
 
@@ -26,7 +35,13 @@ const Conversations = () => {
       ) : (
         <div>
           {Array.isArray(allParents) &&
-            allParents?.map((parent) => <Conversation parent={parent} />)}
+            allParents?.map((parent) => (
+              <Conversation
+                parent={parent}
+                activeParticipant={activeParticipant}
+                chooseParticipant={chooseParticipant}
+              />
+            ))}
         </div>
       )}
     </div>
