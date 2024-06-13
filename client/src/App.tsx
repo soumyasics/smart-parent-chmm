@@ -22,6 +22,7 @@ import { VCSignup } from "./pages/vc/vcSignup/vcSignup.tsx";
 import { VCLogin } from "./pages/vc/vcLogin/vcLogin.tsx";
 import { ProtectLoginPage } from "./components/common/protectRoutes/protectLoginPage.tsx";
 import { VCProfilePage } from "./pages/vc/vcProfile/profilePage.tsx";
+import { ChatWithParent } from "./pages/vc/chatWithParent/chatWithParent.tsx";
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
         <Route path="/vc/signup" element={<VCSignup />} />
         <Route path="/vc/login" element={<VCLogin />} />
         <Route path="/vc/profile" element={<VCProfilePage />} />
+        <Route path="/vc/chat" element={<ChatWithParent />} />
 
         {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />

@@ -27,7 +27,7 @@ export const VCProfileLeftSidebar: React.FC<
       <h2 className="sidebar-title">Vaccination Center</h2>
       <ListGroup variant="flush" id="profile-page-sidebar">
         <ListGroup.Item
-          className="sidebar-item"
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("profile")}
         >
           <FaUser className="sidebar-icon" /> Profile
@@ -36,14 +36,14 @@ export const VCProfileLeftSidebar: React.FC<
        
       
         <ListGroup.Item
-          className="sidebar-item"
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("reset-password")}
         >
           <FaCog className="sidebar-icon" /> Reset Password
         </ListGroup.Item>
 
         <ListGroup.Item
-          className="sidebar-item logout text-danger fw-bold"
+          className="sidebar-item logout text-danger fw-bold d-flex"
           onClick={handleParentLogout}
         >
           <FaSignOutAlt className="sidebar-icon" /> Log out

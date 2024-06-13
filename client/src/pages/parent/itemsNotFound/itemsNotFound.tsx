@@ -12,7 +12,7 @@ export const ItemsNotFound: React.FC<ItemsNotFoundProps> = ({
 }) => {
   return (
     <Container className="no-todo-container text-center">
-      <Image src={notFoundImg1} alt="No Todo Items" className="no-todo-image" />
+      <Image src={notFoundImg1} alt="No Todo Items" className="no-todo-image mx-auto" />
       <h2 className="no-todo-text">{title}</h2>
       <p className="no-todo-subtext">{description}</p>
     </Container>

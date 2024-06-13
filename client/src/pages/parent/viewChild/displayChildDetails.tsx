@@ -35,7 +35,6 @@ interface DisplayChildDetailsProps {
 export const DisplayChildDetails: React.FC<DisplayChildDetailsProps> = ({
   childData,
 }) => {
-  console.log("chh", childData);
 
   if (childData.length === 0) {
     return (

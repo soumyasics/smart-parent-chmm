@@ -11,10 +11,11 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
 import { useDispatch } from "react-redux";
 import { userLoggedOut } from "../../../redux/reducers/userSlilce";
+import { useCustomNavigate } from "../../../hooks/useCustomNavigate";
 export const VCNavbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const navigateTo = useCustomNavigate();
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
@@ -66,7 +67,13 @@ export const VCNavbar = () => {
                 Home
               </p>
 
-              <p className="my-0" role="button" >
+              <p
+                className="my-0"
+                role="button"
+                onClick={() => {
+                  navigateTo("/vc/chat");
+                }}
+              >
                 Chat
               </p>
               <p className="my-0" role="button">
@@ -91,9 +98,9 @@ export const VCNavbar = () => {
               Login{" "}
             </Button>
           ) : (
-            <div className="dropdown show">
+            <div className="dropdown show ">
               <button
-                className="btn btn-secondary dropdown-toggle bg-dark"
+                className="btn d-flex btn-secondary bg-dark"
                 role="button"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
@@ -105,7 +112,7 @@ export const VCNavbar = () => {
                   className="me-2"
                   style={{ width: "30px", height: "30px", borderRadius: "50%" }}
                 />
-                <span>{userName}</span>
+                <span>{userName.substring(0, 8)}</span>
               </button>
 
               <div

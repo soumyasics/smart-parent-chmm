@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const objectId = mongoose.Types.Schema.ObjectId;
+const objectId = mongoose.Schema.Types.ObjectId;
 const conversationBWParentAndVCSchema = Schema({
   parentId: {
     type: objectId,
     ref: "Parent",
     required: true,
   },
-  vcId: {
+  VCId: {
     type: objectId,
-    ref: "VC",
+    ref: "VaccinationCenter",
     required: true,
   },
   messages: [{ type: objectId, ref: "MessageBwParentAndVC" }],

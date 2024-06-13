@@ -95,7 +95,7 @@ export const ParentResetPassword: React.FC = () => {
       <Container className="my-5 shadow forgot-password-container">
         <Row className="justify-content-center">
           <Col md={6} className="text-center">
-            <Image src={resetPasswordImg} className="forgot-password-image" />
+            <Image src={resetPasswordImg} className="mx-auto forgot-password-image" />
             <h2 className="forgot-password-header">Reset Password?</h2>
             <p className="forgot-password-subtext">
               Enter your email address and current password to reset your
