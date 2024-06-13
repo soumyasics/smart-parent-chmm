@@ -12,9 +12,9 @@ const messageBwParentAndVCSchema = Schema(
       enum: ["parent", "vc"],
       required: true,
     },
-    senderId: {
+    parentId: {
       type: mongoose.Schema.Types.ObjectId,
-      refPath: "senderType",
+      ref: "Parent",
       required: true,
     },
     receiverType: {
@@ -22,9 +22,9 @@ const messageBwParentAndVCSchema = Schema(
       enum: ["parent", "vc"],
       required: true,
     },
-    receiverId: {
+    VCId: {
       type: mongoose.Schema.Types.ObjectId,
-      refPath: "receiverType",
+      ref: "VaccinationCenter",
       required: true,
     },
     message: {

@@ -25,7 +25,7 @@ const kidSchema = mongoose.Schema(
     parentId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "parents",
+      ref: "Parents",
     },
     bloodGroup: {
       type: String,

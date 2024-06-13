@@ -5,7 +5,7 @@ const kids = require("./Kids/kidsController");
 const hp = require("./HealthProfessionals/hpController");
 const todo = require("./ToDoList/todoListController");
 const vcController = require("./VaccinationCenters/vcController");
-
+const parentAndVCChat = require("./MessageBwParentAndVC/messageController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -103,8 +103,13 @@ router.patch(
   vcController.rejectVCById
 );
 
-router.get('/getAllPendingVc', vcController.allPendingVC);
-router.get('/getAllApprovedVc', vcController.allApprovedVC);
-router.get('/getAllRejectedVc', vcController.allRejectedVC);
-router.get('/getVCDataById/:id', vcController.getVCDataById);
+router.get("/getAllPendingVc", vcController.allPendingVC);
+router.get("/getAllApprovedVc", vcController.allApprovedVC);
+router.get("/getAllRejectedVc", vcController.allRejectedVC);
+router.get("/getVCDataById/:id", vcController.getVCDataById);
+
+// Parent and vc conversation routes
+router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
+router.get("/getSingleConversation", parentAndVCChat.getSingleConversation);
+
 module.exports = router;
