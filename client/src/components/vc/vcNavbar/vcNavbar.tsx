@@ -11,10 +11,11 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../apis/baseUrl";
 import { useDispatch } from "react-redux";
 import { userLoggedOut } from "../../../redux/reducers/userSlilce";
+import { useCustomNavigate } from "../../../hooks/useCustomNavigate";
 export const VCNavbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const navigateTo = useCustomNavigate();
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
@@ -66,7 +67,13 @@ export const VCNavbar = () => {
                 Home
               </p>
 
-              <p className="my-0" role="button" >
+              <p
+                className="my-0"
+                role="button"
+                onClick={() => {
+                  navigateTo("/vc/chat");
+                }}
+              >
                 Chat
               </p>
               <p className="my-0" role="button">

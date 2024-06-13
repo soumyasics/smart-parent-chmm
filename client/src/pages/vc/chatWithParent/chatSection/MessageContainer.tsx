@@ -3,7 +3,7 @@ import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 
 export const MessageContainer = () => {
-  const isChatSelected = false;
+  const isChatSelected = true;
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">
       <>

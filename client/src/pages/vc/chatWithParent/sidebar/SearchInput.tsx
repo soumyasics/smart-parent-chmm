@@ -1,12 +1,16 @@
-import { IoSearchSharp } from "react-icons/io5";
-
+import { IoIosSearch } from "react-icons/io";
 const SearchInput = () => {
   return (
-    <form className='tw-flex tw-items-center tw-gap-2'>
-      <input type='text' placeholder='Search…' className='tw-input tw-input-bordered tw-rounded-full' />
-      <button type='submit' className='tw-btn tw-btn-circle tw-bg-sky-500 tw-text-white'>
-        <IoSearchSharp className='tw-w-6 tw-h-6 tw-outline-none' />
-      </button>
+    <form className="tw-flex tw-items-center tw-gap-2">
+      <label className="tw-input tw-w-full tw-input-bordered tw-flex tw-items-center">
+        <IoIosSearch  className="tw-text-white tw-text-xl"/>
+
+        <input
+          type="text"
+          className="tw-grow tw-input-sm tw-text-white"
+          placeholder="Search Parent"
+        />
+      </label>
     </form>
   );
 };
