@@ -38,12 +38,13 @@ export const ParentNavbar = () => {
   const redirectParentHome = () => {
     navigate("/parent/home");
   };
-  const redirectRegisterChild = () => {
-    navigate("/parent/register-child");
-  };
 
   const redirectToParentProfile = () => {
     navigate("/parent/profile");
+  };
+
+  const redirectToVaccinationCenters = () => {
+    navigate("/parent/view-vaccination-centers");
   };
 
   const handleLogout = () => {
@@ -83,11 +84,12 @@ export const ParentNavbar = () => {
               >
                 Health Professional
               </p>
-              <p className="my-0" role="button" onClick={redirectRegisterChild}>
-                Register Child
-              </p>
 
-              <p className="my-0" role="button">
+              <p
+                className="my-0"
+                role="button"
+                onClick={redirectToVaccinationCenters}
+              >
                 Vaccination Center
               </p>
             </Nav>

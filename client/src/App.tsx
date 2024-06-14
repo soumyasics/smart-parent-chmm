@@ -17,12 +17,13 @@ import { ParentResetPassword } from "./pages/parent/resetPassword/resetPassword.
 import { AdminLogin } from "./pages/admin/AdminLogin/AdminLogin.tsx";
 import { AdminDashboard } from "./pages/admin/AdminDashboard/adminDashboard.tsx";
 import { VCHome } from "./pages/vc/vcHome/vcHome.tsx";
-import "./App.css";
 import { VCSignup } from "./pages/vc/vcSignup/vcSignup.tsx";
 import { VCLogin } from "./pages/vc/vcLogin/vcLogin.tsx";
 import { ProtectLoginPage } from "./components/common/protectRoutes/protectLoginPage.tsx";
 import { VCProfilePage } from "./pages/vc/vcProfile/profilePage.tsx";
 import { ChatWithParent } from "./pages/vc/chatWithParent/chatWithParent.tsx";
+import { ViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/viewVaccinnationCenteres.tsx";
+import "./App.css";
 
 function App() {
   return (
@@ -46,6 +47,10 @@ function App() {
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
+        <Route
+        path="/parent/view-vaccination-centers"
+          element={<ViewVaccinationCenters />}
+        />
         <Route
           path="/parent/reset-password"
           element={<ParentResetPassword />}

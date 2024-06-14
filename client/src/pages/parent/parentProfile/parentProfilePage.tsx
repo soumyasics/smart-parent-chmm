@@ -10,6 +10,7 @@ import "./parentProfilePage.css";
 import { ParentResetPassword } from "../resetPassword/resetPassword";
 import { DisplayTodo } from "../displayTodo/displayTodo";
 import { AddTodo } from "../addTodo/addTodo";
+import { RegisterChild } from "../registerChild/registerChild";
 
 export const ParentProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -28,6 +29,7 @@ export const ParentProfilePage = () => {
           <Col md={9} className="profile-container">
             {activePage === "profile" && <ParentProfileSection />}
             {activePage === "child" && <ViewChild />}
+            {activePage === "register-child" && <RegisterChild />}
             {activePage === "add-todo" && <AddTodo />}
             {activePage === "display-todo" && <DisplayTodo />}
             {activePage === "reset-password" && <ParentResetPassword />}
