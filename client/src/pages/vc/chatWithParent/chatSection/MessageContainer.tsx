@@ -20,6 +20,7 @@ interface GetConversation {
 export const MessageContainer: FC<MessageContainerProps> = ({
   activeParticipant,
 }) => {
+  const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState([]);
   const [error, setError] = useState("");
   const isChatSelected = activeParticipant ? true : null;
@@ -36,15 +37,15 @@ export const MessageContainer: FC<MessageContainerProps> = ({
     } else {
       console.log("Choose a parent first");
     }
-  }, [activeParticipant, VCId]);
+  }, [activeParticipant, VCId, message]);
 
   const getConversation = async (payload: GetConversation) => {
     try {
       const res = await axiosInstance.post("getSingleConversation", payload);
       if (res.status === 200) {
-        const data = res.data?.data || [];
-
-        setConversation(data);
+        let data = res.data?.data || [];
+        const reversedData = data.reverse();
+        setConversation(reversedData);
       } else {
         throw new Error("Something went wrong.");
       }
@@ -58,6 +59,11 @@ export const MessageContainer: FC<MessageContainerProps> = ({
       }
     }
   };
+  
+  const updateMessage = (newMsg: string) => {
+    setMessage(newMsg);
+  }
+
 
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">
@@ -71,9 +77,20 @@ export const MessageContainer: FC<MessageContainerProps> = ({
         </div>
 
         {isChatSelected ? (
-          <div>
-            <Messages conversation={conversation} />
-            <MessageInput activeParticipant={activeParticipant} />
+          <div  className="tw-py-10 tw-h-fit ">
+            {conversation.length === 0 ? (
+              <div className="tw-text-center tw-text-white tw-align-middle tw-h-full">
+                <h1> Start Chat...</h1>
+              </div>
+            ) : (
+              <Messages conversation={conversation} />
+            )}
+
+            <MessageInput
+              message={message}
+              updateMessage={updateMessage}
+              activeParticipant={activeParticipant}
+            />
           </div>
         ) : (
           <NoChatSelected />

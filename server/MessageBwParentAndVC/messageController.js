@@ -81,26 +81,26 @@ const getSingleConversation = async (req, res) => {
     const conversation = await ConversationBWParentAndVCModel.findOne({
       parentId,
       VCId,
-    })
-      .populate("messages")
+    }).populate("messages")
       .populate("parentId")
       .populate("VCId")
       .exec();
 
-    if (!conversation) {
-      return res
-        .status(404)
-        .json({ message: "Conversation not found", error: error.message });
-    }
 
-    const messages = conversation.messages;
+    // if (!conversation) {
+    //   return res
+    //     .status(404)
+    //     .json({ message: "Conversation not found", error: error.message });
+    // }
+
+    const messages = conversation?.messages || [];
     return res
       .status(200)
       .json({ message: "Conversation found", data: messages });
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "Error on get conversation", error: error.message });
+      .json({ message: "Error on get conversation", error });
   }
 };
 

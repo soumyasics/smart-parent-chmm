@@ -1,12 +1,31 @@
-import { Message, Message2 } from "./Message";
+import { MessageStart, MessageEnd } from "./Message";
+import { useRef, useEffect } from "react";
 
 const Messages = ({ conversation }) => {
+  const messageEndRef = useRef(null);
+
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behaviour: "smooth" });
+    }
+  }, [conversation]);
+
   return (
-    <div className="tw-px-4 tw-flex-1 tw-overflow-auto">
+    <div
+      style={{
+        height: "530px",
+        display: "flex",
+        flexDirection: "column-reverse",
+      }}
+      className="tw-px-4 tw-py-5 tw-flex-1 tw-overflow-auto "
+    >
+      <div ref={messageEndRef} />
       {conversation?.map((message) => {
-
-
-        return <Message2 message={message} key={message?._id} />;
+        if (message.senderType === "vc") {
+          return <MessageEnd message={message} key={message?._id} />;
+        } else {
+          return <MessageStart message={message} key={message?._id} />;
+        }
       })}
     </div>
   );
