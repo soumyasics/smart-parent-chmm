@@ -1,15 +1,11 @@
 import { MessageStart, MessageEnd } from "./Message";
-import { useRef, useEffect } from "react";
+import { FC } from "react";
+import { ChatMessage } from "../types";
 
-const Messages = ({ conversation }) => {
-  const messageEndRef = useRef(null);
-
-  useEffect(() => {
-    if (messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behaviour: "smooth" });
-    }
-  }, [conversation]);
-
+interface MessagesProps {
+  conversation: ChatMessage[];
+}
+export const Messages: FC<MessagesProps> = ({ conversation }) => {
   return (
     <div
       style={{
@@ -19,7 +15,6 @@ const Messages = ({ conversation }) => {
       }}
       className="tw-px-4 tw-py-5 tw-flex-1 tw-overflow-auto "
     >
-      <div ref={messageEndRef} />
       {conversation?.map((message) => {
         if (message.senderType === "vc") {
           return <MessageEnd message={message} key={message?._id} />;
@@ -30,4 +25,3 @@ const Messages = ({ conversation }) => {
     </div>
   );
 };
-export default Messages;

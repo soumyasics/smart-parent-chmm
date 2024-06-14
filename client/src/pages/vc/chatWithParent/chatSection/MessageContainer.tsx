@@ -1,5 +1,5 @@
 import MessageInput from "./MessageInput";
-import Messages from "./Messages";
+import {Messages} from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { ParentData } from "../types.ts";
 import { FC, useEffect, useState } from "react";
@@ -9,9 +9,11 @@ import { RootState } from "../../../../redux/store.ts";
 import { useCustomNavigate } from "../../../../hooks/useCustomNavigate.ts";
 import axiosInstance from "../../../../apis/axiosInstance.ts";
 import axios from "axios";
+import {ChatMessage} from "../types.ts";
 interface MessageContainerProps {
   activeParticipant: ParentData | null;
 }
+
 
 interface GetConversation {
   VCId: string;
@@ -21,7 +23,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   activeParticipant,
 }) => {
   const [message, setMessage] = useState("");
-  const [conversation, setConversation] = useState([]);
+  const [conversation, setConversation] = useState<ChatMessage[]>([]);
   const [error, setError] = useState("");
   const isChatSelected = activeParticipant ? true : null;
   const navigateTo = useCustomNavigate();
@@ -43,8 +45,10 @@ export const MessageContainer: FC<MessageContainerProps> = ({
     try {
       const res = await axiosInstance.post("getSingleConversation", payload);
       if (res.status === 200) {
-        let data = res.data?.data || [];
+        let data: ChatMessage[] = res.data?.data || [];
+        console.log("data ==> ", data);
         const reversedData = data.reverse();
+
         setConversation(reversedData);
       } else {
         throw new Error("Something went wrong.");
@@ -59,11 +63,10 @@ export const MessageContainer: FC<MessageContainerProps> = ({
       }
     }
   };
-  
+
   const updateMessage = (newMsg: string) => {
     setMessage(newMsg);
-  }
-
+  };
 
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">
@@ -77,7 +80,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
         </div>
 
         {isChatSelected ? (
-          <div  className="tw-py-10 tw-h-fit ">
+          <div className="tw-py-10 tw-h-fit ">
             {conversation.length === 0 ? (
               <div className="tw-text-center tw-text-white tw-align-middle tw-h-full">
                 <h1> Start Chat...</h1>

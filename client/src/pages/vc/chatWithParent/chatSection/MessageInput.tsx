@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC} from "react";
 import { BsSend } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { ParentData } from "../types";
@@ -24,7 +24,7 @@ const MessageInput: FC<MessageInputProps> = ({
   activeParticipant,
 }) => {
   const { userId: VCId } = useSelector((state: RootState) => state.user);
-  const handleSendMessage = (e) => {
+  const handleSendMessage = (e: any) => {
     e.preventDefault();
     if (!message) {
       return;
