@@ -1,5 +1,5 @@
 import MessageInput from "./MessageInput";
-import {Messages} from "./Messages";
+import { Messages } from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { ParentData } from "../types.ts";
 import { FC, useEffect, useState } from "react";
@@ -9,11 +9,10 @@ import { RootState } from "../../../../redux/store.ts";
 import { useCustomNavigate } from "../../../../hooks/useCustomNavigate.ts";
 import axiosInstance from "../../../../apis/axiosInstance.ts";
 import axios from "axios";
-import {ChatMessage} from "../types.ts";
+import { ChatMessage } from "../types.ts";
 interface MessageContainerProps {
   activeParticipant: ParentData | null;
 }
-
 
 interface GetConversation {
   VCId: string;
@@ -29,6 +28,8 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const navigateTo = useCustomNavigate();
   const { userId: VCId } = useSelector((state: RootState) => state.user);
 
+  const { userData } = useSelector((state: RootState) => state.user);
+  console.log("user data", userData);
   useEffect(() => {
     const parentId = activeParticipant?._id;
     if (VCId && parentId) {
@@ -68,22 +69,41 @@ export const MessageContainer: FC<MessageContainerProps> = ({
     setMessage(newMsg);
   };
 
+  const navigateToHome = () => {
+    navigateTo("/vc/home");
+  };
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">
       <>
         {/* Header */}
-        <div className="tw-bg-slate-500 tw-z-10 tw-px-4 tw-fixed tw-w-full tw-py-2 tw-mb-2">
-          <span className="tw-label-text">To:</span>{" "}
-          <span className="tw-text-gray-900 tw-font-bold">
-            {capitalizeFirstLetter(activeParticipant?.name || "")}
-          </span>
+        <div className="tw-flex tw-w-3/4 tw-bg-slate-500 tw-z-10 tw-px-4 tw-fixed tw-py-2 tw-mb-2">
+          <div className="tw-flex-grow">
+            {activeParticipant && (
+              <>
+                <span className="tw-label-text">To:</span>{" "}
+                <span className="tw-text-gray-900 tw-font-bold">
+                  {capitalizeFirstLetter(activeParticipant?.name || "")}
+                </span>
+              </>
+            )}
+          </div>
+
+          <div>
+            <button
+              className="tw-btn tw-btn-neutral tw-btn-sm"
+              onClick={navigateToHome}
+            >
+              {" "}
+              Back{" "}
+            </button>
+          </div>
         </div>
 
         {isChatSelected ? (
           <div className="tw-py-10 tw-h-fit ">
             {conversation.length === 0 ? (
               <div className="tw-text-center tw-text-white tw-align-middle tw-h-full">
-                <h1> Start Chat...</h1>
+                <h3 className="tw-mt-5"> Start Chat...</h3>
               </div>
             ) : (
               <Messages conversation={conversation} />
@@ -96,18 +116,18 @@ export const MessageContainer: FC<MessageContainerProps> = ({
             />
           </div>
         ) : (
-          <NoChatSelected />
+          <NoChatSelected username={userData?.name || ""} />
         )}
       </>
     </div>
   );
 };
 
-const NoChatSelected = () => {
+const NoChatSelected = ({ username }: { username: string }) => {
   return (
     <div className="tw-flex tw-items-center tw-justify-center tw-w-full tw-h-full">
       <div className="tw-px-4 tw-text-center tw-sm:text-lg tw-md:text-xl tw-text-gray-200 tw-font-semibold tw-flex tw-flex-col tw-items-center tw-gap-2">
-        <p>Welcome 👋 John ❄</p>
+        <p>Welcome 👋 {username} ❄</p>
         <p>Select a chat to start messaging</p>
         <TiMessages className="tw-text-3xl tw-md:text-6xl tw-text-center" />
       </div>

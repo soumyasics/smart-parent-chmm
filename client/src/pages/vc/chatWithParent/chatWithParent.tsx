@@ -15,8 +15,6 @@ export const ChatWithParent = () => {
     null
   );
 
-  console.log('active parti', activeParticipant)
-
   if (!isAuthenticated && userType !== "vaccineCenter") {
     return <Navigate to="/vc/login" />;
   }

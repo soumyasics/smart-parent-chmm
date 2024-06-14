@@ -1,21 +1,42 @@
 import { Conversation } from "./Conversation";
-import { PageLoading } from "../../../../components/pageLoading/pageLoading";
 import { useFetchData } from "../../../../hooks/useFetchData";
 import { useCustomNavigate } from "../../../../hooks/useCustomNavigate";
 import { ParentData } from "../types.ts";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { PageLoading2 } from "../../../../components/pageLoading/pageLoading2.tsx";
 interface ConversationProps {
+  searchedParticipant: string;
   activeParticipant: ParentData | null;
   chooseParticipant: (participant: ParentData) => void;
 }
 
+type fetchDataType = any[];
+
 const Conversations: FC<ConversationProps> = ({
+  searchedParticipant,
   activeParticipant,
   chooseParticipant,
 }) => {
+  const [filteredParticipants, setFilteredParticipants] =
+    useState<fetchDataType>([]);
   const { isLoading, data: allParents, error } = useFetchData("/getAllParents");
   const navigateTo = useCustomNavigate();
+
+  console.log("searched part", searchedParticipant);
+  console.log("all parent", allParents);
+  console.log("filterd", filteredParticipants);
+  useEffect(() => {
+    if (searchedParticipant) {
+      const filtered = allParents.filter((parent) => {
+        return parent?.name
+          .toLowerCase()
+          .includes(searchedParticipant.toLowerCase());
+      });
+      setFilteredParticipants(filtered);
+    } else {
+      setFilteredParticipants(allParents);
+    }
+  }, [searchedParticipant, allParents]);
 
   return (
     <div className="tw-py-2 tw-flex tw-flex-col tw-overflow-auto">
@@ -35,15 +56,14 @@ const Conversations: FC<ConversationProps> = ({
         </div>
       ) : (
         <div>
-          {Array.isArray(allParents) &&
-            allParents?.map((parent) => (
-              <Conversation
-                key={parent?._id}
-                parent={parent}
-                activeParticipant={activeParticipant}
-                chooseParticipant={chooseParticipant}
-              />
-            ))}
+          {filteredParticipants?.map((parent) => (
+            <Conversation
+              key={parent?._id}
+              parent={parent}
+              activeParticipant={activeParticipant}
+              chooseParticipant={chooseParticipant}
+            />
+          ))}
         </div>
       )}
     </div>

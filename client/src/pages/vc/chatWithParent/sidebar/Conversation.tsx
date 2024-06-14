@@ -1,6 +1,4 @@
-import { FC, useEffect, useState } from "react";
-import chatUserImg from "../../../../assets/chat-user.jpg";
-import { BASE_URL } from "../../../../apis/baseUrl";
+import { FC } from "react";
 import { useProfilePicture } from "../../../../hooks/useProfilePicture";
 interface ParentData {
   _id: string;

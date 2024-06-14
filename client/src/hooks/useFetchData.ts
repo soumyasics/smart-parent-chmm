@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../apis/axiosInstance";
 import axios from "axios";
 
-type fetchDataType = any[] | object;
+type fetchDataType = any[];
 
 export const useFetchData = (url: string) => {
   const [data, setData] = useState<fetchDataType>([]);
@@ -30,7 +30,7 @@ export const useFetchData = (url: string) => {
       } finally {
         setTimeout(() => {
           setIsLoading(false);
-        }, 1500);
+        }, 1000);
       }
     };
 
