@@ -67,7 +67,6 @@ const sendMessageParentAndVC = async (req, res) => {
 
 const getSingleConversation = async (req, res) => {
   try {
-  
     const { parentId, VCId } = req.body;
     if (!parentId || !VCId) {
       return res
@@ -82,9 +81,11 @@ const getSingleConversation = async (req, res) => {
     const conversation = await ConversationBWParentAndVCModel.findOne({
       parentId,
       VCId,
-    }).populate("messages");
-
-    
+    })
+      .populate("messages")
+      .populate("parentId")
+      .populate("VCId")
+      .exec();
 
     if (!conversation) {
       return res

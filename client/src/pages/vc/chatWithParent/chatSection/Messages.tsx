@@ -1,4 +1,4 @@
-import { Message } from "./Message";
+import { Message, Message2 } from "./Message";
 
 const Messages = ({ conversation }) => {
   return (
@@ -6,7 +6,7 @@ const Messages = ({ conversation }) => {
       {conversation?.map((message) => {
 
 
-        return <Message message={message} key={message?._id} />;
+        return <Message2 message={message} key={message?._id} />;
       })}
     </div>
   );
