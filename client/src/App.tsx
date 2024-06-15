@@ -26,6 +26,7 @@ import { ViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/v
 import "./App.css";
 import { ChatWithVC } from "./pages/parent/chatWithVC/chatWithVC.tsx";
 import { VCForgotPassword } from "./pages/vc/forgotPassword/forgotPassword.tsx";
+import { ProtectAdminRoutes } from "./components/Admin/protectAdminRoute/protectAdminRoutes.tsx";
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
         <Route path="/parent/register-child" element={<RegisterChild />} />
         <Route path="/parent/chat-vc" element={<ChatWithVC />} />
         <Route
-        path="/parent/view-vaccination-centers"
+          path="/parent/view-vaccination-centers"
           element={<ViewVaccinationCenters />}
         />
         <Route
@@ -89,7 +90,14 @@ function App() {
         {/* admin routes */}
 
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectAdminRoutes>
+              <AdminDashboard />
+            </ProtectAdminRoutes>
+          }
+        />
 
         {/* testing routes  */}
 

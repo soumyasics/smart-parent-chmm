@@ -28,6 +28,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const navigateTo = useCustomNavigate();
   const { userId: VCId } = useSelector((state: RootState) => state.user);
 
+  console.log("err on message container", error)
   const { userData } = useSelector((state: RootState) => state.user);
   useEffect(() => {
     const parentId = activeParticipant?._id;

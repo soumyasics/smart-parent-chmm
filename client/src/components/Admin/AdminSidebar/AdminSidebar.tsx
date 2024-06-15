@@ -5,6 +5,8 @@ import {
   FcShop,
   FcVoicePresentation,
 } from "react-icons/fc";
+import { adminLoggedOut } from "../../../redux/reducers/adminSlice";
+import { useDispatch } from "react-redux";
 
 import { LuLogOut } from "react-icons/lu";
 import "./AdminSidebar.css";
@@ -17,10 +19,10 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
   changeActivePage,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   function handleLogout() {
-    if (localStorage.getItem("crescendo-admin")) {
-      localStorage.removeItem("crescendo-admin");
-    }
+    dispatch(adminLoggedOut())
     navigate("/admin/login");
   }
   return (

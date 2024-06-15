@@ -8,7 +8,7 @@ export const AdminVCPending = () => {
   const [vcPendingData, setVCPendingData] = useState([]);
   const [error, setError] = useState("");
 
-  console.log("err", error)
+  console.log("err", error);
   useEffect(() => {
     getPendingVCs();
   }, []);
@@ -22,8 +22,8 @@ export const AdminVCPending = () => {
       }
     } catch (error) {
       console.log("Error on get approve vaccination centers", error);
-    }finally {
-      getPendingVCs()
+    } finally {
+      getPendingVCs();
     }
   };
   const rejectVc = async (id: string) => {
@@ -35,8 +35,8 @@ export const AdminVCPending = () => {
       }
     } catch (error) {
       console.log("Error on get reject vaccination centers", error);
-    }finally {
-      getPendingVCs()
+    } finally {
+      getPendingVCs();
     }
   };
 
@@ -61,12 +61,12 @@ export const AdminVCPending = () => {
       <div className="admin-user-title-container">
         <h1 className="admin-users-title">
           {" "}
-          All Vaccination Center Pending Requests
+           Vaccination Center Pending Requests
         </h1>
       </div>
       <div className="admin-users-search-container"></div>
 
-      <div className="mt-5">
+      <div className="mt-5" style={{ minHeight: "600px" }}>
         <AdminVCPendingTable
           rejectVc={rejectVc}
           approveVc={approveVc}

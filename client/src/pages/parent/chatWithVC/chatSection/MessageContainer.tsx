@@ -30,7 +30,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const { userId: parentId } = useSelector((state: RootState) => state.user);
 
   const { userData } = useSelector((state: RootState) => state.user);
-  
+  console.log("err", error);
   useEffect(() => {
     const VCId = activeParticipant?._id;
     if (VCId && parentId) {
