@@ -11,8 +11,8 @@ import { UserState } from "../../../redux/types";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
 import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
-import "./vcLogin.css";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import "./vcLogin.css";
 
 export const VCLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);

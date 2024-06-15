@@ -25,6 +25,7 @@ import { ChatWithParent } from "./pages/vc/chatWithParent/chatWithParent.tsx";
 import { ViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/viewVaccinnationCenteres.tsx";
 import "./App.css";
 import { ChatWithVC } from "./pages/parent/chatWithVC/chatWithVC.tsx";
+import { VCForgotPassword } from "./pages/vc/forgotPassword/forgotPassword.tsx";
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
         <Route path="/vc/login" element={<VCLogin />} />
         <Route path="/vc/profile" element={<VCProfilePage />} />
         <Route path="/vc/chat" element={<ChatWithParent />} />
+        <Route path="/vc/forgot-password" element={<VCForgotPassword />} />
 
         {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />

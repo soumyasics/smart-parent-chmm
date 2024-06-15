@@ -102,11 +102,17 @@ router.patch(
   validateMongooseId,
   vcController.rejectVCById
 );
+router.patch("/resetVCPasswordByEmail", vcController.resetVCPasswordByEmail);
 
 router.get("/getAllPendingVc", vcController.allPendingVC);
 router.get("/getAllApprovedVc", vcController.allApprovedVC);
 router.get("/getAllRejectedVc", vcController.allRejectedVC);
 router.get("/getVCDataById/:id", vcController.getVCDataById);
+router.patch(
+  "/updateVCById/:id",
+  vcController.upload,
+  vcController.updateVCById
+);
 
 // Parent and vc conversation routes
 router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
