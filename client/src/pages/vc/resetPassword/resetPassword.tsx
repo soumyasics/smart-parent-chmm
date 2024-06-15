@@ -12,7 +12,7 @@ interface PasswordResetData {
   newPassword: string;
 }
 
-export const ParentResetPassword: React.FC = () => {
+export const VCResetPassword: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -60,7 +60,7 @@ export const ParentResetPassword: React.FC = () => {
 
   const resetPassword = async (data: PasswordResetData) => {
     try {
-      let res = await axiosInstance.patch("resetParentPasswordByEmail", data);
+      let res = await axiosInstance.patch("resetVCPasswordByEmail", data);
       if (res.status === 200) {
         alert("Password reset successfully");
         resetFields()

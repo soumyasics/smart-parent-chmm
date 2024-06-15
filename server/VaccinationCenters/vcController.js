@@ -155,12 +155,10 @@ const rejectVCById = async (req, res) => {
 const allPendingVC = async (req, res) => {
   try {
     const allPendingVCs = await VCModel.find({ isAdminApproved: "pending" });
-    return res
-      .status(200)
-      .json({
-        message: "All pending vaccination centers",
-        data: allPendingVCs,
-      });
+    return res.status(200).json({
+      message: "All pending vaccination centers",
+      data: allPendingVCs,
+    });
   } catch (error) {
     console.error("Error getting all pending vaccination center:", error);
     return res.status(500).json({ message: "Internal server error", error });
@@ -169,12 +167,10 @@ const allPendingVC = async (req, res) => {
 const allApprovedVC = async (req, res) => {
   try {
     const allApprovedVc = await VCModel.find({ isAdminApproved: "approved" });
-    return res
-      .status(200)
-      .json({
-        message: "All approved vaccination centers",
-        data: allApprovedVc,
-      });
+    return res.status(200).json({
+      message: "All approved vaccination centers",
+      data: allApprovedVc,
+    });
   } catch (error) {
     console.error("Error getting all approved vaccination center:", error);
     return res.status(500).json({ message: "Internal server error", error });
@@ -184,12 +180,10 @@ const allApprovedVC = async (req, res) => {
 const allRejectedVC = async (req, res) => {
   try {
     const allRejectedVc = await VCModel.find({ isAdminApproved: "rejected" });
-    return res
-      .status(200)
-      .json({
-        message: "All rjected vaccination centers.",
-        data: allRejectedVc,
-      });
+    return res.status(200).json({
+      message: "All rjected vaccination centers.",
+      data: allRejectedVc,
+    });
   } catch (error) {
     console.error("Error getting all rejected vaccination center:", error);
     return res.status(500).json({ message: "Internal server error", error });
@@ -280,21 +274,36 @@ const updateVCById = async (req, res) => {
     if (!vc) {
       return res.status(404).json({ message: "Vaccination center not found" });
     }
-
     const { name, email, phoneNumber, address, category } = req.body;
 
-    const updatedVC = await VCModel.findByIdAndUpdate(
-      id,
-      {
-        name,
-        email,
-        phoneNumber,
-        address,
-        category,
-        profilePicture: req.file?.path ? req.file : null,
-      },
-      { new: true }
-    );
+    let newValues = {};
+    if (name) {
+      newValues.name = name;
+    }
+    if (email) {
+      newValues.email = email;
+    }
+    if (phoneNumber) {
+      newValues.phoneNumber = phoneNumber;
+    }
+    if (address) {
+      newValues.address = address;
+    }
+    if (category) {
+      if (category !== "hospital" && category !== "anganvadi") {
+        return res.status(400).json({
+          message: "Invalid category",
+        });
+      }
+      newValues.category = category;
+    }
+    if (req.file?.path) {
+      newValues.profilePicture = req.file;
+    }
+
+    const updatedVC = await VCModel.findByIdAndUpdate(id, newValues, {
+      new: true,
+    });
 
     if (updatedVC) {
       return res.status(200).json({

@@ -4,7 +4,7 @@ import { VCProfileLeftSidebar } from "./leftSidebar/profileLeftSidebar";
 import { VCProfileSection } from "./profileSection/profileSection";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { useState } from "react";
-import { ParentResetPassword } from "../resetPassword/resetPassword";
+import { VCResetPassword } from "../resetPassword/resetPassword";
 import "./profilePage.css";
 import { VCNavbar } from "../../../components/vc/vcNavbar/vcNavbar";
 
@@ -24,7 +24,7 @@ export const VCProfilePage = () => {
           </Col>
           <Col md={9} className="profile-container">
             {activePage === "profile" && <VCProfileSection />}
-            {activePage === "reset-password" && <ParentResetPassword />}
+            {activePage === "reset-password" && <VCResetPassword />}
           </Col>
         </Row>
       </Container>

@@ -19,7 +19,7 @@ interface ProfileViewProps {
   handleCancelEditProfile: () => void;
 }
 
-export interface NewParentData {
+export interface NewVCData {
   name?: string;
   phoneNumber?: string;
   address?: string;
@@ -31,7 +31,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
   profilePicture,
   handleCancelEditProfile,
 }) => {
-  const [newVCData, setNewVCData] = useState<NewParentData>({
+  const [newVCData, setNewVCData] = useState<NewVCData>({
     name: "",
     phoneNumber: "",
     address: "",
@@ -46,7 +46,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
 
   const { isAuthenticated, userType, userId } = useSelector(
     (state: RootState) => state.user
-  );
+  );  
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -104,8 +104,6 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
       alert("Fields can't be empty");
       return;
     }
-    console.log("ph", newVCData);
-    console.log("ph", phoneNumber.length);
     if (phoneNumber.length !== 10) {
       alert("Invalid phone number");
       return;
@@ -130,7 +128,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
     try {
       setIsLoading(true);
       const res = await axiosMultipartInstance.patch(
-        `/updateParentDataById/${userId}`,
+        `/updateVCById/${userId}`,
         formData
       );
       if (res.status === 200) {
@@ -220,7 +218,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
           <Col md={6}>
             <Form.Group controlId="formPostalCode">
               <Form.Group className="position-relative mt-3">
-                <Form.Label>Upload your new photo </Form.Label>
+                <Form.Label>Upload new photo </Form.Label>
                 <Form.Control
                   type="file"
                   name="file"
