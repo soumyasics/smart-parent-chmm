@@ -1,27 +1,18 @@
 import { FC } from "react";
 import { useProfilePicture } from "../../../../hooks/useProfilePicture";
-interface ParentData {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  phoneNumber: string;
-  address: string;
-  dateOfBirth: string;
-  profilePicture: any;
-}
+import { VCData } from "../types";
 interface ConversationProps {
-  parent: ParentData;
-  activeParticipant: ParentData | null;
-  chooseParticipant: (participant: ParentData) => void;
+  vc: VCData;
+  activeParticipant: VCData | null;
+  chooseParticipant: (participant: VCData) => void;
 }
 
 export const Conversation: FC<ConversationProps> = ({
-  parent,
+  vc,
   chooseParticipant,
 }) => {
   const { profilePicture } = useProfilePicture(
-    parent?.profilePicture?.filename || null
+    vc?.profilePicture?.filename || null
   );
 
   const capitalizeFirstCharacter = (name: string) => {
@@ -29,7 +20,7 @@ export const Conversation: FC<ConversationProps> = ({
   };
 
   const chooseActiveParticipant = () => {
-    chooseParticipant(parent);
+    chooseParticipant(vc);
   };
 
   return (
@@ -47,7 +38,7 @@ export const Conversation: FC<ConversationProps> = ({
         <div className="tw-flex tw-flex-col tw-flex-1">
           <div className="tw-flex tw-gap-3 tw-justify-between">
             <p className="tw-font-bold tw-m-0 tw-ms-2 tw-text-gray-200">
-              {capitalizeFirstCharacter(parent?.name) || ""}
+              {capitalizeFirstCharacter(vc?.name) || ""}
             </p>
             <span className="tw-text-xl"></span>
           </div>

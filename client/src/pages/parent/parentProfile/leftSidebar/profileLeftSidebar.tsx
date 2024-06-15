@@ -56,6 +56,12 @@ export const ParentProfileLeftSidebar: React.FC<
         </ListGroup.Item>
         <ListGroup.Item
           className="sidebar-item d-flex"
+          onClick={() => changeActivePage("register-child")}
+        >
+          <FaStar className="sidebar-icon" /> Register Child
+        </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item d-flex"
           onClick={() => changeActivePage("child")}
         >
           <FaStar className="sidebar-icon" /> Child

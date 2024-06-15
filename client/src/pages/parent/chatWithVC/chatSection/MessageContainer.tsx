@@ -1,7 +1,7 @@
 import MessageInput from "./MessageInput";
 import { Messages } from "./Messages";
 import { TiMessages } from "react-icons/ti";
-import { ParentData } from "../types.ts";
+import { VCData } from "../types.ts";
 import { FC, useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../../../utils/modification/capitalizeFirstLetter.ts";
 import { useSelector } from "react-redux";
@@ -10,8 +10,9 @@ import { useCustomNavigate } from "../../../../hooks/useCustomNavigate.ts";
 import axiosInstance from "../../../../apis/axiosInstance.ts";
 import axios from "axios";
 import { ChatMessage } from "../types.ts";
+
 interface MessageContainerProps {
-  activeParticipant: ParentData | null;
+  activeParticipant: VCData | null;
 }
 
 interface GetConversation {
@@ -26,27 +27,27 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const [error, setError] = useState("");
   const isChatSelected = activeParticipant ? true : null;
   const navigateTo = useCustomNavigate();
-  const { userId: VCId } = useSelector((state: RootState) => state.user);
+  const { userId: parentId } = useSelector((state: RootState) => state.user);
 
   const { userData } = useSelector((state: RootState) => state.user);
+  
   useEffect(() => {
-    const parentId = activeParticipant?._id;
+    const VCId = activeParticipant?._id;
     if (VCId && parentId) {
       getConversation({
         VCId,
         parentId,
       });
     } else {
-      console.log("Choose a parent first");
+      console.log("Choose a VC first");
     }
-  }, [activeParticipant, VCId, message]);
+  }, [activeParticipant, parentId, message]);
 
   const getConversation = async (payload: GetConversation) => {
     try {
       const res = await axiosInstance.post("getSingleConversation", payload);
       if (res.status === 200) {
-        let data: ChatMessage[] = res.data?.data?.messages || [];
-        
+        let data: ChatMessage[] = res.data?.data.messages || [];
         const reversedData = data.reverse();
 
         setConversation(reversedData);
@@ -68,8 +69,8 @@ export const MessageContainer: FC<MessageContainerProps> = ({
     setMessage(newMsg);
   };
 
-  const navigateToHome = () => {
-    navigateTo("/vc/home");
+  const navigateToVaccinationCenter = () => {
+    navigateTo("/parent/view-vaccination-centers");
   };
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">
@@ -90,7 +91,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
           <div>
             <button
               className="tw-btn tw-btn-neutral tw-btn-sm"
-              onClick={navigateToHome}
+              onClick={navigateToVaccinationCenter}
             >
               {" "}
               Back{" "}

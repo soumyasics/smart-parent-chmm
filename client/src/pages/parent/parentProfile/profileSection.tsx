@@ -60,9 +60,6 @@ export const ParentProfileSection = () => {
     }
   }, [parentData]);
 
-  // function capitalizeFirstLetter(str: string) {
-  //   return str.charAt(0).toUpperCase() + str.slice(1);
-  // }
 
   const getParentData = async (userId: string) => {
     try {
