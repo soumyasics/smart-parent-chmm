@@ -1,19 +1,19 @@
 import { FC} from "react";
 import { BsSend } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { ParentData } from "../types";
+import { VCData } from "../types";
 import { RootState } from "../../../../redux/store";
 import axiosInstance from "../../../../apis/axiosInstance";
 
 interface MessageInputProps {
-  activeParticipant: ParentData | null;
+  activeParticipant: VCData | null;
   message: string;
   updateMessage: (message: string) => void;
 }
 
 interface SendMessage {
-  VCId: string | null;
-  parentId: string;
+  VCId: string;
+  parentId: string | null;
   message: string;
   receiverType: string;
   senderType: string;
@@ -23,23 +23,23 @@ const MessageInput: FC<MessageInputProps> = ({
   updateMessage,
   activeParticipant,
 }) => {
-  const { userId: VCId } = useSelector((state: RootState) => state.user);
+  const { userId: parentId } = useSelector((state: RootState) => state.user);
   const handleSendMessage = (e: any) => {
     e.preventDefault();
     if (!message) {
       return;
     }
     if (!activeParticipant) {
-      console.log("Parent data not found!");
+      console.log("Vaccination center data not found!");
       return;
     }
 
     const payload: SendMessage = {
-      VCId,
-      parentId: activeParticipant?._id,
+      parentId,
+      VCId: activeParticipant?._id,
       message,
-      receiverType: "parent",
-      senderType: "vc",
+      receiverType: "vc",
+      senderType: "parent",
     };
     sendMessageToServer(payload);
   };
@@ -47,7 +47,6 @@ const MessageInput: FC<MessageInputProps> = ({
   const sendMessageToServer = async (payload: SendMessage) => {
     try {
       const res = await axiosInstance.post("/sendMessageParentAndVC", payload);
-      console.log("res send msg", res);
       if (res.status === 200) {
         updateMessage("");
       } else {

@@ -1,11 +1,11 @@
 import Conversations from "./Conversations";
 import SearchInput from "./SearchInput";
-import { FC, useEffect, useState } from "react";
-import { ParentData } from "../types";
+import { FC, useState } from "react";
+import { VCData } from "../types";
 
 interface SidebarProps {
-  activeParticipant: ParentData | null;
-  chooseParticipant: (participant: ParentData) => void;
+  activeParticipant: VCData | null;
+  chooseParticipant: (participant: VCData) => void;
 }
 
 export const Sidebar: FC<SidebarProps> = ({

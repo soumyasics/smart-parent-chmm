@@ -1,13 +1,13 @@
 import { Conversation } from "./Conversation";
 import { useFetchData } from "../../../../hooks/useFetchData";
 import { useCustomNavigate } from "../../../../hooks/useCustomNavigate";
-import { ParentData } from "../types.ts";
+import { VCData } from "../types.ts";
 import { FC, useEffect, useState } from "react";
 import { PageLoading2 } from "../../../../components/pageLoading/pageLoading2.tsx";
 interface ConversationProps {
   searchedParticipant: string;
-  activeParticipant: ParentData | null;
-  chooseParticipant: (participant: ParentData) => void;
+  activeParticipant: VCData | null;
+  chooseParticipant: (participant: VCData) => void;
 }
 
 type fetchDataType = any[];
@@ -19,24 +19,22 @@ const Conversations: FC<ConversationProps> = ({
 }) => {
   const [filteredParticipants, setFilteredParticipants] =
     useState<fetchDataType>([]);
-  const { isLoading, data: allParents, error } = useFetchData("/getAllParents");
+  const { isLoading, data: allVCs, error } = useFetchData("getAllApprovedVc");
   const navigateTo = useCustomNavigate();
 
-  console.log("searched part", searchedParticipant);
-  console.log("all parent", allParents);
-  console.log("filterd", filteredParticipants);
+  
   useEffect(() => {
     if (searchedParticipant) {
-      const filtered = allParents.filter((parent) => {
-        return parent?.name
+      const filtered = allVCs.filter((vc) => {
+        return vc?.name
           .toLowerCase()
           .includes(searchedParticipant.toLowerCase());
       });
       setFilteredParticipants(filtered);
     } else {
-      setFilteredParticipants(allParents);
+      setFilteredParticipants(allVCs);
     }
-  }, [searchedParticipant, allParents]);
+  }, [searchedParticipant, allVCs]);
 
   return (
     <div className="tw-py-2 tw-flex tw-flex-col tw-overflow-auto">
@@ -48,7 +46,7 @@ const Conversations: FC<ConversationProps> = ({
           <button
             className="tw-btn tw-btn-error tw-btn-sm"
             onClick={() => {
-              navigateTo("/vc/home");
+              navigateTo("/parent/home");
             }}
           >
             Go Back
@@ -56,10 +54,10 @@ const Conversations: FC<ConversationProps> = ({
         </div>
       ) : (
         <div>
-          {filteredParticipants?.map((parent) => (
+          {filteredParticipants?.map((vc) => (
             <Conversation
-              key={parent?._id}
-              parent={parent}
+              key={vc?._id}
+              vc={vc}
               activeParticipant={activeParticipant}
               chooseParticipant={chooseParticipant}
             />

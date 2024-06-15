@@ -9,6 +9,16 @@ export interface ParentData {
   profilePicture: any;
 }
 
+export interface VCData {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: string;
+  category: string;
+  profilePicture: any;
+}
 
 export interface ChatMessage {
   VCId: string;

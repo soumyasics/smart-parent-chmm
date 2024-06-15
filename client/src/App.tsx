@@ -24,6 +24,7 @@ import { VCProfilePage } from "./pages/vc/vcProfile/profilePage.tsx";
 import { ChatWithParent } from "./pages/vc/chatWithParent/chatWithParent.tsx";
 import { ViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/viewVaccinnationCenteres.tsx";
 import "./App.css";
+import { ChatWithVC } from "./pages/parent/chatWithVC/chatWithVC.tsx";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path="/parent/display-todo" element={<DisplayTodo />} />
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
+        <Route path="/parent/chat-vc" element={<ChatWithVC />} />
         <Route
         path="/parent/view-vaccination-centers"
           element={<ViewVaccinationCenters />}

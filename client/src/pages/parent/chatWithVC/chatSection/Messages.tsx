@@ -16,7 +16,7 @@ export const Messages: FC<MessagesProps> = ({ conversation }) => {
       className="tw-px-4 tw-py-5 tw-flex-1 tw-overflow-auto "
     >
       {conversation?.map((message) => {
-        if (message.senderType === "vc") {
+        if (message.senderType === "parent") {
           return <MessageEnd message={message} key={message?._id} />;
         } else {
           return <MessageStart message={message} key={message?._id} />;
