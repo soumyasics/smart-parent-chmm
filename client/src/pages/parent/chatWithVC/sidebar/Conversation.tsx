@@ -38,7 +38,7 @@ export const Conversation: FC<ConversationProps> = ({
         <div className="tw-flex tw-flex-col tw-flex-1">
           <div className="tw-flex tw-gap-3 tw-justify-between">
             <p className="tw-font-bold tw-m-0 tw-ms-2 tw-text-gray-200">
-              {capitalizeFirstCharacter(parent?.name) || ""}
+              {capitalizeFirstCharacter(vc?.name) || ""}
             </p>
             <span className="tw-text-xl"></span>
           </div>

@@ -27,27 +27,27 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const [error, setError] = useState("");
   const isChatSelected = activeParticipant ? true : null;
   const navigateTo = useCustomNavigate();
-  const { userId: VCId } = useSelector((state: RootState) => state.user);
+  const { userId: parentId } = useSelector((state: RootState) => state.user);
 
   const { userData } = useSelector((state: RootState) => state.user);
-  console.log("user data", userData);
+  
   useEffect(() => {
-    const parentId = activeParticipant?._id;
+    const VCId = activeParticipant?._id;
     if (VCId && parentId) {
       getConversation({
         VCId,
         parentId,
       });
     } else {
-      console.log("Choose a parent first");
+      console.log("Choose a VC first");
     }
-  }, [activeParticipant, VCId, message]);
+  }, [activeParticipant, parentId, message]);
 
   const getConversation = async (payload: GetConversation) => {
     try {
       const res = await axiosInstance.post("getSingleConversation", payload);
       if (res.status === 200) {
-        let data: ChatMessage[] = res.data?.data || [];
+        let data: ChatMessage[] = res.data?.data.messages || [];
         const reversedData = data.reverse();
 
         setConversation(reversedData);
@@ -69,8 +69,8 @@ export const MessageContainer: FC<MessageContainerProps> = ({
     setMessage(newMsg);
   };
 
-  const navigateToHome = () => {
-    navigateTo("/parent/home");
+  const navigateToVaccinationCenter = () => {
+    navigateTo("/parent/view-vaccination-centers");
   };
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">
@@ -91,7 +91,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
           <div>
             <button
               className="tw-btn tw-btn-neutral tw-btn-sm"
-              onClick={navigateToHome}
+              onClick={navigateToVaccinationCenter}
             >
               {" "}
               Back{" "}

@@ -6,6 +6,7 @@ interface MessagesProps {
   conversation: ChatMessage[];
 }
 export const Messages: FC<MessagesProps> = ({ conversation }) => {
+  console.log('conver', conversation)
   return (
     <div
       style={{

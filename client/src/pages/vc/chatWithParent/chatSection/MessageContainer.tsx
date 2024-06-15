@@ -29,7 +29,6 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const { userId: VCId } = useSelector((state: RootState) => state.user);
 
   const { userData } = useSelector((state: RootState) => state.user);
-  console.log("user data", userData);
   useEffect(() => {
     const parentId = activeParticipant?._id;
     if (VCId && parentId) {
@@ -46,8 +45,8 @@ export const MessageContainer: FC<MessageContainerProps> = ({
     try {
       const res = await axiosInstance.post("getSingleConversation", payload);
       if (res.status === 200) {
-        let data: ChatMessage[] = res.data?.data || [];
-        console.log("data ==> ", data);
+        let data: ChatMessage[] = res.data?.data?.messages || [];
+        
         const reversedData = data.reverse();
 
         setConversation(reversedData);

@@ -22,9 +22,6 @@ const Conversations: FC<ConversationProps> = ({
   const { isLoading, data: allParents, error } = useFetchData("/getAllParents");
   const navigateTo = useCustomNavigate();
 
-  console.log("searched part", searchedParticipant);
-  console.log("all parent", allParents);
-  console.log("filterd", filteredParticipants);
   useEffect(() => {
     if (searchedParticipant) {
       const filtered = allParents.filter((parent) => {
