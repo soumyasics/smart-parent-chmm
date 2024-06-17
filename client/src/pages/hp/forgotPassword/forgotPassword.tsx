@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
-import "./forgotPassword.css";
-
 import forgotPasswordImg from "../../../assets/forgot-password-img.png";
-import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import "./forgotPassword.css";
+import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 
 interface PasswordResetData {
   email: string;
   newPassword: string;
 }
 
-export const VCForgotPassword: React.FC = () => {
+export const HPForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -58,11 +57,11 @@ export const VCForgotPassword: React.FC = () => {
 
   const resetPassword = async (data: PasswordResetData) => {
     try {
-      let res = await axiosInstance.patch("resetVCPasswordByEmail", data);
+      let res = await axiosInstance.patch("resetHPPasswordByEmail", data);
       if (res.status === 200) {
         console.log("Password reset successfully");
         alert("Password reset successfully");
-        redirectToVCLogin();
+        redirectToHPLogin();
       } else {
         console.log("Something went wrong.", res);
       }
@@ -79,19 +78,19 @@ export const VCForgotPassword: React.FC = () => {
     }
   };
 
-  const redirectToVCLogin = () => {
-    navigate("/vc/login");
+  const redirectToHPLogin = () => {
+    navigate("/hp/login");
   };
   return (
     <>
-      <ParentNavbar />
+      <LandingPageNavbar />
       <Container className="my-5 shadow forgot-password-container">
         <Row className="justify-content-center">
           <Col
             md={6}
-            className="text-center d-flex flex-column flex-wrap align-content-center"
+            className="text-center d-flex flex-wrap flex-column align-content-center"
           >
-            <Image src={forgotPasswordImg} className="forgot-password-image" />
+            <Image src={forgotPasswordImg} className="forgot-password-image mx-auto" />
             <h2 className="forgot-password-header">Forgot Password?</h2>
             <p className="forgot-password-subtext">
               Enter your email address to reset your password.

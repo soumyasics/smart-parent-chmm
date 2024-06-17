@@ -95,6 +95,10 @@ export const HPLogin = () => {
     }
   };
 
+  const navigateToHPForgotPassword = () => {
+    navigate("/hp/forgot-password");
+  }
+
   return (
     <div>
       <HPNavbar />
@@ -137,6 +141,13 @@ export const HPLogin = () => {
               </Col>
             </Row>
             <div className="user-login-btn-container-2">
+              <p
+                role="button"
+                onClick={navigateToHPForgotPassword}
+                className="text-primary mb-3 text-start fw-bold"
+              >
+                forgot password?
+              </p>
               <p>
                 Don’t have an account?{" "}
                 <span

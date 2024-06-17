@@ -27,6 +27,7 @@ import { ChatWithVC } from "./pages/parent/chatWithVC/chatWithVC.tsx";
 import { VCForgotPassword } from "./pages/vc/forgotPassword/forgotPassword.tsx";
 import { ProtectAdminRoutes } from "./components/Admin/protectAdminRoute/protectAdminRoutes.tsx";
 import { HPProfilePage } from "./pages/hp/hpProfile/profilePage.tsx";
+import { HPForgotPassword } from "./pages/hp/forgotPassword/forgotPassword.tsx";
 
 function App() {
   return (
@@ -64,11 +65,13 @@ function App() {
           element={<ParentForgotPassword />}
         />
 
+
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
+        <Route path="/hp/forgot-password" element={<HPForgotPassword />} />
 
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />
