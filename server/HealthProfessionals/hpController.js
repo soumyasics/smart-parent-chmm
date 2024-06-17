@@ -12,9 +12,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).any();
 
-// const uploadProfilePic = multer({ storage: storage }).single("profilePicture");
-// const uploadCertificate = multer({ storage: storage }).single("certificateImg");
-
 const {
   encryptPassword,
   comparePasswords,
@@ -24,8 +21,24 @@ const { generateToken } = require("../utils/auth");
 
 const registerHP = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, category } = req.body;
-    if (!name || !email || !password || !phoneNumber || !category) {
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      department,
+      address,
+      qualification,
+    } = req.body;
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !phoneNumber ||
+      !department ||
+      !qualification ||
+      !address
+    ) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await encryptPassword(password);
@@ -42,9 +55,11 @@ const registerHP = async (req, res) => {
       email,
       password: hashedPassword,
       phoneNumber,
-      category,
-      certificateImg: certificateFile,
+      address,
+      department,
+      qualification,
       profilePicture: profilePictureFile,
+      certificateImg: certificateFile,
     });
 
     await newHP.save();
@@ -88,7 +103,6 @@ const loginHP = async (req, res) => {
 
     const hpCopy = hp.toObject();
     delete hpCopy.password;
-    console.log("hpp", hpCopy);
     const token = generateToken(hpCopy);
 
     return res.status(200).json({
@@ -114,8 +128,6 @@ const adminApprovedHPRequest = async (req, res) => {
       });
     }
 
-   
-
     hp.isAdminApproved = "approved";
 
     await hp.save();
@@ -139,7 +151,6 @@ const adminRejectedHPRequest = async (req, res) => {
       });
     }
 
-
     hp.isAdminApproved = "rejected";
     await hp.save();
     return res.status(200).json({
@@ -147,6 +158,44 @@ const adminRejectedHPRequest = async (req, res) => {
       data: hp,
     });
   } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const getAllPendingHP = async (req, res) => {
+  try {
+    const allPendingHPs = await HPModel.find({ isAdminApproved: "pending" });
+    return res.status(200).json({
+      message: "All pending health professionals",
+      data: allPendingHPs,
+    });
+  } catch (error) {
+    console.error("Error getting all pending health professional:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+const getAllApprovedHP = async (req, res) => {
+  try {
+    const allApprovedHP = await HPModel.find({ isAdminApproved: "approved" });
+    return res.status(200).json({
+      message: "All approved health professionals.",
+      data: allApprovedHP,
+    });
+  } catch (error) {
+    console.error("Error getting all approved health professional:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const getAllRejectedHP = async (req, res) => {
+  try {
+    const allRejectedHP = await HPModel.find({ isAdminApproved: "rejected" });
+    return res.status(200).json({
+      message: "All rejected health professionals.",
+      data: allRejectedHP,
+    });
+  } catch (error) {
+    console.error("Error getting all rejected health professional:", error);
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
@@ -280,6 +329,9 @@ module.exports = {
   loginHP,
   adminApprovedHPRequest,
   adminRejectedHPRequest,
+  getAllPendingHP,
+  getAllApprovedHP,
+  getAllRejectedHP,
   viewHpById,
   viewHps,
   editHPById,

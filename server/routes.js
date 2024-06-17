@@ -57,7 +57,7 @@ router.post(
   validatePassword,
   hp.registerHP
 );
-
+router.post("/loginHP", hp.loginHP);
 router.patch(
   "/adminApprovedHPRequest/:id",
   validateMongooseId,
@@ -70,7 +70,12 @@ router.patch(
   hp.adminRejectedHPRequest
 );
 
-router.post("/loginHP", hp.loginHP);
+router.get("/getAllPendingHp", hp.getAllPendingHP);
+router.get("/getAllApprovedHp", hp.getAllApprovedHP);
+router.get("/getAllRejectedHp", hp.getAllRejectedHP);
+
+
+
 router.post("/viewHpById/:id", hp.viewHpById);
 router.post("/viewHps", hp.viewHps);
 router.post("/editHPById/:id", hp.editHPById);

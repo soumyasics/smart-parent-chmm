@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../apis/axiosInstance.ts";
 import AdminDashboardNav from "../AdminDashboardNav/adminDashboardNav.tsx";
-import { AdminVCPendingTable } from "../AdminVCPendingTable/adminVCPendingTable.tsx";
-import "./adminVCPending.css";
+import { AdminHPPendingTable } from "../AdminHPPendingTable/adminHPPendingTable.tsx";
+import "./adminHPPending.css";
 
-export const AdminVCPending = () => {
-  const [vcPendingData, setVCPendingData] = useState([]);
+export const AdminHPPending = () => {
+  const [hpPendingData, setHPPendingData] = useState([]);
   const [error, setError] = useState("");
 
   console.log("err", error);
@@ -13,28 +13,28 @@ export const AdminVCPending = () => {
     getPendingVCs();
   }, []);
 
-  const approveVc = async (id: string) => {
+  const approveHP = async (id: string) => {
     try {
-      const res = await axiosInstance.patch(`/approveVCById/${id}`);
+      const res = await axiosInstance.patch(`/adminApprovedHPRequest/${id}`);
       if (res.status === 200) {
-        alert("Vaccination center approved successfully.");
+        alert("Health professional approved successfully.");
         return;
       }
     } catch (error) {
-      console.log("Error on get approve vaccination centers", error);
+      console.log("Error on get approve health professional", error);
     } finally {
       getPendingVCs();
     }
   };
-  const rejectVc = async (id: string) => {
+  const rejectHP = async (id: string) => {
     try {
-      const res = await axiosInstance.patch(`/rejectVCById/${id}`);
+      const res = await axiosInstance.patch(`/adminRejectedHPRequest/${id}`);
       if (res.status === 200) {
-        alert("Vaccination center rejected successfully.");
+        alert("Health professional rejected successfully.");
         return;
       }
     } catch (error) {
-      console.log("Error on get reject vaccination centers", error);
+      console.log("Error on get reject health professional", error);
     } finally {
       getPendingVCs();
     }
@@ -42,15 +42,15 @@ export const AdminVCPending = () => {
 
   const getPendingVCs = async () => {
     try {
-      const res = await axiosInstance.get("/getAllPendingVc");
+      const res = await axiosInstance.get("/getAllPendingHp");
       if (res.status === 200) {
         const data = res.data?.data;
-        setVCPendingData(data);
+        setHPPendingData(data);
       } else {
         throw new Error("Something went wrong");
       }
     } catch (err) {
-      console.log("Error on get pending vaccination centers", err);
+      console.log("Error on get pending health professional", err);
       setError("Something went wrong. Please check your internet connection");
     }
   };
@@ -61,16 +61,16 @@ export const AdminVCPending = () => {
       <div className="admin-user-title-container">
         <h1 className="admin-users-title">
           {" "}
-           Vaccination Center Pending Requests
+           Health Professional Pending Requests
         </h1>
       </div>
       <div className="admin-users-search-container"></div>
 
       <div className="mt-5" style={{ minHeight: "600px" }}>
-        <AdminVCPendingTable
-          rejectVc={rejectVc}
-          approveVc={approveVc}
-          vcPendingData={vcPendingData}
+        <AdminHPPendingTable
+          rejectHP={rejectHP}
+          approveHP={approveHP}
+          hpPendingData={hpPendingData}
         />
       </div>
     </div>

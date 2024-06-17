@@ -65,14 +65,7 @@ function App() {
         />
 
         {/* health professional routes */}
-        <Route
-          path="/hp/login"
-          element={
-            <ProtectLoginPage>
-              <HPLogin />
-            </ProtectLoginPage>
-          }
-        />
+        <Route path="/hp/login" element={<HPLogin />} />
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />

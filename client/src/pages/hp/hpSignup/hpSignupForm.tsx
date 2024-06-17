@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import {
+  isOnlyAlphabets,
+  isOnlyNumbers,
   validateEmail,
   validatePassword,
   validatePhoneNumber,
@@ -8,24 +10,32 @@ import {
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
 interface HPData {
   name: string;
   email: string;
   password: string;
+  confirmPassword: string;
   phoneNumber: string;
-  category: string;
+  address: string;
+  department: string;
+  qualification: string;
   profilePicture: File | null;
   certificateImg: File | null;
 }
 export const HPSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
+  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
   const navigate = useNavigate();
   const [hpData, setHpData] = useState<HPData>({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
     phoneNumber: "",
-    category: "",
+    address: "",
+    department: "",
+    qualification: "",
     profilePicture: null,
     certificateImg: null,
   });
@@ -41,6 +51,16 @@ export const HPSignupForm = () => {
   //   certificateImg: null,
   // });
 
+  useEffect(() => {
+    const password = hpData.password;
+    const confirmPassword = hpData.confirmPassword;
+    if (!password || !confirmPassword || password !== confirmPassword) {
+      setIsPasswordMatch(false);
+    } else {
+      setIsPasswordMatch(true);
+    }
+  }, [hpData.password, hpData.confirmPassword]);
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -49,20 +69,50 @@ export const HPSignupForm = () => {
     }
     setValidated(true);
 
-    const isEmailValid = validateEmail(hpData.email);
+    const {
+      name,
+      email,
+      password,
+      confirmPassword,
+      phoneNumber,
+      address,
+      qualification,
+      certificateImg,
+      department,
+    } = hpData;
+
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !phoneNumber ||
+      !address ||
+      !qualification ||
+      !department ||
+      !certificateImg
+    ) {
+      return;
+    }
+    const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
       return;
     }
-    const isPhoneNumberValid = validatePhoneNumber(hpData.phoneNumber);
+    const isPhoneNumberValid = validatePhoneNumber(phoneNumber);
     if (!isPhoneNumberValid) {
       alert("Please provide a valid phone number.");
       return;
     }
 
-    const isPasswordValid = validatePassword(hpData.password);
+    const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
       alert("Please provide valid password");
+      return;
+    }
+
+    if (!isPasswordMatch) {
+      alert("Passwords do not match");
       return;
     }
 
@@ -75,7 +125,9 @@ export const HPSignupForm = () => {
       email,
       password,
       phoneNumber,
-      category,
+      department,
+      address,
+      qualification,
       certificateImg,
       profilePicture,
     } = hpData;
@@ -84,7 +136,9 @@ export const HPSignupForm = () => {
     formData.append("email", email);
     formData.append("password", password);
     formData.append("phoneNumber", phoneNumber);
-    formData.append("category", category);
+    formData.append("department", department);
+    formData.append("address", address);
+    formData.append("qualification", qualification);
 
     if (certificateImg) {
       formData.append("certificateImg", certificateImg);
@@ -132,7 +186,16 @@ export const HPSignupForm = () => {
 
   const handleChanges = (e: any) => {
     const { name, value } = e.target;
+    if (name === "phoneNumber" && value.length !== 0 && !isOnlyNumbers(value)) {
+      return;
+    }
+
+    if (name === "name" && value.length !== 0 && !isOnlyAlphabets(value)) {
+      return;
+    }
     setHpData((prevData) => ({ ...prevData, [name]: value }));
+    
+    console.log("values", hpData)
   };
 
   const handleProfilePictureUpload = (e: any) => {
@@ -159,7 +222,7 @@ export const HPSignupForm = () => {
     >
       <div className="signup-form-flex-div">
         <Row className="mt-3">
-          <Col>
+          <Col sm={12}>
             <Form.Group>
               <Form.Control
                 type="text"
@@ -174,21 +237,19 @@ export const HPSignupForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
-          <Col>
+
+          <Col sm={12}>
             <Form.Group>
               <Form.Control
-                type="text"
+                type="email"
+                placeholder="Enter your email"
                 required
-                minLength={10}
-                maxLength={10}
-                pattern="[0-9]{10}"
-                placeholder="Enter your phone number."
+                name="email"
                 onChange={handleChanges}
-                value={hpData.phoneNumber}
-                name="phoneNumber"
+                value={hpData.email}
               />
               <Form.Control.Feedback type="invalid">
-                Please provide 10 digit Phone number.
+                Please Enter Your Email
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -197,67 +258,97 @@ export const HPSignupForm = () => {
 
       <Row className="mt-3">
         <Col>
+          <PasswordInput
+            handleChanges={handleChanges}
+            value={hpData.password}
+            label="Password"
+            name="password"
+          />
+        </Col>
+        <Col>
+          <PasswordInput
+            handleChanges={handleChanges}
+            value={hpData.confirmPassword}
+            label="Confirm Password"
+            name="confirmPassword"
+          />
+        </Col>
+      </Row>
+
+      <Row className="mt-3">
+        <Col sm={12}>
           <Form.Group>
             <Form.Control
-              type="email"
-              placeholder="Enter your email"
+              type="text"
               required
-              name="email"
+              minLength={10}
+              maxLength={10}
+              pattern="[0-9]{10}"
+              placeholder="Enter your phone number."
               onChange={handleChanges}
-              value={hpData.email}
+              value={hpData.phoneNumber}
+              name="phoneNumber"
             />
             <Form.Control.Feedback type="invalid">
-              Please Enter Your Email
+              Please provide 10 digit Phone number.
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-        <Col>
-          <Form.Group
-            style={{
-              position: "relative",
-            }}
-          >
+
+        <Col sm={12}>
+          <Form.Group>
             <Form.Control
+              type="text"
+              placeholder="Enter your department."
               required
-              type="password"
-              minLength={8}
-              className="password-input-eye-btn-hide"
-              placeholder="Enter your password"
-              name="password"
+              name="department"
+              minLength={3}
               onChange={handleChanges}
-              value={hpData.password}
+              value={hpData.department}
             />
             <Form.Control.Feedback type="invalid">
-              Please enter your password with atleast 8 characters.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Your password is strong.
+              Please enter your department.
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>
 
       <Row className="mt-3">
-        <Col>
+        <Col sm={12}>
           <Form.Group>
             <Form.Control
               type="text"
-              placeholder="Enter Your category."
-              required
-              name="category"
-              minLength={3}
+              placeholder="Enter your address"
+              name="address"
               onChange={handleChanges}
-              value={hpData.category}
+              value={hpData.address}
+              required
             />
             <Form.Control.Feedback type="invalid">
-              Please Enter Your category.
+              Please enter your address
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+
+        <Col sm={12}>
+          <Form.Group>
+            <Form.Control
+              type="text"
+              placeholder="Enter your qualification"
+              required
+              name="qualification"
+              onChange={handleChanges}
+              value={hpData.qualification}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please enter your qualification
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>
 
       <Row>
-        <Col>
+        <Col sm={12}>
           <Form.Group className="position-relative mt-3">
             <Form.Label>Upload your photo </Form.Label>
             <Form.Control
@@ -268,15 +359,19 @@ export const HPSignupForm = () => {
             />
           </Form.Group>
         </Col>
-        <Col>
+        <Col sm={12}>
           <Form.Group className="position-relative mt-3">
             <Form.Label>Upload your certificate image </Form.Label>
             <Form.Control
+              required
               type="file"
               name="file"
               accept="image/*"
               onChange={handleCertificateImgUpload}
             />
+            <Form.Control.Feedback type="invalid">
+              Please upload your certificate
+            </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>

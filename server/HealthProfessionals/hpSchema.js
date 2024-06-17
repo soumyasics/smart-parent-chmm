@@ -19,7 +19,15 @@ const hpSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    category: {
+    address: {
+      type: String,
+      required: true,
+    },
+    department: {
+      type: String,
+      required: true,
+    },
+    qualification: {
       type: String,
       required: true,
     },
