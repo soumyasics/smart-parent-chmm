@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
-import "./forgotPassword.css";
-
 import forgotPasswordImg from "../../../assets/forgot-password-img.png";
-import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
+import "./forgotPassword.css";
 
 interface PasswordResetData {
   email: string;
@@ -84,10 +83,10 @@ export const ParentForgotPassword: React.FC = () => {
   };
   return (
     <>
-      <ParentNavbar />
+      <LandingPageNavbar />
       <Container className="my-5 shadow forgot-password-container">
         <Row className="justify-content-center">
-          <Col md={6} className="text-center">
+          <Col md={6} className="d-flex flex-wrap align-content-center flex-column text-center">
             <Image src={forgotPasswordImg} className="forgot-password-image" />
             <h2 className="forgot-password-header">Forgot Password?</h2>
             <p className="forgot-password-subtext">

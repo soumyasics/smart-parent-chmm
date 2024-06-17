@@ -1,6 +1,6 @@
 import Conversations from "./Conversations";
 import SearchInput from "./SearchInput";
-import { FC, useEffect, useState } from "react";
+import { FC,  useState } from "react";
 import { ParentData } from "../types";
 
 interface SidebarProps {

@@ -1,7 +1,8 @@
 import { Container, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import {adminLoggedIn} from "../../../redux/reducers/adminSlice";
+import { useDispatch } from "react-redux";
 import "./adminLoginForm.css";
 export const AdminLoginForm = () => {
   const [validated, setValidated] = useState(false);
@@ -10,6 +11,8 @@ export const AdminLoginForm = () => {
   const navigate = useNavigate();
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (event: any) => {
     const form = event.currentTarget;
@@ -21,11 +24,12 @@ export const AdminLoginForm = () => {
     setValidated(true);
 
     if (email === inputEmail && password === inputPassword) {
-      alert("login successfull");
+      alert("Login successfull");
+      dispatch(adminLoggedIn());
       setTimeout(() => {
         navigate("/admin/dashboard");
       }, 1500);
-      // localStorage.setItem("crescendo-admin", true);
+      
     } else {
       alert("Please check your email and password");
     }

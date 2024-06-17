@@ -11,13 +11,12 @@ import { UserState } from "../../../redux/types";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
 import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
+import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
 
 export const HPLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
-  //   const [email, setEmail] = useState<string>("parent1@gmail.com");
-  //   const [password, setPassword] = useState<string>("12341234");
-  const [email, setEmail] = useState<string>("hp1@gmail.com");
-  const [password, setPassword] = useState<string>("12341234");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -96,6 +95,10 @@ export const HPLogin = () => {
     }
   };
 
+  const navigateToHPForgotPassword = () => {
+    navigate("/hp/forgot-password");
+  }
+
   return (
     <div>
       <HPNavbar />
@@ -129,33 +132,22 @@ export const HPLogin = () => {
 
             <Row className="w-75 mx-auto mt-3">
               <Col>
-                <Form.Group style={{ position: "relative" }}>
-                  <div
-                    style={{
-                      display: "inline-block",
-                      cursor: "pointer",
-                      position: "absolute",
-                      top: "7px",
-                      right: "75px",
-                    }}
-                  ></div>
-                  <Form.Control
-                    required
-                    className="user-login-input password-input-eye-btn-hide"
-                    type="password"
-                    minLength={8}
-                    value={password}
-                    placeholder="Password"
-                    name="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please Enter atleast 8 characters.
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <PasswordInput
+                  value={password}
+                  handleChanges={(e) => setPassword(e.target.value)}
+                  label="Password"
+                  name="password"
+                />
               </Col>
             </Row>
             <div className="user-login-btn-container-2">
+              <p
+                role="button"
+                onClick={navigateToHPForgotPassword}
+                className="text-primary mb-3 text-start fw-bold"
+              >
+                forgot password?
+              </p>
               <p>
                 Don’t have an account?{" "}
                 <span

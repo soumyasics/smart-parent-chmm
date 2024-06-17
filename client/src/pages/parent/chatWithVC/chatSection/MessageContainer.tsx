@@ -30,7 +30,6 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const { userId: parentId } = useSelector((state: RootState) => state.user);
 
   const { userData } = useSelector((state: RootState) => state.user);
-  
   useEffect(() => {
     const VCId = activeParticipant?._id;
     if (VCId && parentId) {
@@ -106,7 +105,10 @@ export const MessageContainer: FC<MessageContainerProps> = ({
                 <h3 className="tw-mt-5"> Start Chat...</h3>
               </div>
             ) : (
-              <Messages conversation={conversation} />
+              <Messages
+                activeParticipant={activeParticipant}
+                conversation={conversation}
+              />
             )}
 
             <MessageInput

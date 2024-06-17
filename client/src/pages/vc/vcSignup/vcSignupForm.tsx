@@ -65,6 +65,11 @@ export const VCSignupForm = () => {
       return;
     }
 
+    if (!isPasswordMatch) {
+      alert("Passwords do not match");
+      return;
+    }
+
     const isEmailValid = validateEmail(vcData.email);
     if (!isEmailValid) {
       alert("Please provide a valid email.");
@@ -223,28 +228,6 @@ export const VCSignupForm = () => {
             label="Password"
             name="password"
           />
-          {/* <Form.Group
-            style={{
-              position: "relative",
-            }}
-          >
-            <Form.Control
-              required
-              type="password"
-              minLength={8}
-              className="password-input-eye-btn-hide"
-              placeholder="Password"
-              name="password"
-              onChange={handleChanges}
-              value={vcData.password}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter your password with atleast 8 characters.
-            </Form.Control.Feedback>
-            <Form.Control.Feedback>
-              Your password is strong.
-            </Form.Control.Feedback>
-          </Form.Group> */}
         </Col>
         <Col>
           <PasswordInput
@@ -255,33 +238,7 @@ export const VCSignupForm = () => {
             label="Confirm Password"
             name="confirmPassword"
           />
-          {/* <Form.Group
-            style={{
-              position: "relative",
-            }}
-          >
-            <Form.Control
-              required
-              type="password"
-              minLength={8}
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
-              value={confirmPassword}
-            />
-            
-          </Form.Group> */}
-          {validated && (
-            <div>
-              {isPasswordMatch ? (
-                <p className="text-success"> Password is match.</p>
-              ) : (
-                <p className="text-danger">Password is not match.</p>
-              )}
-            </div>
-          )}
+        
         </Col>
       </Row>
 

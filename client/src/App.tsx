@@ -7,7 +7,6 @@ import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 import { HPLogin } from "./pages/hp/hpLogin/hpLogin.tsx";
 import { HPSignup } from "./pages/hp/hpSignup/hpSignup.tsx";
 import { HpHome } from "./pages/hp/hpHome/hpHome.tsx";
-import { HPProfilePage } from "./pages/hp/hpProfile/hpProfilePage.tsx";
 import { AddTodo } from "./pages/parent/addTodo/addTodo.tsx";
 import { DisplayTodo } from "./pages/parent/displayTodo/displayTodo.tsx";
 import { ParentForgotPassword } from "./pages/parent/forgotPassword/forgotPassword.tsx";
@@ -26,6 +25,9 @@ import { ViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/v
 import "./App.css";
 import { ChatWithVC } from "./pages/parent/chatWithVC/chatWithVC.tsx";
 import { VCForgotPassword } from "./pages/vc/forgotPassword/forgotPassword.tsx";
+import { ProtectAdminRoutes } from "./components/Admin/protectAdminRoute/protectAdminRoutes.tsx";
+import { HPProfilePage } from "./pages/hp/hpProfile/profilePage.tsx";
+import { HPForgotPassword } from "./pages/hp/forgotPassword/forgotPassword.tsx";
 
 function App() {
   return (
@@ -51,7 +53,7 @@ function App() {
         <Route path="/parent/register-child" element={<RegisterChild />} />
         <Route path="/parent/chat-vc" element={<ChatWithVC />} />
         <Route
-        path="/parent/view-vaccination-centers"
+          path="/parent/view-vaccination-centers"
           element={<ViewVaccinationCenters />}
         />
         <Route
@@ -63,18 +65,13 @@ function App() {
           element={<ParentForgotPassword />}
         />
 
+
         {/* health professional routes */}
-        <Route
-          path="/hp/login"
-          element={
-            <ProtectLoginPage>
-              <HPLogin />
-            </ProtectLoginPage>
-          }
-        />
+        <Route path="/hp/login" element={<HPLogin />} />
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
+        <Route path="/hp/forgot-password" element={<HPForgotPassword />} />
 
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />
@@ -89,7 +86,14 @@ function App() {
         {/* admin routes */}
 
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectAdminRoutes>
+              <AdminDashboard />
+            </ProtectAdminRoutes>
+          }
+        />
 
         {/* testing routes  */}
 

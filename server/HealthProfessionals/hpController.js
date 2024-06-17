@@ -1,6 +1,6 @@
 const { HPModel } = require("./hpSchema");
 const multer = require("multer");
-
+const { isValidObjectId } = require("mongoose");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./upload");
@@ -12,8 +12,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).any();
 
-// const uploadProfilePic = multer({ storage: storage }).single("profilePicture");
-// const uploadCertificate = multer({ storage: storage }).single("certificateImg");
+const uploadProfilePicture = multer({storage: storage}).single("profilePicture");
 
 const {
   encryptPassword,
@@ -24,8 +23,24 @@ const { generateToken } = require("../utils/auth");
 
 const registerHP = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, category } = req.body;
-    if (!name || !email || !password || !phoneNumber || !category) {
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      department,
+      address,
+      qualification,
+    } = req.body;
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !phoneNumber ||
+      !department ||
+      !qualification ||
+      !address
+    ) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await encryptPassword(password);
@@ -42,9 +57,11 @@ const registerHP = async (req, res) => {
       email,
       password: hashedPassword,
       phoneNumber,
-      category,
-      certificateImg: certificateFile,
+      address,
+      department,
+      qualification,
       profilePicture: profilePictureFile,
+      certificateImg: certificateFile,
     });
 
     await newHP.save();
@@ -88,7 +105,6 @@ const loginHP = async (req, res) => {
 
     const hpCopy = hp.toObject();
     delete hpCopy.password;
-    console.log("hpp", hpCopy);
     const token = generateToken(hpCopy);
 
     return res.status(200).json({
@@ -114,8 +130,6 @@ const adminApprovedHPRequest = async (req, res) => {
       });
     }
 
-   
-
     hp.isAdminApproved = "approved";
 
     await hp.save();
@@ -139,7 +153,6 @@ const adminRejectedHPRequest = async (req, res) => {
       });
     }
 
-
     hp.isAdminApproved = "rejected";
     await hp.save();
     return res.status(200).json({
@@ -150,6 +163,165 @@ const adminRejectedHPRequest = async (req, res) => {
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
+
+const getAllPendingHP = async (req, res) => {
+  try {
+    const allPendingHPs = await HPModel.find({ isAdminApproved: "pending" });
+    return res.status(200).json({
+      message: "All pending health professionals",
+      data: allPendingHPs,
+    });
+  } catch (error) {
+    console.error("Error getting all pending health professional:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+const getAllApprovedHP = async (req, res) => {
+  try {
+    const allApprovedHP = await HPModel.find({ isAdminApproved: "approved" });
+    return res.status(200).json({
+      message: "All approved health professionals.",
+      data: allApprovedHP,
+    });
+  } catch (error) {
+    console.error("Error getting all approved health professional:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const getAllRejectedHP = async (req, res) => {
+  try {
+    const allRejectedHP = await HPModel.find({ isAdminApproved: "rejected" });
+    return res.status(200).json({
+      message: "All rejected health professionals.",
+      data: allRejectedHP,
+    });
+  } catch (error) {
+    console.error("Error getting all rejected health professional:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+const getHPDataById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const hp = await HPModel.findById(id);
+    return res
+      .status(200)
+      .json({ message: "Health professional center data", data: hp });
+  } catch (error) {
+    console.error("Error getting hp data by id:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const resetHPPasswordByEmail = async (req, res) => {
+  try {
+    const { email, oldPassword, newPassword } = req.body;
+    if (!email || !newPassword) {
+      return res
+        .status(400)
+        .json({ message: "Email and  password are required." });
+    }
+
+    let existingHP = await HPModel.findOne({ email });
+    if (!existingHP) {
+      return res.status(404).json({ message: "Email id is not valid." });
+    }
+
+    if (oldPassword) {
+      const isOldPasswordMatch = await comparePasswords(
+        oldPassword,
+        existingHP.password
+      );
+
+      if (!isOldPasswordMatch) {
+        return res.status(400).json({ message: "Old password is incorrect." });
+      }
+    }
+
+    const hashedPassword = await encryptPassword(newPassword);
+    const HPWithNewPassword = await HPModel.findByIdAndUpdate(
+      existingHP._id,
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      message: "Password updated successfully.",
+      data: HPWithNewPassword,
+    });
+  } catch (error) {
+    console.error("Error updating password:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const updateHPById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const hp = await HPModel.findById(id);
+
+    if (!hp) {
+      return res.status(404).json({ message: "Health professional not found" });
+    }
+    const { name, email, phoneNumber, address, qualification, department } = req.body;
+
+    let newValues = {};
+    if (name) {
+      newValues.name = name;
+    }
+    if (email) {
+      newValues.email = email;
+    }
+    if (phoneNumber) {
+      newValues.phoneNumber = phoneNumber;
+    }
+    if (address) {
+      newValues.address = address;
+    }
+    if (qualification) {
+      newValues.qualification = qualification;
+    }
+    if (department) {
+      newValues.department = department;
+    }
+    
+    if (req.file?.path) {
+      newValues.profilePicture = req.file;
+    }
+
+    const updatedHP = await HPModel.findByIdAndUpdate(id, newValues, {
+      new: true,
+    });
+
+    if (updatedHP) {
+      return res.status(200).json({
+        message: "Health professional updated successfully",
+        data: updatedHP,
+      });
+    } else {
+      throw new Error("Failed to update health professional");
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+
+
 
 const viewHps = (req, res) => {
   HPModel.find()
@@ -177,9 +349,9 @@ const viewHps = (req, res) => {
     });
 };
 
-// view  finished
 
-//update  by id
+
+
 const editHPById = (req, res) => {
   HPModel.findByIdAndUpdate(
     { _id: req.params.id },
@@ -280,10 +452,17 @@ module.exports = {
   loginHP,
   adminApprovedHPRequest,
   adminRejectedHPRequest,
+  getAllPendingHP,
+  getAllApprovedHP,
+  getAllRejectedHP,
+  resetHPPasswordByEmail,
+  updateHPById,
+  getHPDataById,
   viewHpById,
   viewHps,
   editHPById,
   forgotPwd,
   deleteHpById,
   upload,
+  uploadProfilePicture
 };

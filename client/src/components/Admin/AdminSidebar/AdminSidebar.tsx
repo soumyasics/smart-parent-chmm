@@ -5,7 +5,9 @@ import {
   FcShop,
   FcVoicePresentation,
 } from "react-icons/fc";
-
+import { adminLoggedOut } from "../../../redux/reducers/adminSlice";
+import { useDispatch } from "react-redux";
+import { FcManager } from "react-icons/fc";
 import { LuLogOut } from "react-icons/lu";
 import "./AdminSidebar.css";
 
@@ -17,10 +19,10 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
   changeActivePage,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   function handleLogout() {
-    if (localStorage.getItem("crescendo-admin")) {
-      localStorage.removeItem("crescendo-admin");
-    }
+    dispatch(adminLoggedOut());
     navigate("/admin/login");
   }
   return (
@@ -61,6 +63,14 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
           <FcShop />
           <h5>Pending Vaccination Centers</h5>
         </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("HPPending")}
+        >
+          <FcManager />
+          <h5>Pending Health Professionals</h5>
+        </div>
+
         <div className="admin-sidebar-link" onClick={handleLogout}>
           <LuLogOut />
           <h5 className="text-danger">Logout</h5>

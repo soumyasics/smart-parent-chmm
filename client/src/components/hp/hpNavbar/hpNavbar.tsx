@@ -42,6 +42,10 @@ export const HPNavbar = () => {
     dispatch(userLoggedOut());
     navigate("/hp/login");
   };
+
+  const navigateToHPProfile = () => {
+    navigate("/hp/profile");
+  }
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
@@ -98,7 +102,7 @@ export const HPNavbar = () => {
                 className={`dropdown-menu ${styles.parentNavDropdown}`}
                 aria-labelledby="dropdownMenuLink"
               >
-                <p className="  dropdown-item mb-0">Profile</p>
+                <p className="  dropdown-item mb-0" onClick={navigateToHPProfile}>Profile</p>
                 <p className="  dropdown-item mb-0">Account</p>
                 <p className=" dropdown-item mb-0" onClick={handleHPLogout}>
                   Logout
