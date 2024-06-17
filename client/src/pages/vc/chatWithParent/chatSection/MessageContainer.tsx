@@ -28,7 +28,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const navigateTo = useCustomNavigate();
   const { userId: VCId } = useSelector((state: RootState) => state.user);
 
-  console.log("err on message container", error)
+  console.log("err on message container", error);
   const { userData } = useSelector((state: RootState) => state.user);
   useEffect(() => {
     const parentId = activeParticipant?._id;
@@ -47,7 +47,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
       const res = await axiosInstance.post("getSingleConversation", payload);
       if (res.status === 200) {
         let data: ChatMessage[] = res.data?.data?.messages || [];
-        
+
         const reversedData = data.reverse();
 
         setConversation(reversedData);
@@ -106,7 +106,10 @@ export const MessageContainer: FC<MessageContainerProps> = ({
                 <h3 className="tw-mt-5"> Start Chat...</h3>
               </div>
             ) : (
-              <Messages conversation={conversation} />
+              <Messages
+                activeParticipant={activeParticipant}
+                conversation={conversation}
+              />
             )}
 
             <MessageInput

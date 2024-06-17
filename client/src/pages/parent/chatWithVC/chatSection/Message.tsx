@@ -1,14 +1,19 @@
-import {ChatMessage} from "../types.ts";
-import {FC} from 'react';
+import { ChatMessage } from "../types.ts";
+import { FC } from "react";
 interface MessageStartProps {
   message: ChatMessage;
+  profilePic: string;
 }
 
 interface MessageEndProps {
   message: ChatMessage;
+  profilePic: string;
 }
 
-export const MessageStart: FC<MessageStartProps> = ({ message }) => {
+export const MessageStart: FC<MessageStartProps> = ({
+  profilePic,
+  message,
+}) => {
   console.log("message", message);
   return (
     <div>
@@ -17,7 +22,7 @@ export const MessageStart: FC<MessageStartProps> = ({ message }) => {
           <div className="tw-w-10 tw-rounded-full">
             <img
               alt="Tailwind CSS chat bubble component"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+              src={profilePic}
             />
           </div>
         </div>
@@ -32,19 +37,12 @@ export const MessageStart: FC<MessageStartProps> = ({ message }) => {
   );
 };
 
-
-export const MessageEnd: FC<MessageEndProps> = ({ message }) => {
+export const MessageEnd: FC<MessageEndProps> = ({ message, profilePic }) => {
   return (
-    <div
-      
-      className={`tw-chat tw-chat-end`}
-    >
+    <div className={`tw-chat tw-chat-end`}>
       <div className="tw-chat-image tw-avatar">
         <div className="tw-w-10 tw-rounded-full">
-          <img
-            alt="Tailwind CSS chat bubble component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-          />
+          <img alt="Tailwind CSS chat bubble component" src={profilePic} />
         </div>
       </div>
       <div className="tw-chat-header">
@@ -55,4 +53,4 @@ export const MessageEnd: FC<MessageEndProps> = ({ message }) => {
       <div className="tw-chat-footer tw-opacity-50">Sent</div>
     </div>
   );
-}
+};
