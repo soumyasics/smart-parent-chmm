@@ -22,3 +22,9 @@
 .save-button {
   margin-top: 20px;
 }
+
+
+#profile-page-sidebar .sidebar-item:hover {
+  font-weight: 600;
+  cursor: pointer;
+}

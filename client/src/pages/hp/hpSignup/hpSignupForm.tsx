@@ -222,7 +222,7 @@ export const HPSignupForm = () => {
     >
       <div className="signup-form-flex-div">
         <Row className="mt-3">
-          <Col sm={12}>
+          <Col >
             <Form.Group>
               <Form.Control
                 type="text"
@@ -238,7 +238,7 @@ export const HPSignupForm = () => {
             </Form.Group>
           </Col>
 
-          <Col sm={12}>
+          <Col >
             <Form.Group>
               <Form.Control
                 type="email"
@@ -276,7 +276,7 @@ export const HPSignupForm = () => {
       </Row>
 
       <Row className="mt-3">
-        <Col sm={12}>
+        <Col >
           <Form.Group>
             <Form.Control
               type="text"
@@ -295,7 +295,7 @@ export const HPSignupForm = () => {
           </Form.Group>
         </Col>
 
-        <Col sm={12}>
+        <Col >
           <Form.Group>
             <Form.Control
               type="text"
@@ -314,7 +314,7 @@ export const HPSignupForm = () => {
       </Row>
 
       <Row className="mt-3">
-        <Col sm={12}>
+        <Col >
           <Form.Group>
             <Form.Control
               type="text"
@@ -330,7 +330,7 @@ export const HPSignupForm = () => {
           </Form.Group>
         </Col>
 
-        <Col sm={12}>
+        <Col >
           <Form.Group>
             <Form.Control
               type="text"
@@ -348,7 +348,7 @@ export const HPSignupForm = () => {
       </Row>
 
       <Row>
-        <Col sm={12}>
+        <Col >
           <Form.Group className="position-relative mt-3">
             <Form.Label>Upload your photo </Form.Label>
             <Form.Control
@@ -359,7 +359,7 @@ export const HPSignupForm = () => {
             />
           </Form.Group>
         </Col>
-        <Col sm={12}>
+        <Col >
           <Form.Group className="position-relative mt-3">
             <Form.Label>Upload your certificate image </Form.Label>
             <Form.Control

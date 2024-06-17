@@ -7,7 +7,6 @@ import { ParentHome } from "./pages/parent/parentHome/parentHome.tsx";
 import { HPLogin } from "./pages/hp/hpLogin/hpLogin.tsx";
 import { HPSignup } from "./pages/hp/hpSignup/hpSignup.tsx";
 import { HpHome } from "./pages/hp/hpHome/hpHome.tsx";
-import { HPProfilePage } from "./pages/hp/hpProfile/hpProfilePage.tsx";
 import { AddTodo } from "./pages/parent/addTodo/addTodo.tsx";
 import { DisplayTodo } from "./pages/parent/displayTodo/displayTodo.tsx";
 import { ParentForgotPassword } from "./pages/parent/forgotPassword/forgotPassword.tsx";
@@ -27,6 +26,7 @@ import "./App.css";
 import { ChatWithVC } from "./pages/parent/chatWithVC/chatWithVC.tsx";
 import { VCForgotPassword } from "./pages/vc/forgotPassword/forgotPassword.tsx";
 import { ProtectAdminRoutes } from "./components/Admin/protectAdminRoute/protectAdminRoutes.tsx";
+import { HPProfilePage } from "./pages/hp/hpProfile/profilePage.tsx";
 
 function App() {
   return (

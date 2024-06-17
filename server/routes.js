@@ -6,6 +6,7 @@ const hp = require("./HealthProfessionals/hpController");
 const todo = require("./ToDoList/todoListController");
 const vcController = require("./VaccinationCenters/vcController");
 const parentAndVCChat = require("./MessageBwParentAndVC/messageController");
+
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -69,12 +70,12 @@ router.patch(
   validateMongooseId,
   hp.adminRejectedHPRequest
 );
-
+router.patch("/resetHPPasswordByEmail", hp.resetHPPasswordByEmail);
 router.get("/getAllPendingHp", hp.getAllPendingHP);
 router.get("/getAllApprovedHp", hp.getAllApprovedHP);
 router.get("/getAllRejectedHp", hp.getAllRejectedHP);
-
-
+router.get("/getHPDataById/:id", hp.getHPDataById);
+router.patch("/updateHPById/:id", hp.uploadProfilePicture, hp.updateHPById);
 
 router.post("/viewHpById/:id", hp.viewHpById);
 router.post("/viewHps", hp.viewHps);
