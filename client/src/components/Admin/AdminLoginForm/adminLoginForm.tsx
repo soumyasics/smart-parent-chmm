@@ -24,12 +24,12 @@ export const AdminLoginForm = () => {
     setValidated(true);
 
     if (email === inputEmail && password === inputPassword) {
-      alert("login successfull");
+      alert("Login successfull");
       dispatch(adminLoggedIn());
       setTimeout(() => {
         navigate("/admin/dashboard");
       }, 1500);
-      // localStorage.setItem("crescendo-admin", true);
+      
     } else {
       alert("Please check your email and password");
     }

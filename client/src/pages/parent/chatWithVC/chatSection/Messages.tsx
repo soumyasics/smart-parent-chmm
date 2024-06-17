@@ -1,11 +1,11 @@
 import { MessageStart, MessageEnd } from "./Message";
 import { FC } from "react";
-import { ChatMessage } from "../types";
-
+import {VCData,  ChatMessage } from "../types";
 interface MessagesProps {
   conversation: ChatMessage[];
+  activeParticipant: VCData | null;
 }
-export const Messages: FC<MessagesProps> = ({ conversation }) => {
+export const Messages: FC<MessagesProps> = ({ activeParticipant, conversation }) => {
   console.log('conver', conversation)
   return (
     <div
