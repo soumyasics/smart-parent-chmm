@@ -6,7 +6,7 @@ const hp = require("./HealthProfessionals/hpController");
 const todo = require("./ToDoList/todoListController");
 const vcController = require("./VaccinationCenters/vcController");
 const parentAndVCChat = require("./MessageBwParentAndVC/messageController");
-
+const ashaWorker = require("./AshaWorker/AshaWorkerController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -76,7 +76,6 @@ router.get("/getAllApprovedHp", hp.getAllApprovedHP);
 router.get("/getAllRejectedHp", hp.getAllRejectedHP);
 router.get("/getHPDataById/:id", hp.getHPDataById);
 router.patch("/updateHPById/:id", hp.uploadProfilePicture, hp.updateHPById);
-
 router.post("/viewHpById/:id", hp.viewHpById);
 router.post("/viewHps", hp.viewHps);
 router.post("/editHPById/:id", hp.editHPById);
@@ -123,5 +122,40 @@ router.patch(
 // Parent and vc conversation routes
 router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
 router.post("/getSingleConversation", parentAndVCChat.getSingleConversation);
+
+// Asha workers
+
+router.post(
+  "/registerAW",
+  ashaWorker.upload,
+  validateEmailForRegistration,
+  validatePassword,
+  ashaWorker.registerAshaWorker
+);
+router.post("/loginAW", ashaWorker.loginAshaWorker);
+router.patch(
+  "/adminApprovedAWRequest/:id",
+  validateMongooseId,
+  ashaWorker.adminApprovedAshaWorkerRequest
+);
+
+router.patch(
+  "/adminRejectedAWRequest/:id",
+  validateMongooseId,
+  ashaWorker.adminRejectedAshaWorkerRequest
+);
+router.patch(
+  "/resetAWPasswordByEmail",
+  ashaWorker.resetAshaWorkerPasswordByEmail
+);
+router.get("/getAllPendingAw", ashaWorker.getAllPendingAshaWorker);
+router.get("/getAllApprovedAw", ashaWorker.getAllApprovedAshaWorker);
+router.get("/getAllRejectedAw", ashaWorker.getAllRejectedAshaWorker);
+router.get("/getAshaWorkerDataById/:id", ashaWorker.getAshaWorkerDataById);
+router.patch(
+  "/updateAshaWorkerById/:id",
+  ashaWorker.upload,
+  ashaWorker.updateAshaWorkerById
+);
 
 module.exports = router;

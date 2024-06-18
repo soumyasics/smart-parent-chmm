@@ -6,7 +6,6 @@ import { CommonFooter } from "../../../components/common/footer/footer";
 import { useState } from "react";
 import { HPResetPassword } from "../resetPassword/resetPassword";
 import "./profilePage.css";
-import { VCNavbar } from "../../../components/vc/vcNavbar/vcNavbar";
 import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
 
 export const HPProfilePage = () => {

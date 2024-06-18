@@ -1,6 +1,7 @@
 const { ParentModel } = require("../../Parent/parentSchema");
 const { HPModel } = require("../../HealthProfessionals/hpSchema");
 const { VCModel } = require("../../VaccinationCenters/vcSchema");
+const { AshaWorkerModel } = require("../../AshaWorker/AshaWorkerSchema");
 const validateEmailForRegistration = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -13,13 +14,12 @@ const validateEmailForRegistration = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid email format" });
     }
 
-    // todo=> use all models for check mail already taken or not
-
+    // Check if email is already in use
     const existingParent = await ParentModel.findOne({ email });
     const existingHP = await HPModel.findOne({ email });
     const existingVC = await VCModel.findOne({ email });
-
-    if (existingParent || existingHP ||existingVC) {
+    const existingAshaWorker = await AshaWorkerModel.findOne({ email });
+    if (existingParent || existingHP || existingVC || existingAshaWorker) {
       return res.status(400).json({ message: "Email already in use" });
     }
     next();
