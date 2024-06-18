@@ -30,7 +30,7 @@ const registerAshaWorker = async (req, res) => {
       dateOfBirth,
       gender,
       experience,
-      qualifications,
+      qualification,
     } = req.body;
     if (
       !name ||
@@ -38,7 +38,7 @@ const registerAshaWorker = async (req, res) => {
       !password ||
       !phoneNumber ||
       !address ||
-      !qualifications ||
+      !qualification ||
       !dateOfBirth ||
       !gender ||
       !experience
@@ -59,7 +59,7 @@ const registerAshaWorker = async (req, res) => {
       password: hashedPassword,
       phoneNumber,
       address,
-      qualifications,
+      qualification,
       dateOfBirth,
       gender,
       experience,

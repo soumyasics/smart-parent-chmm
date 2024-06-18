@@ -28,6 +28,11 @@ import { VCForgotPassword } from "./pages/vc/forgotPassword/forgotPassword.tsx";
 import { ProtectAdminRoutes } from "./components/Admin/protectAdminRoute/protectAdminRoutes.tsx";
 import { HPProfilePage } from "./pages/hp/hpProfile/profilePage.tsx";
 import { HPForgotPassword } from "./pages/hp/forgotPassword/forgotPassword.tsx";
+import { AWSignup } from "./pages/ashaWorker/awSignup/awSignup.tsx";
+import { AWLogin } from "./pages/ashaWorker/awLogin/awLogin.tsx";
+import { AWHome } from "./pages/ashaWorker/awHome/awHome.tsx";
+import { AWForgotPassword } from "./pages/ashaWorker/forgotPassword/forgotPassword.tsx";
+import { AWProfilePage } from "./pages/ashaWorker/awProfile/profilePage.tsx";
 
 function App() {
   return (
@@ -65,7 +70,6 @@ function App() {
           element={<ParentForgotPassword />}
         />
 
-
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
         <Route path="/hp/signup" element={<HPSignup />} />
@@ -80,6 +84,13 @@ function App() {
         <Route path="/vc/profile" element={<VCProfilePage />} />
         <Route path="/vc/chat" element={<ChatWithParent />} />
         <Route path="/vc/forgot-password" element={<VCForgotPassword />} />
+
+        {/* Asha Worker routes */}
+        <Route path="/aw/signup" element={<AWSignup />} />
+        <Route path="/aw/login" element={<AWLogin />} />
+        <Route path="/aw/home" element={<AWHome />} />
+        <Route path="/aw/forgot-password" element={<AWForgotPassword />} />
+        <Route path="/aw/profile" element={<AWProfilePage />} />
 
         {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
