@@ -8,31 +8,42 @@ import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "../../../apis/baseUrl";
 import { useDispatch } from "react-redux";
 import { userLoggedOut } from "../../../redux/reducers/userSlilce";
 import { useCustomNavigate } from "../../../hooks/useCustomNavigate";
+import { UserData } from "../../../redux/types";
+import { useProfilePicture } from "../../../hooks/useProfilePicture";
+
 export const VCNavbar = () => {
+  const [isVCLoggedIn, setIsVCLoggedIn] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const navigateTo = useCustomNavigate();
-  const { isAuthenticated } = useSelector((state: RootState) => state.user);
-  const { userData } = useSelector((state: RootState) => state.user);
+  const { isAuthenticated, userType, userData } = useSelector(
+    (state: RootState) => state.user
+  );
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
   const [userName, setUserName] = useState("User Name");
-  useEffect(() => {
-    if (userData) {
-      const name = userData.name.substring(0, 15) || "";
-      const pic = userData.profilePicture?.filename || null;
-      if (pic) {
-        setProfilePic(`${BASE_URL}${pic}`);
-      } else {
-        setProfilePic(userPlaceholderImg);
-      }
-      setUserName(name);
-    }
-  }, [userData]);
+  const pic = userData?.profilePicture?.filename || null;
+  const { profilePicture } = useProfilePicture(pic);
 
+  // console.log(" pic",pic)
+  // console.log("por pic", profilePicture)
+
+  useEffect(() => {
+    if (isAuthenticated && userType === "vaccineCenter") {
+      setIsVCLoggedIn(true);
+      collectUserDetails(userData);
+    } else {
+      navigate("/vc/login");
+    }
+  }, [isAuthenticated, userData, profilePicture]);
+
+  const collectUserDetails = (userData: UserData | null) => {
+    const name = userData?.name?.substring(0, 15) || "";
+    setUserName(name);
+    setProfilePic(profilePicture);
+  };
   const navigateVCLogin = () => {
     navigate("/vc/login");
   };
@@ -92,7 +103,7 @@ export const VCNavbar = () => {
           </Navbar.Collapse>
         </Container>
         <Navbar.Collapse className="justify-content-end">
-          {!isAuthenticated ? (
+          {!isVCLoggedIn ? (
             <Button variant={"outline-light"} onClick={navigateVCLogin}>
               {" "}
               Login{" "}

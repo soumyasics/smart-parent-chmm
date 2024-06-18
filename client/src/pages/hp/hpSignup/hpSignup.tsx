@@ -1,6 +1,5 @@
 import { Container } from "react-bootstrap";
 import { CommonFooter } from "../../../components/common/footer/footer";
-import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
 import { HPSignupForm } from "./hpSignupForm";
 import { useNavigate } from "react-router-dom";
 import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";

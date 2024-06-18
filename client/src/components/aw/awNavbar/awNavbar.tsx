@@ -8,8 +8,9 @@ import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "../../../apis/baseUrl";
 import { userLoggedOut } from "../../../redux/reducers/userSlilce";
+import { UserData } from "../../../redux/types";
+import { useProfilePicture } from "../../../hooks/useProfilePicture";
 
 export const AWNavbar = () => {
   const navigate = useNavigate();
@@ -21,24 +22,24 @@ export const AWNavbar = () => {
   const [userName, setUserName] = useState("");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isAuthenticated && userType === "ashaWorker") {
-      setAshaWorkerLogin(true);
-      const name = userData?.name?.substring(0, 15) || "";
-      setUserName(name);
-    }
-  }, [isAuthenticated, userType]);
+  let pic = userData?.profilePicture?.filename || null;
+  const { profilePicture } = useProfilePicture(pic);
+
 
   useEffect(() => {
-    if (userData) {
-      const pic = userData.profilePicture?.filename || null;
-      if (pic) {
-        setProfilePic(`${BASE_URL}${pic}`);
-      } else {
-        setProfilePic(userPlaceholderImg);
-      }
+    if (isAuthenticated && userType === "ashaWorker" && userData) {
+      setAshaWorkerLogin(true);
+      collectUserDetails(userData);
+    } else {
+      navigate("/aw/login");
     }
-  }, []);
+  }, [isAuthenticated, userData, profilePicture]);
+
+  const collectUserDetails = (userData: UserData | null) => {
+    const name = userData?.name?.substring(0, 15) || "";
+    setUserName(name);
+    setProfilePic(profilePicture);
+  };
 
   const navigateAWLogin = () => {
     navigate("/aw/login");
@@ -89,9 +90,10 @@ export const AWNavbar = () => {
               Login{" "}
             </Button>
           ) : (
-            <div className="dropdown show">
+            <div className="dropdown">
               <button
-                className="btn btn-secondary dropdown-toggle bg-dark"
+                style={{ width: "180px" }}
+                className="btn d-flex btn-secondary  bg-dark"
                 role="button"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
@@ -108,7 +110,7 @@ export const AWNavbar = () => {
 
               <div
                 style={{ cursor: "pointer" }}
-                className={`dropdown-menu ${styles.parentNavDropdown}`}
+                className={`dropdown-menu  ${styles.parentNavDropdown}`}
                 aria-labelledby="dropdownMenuLink"
               >
                 <p
@@ -117,8 +119,7 @@ export const AWNavbar = () => {
                 >
                   Profile
                 </p>
-                <p className="  dropdown-item mb-0">Account</p>
-                <p className=" dropdown-item mb-0" onClick={handleAWLogout}>
+                <p className="text-danger dropdown-item mb-0" onClick={handleAWLogout}>
                   Logout
                 </p>
               </div>
