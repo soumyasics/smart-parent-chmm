@@ -19,7 +19,7 @@ const SearchInput: FC<SearcInputProps> = ({ updateSearchedParticipant }) => {
         <input
           type="text"
           className="tw-grow tw-input-sm tw-text-white"
-          placeholder="Search Parent"
+          placeholder="Search Vacination Centers"
           onChange={handleChange}
         />
       </label>

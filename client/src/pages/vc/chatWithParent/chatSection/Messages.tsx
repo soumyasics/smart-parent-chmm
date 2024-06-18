@@ -1,11 +1,32 @@
 import { MessageStart, MessageEnd } from "./Message";
 import { FC } from "react";
-import { ChatMessage } from "../types";
+import { ChatMessage, ParentData } from "../types";
+import { useSelector } from "react-redux";
+import placeholderImg from "../../../../assets/user-placeholder-img.jpg";
+import { useProfilePicture } from "../../../../hooks/useProfilePicture";
+import { RootState } from "../../../../redux/store";
 
 interface MessagesProps {
   conversation: ChatMessage[];
+  activeParticipant: ParentData | null;
 }
-export const Messages: FC<MessagesProps> = ({ conversation }) => {
+export const Messages: FC<MessagesProps> = ({
+  conversation,
+  activeParticipant,
+}) => {
+  const { userData, userType } = useSelector((state: RootState) => state.user);
+  let activeUserPic = placeholderImg;
+  if (userData && userType === "vaccineCenter") {
+    const { profilePicture } = useProfilePicture(
+      userData?.profilePicture?.filename || null
+    );
+    activeUserPic = profilePicture;
+  } else {
+    // todo=> handle
+  }
+  const { profilePicture: participantProfilePic } = useProfilePicture(
+    activeParticipant?.profilePicture?.filename || null
+  );
   return (
     <div
       style={{
@@ -17,9 +38,23 @@ export const Messages: FC<MessagesProps> = ({ conversation }) => {
     >
       {conversation?.map((message) => {
         if (message.senderType === "vc") {
-          return <MessageEnd message={message} key={message?._id} />;
+          return (
+            <MessageEnd
+              name={userData?.name || ""}
+              profilePic={activeUserPic}
+              message={message}
+              key={message?._id}
+            />
+          );
         } else {
-          return <MessageStart message={message} key={message?._id} />;
+          return (
+            <MessageStart
+              name="start name"
+              profilePic={participantProfilePic}
+              message={message}
+              key={message?._id}
+            />
+          );
         }
       })}
     </div>
