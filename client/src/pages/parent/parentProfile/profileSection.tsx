@@ -9,7 +9,7 @@ import axios from "axios";
 import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/errorHandlingUi";
 import userPlaceholderImg from "../../../assets/user-placeholder-img.jpg";
 import { BASE_URL } from "../../../apis/baseUrl";
-import { PageLoading2 } from "../../../components/pageLoading/pageLoading2";
+import {  PageLoadingDark } from "../../../components/pageLoading/pageLoading2";
 import { ProfileEdit } from "./profileEditAndView/profileEdit";
 import { ProfileView } from "./profileEditAndView/profileView";
 import {toast} from "react-hot-toast";
@@ -104,7 +104,7 @@ export const ParentProfileSection = () => {
     <div className="profile-section">
       {isLoading ? (
         <div className="d-flex justify-content-center">
-          <PageLoading2 />
+          <PageLoadingDark />
         </div>
       ) : error ? (
         <ErrorHandlingUI error={error} />

@@ -16,7 +16,7 @@ export const ParentNavbar = () => {
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
   const [isParentLoggedIn, setIsParentLoggedIn] = useState<boolean>(false);
   const [userName, setUserName] = useState("User Name");
-  
+
   const { isAuthenticated, userData, userType } = useSelector(
     (state: RootState) => state.user
   );
@@ -24,7 +24,7 @@ export const ParentNavbar = () => {
   const navigate = useNavigate();
   let pic = userData?.profilePicture?.filename || null;
   const { profilePicture } = useProfilePicture(pic);
-  
+
   useEffect(() => {
     if (isAuthenticated && userType === "parent") {
       setIsParentLoggedIn(true);
@@ -111,7 +111,7 @@ export const ParentNavbar = () => {
               Login{" "}
             </Button>
           ) : (
-            <div className="dropdown show">
+            <div className="dropdown ">
               <button
                 style={{ width: "180px" }}
                 className="btn d-flex btn-secondary  bg-dark"

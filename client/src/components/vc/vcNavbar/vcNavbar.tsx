@@ -109,9 +109,10 @@ export const VCNavbar = () => {
               Login{" "}
             </Button>
           ) : (
-            <div className="dropdown show ">
+            <div className="dropdown  ">
               <button
-                className="btn d-flex btn-secondary bg-dark"
+                style={{ width: "180px" }}
+                className="btn d-flex btn-secondary  bg-dark"
                 role="button"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
