@@ -10,8 +10,9 @@ import axiosInstance from "../../../apis/axiosInstance";
 import { UserState } from "../../../redux/types";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
-import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import {toast} from "react-hot-toast";
+import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 
 export const HPLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
@@ -29,13 +30,13 @@ export const HPLogin = () => {
     setValidated(true);
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
-      alert("Please provide a valid email.");
+      toast.error("Please provide a valid email.");
       return;
     }
 
     const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
-      alert("Please provide valid password");
+      toast.error("Please provide valid password");
       return;
     }
 
@@ -58,7 +59,7 @@ export const HPLogin = () => {
           userType: "healthProfessional",
         };
         dispatch(userLoggedIn(serializedUserData));
-        alert("Login Successful");
+        toast.success("Login Successful");
         setTimeout(() => {
           navigate("/hp/home");
         }, 1200);
@@ -72,20 +73,20 @@ export const HPLogin = () => {
               error.response?.data?.message ||
               "Somethng went wrong. Please try again later.";
             if (errMsg) {
-              alert(errMsg);
+              toast.error(errMsg);
             }
           } else if (status === 403) {
             const errMsg =
               error.response?.data?.message ||
               "Somethng went wrong. Please try again later.";
             if (errMsg) {
-              alert(errMsg);
+              toast.error(errMsg);
             }
           } else {
             console.log("Unexpected error occued on parent login.1", error);
           }
         } else {
-          alert(
+          toast.error(
             "No response received from the server. Please check your network"
           );
         }
@@ -101,7 +102,7 @@ export const HPLogin = () => {
 
   return (
     <div>
-      <HPNavbar />
+      <LandingPageNavbar />
       <div>
         <div className="shadow mx-auto mt-5 pt-2" style={{ width: "45%" }}>
           <h3 className="text-center mb-5"> Health Professional Login</h3>

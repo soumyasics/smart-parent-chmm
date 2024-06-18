@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/errorHandlingUi";
 import { DisplayChildDetails } from "./displayChildDetails";
 import { PageLoading } from "../../../components/pageLoading/pageLoading.tsx";
+import {toast} from "react-hot-toast";
 export const ViewChild = () => {
   const [childData, setChildData] = useState([]);
   const [error, setError] = useState<null | string>(null);
@@ -21,7 +22,7 @@ export const ViewChild = () => {
       setIsLoading(true);
       getChildDataFromDB();
     } else {
-      alert("Please Login again. ");
+      toast.error("Please Login again. ");
       navigate("/parent/login");
     }
   }, [isAuthenticated, userType, userId]);

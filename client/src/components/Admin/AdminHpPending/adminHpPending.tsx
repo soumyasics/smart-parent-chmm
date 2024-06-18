@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../../apis/axiosInstance.ts";
 import AdminDashboardNav from "../AdminDashboardNav/adminDashboardNav.tsx";
 import { AdminHPPendingTable } from "../AdminHPPendingTable/adminHPPendingTable.tsx";
+import {toast} from 'react-hot-toast'
 import "./adminHPPending.css";
 
 export const AdminHPPending = () => {
@@ -17,7 +18,7 @@ export const AdminHPPending = () => {
     try {
       const res = await axiosInstance.patch(`/adminApprovedHPRequest/${id}`);
       if (res.status === 200) {
-        alert("Health professional approved successfully.");
+        toast.success("Health professional approved successfully.");
         return;
       }
     } catch (error) {
@@ -30,7 +31,7 @@ export const AdminHPPending = () => {
     try {
       const res = await axiosInstance.patch(`/adminRejectedHPRequest/${id}`);
       if (res.status === 200) {
-        alert("Health professional rejected successfully.");
+        toast.success("Health professional rejected successfully.");
         return;
       }
     } catch (error) {

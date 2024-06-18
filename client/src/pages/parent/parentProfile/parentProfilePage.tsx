@@ -6,11 +6,11 @@ import { CommonFooter } from "../../../components/common/footer/footer";
 import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { useState } from "react";
 import { ViewChild } from "../viewChild/viewChild";
-import "./parentProfilePage.css";
 import { ParentResetPassword } from "../resetPassword/resetPassword";
 import { DisplayTodo } from "../displayTodo/displayTodo";
 import { AddTodo } from "../addTodo/addTodo";
 import { RegisterChild } from "../registerChild/registerChild";
+import "./parentProfilePage.css";
 
 export const ParentProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");

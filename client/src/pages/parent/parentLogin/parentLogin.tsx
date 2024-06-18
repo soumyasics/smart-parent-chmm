@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
 import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import {toast} from "react-hot-toast";
 import "./parentLogin.css";
 
 export const ParentLogin = () => {
@@ -44,13 +45,13 @@ export const ParentLogin = () => {
 
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
-      alert("Please provide a valid email.");
+      toast.error("Please provide a valid email.");
       return;
     }
 
     const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
-      alert("Please provide a valid password");
+      toast.error("Please provide a valid password");
       return;
     }
 
@@ -73,7 +74,7 @@ export const ParentLogin = () => {
           userType: "parent",
         };
         dispatch(userLoggedIn(serializedUserData));
-        alert("Login Successful");
+        toast.success("Login Successful");
         setTimeout(() => {
           navigate("/parent/home");
         }, 1200);
@@ -90,13 +91,13 @@ export const ParentLogin = () => {
           ) {
             const errMsg = error.response.data.message;
             if (errMsg) {
-              alert(errMsg);
+              toast.error(errMsg);
             }
           } else {
             console.log("Unexpected error occued on parent login.1", error);
           }
         } else {
-          alert(
+          toast.error(
             "No response received from the server. Please check your network"
           );
         }

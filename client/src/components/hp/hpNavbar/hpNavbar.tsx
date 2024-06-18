@@ -8,28 +8,36 @@ import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "../../../apis/baseUrl";
 import { userLoggedOut } from "../../../redux/reducers/userSlilce";
+import { useProfilePicture } from "../../../hooks/useProfilePicture";
+import { UserData } from "../../../redux/types";
 
 export const HPNavbar = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state: RootState) => state.user);
-  const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
-  const [userName, setUserName] = useState("User Name");
+  const [userName, setUserName] = useState("");
+  const [isHPLoggedIn, setIsHPLoggedIn] = useState(false);
+  const { isAuthenticated, userData, userType } = useSelector(
+    (state: RootState) => state.user
+  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  let pic = userData?.profilePicture?.filename || null;
+  const { profilePicture } = useProfilePicture(pic);
   useEffect(() => {
-    if (userData) {
-      const name = userData.name.substring(0, 15) || "";
-      const pic = userData.profilePicture?.filename || null;
-      if (pic) {
-        setProfilePic(`${BASE_URL}${pic}`);
-      } else {
-        setProfilePic(userPlaceholderImg);
-      }
-      setUserName(name);
+    if (isAuthenticated && userType === "healthProfessional" && userData) {
+      setIsHPLoggedIn(true);
+      collectUserDetails(userData);
+    } else {
+      navigate("/hp/login");
     }
-  }, []);
+  }, [isAuthenticated, userData, profilePicture]);
+
+  const collectUserDetails = (userData: UserData | null) => {
+    const name = userData?.name?.substring(0, 15) || "";
+    setUserName(name);
+    setProfilePic(profilePicture);
+  };
 
   const navigateHPLogin = () => {
     navigate("/hp/login");
@@ -45,7 +53,7 @@ export const HPNavbar = () => {
 
   const navigateToHPProfile = () => {
     navigate("/hp/profile");
-  }
+  };
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
@@ -69,7 +77,7 @@ export const HPNavbar = () => {
           </Navbar.Collapse>
         </Container>
         <Navbar.Collapse className="justify-content-end">
-          {!isAuthenticated ? (
+          {!isHPLoggedIn ? (
             <Button
               variant={"outline-light"}
               onClick={() => {
@@ -80,9 +88,10 @@ export const HPNavbar = () => {
               Login{" "}
             </Button>
           ) : (
-            <div className="dropdown show">
+            <div className="dropdown ">
               <button
-                className="btn btn-secondary dropdown-toggle bg-dark"
+                style={{ width: "180px" }}
+                className="btn d-flex btn-secondary  bg-dark"
                 role="button"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
@@ -102,9 +111,16 @@ export const HPNavbar = () => {
                 className={`dropdown-menu ${styles.parentNavDropdown}`}
                 aria-labelledby="dropdownMenuLink"
               >
-                <p className="  dropdown-item mb-0" onClick={navigateToHPProfile}>Profile</p>
-                <p className="  dropdown-item mb-0">Account</p>
-                <p className=" dropdown-item mb-0" onClick={handleHPLogout}>
+                <p
+                  className="  dropdown-item mb-0"
+                  onClick={navigateToHPProfile}
+                >
+                  Profile
+                </p>
+                <p
+                  className="text-danger dropdown-item mb-0"
+                  onClick={handleHPLogout}
+                >
                   Logout
                 </p>
               </div>

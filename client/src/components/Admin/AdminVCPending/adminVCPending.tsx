@@ -3,6 +3,7 @@ import axiosInstance from "../../../apis/axiosInstance.ts";
 import AdminDashboardNav from "../AdminDashboardNav/adminDashboardNav.tsx";
 import { AdminVCPendingTable } from "../AdminVCPendingTable/adminVCPendingTable.tsx";
 import "./adminVCPending.css";
+import {toast} from "react-hot-toast";
 
 export const AdminVCPending = () => {
   const [vcPendingData, setVCPendingData] = useState([]);
@@ -17,7 +18,7 @@ export const AdminVCPending = () => {
     try {
       const res = await axiosInstance.patch(`/approveVCById/${id}`);
       if (res.status === 200) {
-        alert("Vaccination center approved successfully.");
+        toast.success("Vaccination center approved successfully.");
         return;
       }
     } catch (error) {
@@ -30,7 +31,7 @@ export const AdminVCPending = () => {
     try {
       const res = await axiosInstance.patch(`/rejectVCById/${id}`);
       if (res.status === 200) {
-        alert("Vaccination center rejected successfully.");
+        toast.success("Vaccination center rejected successfully.");
         return;
       }
     } catch (error) {

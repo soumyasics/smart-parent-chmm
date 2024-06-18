@@ -8,28 +8,37 @@ import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "../../../apis/baseUrl";
 import { useDispatch } from "react-redux";
 import { userLoggedOut } from "../../../redux/reducers/userSlilce";
+import { UserData } from "../../../redux/types";
+import { useProfilePicture } from "../../../hooks/useProfilePicture";
 export const ParentNavbar = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state: RootState) => state.user);
-  const { userData } = useSelector((state: RootState) => state.user);
   const [profilePic, setProfilePic] = useState<string>(userPlaceholderImg);
+  const [isParentLoggedIn, setIsParentLoggedIn] = useState<boolean>(false);
   const [userName, setUserName] = useState("User Name");
+
+  const { isAuthenticated, userData, userType } = useSelector(
+    (state: RootState) => state.user
+  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  let pic = userData?.profilePicture?.filename || null;
+  const { profilePicture } = useProfilePicture(pic);
+
   useEffect(() => {
-    if (userData) {
-      const name = userData.name.substring(0, 15) || "";
-      const pic = userData.profilePicture?.filename || null;
-      if (pic) {
-        setProfilePic(`${BASE_URL}${pic}`);
-      } else {
-        setProfilePic(userPlaceholderImg);
-      }
-      setUserName(name);
+    if (isAuthenticated && userType === "parent") {
+      setIsParentLoggedIn(true);
+      collectUserDetails(userData);
+    } else {
+      navigate("/parent/login");
     }
-  }, [userData]);
+  }, [isAuthenticated, userData, profilePicture]);
+
+  const collectUserDetails = (userData: UserData | null) => {
+    const name = userData?.name?.substring(0, 15) || "";
+    setUserName(name);
+    setProfilePic(profilePicture);
+  };
 
   const navigateParentLogin = () => {
     navigate("/parent/login");
@@ -96,13 +105,13 @@ export const ParentNavbar = () => {
           </Navbar.Collapse>
         </Container>
         <Navbar.Collapse className="justify-content-end">
-          {!isAuthenticated ? (
+          {!isParentLoggedIn ? (
             <Button variant={"outline-light"} onClick={navigateParentLogin}>
               {" "}
               Login{" "}
             </Button>
           ) : (
-            <div className="dropdown show">
+            <div className="dropdown ">
               <button
                 style={{ width: "180px" }}
                 className="btn d-flex btn-secondary  bg-dark"

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {adminLoggedIn} from "../../../redux/reducers/adminSlice";
 import { useDispatch } from "react-redux";
 import "./adminLoginForm.css";
+import {toast} from "react-hot-toast";
 export const AdminLoginForm = () => {
   const [validated, setValidated] = useState(false);
   const email = "admin@gmail.com";
@@ -24,14 +25,14 @@ export const AdminLoginForm = () => {
     setValidated(true);
 
     if (email === inputEmail && password === inputPassword) {
-      alert("Login successfull");
+      toast.success("Login successfull");
       dispatch(adminLoggedIn());
       setTimeout(() => {
         navigate("/admin/dashboard");
       }, 1500);
       
     } else {
-      alert("Please check your email and password");
+      toast.error("Please check your email and password");
     }
   };
   const handleChange = (e: any) => {

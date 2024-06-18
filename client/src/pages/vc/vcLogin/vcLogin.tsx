@@ -13,6 +13,7 @@ import { userLoggedIn } from "../../../redux/reducers/userSlilce";
 import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
 import "./vcLogin.css";
+import {toast} from "react-hot-toast";
 
 export const VCLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
@@ -35,13 +36,13 @@ export const VCLogin = () => {
 
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
-      alert("Please provide a valid email.");
+      toast.error("Please provide a valid email.");
       return;
     }
 
     const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
-      alert("Please provide valid password");
+      toast.error("Please provide valid password");
       return;
     }
 
@@ -64,7 +65,7 @@ export const VCLogin = () => {
           userType: "vaccineCenter",
         };
         dispatch(userLoggedIn(serializedUserData));
-        alert("Login Successful");
+        toast.success("Login Successful");
         setTimeout(() => {
           navigate("/vc/home");
         }, 1200);
@@ -81,13 +82,13 @@ export const VCLogin = () => {
           ) {
             const errMsg = error.response.data.message;
             if (errMsg) {
-              alert(errMsg);
+              toast.error(errMsg);
             }
           } else {
             console.log("Unexpected error occued on vc login.1", error);
           }
         } else {
-          alert(
+          toast.error(
             "No response received from the server. Please check your network"
           );
         }

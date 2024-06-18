@@ -9,3 +9,10 @@ export const PageLoading2 = () => {
     </div>
   );
 };
+export const PageLoadingDark = () => {
+  return (
+    <div className="d-flex justify-content-center">
+      <Spinner animation="grow" variant="dark" />
+    </div>
+  );
+};

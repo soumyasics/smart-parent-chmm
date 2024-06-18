@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { AWSignupForm } from "./awSignupForm";
 import { useNavigate } from "react-router-dom";
-import { AWNavbar } from "../../../components/aw/awNavbar/awNavbar";
+import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 
 export const AWSignup = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export const AWSignup = () => {
   };
   return (
     <>
-      <AWNavbar />
+      <LandingPageNavbar />
       <div className="mt-5" id="user-signup-page">
         <Container className="user-signup-container">
           <div className="user-signup-form">

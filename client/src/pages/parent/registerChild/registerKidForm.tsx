@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
+import {toast} from "react-hot-toast";
 export const RegisterKidForm = () => {
   const [parentId, setParentId] = useState<string>("");
 
@@ -21,11 +22,10 @@ export const RegisterKidForm = () => {
     if (isAuthenticated && userType === "parent" && userId !== null) {
       setParentId(userId)
     }else {
-      alert("Please Login again. ")
+      toast.error("Please Login again. ")
       //todo=> navigate to parent login page here.
     }
   }, [])
-  console.log('is auth' , isAuthenticated)
   const onSubmit = (data: any) => {
     // convert data to form data
     const formData = new FormData();
@@ -46,16 +46,16 @@ export const RegisterKidForm = () => {
     try {
       const res = await axiosMultipartInstance.post("/addKid", formData);
       if (res.status === 201) {
-        alert("Child registration successfull.");
+        toast.success("Child registration successfull.");
         //todo => navigate to profile page
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const status = error.response?.status;
         if (status === 400 || status === 500) {
-          alert(error.response?.data.message);
+          toast.error(error.response?.data.message);
         } else {
-          alert("Please check your network!");
+          toast.error("Please check your network!");
         }
       }
     }

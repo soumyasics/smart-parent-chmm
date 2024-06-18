@@ -9,9 +9,10 @@ import axios from "axios";
 import { ErrorHandlingUI } from "../../../../components/common/errorHandlingUI/errorHandlingUi";
 import userPlaceholderImg from "../../../../assets/user-placeholder-img.jpg";
 import { BASE_URL } from "../../../../apis/baseUrl";
-import { PageLoading2 } from "../../../../components/pageLoading/pageLoading2";
+import { PageLoadingDark } from "../../../../components/pageLoading/pageLoading2";
 import { ProfileEdit } from "../profileEditAndView/profileEdit";
 import { ProfileView } from "../profileEditAndView/profileView.tsx";
+import { toast } from "react-hot-toast";
 
 type Picture = {
   filename: string;
@@ -43,7 +44,7 @@ export const HPProfileSection = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthenticated) {
-      alert("Please login again.");
+      toast.error("Please login again.");
       navigate("/hp/login");
       return;
     }
@@ -110,7 +111,7 @@ export const HPProfileSection = () => {
     <div className="profile-section">
       {isLoading ? (
         <div className="d-flex justify-content-center">
-          <PageLoading2 />
+          <PageLoadingDark />
         </div>
       ) : error ? (
         <ErrorHandlingUI error={error} />
@@ -123,10 +124,7 @@ export const HPProfileSection = () => {
               handleCancelEditProfile={handleCancelEditProfile}
             />
           ) : (
-            <ProfileView
-              hpData={hpData}
-              profilePicture={profilePicture}
-            />
+            <ProfileView hpData={hpData} profilePicture={profilePicture} />
           )}
 
           {!isEditProfileActive && (

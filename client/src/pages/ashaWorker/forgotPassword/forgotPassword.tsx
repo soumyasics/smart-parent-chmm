@@ -8,6 +8,7 @@ import axios from "axios";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
 import "./forgotPassword.css";
 import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
+import {toast} from "react-hot-toast";
 
 interface PasswordResetData {
   email: string;
@@ -40,11 +41,11 @@ export const AWForgotPassword: React.FC = () => {
       !confirmPassword ||
       password !== confirmPassword
     ) {
-      alert("Password and confirm password do not match! Please try agian.");
+      toast.error("Password and confirm password do not match! Please try agian.");
       return;
     }
     if (password.length < 8) {
-      alert("Password should be at least 8 characters long.");
+      toast.error("Password should be at least 8 characters long.");
       return;
     }
     // Handle the form submission logic here
@@ -60,7 +61,7 @@ export const AWForgotPassword: React.FC = () => {
       let res = await axiosInstance.patch("resetAWPasswordByEmail", data);
       if (res.status === 200) {
         console.log("Password reset successfully");
-        alert("Password reset successfully");
+        toast.success("Password reset successfully");
         redirectToAWLogin();
       } else {
         console.log("Something went wrong.", res);
@@ -69,9 +70,9 @@ export const AWForgotPassword: React.FC = () => {
       if (axios.isAxiosError(error)) {
         const errResponseStatus = error.response?.status;
         if (errResponseStatus === 404) {
-          alert("Please check your email id");
+          toast.error("Please check your email id");
         } else {
-          alert("Something went wrong. Please try again later.");
+          toast.error("Something went wrong. Please try again later.");
         }
         console.log("Error on resetting password", error);
       }

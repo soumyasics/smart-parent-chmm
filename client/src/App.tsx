@@ -18,11 +18,10 @@ import { AdminDashboard } from "./pages/admin/AdminDashboard/adminDashboard.tsx"
 import { VCHome } from "./pages/vc/vcHome/vcHome.tsx";
 import { VCSignup } from "./pages/vc/vcSignup/vcSignup.tsx";
 import { VCLogin } from "./pages/vc/vcLogin/vcLogin.tsx";
-import { ProtectLoginPage } from "./components/common/protectRoutes/protectLoginPage.tsx";
+import { ProtectParentLoginPage } from "./components/common/protectRoutes/protectLoginPage.tsx";
 import { VCProfilePage } from "./pages/vc/vcProfile/profilePage.tsx";
 import { ChatWithParent } from "./pages/vc/chatWithParent/chatWithParent.tsx";
 import { ViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/viewVaccinnationCenteres.tsx";
-import "./App.css";
 import { ChatWithVC } from "./pages/parent/chatWithVC/chatWithVC.tsx";
 import { VCForgotPassword } from "./pages/vc/forgotPassword/forgotPassword.tsx";
 import { ProtectAdminRoutes } from "./components/Admin/protectAdminRoute/protectAdminRoutes.tsx";
@@ -33,22 +32,25 @@ import { AWLogin } from "./pages/ashaWorker/awLogin/awLogin.tsx";
 import { AWHome } from "./pages/ashaWorker/awHome/awHome.tsx";
 import { AWForgotPassword } from "./pages/ashaWorker/forgotPassword/forgotPassword.tsx";
 import { AWProfilePage } from "./pages/ashaWorker/awProfile/profilePage.tsx";
+import { Toaster } from "react-hot-toast";
+import "./App.css";
 
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
+      <Toaster />
       <Routes>
         <Route path="/" element={<CommonHomePage />} />
 
-        {/* parent routes  */}
+      {/* parent routes  */}
 
         <Route path="/parent/signup" element={<ParentSignupPage />} />
         <Route
           path="/parent/login"
           element={
-            <ProtectLoginPage>
+            <ProtectParentLoginPage>
               <ParentLogin />
-            </ProtectLoginPage>
+            </ProtectParentLoginPage>
           }
         />
         <Route path="/parent/home" element={<ParentHome />} />

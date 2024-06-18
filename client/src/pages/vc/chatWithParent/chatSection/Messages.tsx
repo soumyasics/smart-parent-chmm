@@ -40,7 +40,6 @@ export const Messages: FC<MessagesProps> = ({
         if (message.senderType === "vc") {
           return (
             <MessageEnd
-              name={userData?.name || ""}
               profilePic={activeUserPic}
               message={message}
               key={message?._id}
@@ -49,7 +48,6 @@ export const Messages: FC<MessagesProps> = ({
         } else {
           return (
             <MessageStart
-              name="start name"
               profilePic={participantProfilePic}
               message={message}
               key={message?._id}
