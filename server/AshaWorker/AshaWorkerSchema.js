@@ -36,7 +36,7 @@ const ashaWorkerSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    qualifications: {
+    qualification: {
       type: String,
       required: true,
     },

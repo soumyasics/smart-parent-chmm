@@ -10,18 +10,18 @@ import axiosInstance from "../../../apis/axiosInstance";
 import { UserState } from "../../../redux/types";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../redux/reducers/userSlilce";
-import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
+import { AWNavbar } from "../../../components/aw/awNavbar/awNavbar";
 
-export const HPLogin = () => {
+export const AWLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const navigateHPSignup = () => {
-    navigate("/hp/signup");
+  const navigateAWSignup = () => {
+    navigate("/aw/signup");
   };
 
   const handleSubmit = (e: any) => {
@@ -46,7 +46,7 @@ export const HPLogin = () => {
     try {
       let credentials = { email, password };
 
-      const res = await axiosInstance.post("/loginHP", credentials);
+      const res = await axiosInstance.post("/loginAW", credentials);
       if (res.status === 200) {
         let data = res.data || null;
 
@@ -55,12 +55,12 @@ export const HPLogin = () => {
           userData: data?.data || null,
           jsonWebToken: data?.token || null,
           userId: data?.data?._id || null,
-          userType: "healthProfessional",
+          userType: "ashaWorker",
         };
         dispatch(userLoggedIn(serializedUserData));
         alert("Login Successful");
         setTimeout(() => {
-          navigate("/hp/home");
+          navigate("/aw/home");
         }, 1200);
       }
     } catch (error) {
@@ -95,16 +95,16 @@ export const HPLogin = () => {
     }
   };
 
-  const navigateToHPForgotPassword = () => {
-    navigate("/hp/forgot-password");
+  const navigateToAWForgotPassword = () => {
+    navigate("/aw/forgot-password");
   }
 
   return (
     <div>
-      <HPNavbar />
+      <AWNavbar />
       <div>
         <div className="shadow mx-auto mt-5 pt-2" style={{ width: "45%" }}>
-          <h3 className="text-center mb-5"> Health Professional Login</h3>
+          <h3 className="text-center mb-5"> Asha Worker Login</h3>
           <Form
             className="mt-5 mb-5"
             noValidate
@@ -143,7 +143,7 @@ export const HPLogin = () => {
             <div className="user-login-btn-container-2">
               <p
                 role="button"
-                onClick={navigateToHPForgotPassword}
+                onClick={navigateToAWForgotPassword}
                 className="text-primary mb-3 text-start fw-bold"
               >
                 forgot password?
@@ -152,7 +152,7 @@ export const HPLogin = () => {
                 Don’t have an account?{" "}
                 <span
                   className="user-forgot-password"
-                  onClick={navigateHPSignup}
+                  onClick={navigateAWSignup}
                 >
                   {" "}
                   Sign Up{" "}
