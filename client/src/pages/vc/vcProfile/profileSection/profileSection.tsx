@@ -12,6 +12,7 @@ import { BASE_URL } from "../../../../apis/baseUrl";
 import { PageLoading2 } from "../../../../components/pageLoading/pageLoading2";
 import { ProfileEdit } from "../profileEditAndView/profileEdit";
 import { ProfileView } from "../profileEditAndView/profileView.tsx";
+import {toast} from "react-hot-toast";
 
 type ProfilePicture = {
   filename: string;
@@ -41,7 +42,7 @@ export const VCProfileSection = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthenticated) {
-      alert("Please login again.");
+      toast.error("Please login again.");
       navigate("/vc/login");
       return;
     }

@@ -10,6 +10,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { isPastDay } from "../../../utils/validation/dateValidation";
 import { isOnlyAlphabets } from "../../../utils/validation";
+import {toast} from "react-hot-toast";
 
 export const AddTodoForm = () => {
   const [activityName, setActivityName] = useState("");
@@ -69,7 +70,7 @@ export const AddTodoForm = () => {
     try {
       let res = await axiosInstance.post("addToDo", serializedData);
       if (res.status === 201) {
-        alert("Item Added Successfully");
+        toast.error("Item Added Successfully");
         resetForm()
         return;
       }
@@ -77,7 +78,7 @@ export const AddTodoForm = () => {
       if (axios.isAxiosError(error)) {
         const errStatus = error.response?.status;
         if (errStatus === 400 || errStatus === 500) {
-          alert("Internal Server Error");
+          toast.error("Internal Server Error");
         }
         console.log("Error on send activity data to server", error);
       } else {
@@ -89,7 +90,7 @@ export const AddTodoForm = () => {
   const handleActivityDateChange = (e: any) => {
     const isPreviousDay: boolean = isPastDay(e.target.value);
     if (isPreviousDay) {
-      alert("Activity date cannot be in the past");
+      toast.error("Activity date cannot be in the past");
       return;
     }
     setActivityDate(e.target.value);
@@ -106,7 +107,7 @@ export const AddTodoForm = () => {
     const hour = e.target.value;
 
     if (hour.length > 2 || hour > 23 || hour < 0) {
-      alert("Hours must be between 0 and 24");
+      toast.error("Hours must be between 0 and 24");
       return;
     }
     setActivityTimeHrs(hour);
@@ -115,7 +116,7 @@ export const AddTodoForm = () => {
     const mins = e.target.value;
 
     if (mins.length > 2 || mins > 59 || mins < 0) {
-      alert("Minutes must be between 0 and 60");
+      toast.error("Minutes must be between 0 and 60");
       return;
     }
     setActivityTimeMins(mins);

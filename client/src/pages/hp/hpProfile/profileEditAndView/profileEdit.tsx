@@ -9,6 +9,7 @@ import { RootState } from "../../../../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserData } from "../../../../redux/reducers/userSlilce";
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-hot-toast";
 
 function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -54,7 +55,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
 
   useEffect(() => {
     if (!isAuthenticated) {
-      alert("Please login again.");
+      toast.error("Please login again.");
       navigate("/hp/login");
       return;
     }
@@ -108,11 +109,11 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
     const { name, address, phoneNumber, profilePicture, department } =
       newHPData;
     if (!name || !address || !phoneNumber || !department) {
-      alert("Fields can't be empty");
+      toast.error("Fields can't be empty");
       return;
     }
     if (phoneNumber.length !== 10) {
-      alert("Invalid phone number");
+      toast.error("Invalid phone number");
       return;
     }
 
@@ -129,7 +130,7 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
     if (hpId) {
       sendDataToServer(formData);
     } else {
-      alert("Something went wrong. Please login again.");
+      toast.error("Something went wrong. Please login again.");
     }
   };
 
@@ -142,10 +143,9 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
       );
       if (res.status === 200) {
         const data = res.data?.data;
-        console.log(" data, d", data);
         dispatch(updateUserData(data));
         handleCancelEditProfile();
-        alert("Profile updated successfully");
+        toast.success("Profile updated successfully");
       } else {
         throw new Error(`Unexpected error occurred, status: ${res.status}`);
       }

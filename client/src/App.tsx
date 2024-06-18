@@ -33,10 +33,12 @@ import { AWLogin } from "./pages/ashaWorker/awLogin/awLogin.tsx";
 import { AWHome } from "./pages/ashaWorker/awHome/awHome.tsx";
 import { AWForgotPassword } from "./pages/ashaWorker/forgotPassword/forgotPassword.tsx";
 import { AWProfilePage } from "./pages/ashaWorker/awProfile/profilePage.tsx";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter basename="child_crescendo">
+      <Toaster />
       <Routes>
         <Route path="/" element={<CommonHomePage />} />
 

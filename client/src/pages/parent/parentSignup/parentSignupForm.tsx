@@ -13,6 +13,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
 import "./parentSignup.css";
+import {toast} from "react-hot-toast";
 
 interface ParentData {
   name: string;
@@ -86,33 +87,32 @@ export const ParentSignupForm = () => {
       !address ||
       !parentalStatus
     ) {
-      // alert("Please fill all the fields");
       console.log("parent data", parentData);
       return;
     }
     const isEmailValid = validateEmail(parentData.email);
     if (!isEmailValid) {
-      alert("Please provide a valid email.");
+      toast.error("Please provide a valid email.");
       return;
     }
     const isPhoneNumberValid = validatePhoneNumber(parentData.phoneNumber);
     if (!isPhoneNumberValid) {
-      alert("Please provide a valid phone number.");
+      toast.error("Please provide a valid phone number.");
       return;
     }
 
     if (parentData.password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     const isPasswordValid = validatePassword(parentData.password);
     if (!isPasswordValid) {
-      alert("Please provide a valid password");
+      toast.error("Please provide a valid password");
       return;
     }
 
     if (dobError) {
-      alert("Please provide a valid date of birth");
+      toast.error("Please provide a valid date of birth");
       return;
     }
     sendDataToServer();
@@ -145,7 +145,7 @@ export const ParentSignupForm = () => {
       let res = await axiosMultipartInstance.post("registerParent", formData);
 
       if (res.status === 201) {
-        alert("Parent registration successfull.");
+        toast.success("Parent registration successfull.");
         setTimeout(() => {
           navigate("/parent/login");
         }, 1200);
@@ -159,7 +159,7 @@ export const ParentSignupForm = () => {
           if (error.response.status === 400 || error.response.status === 500) {
             const errMsg = error.response.data.message;
             if (errMsg) {
-              alert(errMsg);
+              toast.error(errMsg);
             }
           } else {
             console.log(
@@ -168,7 +168,7 @@ export const ParentSignupForm = () => {
             );
           }
         } else {
-          alert(
+          toast.error(
             "No response received from the server. Please check your network"
           );
         }

@@ -10,6 +10,7 @@ import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
+import {toast} from "react-hot-toast";
 interface VCData {
   name: string;
   email: string;
@@ -66,30 +67,30 @@ export const VCSignupForm = () => {
     }
 
     if (!isPasswordMatch) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
     const isEmailValid = validateEmail(vcData.email);
     if (!isEmailValid) {
-      alert("Please provide a valid email.");
+      toast.error("Please provide a valid email.");
       return;
     }
 
     if (vcData.password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
     const isPhoneNumberValid = validatePhoneNumber(vcData.phoneNumber);
     if (!isPhoneNumberValid) {
-      alert("Please provide a valid phone number.");
+      toast.error("Please provide a valid phone number.");
       return;
     }
 
     const isPasswordValid = validatePassword(vcData.password);
     if (!isPasswordValid) {
-      alert("Please provide a valid password");
+      toast.error("Please provide a valid password");
       return;
     }
 
@@ -111,7 +112,7 @@ export const VCSignupForm = () => {
       let res = await axiosMultipartInstance.post("registerVC", formData);
 
       if (res.status === 201) {
-        alert("Registration successfull.");
+        toast.success("Registration successfull.");
         setTimeout(() => {
           navigate("/vc/login");
         }, 1200);
@@ -125,7 +126,7 @@ export const VCSignupForm = () => {
           if (error.response.status === 400 || error.response.status === 500) {
             const errMsg = error.response.data.message;
             if (errMsg) {
-              alert(errMsg);
+              toast.error(errMsg);
             }
           } else {
             console.log(
@@ -134,7 +135,7 @@ export const VCSignupForm = () => {
             );
           }
         } else {
-          alert(
+          toast.error(
             "No response received from the server. Please check your network"
           );
         }

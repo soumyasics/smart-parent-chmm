@@ -11,6 +11,7 @@ import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
+import { toast } from "react-hot-toast";
 interface AWData {
   name: string;
   email: string;
@@ -42,22 +43,20 @@ export const AWSignupForm = () => {
     experience: "",
   });
 
-    // Initialize state with inbuilt values for testing
-    // const [awData, setAWData] = useState<AWData>({
-    //   name: "abc",
-    //   email: "aw@gmail.com",
-    //   password: "12341234",
-    //   confirmPassword: "12341234",
-    //   phoneNumber: "1234123412",
-    //   address: "abc 343df dfdfff",
-    //   qualification: "bcom",
-    //   profilePicture: null,
-    //   dateOfBirth: "2024-06-20",
-    //   gender: "female",
-    //   experience: "33",
-    // });
-
-  
+  // Initialize state with inbuilt values for testing
+  // const [awData, setAWData] = useState<AWData>({
+  //   name: "abc",
+  //   email: "aw@gmail.com",
+  //   password: "12341234",
+  //   confirmPassword: "12341234",
+  //   phoneNumber: "1234123412",
+  //   address: "abc 343df dfdfff",
+  //   qualification: "bcom",
+  //   profilePicture: null,
+  //   dateOfBirth: "2024-06-20",
+  //   gender: "female",
+  //   experience: "33",
+  // });
 
   useEffect(() => {
     const password = awData.password;
@@ -106,23 +105,23 @@ export const AWSignupForm = () => {
     }
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
-      alert("Please provide a valid email.");
+      toast.error("Please provide a valid email.");
       return;
     }
     const isPhoneNumberValid = validatePhoneNumber(phoneNumber);
     if (!isPhoneNumberValid) {
-      alert("Please provide a valid phone number.");
+      toast.error("Please provide a valid phone number.");
       return;
     }
 
     const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
-      alert("Please provide valid password");
+      toast.error("Please provide valid password");
       return;
     }
 
     if (!isPasswordMatch) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -160,7 +159,7 @@ export const AWSignupForm = () => {
       let res = await axiosMultipartInstance.post("registerAW", formData);
 
       if (res.status === 201) {
-        alert("Registration successfull.");
+        toast.success("Registration successfull.");
         setTimeout(() => {
           navigate("/aw/login");
         }, 1200);
@@ -174,7 +173,7 @@ export const AWSignupForm = () => {
           if (error.response.status === 400 || error.response.status === 500) {
             const errMsg = error.response.data.message;
             if (errMsg) {
-              alert(errMsg);
+              toast.error(errMsg);
             }
           } else {
             console.log(
@@ -183,7 +182,7 @@ export const AWSignupForm = () => {
             );
           }
         } else {
-          alert(
+          toast.error(
             "No response received from the server. Please check your network"
           );
         }
@@ -356,22 +355,6 @@ export const AWSignupForm = () => {
       <Row className="mt-3">
         <Col>
           <Form.Group>
-            <Form.Control
-              type="date"
-              placeholder="Select your date of birth"
-              name="dateOfBirth"
-              onChange={handleChanges}
-              value={awData.dateOfBirth}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please select your date of birth
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
-
-        <Col>
-          <Form.Group>
             <Form.Select
               name="gender"
               onChange={handleChanges}
@@ -389,20 +372,42 @@ export const AWSignupForm = () => {
           </Form.Group>
         </Col>
       </Row>
-
-      <Row>
+      <Row className="mt-3">
         <Col>
-          <Form.Group className="position-relative mt-3">
+          <Form.Group>
+            <Form.Label>Date of Birth</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="Select your date of birth"
+              name="dateOfBirth"
+              onChange={handleChanges}
+              value={awData.dateOfBirth}
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please select your date of birth
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+
+        <Col>
+          <Form.Group className="position-relative">
             <Form.Label>Upload your photo </Form.Label>
             <Form.Control
+            required
               type="file"
               name="file"
               accept="image/*"
               onChange={handleProfilePictureUpload}
             />
           </Form.Group>
+          <Form.Control.Feedback type="invalid">
+              Please upload your photo
+            </Form.Control.Feedback>
         </Col>
       </Row>
+
+  
 
       <div className="d-flex justify-content-center mt-3">
         <Button id="user-signup-btn" type="submit">

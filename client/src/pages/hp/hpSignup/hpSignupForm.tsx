@@ -11,6 +11,7 @@ import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
+import {toast} from "react-hot-toast";
 interface HPData {
   name: string;
   email: string;
@@ -99,23 +100,23 @@ export const HPSignupForm = () => {
     }
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
-      alert("Please provide a valid email.");
+      toast.error("Please provide a valid email.");
       return;
     }
     const isPhoneNumberValid = validatePhoneNumber(phoneNumber);
     if (!isPhoneNumberValid) {
-      alert("Please provide a valid phone number.");
+      toast.error("Please provide a valid phone number.");
       return;
     }
 
     const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
-      alert("Please provide valid password");
+      toast.error("Please provide valid password");
       return;
     }
 
     if (!isPasswordMatch) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -154,7 +155,7 @@ export const HPSignupForm = () => {
       let res = await axiosMultipartInstance.post("registerHP", formData);
 
       if (res.status === 201) {
-        alert("Registration successfull.");
+        toast.success("Registration successfull.");
         setTimeout(() => {
           navigate("/hp/login");
         }, 1200);
@@ -168,7 +169,7 @@ export const HPSignupForm = () => {
           if (error.response.status === 400 || error.response.status === 500) {
             const errMsg = error.response.data.message;
             if (errMsg) {
-              alert(errMsg);
+              toast.error(errMsg);
             }
           } else {
             console.log(
@@ -177,7 +178,7 @@ export const HPSignupForm = () => {
             );
           }
         } else {
-          alert(
+          toast.error(
             "No response received from the server. Please check your network"
           );
         }
