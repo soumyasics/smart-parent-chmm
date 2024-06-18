@@ -28,34 +28,34 @@ export const AWSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
   const navigate = useNavigate();
-  // const [awData, setAWData] = useState<AWData>({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  //   phoneNumber: "",
-  //   address: "",
-  //   qualification: "",
-  //   profilePicture: null,
-  //   dateOfBirth: "",
-  //   gender: "",
-  //   experience: "",
-  // });
+  const [awData, setAWData] = useState<AWData>({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    address: "",
+    qualification: "",
+    profilePicture: null,
+    dateOfBirth: "",
+    gender: "",
+    experience: "",
+  });
 
     // Initialize state with inbuilt values for testing
-    const [awData, setAWData] = useState<AWData>({
-      name: "abc",
-      email: "aw@gmail.com",
-      password: "12341234",
-      confirmPassword: "12341234",
-      phoneNumber: "1234123412",
-      address: "abc 343df dfdfff",
-      qualification: "bcom",
-      profilePicture: null,
-      dateOfBirth: "2024-06-20",
-      gender: "female",
-      experience: "33",
-    });
+    // const [awData, setAWData] = useState<AWData>({
+    //   name: "abc",
+    //   email: "aw@gmail.com",
+    //   password: "12341234",
+    //   confirmPassword: "12341234",
+    //   phoneNumber: "1234123412",
+    //   address: "abc 343df dfdfff",
+    //   qualification: "bcom",
+    //   profilePicture: null,
+    //   dateOfBirth: "2024-06-20",
+    //   gender: "female",
+    //   experience: "33",
+    // });
 
   
 

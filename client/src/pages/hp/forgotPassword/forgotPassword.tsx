@@ -154,7 +154,7 @@ export const HPForgotPassword: React.FC = () => {
                 <Button
                   variant="success"
                   onClick={() => {
-                    navigate("/vc/login");
+                    navigate("/hp/login");
                   }}
                   className="mx-auto mt-3"
                 >

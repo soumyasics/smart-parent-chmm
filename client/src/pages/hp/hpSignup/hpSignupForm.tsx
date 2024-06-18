@@ -45,8 +45,11 @@ export const HPSignupForm = () => {
   //   name: "hp",
   //   email: "hp@gmail.com",
   //   password: "12341234",
+  //   confirmPassword: "12341234",
+  //   address: "hp address",
   //   phoneNumber: "1234123412",
-  //   category: "doctor",
+  //   department: "hp department",
+  //   qualification: "hp qualification",
   //   profilePicture: null,
   //   certificateImg: null,
   // });

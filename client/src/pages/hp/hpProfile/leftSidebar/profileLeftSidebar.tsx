@@ -20,7 +20,7 @@ export const VCProfileLeftSidebar: React.FC<
   const navigate = useNavigate();
   const handleParentLogout = () => {
     dispatch(userLoggedOut());
-    navigate("/vc/login");
+    navigate("/hp/login");
   };
   return (
     <div className="left-sidebar">
