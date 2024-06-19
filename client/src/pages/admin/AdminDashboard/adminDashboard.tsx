@@ -4,6 +4,7 @@ import { AdminParents } from "../../../components/Admin/AdminParents/adminParent
 import { AdminVCPending } from "../../../components/Admin/AdminVCPending/adminVCPending.tsx";
 import "./adminDashboard.css";
 import { AdminHPPending } from "../../../components/Admin/AdminHpPending/adminHpPending.tsx";
+import { AdminAWPending } from "../../../components/Admin/AdminAWPending/adminAWPending.tsx";
 
 export const AdminDashboard = () => {
   const [activePage, setActivePage] = useState("parents");
@@ -22,6 +23,7 @@ export const AdminDashboard = () => {
           {activePage === "hp" && <AdminParents />}
           {activePage === "vcPending" && <AdminVCPending />}
           {activePage === "HPPending" && <AdminHPPending />}
+          {activePage === "awPending" && <AdminAWPending />}
         </div>
       </div>
     </Fragment>

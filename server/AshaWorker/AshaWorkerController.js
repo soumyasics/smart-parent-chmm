@@ -80,6 +80,10 @@ const registerAshaWorker = async (req, res) => {
 const loginAshaWorker = async (req, res) => {
   try {
     const { email, password } = req.body;
+    
+    if (!email || !password) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
     const ashaWorker = await AshaWorkerModel.findOne({ email });
     if (!ashaWorker) {
       return res.status(404).json({
@@ -90,12 +94,14 @@ const loginAshaWorker = async (req, res) => {
       password,
       ashaWorker.password
     );
+
     if (!isPasswordMatch) {
       return res
         .status(401)
         .json({ message: "Please check your email and password" });
     }
 
+    
     if (ashaWorker.isAdminApproved === "pending") {
       return res
         .status(403)

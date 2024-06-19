@@ -93,7 +93,7 @@ function App() {
         <Route path="/aw/home" element={<AWHome />} />
         <Route path="/aw/forgot-password" element={<AWForgotPassword />} />
         <Route path="/aw/profile" element={<AWProfilePage />} />
-
+          
         {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
         {/* admin routes */}
