@@ -83,7 +83,7 @@ export const HPLogin = () => {
               toast.error(errMsg);
             }
           } else {
-            console.log("Unexpected error occued on parent login.1", error);
+            console.log("Unexpected error occued on health professional login.1", error);
           }
         } else {
           toast.error(
@@ -91,7 +91,7 @@ export const HPLogin = () => {
           );
         }
       } else {
-        console.log("Unexpected error occued on parent login.2", error);
+        console.log("Unexpected error occued on health professional login.2", error);
       }
     }
   };

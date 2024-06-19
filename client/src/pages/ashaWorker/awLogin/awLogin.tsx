@@ -83,7 +83,7 @@ export const AWLogin = () => {
               toast.error(errMsg);
             }
           } else {
-            console.log("Unexpected error occued on parent login.1", error);
+            console.log("Unexpected error occued on Asha worker login.1", error);
           }
         } else {
           toast.error(
@@ -91,7 +91,7 @@ export const AWLogin = () => {
           );
         }
       } else {
-        console.log("Unexpected error occued on parent login.2", error);
+        console.log("Unexpected error occued on Asha worker login.2", error);
       }
     }
   };

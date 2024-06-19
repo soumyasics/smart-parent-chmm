@@ -10,7 +10,7 @@ import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 interface VCData {
   name: string;
   email: string;
@@ -188,18 +188,15 @@ export const VCSignupForm = () => {
           <Col>
             <Form.Group>
               <Form.Control
-                type="text"
+                type="email"
+                placeholder="Email"
                 required
-                minLength={10}
-                maxLength={10}
-                pattern="[0-9]{10}"
-                placeholder="Phone number."
+                name="email"
                 onChange={handleChanges}
-                value={vcData.phoneNumber}
-                name="phoneNumber"
+                value={vcData.email}
               />
               <Form.Control.Feedback type="invalid">
-                Please provide 10 digit Phone number.
+                Please Enter Your Email
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -207,21 +204,6 @@ export const VCSignupForm = () => {
       </div>
 
       <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Control
-              type="email"
-              placeholder="Email"
-              required
-              name="email"
-              onChange={handleChanges}
-              value={vcData.email}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please Enter Your Email
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
         <Col>
           <PasswordInput
             handleChanges={handleChanges}
@@ -239,7 +221,6 @@ export const VCSignupForm = () => {
             label="Confirm Password"
             name="confirmPassword"
           />
-        
         </Col>
       </Row>
 
@@ -285,9 +266,29 @@ export const VCSignupForm = () => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="mt-3">
         <Col>
-          <Form.Group className="position-relative mt-3">
+          <Form.Group>
+            <Form.Label>Please provide 10 digit Phone number </Form.Label>
+            <Form.Control
+              type="text"
+              required
+              minLength={10}
+              maxLength={10}
+              pattern="[0-9]{10}"
+              placeholder="Phone number."
+              onChange={handleChanges}
+              value={vcData.phoneNumber}
+              name="phoneNumber"
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide 10 digit Phone number.
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+
+        <Col>
+          <Form.Group className="position-relative">
             <Form.Label>Upload vaccination center photo </Form.Label>
             <Form.Control
               type="file"
