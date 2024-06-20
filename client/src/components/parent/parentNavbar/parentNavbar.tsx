@@ -53,7 +53,7 @@ export const ParentNavbar = () => {
   };
 
   const redirectToVaccinationCenters = () => {
-    navigate("/parent/view-vaccination-centers");
+    navigate("/parent/view-vc");
   };
 
   const handleLogout = () => {
