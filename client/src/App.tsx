@@ -34,6 +34,7 @@ import { AWForgotPassword } from "./pages/ashaWorker/forgotPassword/forgotPasswo
 import { AWProfilePage } from "./pages/ashaWorker/awProfile/profilePage.tsx";
 import { Toaster } from "react-hot-toast";
 import "./App.css";
+import { ViewVCDeatils } from "./pages/parent/viewVaccincationCenters/viewVCDetails.tsx";
 
 function App() {
   return (
@@ -60,8 +61,12 @@ function App() {
         <Route path="/parent/register-child" element={<RegisterChild />} />
         <Route path="/parent/chat-vc" element={<ChatWithVC />} />
         <Route
-          path="/parent/view-vaccination-centers"
+          path="/parent/view-vc"
           element={<ViewVaccinationCenters />}
+        />
+        <Route
+          path="/parent/view-vc/:id"
+          element={<ViewVCDeatils />}
         />
         <Route
           path="/parent/reset-password"

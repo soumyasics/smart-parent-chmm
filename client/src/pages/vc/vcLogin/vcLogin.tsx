@@ -22,7 +22,7 @@ export const VCLogin = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const navigateParentSignup = () => {
+  const navigateVCSignup = () => {
     navigate("/vc/signup");
   };
 
@@ -178,7 +178,7 @@ export const VCLogin = () => {
               Don’t have an account?{" "}
               <span
                 className="user-forgot-password"
-                onClick={navigateParentSignup}
+                onClick={navigateVCSignup}
               >
                 {" "}
                 Sign Up{" "}

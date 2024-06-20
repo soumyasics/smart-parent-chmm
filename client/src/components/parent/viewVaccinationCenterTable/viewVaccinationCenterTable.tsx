@@ -2,8 +2,14 @@ import { Button, Table } from "react-bootstrap";
 import { useFetchData } from "../../../hooks/useFetchData";
 import { PageLoading } from "../../pageLoading/pageLoading";
 import { ErrorHandlingUI } from "../../common/errorHandlingUI/errorHandlingUi";
+import { useNavigate } from "react-router-dom";
 export const ViewVaccinationCentersTable = () => {
   const { isLoading, data: allVCs, error } = useFetchData("/getAllApprovedVc");
+  const navigate = useNavigate();
+
+  const navigateToVCDetails = (id: string) => {
+    navigate(`/parent/view-vc/${id}`)
+  };
 
   if (isLoading) {
     return (
@@ -46,7 +52,9 @@ export const ViewVaccinationCentersTable = () => {
                 <td>{vc?.address}</td>
                 <td>{vc?.category}</td>
                 <td>
-                  <Button>View More</Button>
+                  <Button onClick={() => {
+                    navigateToVCDetails(vc._id)
+                  }}> View More</Button>
                 </td>
               </tr>
             );
