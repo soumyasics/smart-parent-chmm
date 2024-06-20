@@ -75,3 +75,4 @@ export interface AshaWorkerData extends BaseData {
   updatedAt: string;
   __v: number;
 }
+export type AllUsersType = ParentData | HealthProfessionalData | VaccinationCenterData | AshaWorkerData
