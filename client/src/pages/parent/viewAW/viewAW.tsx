@@ -1,8 +1,8 @@
 import { Button } from "react-bootstrap";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
-import { ViewVaccinationCentersTable } from "../../../components/parent/viewVaccinationCenterTable/viewVaccinationCenterTable";
 import { useCustomNavigate } from "../../../hooks/useCustomNavigate";
+import { ViewAWTable } from "../../../components/parent/viewAWTable/viewAWTable";
 export const ViewAW = () => {
   const navigateTo = useCustomNavigate();
   const redirectToParentVCChat = () => {
@@ -23,7 +23,7 @@ export const ViewAW = () => {
             Chat{" "}
           </Button>
         </div>
-        <ViewVaccinationCentersTable />
+        <ViewAWTable />
       </div>
       <CommonFooter />
     </div>
