@@ -1,13 +1,15 @@
 import { FC, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-
+import { capitalizeFirstLetter } from "../../../utils/modification/capitalizeFirstLetter";
 interface DropdownSearchProps {
   items: string[];
   selectItem: (value: string) => void;
+  placeholder?: string;
 }
 export const DropdownSearch: FC<DropdownSearchProps> = ({
   items,
   selectItem,
+  placeholder,
 }) => {
   const [searchedItem, setSearchedItem] = useState<string>("");
   const [displayItems, setDisplayItems] = useState<boolean>(false);
@@ -25,6 +27,11 @@ export const DropdownSearch: FC<DropdownSearchProps> = ({
   }, [searchedItem, items]);
 
   const searchItem = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const search = e.target.value;
+    if (!search) {
+      handleSelectItem("");
+      return;
+    }
     setSearchedItem(e.target.value);
   };
 
@@ -33,6 +40,14 @@ export const DropdownSearch: FC<DropdownSearchProps> = ({
   };
 
   const handleBlur = () => {
+    setTimeout(() => {
+      setDisplayItems(false);
+    }, 200);
+  };
+
+  const handleSelectItem = (item: string) => {
+    selectItem(item);
+    setSearchedItem(item);
     setDisplayItems(false);
   };
 
@@ -41,7 +56,7 @@ export const DropdownSearch: FC<DropdownSearchProps> = ({
       <Form.Group>
         <Form.Control
           type="text"
-          placeholder="Search vaccine here."
+          placeholder={placeholder || "Search"}
           name="name"
           onChange={searchItem}
           value={searchedItem}
@@ -57,12 +72,12 @@ export const DropdownSearch: FC<DropdownSearchProps> = ({
               <div
                 key={index}
                 style={{ height: "30px", cursor: "pointer" }}
-                onClick={() => {
-                  selectItem(item);
+                onMouseDown={() => {
+                  handleSelectItem(item);
                 }}
                 className="ps-3 mt-2 bg-warning"
               >
-                <p className="mb-0">{item}</p>
+                <p className="mb-0">{capitalizeFirstLetter(item)}</p>
               </div>
             );
           })}
