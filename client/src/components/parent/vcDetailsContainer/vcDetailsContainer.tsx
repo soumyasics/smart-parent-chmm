@@ -10,8 +10,8 @@ interface VCDetailsContainerProps {
 }
 
 export const VCDetailsContainer: FC<VCDetailsContainerProps> = ({ data }) => {
-  const { profilePicture } = useProfilePicture(data.profilePicture.path);
-
+  const { profilePicture } = useProfilePicture(data.profilePicture.filename);
+  console.log("data", data);
   return (
     <Container className="mt-5">
       <Row>
@@ -21,14 +21,31 @@ export const VCDetailsContainer: FC<VCDetailsContainerProps> = ({ data }) => {
         <Col md={6}>
           <Card>
             <Card.Body>
-              <Image src={data.profilePicture.path} roundedCircle />
-              <div>
-                <Card.Title>{data.name}</Card.Title>
+              <div className="d-flex justify-content-center align-items-center">
+                <Image
+                  style={{ width: "100px", height: "100px" }}
+                  rounded
+                  src={profilePicture}
+                />
+              </div>
+              <div className="bg-danger  pt-2 " style={{ minHeight: "300px" }}>
+                <Card.Title className="mt-3 text-center">
+                  Name: {data.name}
+                </Card.Title>
                 <Card.Text>
-                  <strong>Email:</strong> {data.email} <br />
-                  <strong>Phone Number:</strong> {data.phoneNumber} <br />
-                  <strong>Address:</strong> {data.address} <br />
-                  <strong>Category:</strong> {data.category} <br />
+                  <h5>
+                    {" "}
+                    <strong>Email:</strong> {data.email} <br />
+                  </h5>
+                  <h5>
+                    <strong>Phone Number:</strong> {data.phoneNumber} <br />
+                  </h5>
+                  <h5>
+                    <strong>Address:</strong> {data.address} <br />
+                  </h5>
+                  <h5>
+                    <strong>Category:</strong> {data.category} <br />
+                  </h5>
                 </Card.Text>
               </div>
             </Card.Body>

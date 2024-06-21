@@ -37,6 +37,7 @@ import "./App.css";
 import { ViewVCDeatils } from "./pages/parent/viewVaccincationCenters/viewVCDetails.tsx";
 import { ViewHP } from "./pages/parent/viewHP/viewHP.tsx";
 import { ViewAW } from "./pages/parent/viewAW/viewAW.tsx";
+import { BookVaccine } from "./components/parent/bookVaccine/bookVaccine.tsx";
 
 function App() {
   return (
@@ -77,6 +78,10 @@ function App() {
         <Route
           path="/parent/view-vc/:id"
           element={<ViewVCDeatils />}
+        />
+        <Route
+          path="/parent/book-vaccine"
+          element={<BookVaccine />}
         />
         <Route
           path="/parent/reset-password"

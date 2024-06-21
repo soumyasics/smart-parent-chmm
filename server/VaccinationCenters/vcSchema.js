@@ -28,6 +28,26 @@ const vcSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    district: {
+      type: String,
+      required: true,
+      enum: [
+        "Trivandrum",
+        "Kollam",
+        "Alappuzha",
+        "Pathanamthitta",
+        "Kottayam",
+        "Idukki",
+        "Ernakulam",
+        "Thrissur",
+        "Palakkad",
+        "Malappuram",
+        "Kozhikode",
+        "Wayanad",
+        "Kannur",
+        "Kasaragod",
+      ],
+    },
     profilePicture: {
       type: Object,
       default: null,
@@ -41,8 +61,6 @@ const vcSchema = mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
-
-   
   },
   { timestamps: true }
 );
