@@ -20,9 +20,26 @@ const {
 const { generateToken } = require("../utils/auth");
 const { isValidObjectId } = require("mongoose");
 
+const districts = [
+  "Trivandrum",
+  "Kollam",
+  "Alappuzha",
+  "Pathanamthitta",
+  "Kottayam",
+  "Idukki",
+  "Ernakulam",
+  "Thrissur",
+  "Palakkad",
+  "Malappuram",
+  "Kozhikode",
+  "Wayanad",
+  "Kannur",
+  "Kasaragod",
+];
 const registerVC = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, address, category } = req.body;
+    const { name, email, password, phoneNumber, address, category, district } =
+      req.body;
     if (!name || !email || !password || !phoneNumber || !address || !category) {
       return res.status(400).json({
         message: "All fields are required.",
@@ -32,6 +49,13 @@ const registerVC = async (req, res) => {
     if (category !== "hospital" && category !== "anganvadi") {
       return res.status(400).json({
         message: "Invalid category",
+      });
+    }
+    const isValidDistrict = districts.find((d) => d === district);
+
+    if (!isValidDistrict) {
+      return res.status(400).json({
+        message: "District is not valid",
       });
     }
 

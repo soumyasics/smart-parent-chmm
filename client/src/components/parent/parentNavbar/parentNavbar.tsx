@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import styles from "./parentNavbar.module.css";
-import { Button, Image } from "react-bootstrap";
+import { Button, Form, Image } from "react-bootstrap";
 import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -55,6 +55,9 @@ export const ParentNavbar = () => {
   const redirectToVaccinationCenters = () => {
     navigate("/parent/view-vc");
   };
+  const redirectToBookVaccine = () => {
+    navigate("/parent/book-vaccine");
+  };
   const redirectToHP = () => {
     navigate("/parent/view-hp");
   };
@@ -80,7 +83,7 @@ export const ParentNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-n av">
-            <Nav className="ms-5 text-white w-75 justify-content-between">
+            <Nav className="ms-5 text-white w-75 justify-content-between align-items-center">
               <p className="my-0" role="button" onClick={redirectParentHome}>
                 Home
               </p>
@@ -92,13 +95,31 @@ export const ParentNavbar = () => {
                 Health Professional
               </p>
 
-              <p
-                className="my-0"
-                role="button"
-                onClick={redirectToVaccinationCenters}
-              >
-                Vaccination Center
-              </p>
+              <div className="dropdown" role="button">
+                <button
+                  style={{ width: "180px", border: "none" }}
+                  className="btn d-flex btn-secondary bg-dark"
+                  id="dropdownMenuLink"
+                  role="button"
+                  data-toggle="dropdown"
+                >
+                  Vaccine
+                </button>
+
+                <div
+                  style={{ cursor: "pointer" }}
+                  className={`dropdown-menu ${styles.parentNavDropdown}`}
+                  aria-labelledby="dropdownMenuLink"
+                >
+                  <p
+                    className="dropdown-item mb-0"
+                    onClick={redirectToVaccinationCenters}
+                  >
+                    Vaccination Center
+                  </p>
+                  <p className="dropdown-item mb-0" onClick={redirectToBookVaccine}>Book Vaccine</p>
+                </div>
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>
