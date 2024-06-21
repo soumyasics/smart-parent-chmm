@@ -55,6 +55,12 @@ export const ParentNavbar = () => {
   const redirectToVaccinationCenters = () => {
     navigate("/parent/view-vc");
   };
+  const redirectToHP = () => {
+    navigate("/parent/view-hp");
+  };
+  const redirectToAW = () => {
+    navigate("/parent/view-aw");
+  };
 
   const handleLogout = () => {
     dispatch(userLoggedOut());
@@ -79,18 +85,10 @@ export const ParentNavbar = () => {
                 Home
               </p>
 
-              <p
-                className="my-0"
-                role="button"
-                // onClick={navigateParentDisplayTodo}
-              >
+              <p className="my-0" role="button" onClick={redirectToAW}>
                 Asha Workers
               </p>
-              <p
-                className="my-0"
-                role="button"
-                // onClick={navigateParentDisplayTodo}
-              >
+              <p className="my-0" role="button" onClick={redirectToHP}>
                 Health Professional
               </p>
 

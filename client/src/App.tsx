@@ -35,6 +35,8 @@ import { AWProfilePage } from "./pages/ashaWorker/awProfile/profilePage.tsx";
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 import { ViewVCDeatils } from "./pages/parent/viewVaccincationCenters/viewVCDetails.tsx";
+import { ViewHP } from "./pages/parent/viewHP/viewHP.tsx";
+import { ViewAW } from "./pages/parent/viewAW/viewAW.tsx";
 
 function App() {
   return (
@@ -63,6 +65,14 @@ function App() {
         <Route
           path="/parent/view-vc"
           element={<ViewVaccinationCenters />}
+        />
+        <Route
+          path="/parent/view-hp"
+          element={<ViewHP />}
+        />
+        <Route
+          path="/parent/view-aw"
+          element={<ViewAW />}
         />
         <Route
           path="/parent/view-vc/:id"
