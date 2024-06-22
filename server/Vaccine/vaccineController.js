@@ -1,3 +1,4 @@
+const { VCModel } = require("../VaccinationCenters/vcSchema");
 const { VaccineModel } = require("./vaccineSchema");
 
 const addNewVaccine = async (req, res) => {
@@ -28,6 +29,14 @@ const addNewVaccine = async (req, res) => {
       });
     }
 
+    const vc = await VCModel.findById(vaccinationCenterId);
+
+    if (!vc) {
+      return res.status(400).json({
+        success: false,
+        message: "Vaccination center not found.",
+      });
+    }
     if (numberOfAvailableSlots < 0) {
       return res.status(400).json({
         success: false,
@@ -52,9 +61,17 @@ const addNewVaccine = async (req, res) => {
       ageGroup,
       dosageMl,
     });
-    await newVaccine.save();
 
-    return res.status(200).json({ success: true, data: newVaccine });
+    await newVaccine.save();
+    const vcCenter = await VCModel.findByIdAndUpdate(
+      vaccinationCenterId,
+      {
+        $push: { vaccines: newVaccine._id },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({ success: true, data: newVaccine, vcCenter });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }

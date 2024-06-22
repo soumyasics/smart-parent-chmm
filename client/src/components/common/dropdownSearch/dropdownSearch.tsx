@@ -1,26 +1,32 @@
 import { FC, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { capitalizeFirstLetter } from "../../../utils/modification/capitalizeFirstLetter";
-import  "./dropdownSearch.css";
+import "./dropdownSearch.css";
 interface DropdownSearchProps {
   items: string[];
   selectItem: (value: string) => void;
   placeholder?: string;
+  searchedItem: string;
+  updateSearchedItem: (value: string) => void
 }
+
 export const DropdownSearch: FC<DropdownSearchProps> = ({
   items,
   selectItem,
   placeholder,
+  searchedItem,
+  updateSearchedItem
 }) => {
-  const [searchedItem, setSearchedItem] = useState<string>("");
+  
   const [displayItems, setDisplayItems] = useState<boolean>(false);
   const [filteredItems, setFilteredItems] = useState<string[]>([]);
 
   useEffect(() => {
+    const uniqueItems = Array.from(new Set(items));
     if (searchedItem.length === 0) {
-      setFilteredItems(items);
+      setFilteredItems(uniqueItems);
     } else {
-      const filteringItems = items.filter((item) =>
+      const filteringItems = uniqueItems.filter((item) =>
         item.toLowerCase().includes(searchedItem.toLowerCase())
       );
       setFilteredItems(filteringItems);
@@ -28,12 +34,7 @@ export const DropdownSearch: FC<DropdownSearchProps> = ({
   }, [searchedItem, items]);
 
   const searchItem = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const search = e.target.value;
-    if (!search) {
-      handleSelectItem("");
-      return;
-    }
-    setSearchedItem(e.target.value);
+    updateSearchedItem(e.target.value);
   };
 
   const handleFocus = () => {
@@ -48,7 +49,7 @@ export const DropdownSearch: FC<DropdownSearchProps> = ({
 
   const handleSelectItem = (item: string) => {
     selectItem(item);
-    setSearchedItem(item);
+    updateSearchedItem(item);
     setDisplayItems(false);
   };
 
@@ -75,7 +76,7 @@ export const DropdownSearch: FC<DropdownSearchProps> = ({
                 onMouseDown={() => {
                   handleSelectItem(item);
                 }}
-                className="ps-3 mt-2 custom-dropdown-option"
+                className="ps-3 mt-2 custom-dropdown-option d-flex align-items-center"
               >
                 <p className="mb-0">{capitalizeFirstLetter(item)}</p>
               </div>

@@ -61,6 +61,13 @@ const vcSchema = mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    vaccines: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Vaccine",
+        default: null,
+      }
+    ]
   },
   { timestamps: true }
 );

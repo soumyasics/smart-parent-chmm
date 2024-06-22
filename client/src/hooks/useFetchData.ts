@@ -8,7 +8,9 @@ export const useFetchData = (url: string) => {
   const [data, setData] = useState<fetchDataType>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
   useEffect(() => {
+    console.log("inside fetch")
     const fetchData = async () => {
       try {
         setIsLoading(true);
