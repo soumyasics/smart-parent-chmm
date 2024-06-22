@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const vaccineSchema = new mongoose.Schema(
   {
     vaccinationCenterId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "VaccinationCenter",
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "VaccinationCenter",
+      required: true,
     },
     vaccineName: {
       type: String,
@@ -39,15 +39,6 @@ const vaccineSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    distributionStartingDateAndTime: {
-      type: String,
-      required: true,
-    },
-    distributionEndingDateAndTime: {
-      type: String,
-      required: true,
-    },
-    
   },
   {
     timestamps: true,

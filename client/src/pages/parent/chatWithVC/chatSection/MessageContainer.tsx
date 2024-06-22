@@ -69,8 +69,8 @@ export const MessageContainer: FC<MessageContainerProps> = ({
     setMessage(newMsg);
   };
 
-  const navigateToVaccinationCenter = () => {
-    navigateTo("/parent/view-vaccination-centers");
+  const navigateToHome = () => {
+    navigateTo("/parent/home");
   };
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">
@@ -91,7 +91,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
           <div>
             <button
               className="tw-btn tw-btn-neutral tw-btn-sm"
-              onClick={navigateToVaccinationCenter}
+              onClick={navigateToHome}
             >
               {" "}
               Back{" "}

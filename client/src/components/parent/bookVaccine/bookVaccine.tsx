@@ -77,7 +77,7 @@ export const BookVaccine = () => {
           <h4 className="text-center" style={{ color: "#007c7c" }}>
             {" "}
             Find vaccine centers here.
-          </h4>
+          </h4> 
 
           <Row
             style={{ width: "90%", minHeight: "200px" }}

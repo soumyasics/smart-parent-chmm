@@ -1,0 +1,9 @@
+.custom-dropdown-option {
+    cursor: pointer;
+    height: 30px;
+
+}
+.custom-dropdown-option:hover {
+    background-color: rgb(158, 160, 130);
+    font-weight: 600;
+}

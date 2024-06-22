@@ -55,6 +55,10 @@ export const VCNavbar = () => {
     navigate("/vc/profile");
   };
 
+  const redirectToAddVaccines = () => {
+    navigate("/vc/add-vaccines");
+  };
+
   const handleLogout = () => {
     dispatch(userLoggedOut());
     navigate("/vc/login");
@@ -87,8 +91,8 @@ export const VCNavbar = () => {
               >
                 Chat
               </p>
-              <p className="my-0" role="button">
-                Link 2
+              <p className="my-0" role="button" onClick={redirectToAddVaccines}>
+                Add Vaccines
               </p>
               <p className="my-0" role="button">
                 Link 3
