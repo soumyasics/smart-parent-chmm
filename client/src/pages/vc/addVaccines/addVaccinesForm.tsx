@@ -154,7 +154,7 @@ export const AddVaccineForm = () => {
       console.log("respo", res);
       if (res.status === 200) {
         toast.success("Vaccine added successfully");
-        navigate("/vc/profile");
+        resetFields()
       } else {
         toast.error("Some issues occured, please try again");
       }
@@ -162,6 +162,19 @@ export const AddVaccineForm = () => {
       console.log("Error on add vaccine", error);
     }
   };
+  const resetFields = () => {
+    setFormData({
+      vaccinationCenterId: "",
+      vaccineName: "",
+      vaccineDescription: "",
+      numberOfAvailableSlots: "",
+      expiryDate: "",
+      sideEffects: "",
+      ageGroup: "",
+      dosageMl: "",
+    });
+    setIsSubmitted(false);
+  }
   return (
     <Container>
       <Row className="my-5">

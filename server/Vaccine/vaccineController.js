@@ -50,7 +50,7 @@ const addNewVaccine = async (req, res) => {
       expiryDate,
       sideEffects,
       ageGroup,
-      dosageMl
+      dosageMl,
     });
     await newVaccine.save();
 
@@ -63,7 +63,9 @@ const addNewVaccine = async (req, res) => {
 const getAllVaccinesByCenterId = async (req, res) => {
   try {
     const { id } = req.params;
-    const vaccines = await VaccineModel.find({ vaccinationCenterId: id });
+    const vaccines = await VaccineModel.find({ vaccinationCenterId: id })
+      .populate("vaccinationCenterId")
+      .exec();
     res.status(200).json({ success: true, data: vaccines });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -72,7 +74,9 @@ const getAllVaccinesByCenterId = async (req, res) => {
 
 const getAllVaccines = async (req, res) => {
   try {
-    const vaccines = await VaccineModel.find();
+    const vaccines = await VaccineModel.find()
+      .populate("vaccinationCenterId")
+      .exec();
     return res.status(200).json({ success: true, data: vaccines });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
