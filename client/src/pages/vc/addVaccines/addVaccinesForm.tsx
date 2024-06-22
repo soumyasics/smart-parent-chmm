@@ -192,6 +192,7 @@ export const AddVaccineForm = () => {
                     name="vaccineName"
                     value={formData.vaccineName}
                     onChange={handleChange}
+                    placeholder="Enter vaccine name"
                     isInvalid={!!errors.vaccineName}
                   />
                   <Form.Control.Feedback type="invalid">
@@ -206,6 +207,7 @@ export const AddVaccineForm = () => {
                     type="number"
                     name="dosageMl"
                     value={formData.dosageMl}
+                    placeholder="Enter dosage in ml"
                     onChange={handleChange}
                     isInvalid={!!errors.dosageMl}
                   />
@@ -228,6 +230,7 @@ export const AddVaccineForm = () => {
                     name="numberOfAvailableSlots"
                     value={formData.numberOfAvailableSlots}
                     onChange={handleChange}
+                    placeholder="Enter number of available slots"
                     isInvalid={!!errors.numberOfAvailableSlots}
                   />
                   <Form.Control.Feedback type="invalid">
@@ -243,6 +246,7 @@ export const AddVaccineForm = () => {
                     name="expiryDate"
                     value={formData.expiryDate}
                     onChange={handleChange}
+
                     isInvalid={!!errors.expiryDate}
                   />
                   <Form.Control.Feedback type="invalid">
@@ -261,6 +265,7 @@ export const AddVaccineForm = () => {
                     name="sideEffects"
                     value={formData.sideEffects}
                     onChange={handleChange}
+                    placeholder="Enter side effects"
                     isInvalid={!!errors.sideEffects}
                   />
                   <Form.Control.Feedback type="invalid">
@@ -275,6 +280,7 @@ export const AddVaccineForm = () => {
                     type="text"
                     name="ageGroup"
                     value={formData.ageGroup}
+                    placeholder="Enter age group"
                     onChange={handleChange}
                     isInvalid={!!errors.ageGroup}
                   />
@@ -293,6 +299,8 @@ export const AddVaccineForm = () => {
                   <Form.Control
                     as="textarea"
                     name="vaccineDescription"
+                    rows={3}
+                    placeholder="Enter vaccine description"
                     value={formData.vaccineDescription}
                     onChange={handleChange}
                     isInvalid={!!errors.vaccineDescription}
