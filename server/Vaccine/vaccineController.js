@@ -100,8 +100,45 @@ const getAllVaccines = async (req, res) => {
   }
 };
 
+const getVaccinesByNameAndCenterName = async (req, res) => {
+  try {
+    const { vaccineName, vaccineCenterName } = req.body;
+    if (!vaccineName || !vaccineCenterName) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
+    }
+
+    const vaccineCenter = await VCModel.findOne({
+      name: vaccineCenterName,
+    }).populate("vaccines");
+
+
+    if (!vaccineCenter) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Vaccine center not found" });
+    }
+    const allVaccines = vaccineCenter.vaccines;
+
+    const vaccinesfilterByName = allVaccines.filter(
+      (vaccine) => vaccine.vaccineName === vaccineName
+    );
+    if (vaccinesfilterByName.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Vaccine slots not found" });
+    }
+
+    return res.status(200).json({ success: true, data: vaccinesfilterByName });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 module.exports = {
   addNewVaccine,
   getAllVaccines,
   getAllVaccinesByCenterId,
+  getVaccinesByNameAndCenterName
 };

@@ -11,7 +11,6 @@ const vaccineSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      
     },
     vaccineDescription: {
       type: String,
@@ -40,6 +39,18 @@ const vaccineSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    bookedSlots: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    bookedParents: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Parent",
+        default: null,
+      },
+    ],
   },
   {
     timestamps: true,
