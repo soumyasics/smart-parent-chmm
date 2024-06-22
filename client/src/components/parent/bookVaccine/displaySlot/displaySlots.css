@@ -1,0 +1,39 @@
+.slot-parent {
+    width: 90%;
+    background-color: rgb(234, 234, 233);
+    min-height: 500px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.slot-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #eee;
+    width: 45%;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 20px;
+}
+
+.slot-box {
+    height: 30px;
+    width: 30px;
+    border-radius: 5%;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: white;
+    cursor:pointer;
+    
+}

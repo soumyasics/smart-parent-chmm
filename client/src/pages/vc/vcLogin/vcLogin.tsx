@@ -17,8 +17,10 @@ import {toast} from "react-hot-toast";
 
 export const VCLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  // const [email, setEmail] = useState<string>("");
+  // const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("Eenjakal@gmail.com");
+  const [password, setPassword] = useState<string>("12341234");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -5,6 +5,8 @@ const vcSchema = mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
+      unique: true
     },
     email: {
       type: String,
@@ -61,6 +63,13 @@ const vcSchema = mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    vaccines: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Vaccine",
+        default: null,
+      }
+    ]
   },
   { timestamps: true }
 );

@@ -40,10 +40,26 @@ const registerVC = async (req, res) => {
   try {
     const { name, email, password, phoneNumber, address, category, district } =
       req.body;
-    if (!name || !email || !password || !phoneNumber || !address || !category || !district) {
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !phoneNumber ||
+      !address ||
+      !category ||
+      !district
+    ) {
       return res.status(400).json({
         message: "All fields are required.",
         existingFields: req.body,
+      });
+    }
+
+    const isSameNameAlreadyExist = await VCModel.findOne({ name });
+    if (isSameNameAlreadyExist) {
+      return res.status(400).json({
+        message:
+          "This Vaccination name already exists. Please try another one.",
       });
     }
     if (category !== "hospital" && category !== "anganvadi") {
@@ -191,7 +207,9 @@ const allPendingVC = async (req, res) => {
 };
 const allApprovedVC = async (req, res) => {
   try {
-    const allApprovedVc = await VCModel.find({ isAdminApproved: "approved" });
+    const allApprovedVc = await VCModel.find({
+      isAdminApproved: "approved",
+    }).populate("vaccines");
     return res.status(200).json({
       message: "All approved vaccination centers",
       data: allApprovedVc,
@@ -268,7 +286,7 @@ const getVCDataById = async (req, res) => {
       return res.status(400).json({ message: "Id is not valid" });
     }
 
-    const vc = await VCModel.findById(id);
+    const vc = await VCModel.findById(id).populate("vaccines").exec();
     return res
       .status(200)
       .json({ message: "Vaccination center data", data: vc });

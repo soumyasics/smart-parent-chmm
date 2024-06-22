@@ -167,8 +167,10 @@ router.get(
   validateMongooseId,
   vaccineController.getAllVaccinesByCenterId
 );
-router.get(
-  "/getAllVaccines",
-  vaccineController.getAllVaccines
+router.get("/getAllVaccines", vaccineController.getAllVaccines);
+
+router.post(
+  "/getVaccinesByNameAndCenterName",
+  vaccineController.getVaccinesByNameAndCenterName
 );
 module.exports = router;

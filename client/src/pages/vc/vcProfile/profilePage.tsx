@@ -7,7 +7,7 @@ import { useState } from "react";
 import { VCResetPassword } from "../resetPassword/resetPassword";
 import "./profilePage.css";
 import { VCNavbar } from "../../../components/vc/vcNavbar/vcNavbar";
-import { ViewVaccines } from "../addVaccines/viewVaccines.tsx/viewVaccines";
+import { ViewVaccines } from "../viewVaccines.tsx/viewVaccines";
 
 export const VCProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
