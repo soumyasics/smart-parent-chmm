@@ -11,6 +11,7 @@ const vaccineSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      
     },
     vaccineDescription: {
       type: String,

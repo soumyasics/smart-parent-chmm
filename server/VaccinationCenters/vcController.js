@@ -54,6 +54,14 @@ const registerVC = async (req, res) => {
         existingFields: req.body,
       });
     }
+
+    const isSameNameAlreadyExist = await VCModel.findOne({ name });
+    if (isSameNameAlreadyExist) {
+      return res.status(400).json({
+        message:
+          "This Vaccination name already exists. Please try another one.",
+      });
+    }
     if (category !== "hospital" && category !== "anganvadi") {
       return res.status(400).json({
         message: "Invalid category",
