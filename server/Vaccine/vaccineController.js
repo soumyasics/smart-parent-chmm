@@ -11,8 +11,6 @@ const addNewVaccine = async (req, res) => {
       sideEffects,
       ageGroup,
       dosageMl,
-      distributionStartingDateAndTime,
-      distributionEndingDateAndTime,
     } = req.body;
 
     if (
@@ -22,9 +20,7 @@ const addNewVaccine = async (req, res) => {
       numberOfAvailableSlots === undefined ||
       !expiryDate ||
       !ageGroup ||
-      !dosageMl ||
-      !distributionStartingDateAndTime ||
-      !distributionEndingDateAndTime
+      !dosageMl
     ) {
       return res.status(400).json({
         success: false,
@@ -46,23 +42,6 @@ const addNewVaccine = async (req, res) => {
       });
     }
 
-    const startingTime = new Date(distributionStartingDateAndTime);
-    const endingTime = new Date(distributionEndingDateAndTime);
-
-    if (isNaN(startingTime.getTime()) || isNaN(endingTime.getTime())) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid distribution start or end date and time.",
-      });
-    }
-    if (startingTime >= endingTime) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Distribution start date and time must be before distribution end date and time.",
-      });
-    }
-
     const newVaccine = new VaccineModel({
       vaccinationCenterId,
       vaccineName,
@@ -71,19 +50,17 @@ const addNewVaccine = async (req, res) => {
       expiryDate,
       sideEffects,
       ageGroup,
-      dosageMl,
-      distributionStartingDateAndTime,
-      distributionEndingDateAndTime,
+      dosageMl
     });
     await newVaccine.save();
 
-    res.status(200).json({ success: true, data: newVaccine });
+    return res.status(200).json({ success: true, data: newVaccine });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
-const getAllVaccinesByCenter = async (req, res) => {
+const getAllVaccinesByCenterId = async (req, res) => {
   try {
     const { id } = req.params;
     const vaccines = await VaccineModel.find({ vaccinationCenterId: id });
@@ -105,5 +82,5 @@ const getAllVaccines = async (req, res) => {
 module.exports = {
   addNewVaccine,
   getAllVaccines,
-  getAllVaccinesByCenter,
+  getAllVaccinesByCenterId,
 };

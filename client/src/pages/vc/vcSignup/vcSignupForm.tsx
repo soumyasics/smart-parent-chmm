@@ -11,6 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
 import { toast } from "react-hot-toast";
+import { DISTRICTS } from "../../../constants/constants.ts";
 interface VCData {
   name: string;
   email: string;
@@ -18,6 +19,7 @@ interface VCData {
   phoneNumber: string;
   address: string;
   category: string;
+  district: string;
   profilePicture: File | null;
 }
 export const VCSignupForm = () => {
@@ -33,6 +35,7 @@ export const VCSignupForm = () => {
     phoneNumber: "",
     address: "",
     category: "",
+    district: "",
     profilePicture: null,
   });
   useEffect(() => {
@@ -59,10 +62,11 @@ export const VCSignupForm = () => {
       phoneNumber,
       address,
       category,
+      district,
       profilePicture,
     } = vcData;
 
-    if (!name || !email || !password || !phoneNumber || !address || !category) {
+    if (!name || !email || !password || !phoneNumber || !address || !category || !district) {
       return;
     }
 
@@ -102,6 +106,7 @@ export const VCSignupForm = () => {
     formData.append("phoneNumber", phoneNumber);
     formData.append("address", address);
     formData.append("category", category);
+    formData.append("district", district);
     if (profilePicture) {
       formData.append("profilePicture", profilePicture);
     }
@@ -269,7 +274,6 @@ export const VCSignupForm = () => {
       <Row className="mt-3">
         <Col>
           <Form.Group>
-            <Form.Label>Please provide 10 digit Phone number </Form.Label>
             <Form.Control
               type="text"
               required
@@ -286,7 +290,30 @@ export const VCSignupForm = () => {
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+        <Col>
+          <Form.Group>
+            <Form.Select required name="district" onChange={(e) => {
+              setVcData((prevData) => ({
+                ...prevData,
+                district: e.target.value,
+              }));
+            }}>
+              <option value="">Select District</option>
+              {DISTRICTS.map((district) => (
+                <option key={district} value={district}>
+                  {district}
+                </option>
+              ))}
+            </Form.Select>
 
+            <Form.Control.Feedback type="invalid">
+              Please Select District.
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+      </Row>
+
+      <Row>
         <Col>
           <Form.Group className="position-relative">
             <Form.Label>Upload vaccination center photo </Form.Label>
@@ -299,7 +326,6 @@ export const VCSignupForm = () => {
           </Form.Group>
         </Col>
       </Row>
-
       <div className="d-flex justify-content-center mt-3">
         <Button id="user-signup-btn" type="submit">
           Sign Up

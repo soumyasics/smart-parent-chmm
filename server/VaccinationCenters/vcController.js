@@ -40,7 +40,7 @@ const registerVC = async (req, res) => {
   try {
     const { name, email, password, phoneNumber, address, category, district } =
       req.body;
-    if (!name || !email || !password || !phoneNumber || !address || !category) {
+    if (!name || !email || !password || !phoneNumber || !address || !category || !district) {
       return res.status(400).json({
         message: "All fields are required.",
         existingFields: req.body,
@@ -66,6 +66,7 @@ const registerVC = async (req, res) => {
       password: hashedPassword,
       phoneNumber,
       address,
+      district,
       category,
       profilePicture: req.file?.path ? req.file : null,
     });

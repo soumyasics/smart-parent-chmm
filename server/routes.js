@@ -7,6 +7,7 @@ const todo = require("./ToDoList/todoListController");
 const vcController = require("./VaccinationCenters/vcController");
 const parentAndVCChat = require("./MessageBwParentAndVC/messageController");
 const ashaWorker = require("./AshaWorker/AshaWorkerController");
+const vaccineController = require("./Vaccine/vaccineController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -158,4 +159,16 @@ router.patch(
   ashaWorker.updateAshaWorkerById
 );
 
+// add vaccines
+
+router.post("/addNewVaccine", vaccineController.addNewVaccine);
+router.get(
+  "/getAllVaccinesByCenterId/:id",
+  validateMongooseId,
+  vaccineController.getAllVaccinesByCenterId
+);
+router.get(
+  "/getAllVaccines",
+  vaccineController.getAllVaccines
+);
 module.exports = router;

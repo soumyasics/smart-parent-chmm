@@ -14,7 +14,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   profilePicture,
 }) => {
 
-  console.log('vcc', vcData)
   return (
     <div>
       <div className="profile-header">

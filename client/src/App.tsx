@@ -38,6 +38,7 @@ import { ViewVCDeatils } from "./pages/parent/viewVaccincationCenters/viewVCDeta
 import { ViewHP } from "./pages/parent/viewHP/viewHP.tsx";
 import { ViewAW } from "./pages/parent/viewAW/viewAW.tsx";
 import { BookVaccine } from "./components/parent/bookVaccine/bookVaccine.tsx";
+import { AddVaccines } from "./pages/vc/addVaccines/addVaccines.tsx";
 
 function App() {
   return (
@@ -106,6 +107,7 @@ function App() {
         <Route path="/vc/profile" element={<VCProfilePage />} />
         <Route path="/vc/chat" element={<ChatWithParent />} />
         <Route path="/vc/forgot-password" element={<VCForgotPassword />} />
+        <Route path="/vc/add-vaccines" element={<AddVaccines />} />
 
         {/* Asha Worker routes */}
         <Route path="/aw/signup" element={<AWSignup />} />

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { VCResetPassword } from "../resetPassword/resetPassword";
 import "./profilePage.css";
 import { VCNavbar } from "../../../components/vc/vcNavbar/vcNavbar";
+import { ViewVaccines } from "../addVaccines/viewVaccines.tsx/viewVaccines";
 
 export const VCProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -25,6 +26,7 @@ export const VCProfilePage = () => {
           <Col md={9} className="profile-container">
             {activePage === "profile" && <VCProfileSection />}
             {activePage === "reset-password" && <VCResetPassword />}
+            {activePage === "view-vaccines" && <ViewVaccines />}
           </Col>
         </Row>
       </Container>

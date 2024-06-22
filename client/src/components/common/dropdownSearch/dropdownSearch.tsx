@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { capitalizeFirstLetter } from "../../../utils/modification/capitalizeFirstLetter";
+import  "./dropdownSearch.css";
 interface DropdownSearchProps {
   items: string[];
   selectItem: (value: string) => void;
@@ -71,11 +72,10 @@ export const DropdownSearch: FC<DropdownSearchProps> = ({
             return (
               <div
                 key={index}
-                style={{ height: "30px", cursor: "pointer" }}
                 onMouseDown={() => {
                   handleSelectItem(item);
                 }}
-                className="ps-3 mt-2 bg-warning"
+                className="ps-3 mt-2 custom-dropdown-option"
               >
                 <p className="mb-0">{capitalizeFirstLetter(item)}</p>
               </div>
