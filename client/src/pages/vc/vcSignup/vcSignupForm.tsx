@@ -26,29 +26,29 @@ export const VCSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
-  // const [confirmPassword, setConfirmPassword] = useState<string>("");
-  // const [vcData, setVcData] = useState<VCData>({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  //   phoneNumber: "",
-  //   address: "",
-  //   category: "",
-  //   district: "",
-  //   profilePicture: null,
-  // });
-
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [vcData, setVcData] = useState<VCData>({
-    name: "Eenjakal",
-    email: "Eenjakal@gmail.com",
-    password: "12341234",
-    phoneNumber: "1234567890",
-    address: "Eenjakal PO",
-    category: "hospital",
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    address: "",
+    category: "",
     district: "",
     profilePicture: null,
   });
-  const [confirmPassword, setConfirmPassword] = useState<string>("12341234");
+
+  // const [vcData, setVcData] = useState<VCData>({
+  //   name: "Eenjakal",
+  //   email: "Eenjakal@gmail.com",
+  //   password: "12341234",
+  //   phoneNumber: "1234567890",
+  //   address: "Eenjakal PO",
+  //   category: "hospital",
+  //   district: "",
+  //   profilePicture: null,
+  // });
+  // const [confirmPassword, setConfirmPassword] = useState<string>("12341234");
   
   
   const navigate = useNavigate();

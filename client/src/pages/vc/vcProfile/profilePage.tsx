@@ -8,12 +8,24 @@ import { VCResetPassword } from "../resetPassword/resetPassword";
 import "./profilePage.css";
 import { VCNavbar } from "../../../components/vc/vcNavbar/vcNavbar";
 import { ViewVaccines } from "../viewVaccines.tsx/viewVaccines";
+import { ViewVaccineDetails } from "../viewVaccineDetails/viewVaccineDetails";
 
 export const VCProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
+  const [vaccineId, setVaccineId] = useState<string>("");
   const changeActivePage = (page: string) => {
     setActivePage(page);
   };
+
+  const showVaccineDetailsPage = (id: string) => {
+    setActivePage("view-vaccine-details");
+    setVaccineId(id);
+  };
+
+  const showVaccinesPage = () => {
+    setActivePage("view-vaccines");
+  };
+
   return (
     <>
       <VCNavbar />
@@ -26,7 +38,15 @@ export const VCProfilePage = () => {
           <Col md={9} className="profile-container">
             {activePage === "profile" && <VCProfileSection />}
             {activePage === "reset-password" && <VCResetPassword />}
-            {activePage === "view-vaccines" && <ViewVaccines />}
+            {activePage === "view-vaccines" && (
+              <ViewVaccines showVaccineDetailsPage={showVaccineDetailsPage} />
+            )}
+            {activePage === "view-vaccine-details" && (
+              <ViewVaccineDetails
+                vaccineId={vaccineId}
+                showVaccinesPage={showVaccinesPage}
+              />
+            )}
           </Col>
         </Row>
       </Container>

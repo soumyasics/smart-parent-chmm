@@ -108,6 +108,7 @@ function App() {
         <Route path="/vc/chat" element={<ChatWithParent />} />
         <Route path="/vc/forgot-password" element={<VCForgotPassword />} />
         <Route path="/vc/add-vaccines" element={<AddVaccines />} />
+        
 
         {/* Asha Worker routes */}
         <Route path="/aw/signup" element={<AWSignup />} />

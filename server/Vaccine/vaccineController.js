@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { VCModel } = require("../VaccinationCenters/vcSchema");
 const { VaccineModel } = require("./vaccineSchema");
 
@@ -113,7 +114,6 @@ const getVaccinesByNameAndCenterName = async (req, res) => {
       name: vaccineCenterName,
     }).populate("vaccines");
 
-
     if (!vaccineCenter) {
       return res
         .status(404)
@@ -136,9 +136,31 @@ const getVaccinesByNameAndCenterName = async (req, res) => {
   }
 };
 
+const getVaccineById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.isValidObjectId(id)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid vaccine id" });
+    }
+    const vaccine = await VaccineModel.findById(id)
+      .populate("bookedParents")
+      .exec();
+    if (!vaccine) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Vaccine not found" });
+    }
+    return res.status(200).json({ success: true, data: vaccine });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
 module.exports = {
   addNewVaccine,
+  getVaccineById,
   getAllVaccines,
   getAllVaccinesByCenterId,
-  getVaccinesByNameAndCenterName
+  getVaccinesByNameAndCenterName,
 };

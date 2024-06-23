@@ -10,7 +10,6 @@ export const useFetchData = (url: string) => {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    console.log("inside fetch")
     const fetchData = async () => {
       try {
         setIsLoading(true);

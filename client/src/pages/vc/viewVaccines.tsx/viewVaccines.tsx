@@ -6,8 +6,13 @@ import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/erro
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect } from "react";
-
-export const ViewVaccines = () => {
+import { FC } from "react";
+interface ViewVaccinesProps {
+  showVaccineDetailsPage: (id: string) => void;
+}
+export const ViewVaccines: FC<ViewVaccinesProps> = ({
+  showVaccineDetailsPage,
+}) => {
   const { isAuthenticated, userId, userType } = useSelector(
     (state: RootState) => state.user
   );
@@ -47,10 +52,11 @@ export const ViewVaccines = () => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Description</th>
-        <th>Total Slots</th>
+            <th>Booked Slots</th>
+            <th>Total Slots</th>
             <th>Age Group</th>
             <th>Dosage (ml)</th>
+            <th>View Booking</th>
           </tr>
         </thead>
 
@@ -59,10 +65,18 @@ export const ViewVaccines = () => {
             return (
               <tr key={vc._id}>
                 <td>{vc?.vaccineName}</td>
-                <td>{vc?.vaccineDescription}</td>
+                <td>{vc?.bookedSlots}</td>
                 <td>{vc?.totalSlots}</td>
                 <td>{vc?.ageGroup}</td>
                 <td>{vc?.dosageMl}</td>
+                <td>
+                  <Button
+                    variant="primary"
+                    onClick={() => showVaccineDetailsPage(vc?._id)}
+                  >
+                    View Booking
+                  </Button>
+                </td>
               </tr>
             );
           })}
