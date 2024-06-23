@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useGetSingleObjectData } from "../../../hooks/useGetSingleObjectData";
 import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/errorHandlingUi";
 import { isVaccinationCenterData } from "../../../types/typeGuard";
-import { PageLoadingDark } from "../../../components/pageLoading/pageLoading2";
 export const ViewVCDeatils = () => {
   const { id } = useParams();
   const { isLoading, error, data } = useGetSingleObjectData(

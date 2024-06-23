@@ -39,6 +39,7 @@ import { ViewHP } from "./pages/parent/viewHP/viewHP.tsx";
 import { ViewAW } from "./pages/parent/viewAW/viewAW.tsx";
 import { BookVaccine } from "./components/parent/bookVaccine/bookVaccine.tsx";
 import { AddVaccines } from "./pages/vc/addVaccines/addVaccines.tsx";
+import { VaccinationChart } from "./components/parent/vaccinationChart/vaccinationChart.tsx";
 
 function App() {
   return (
@@ -47,7 +48,7 @@ function App() {
       <Routes>
         <Route path="/" element={<CommonHomePage />} />
 
-      {/* parent routes  */}
+        {/* parent routes  */}
 
         <Route path="/parent/signup" element={<ParentSignupPage />} />
         <Route
@@ -64,26 +65,11 @@ function App() {
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
         <Route path="/parent/chat-vc" element={<ChatWithVC />} />
-        <Route
-          path="/parent/view-vc"
-          element={<ViewVaccinationCenters />}
-        />
-        <Route
-          path="/parent/view-hp"
-          element={<ViewHP />}
-        />
-        <Route
-          path="/parent/view-aw"
-          element={<ViewAW />}
-        />
-        <Route
-          path="/parent/view-vc/:id"
-          element={<ViewVCDeatils />}
-        />
-        <Route
-          path="/parent/book-vaccine"
-          element={<BookVaccine />}
-        />
+        <Route path="/parent/view-vc" element={<ViewVaccinationCenters />} />
+        <Route path="/parent/view-hp" element={<ViewHP />} />
+        <Route path="/parent/view-aw" element={<ViewAW />} />
+        <Route path="/parent/view-vc/:id" element={<ViewVCDeatils />} />
+        <Route path="/parent/book-vaccine" element={<BookVaccine />} />
         <Route
           path="/parent/reset-password"
           element={<ParentResetPassword />}
@@ -92,6 +78,8 @@ function App() {
           path="/parent/forgot-password"
           element={<ParentForgotPassword />}
         />
+
+        <Route path="/parent/vc-chart" element={<VaccinationChart />} />
 
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
@@ -108,7 +96,6 @@ function App() {
         <Route path="/vc/chat" element={<ChatWithParent />} />
         <Route path="/vc/forgot-password" element={<VCForgotPassword />} />
         <Route path="/vc/add-vaccines" element={<AddVaccines />} />
-        
 
         {/* Asha Worker routes */}
         <Route path="/aw/signup" element={<AWSignup />} />
@@ -116,7 +103,7 @@ function App() {
         <Route path="/aw/home" element={<AWHome />} />
         <Route path="/aw/forgot-password" element={<AWForgotPassword />} />
         <Route path="/aw/profile" element={<AWProfilePage />} />
-          
+
         {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
         {/* admin routes */}

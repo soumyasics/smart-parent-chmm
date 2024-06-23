@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import {
-  FcBinoculars,
   FcBusinessman,
   FcShop,
   FcVoicePresentation,

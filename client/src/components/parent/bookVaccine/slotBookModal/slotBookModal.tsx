@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { FC, useState } from "react";
+import { FC } from "react";
 interface SlotBookModalProps {
   show: boolean;
   handleClose: () => void;

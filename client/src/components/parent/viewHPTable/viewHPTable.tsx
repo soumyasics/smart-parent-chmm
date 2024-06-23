@@ -2,12 +2,12 @@ import { Button, Table } from "react-bootstrap";
 import { useFetchData } from "../../../hooks/useFetchData";
 import { PageLoading } from "../../pageLoading/pageLoading";
 import { ErrorHandlingUI } from "../../common/errorHandlingUI/errorHandlingUi";
-import { useNavigate } from "react-router-dom";
 export const ViewHPTable = () => {
   const { isLoading, data: allVCs, error } = useFetchData("/getAllApprovedHp");
-  const navigate = useNavigate();
+
 
   const navigateToVCDetails = (id: string) => {
+    console.log("id", id)
     // navigate(`/parent/view-vc/${id}`)
   };
 

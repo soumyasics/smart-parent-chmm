@@ -2,13 +2,12 @@ import { Button, Table } from "react-bootstrap";
 import { useFetchData } from "../../../hooks/useFetchData";
 import { PageLoading } from "../../pageLoading/pageLoading";
 import { ErrorHandlingUI } from "../../common/errorHandlingUI/errorHandlingUi";
-import { useNavigate } from "react-router-dom";
 export const ViewAWTable = () => {
   const { isLoading, data: allVCs, error } = useFetchData("/getAllApprovedAw");
-  const navigate = useNavigate();
 
   const navigateToVCDetails = (id: string) => {
     // navigate(`/parent/view-vc/${id}`)
+    console.log("id", id)
   };
 
   if (isLoading) {
