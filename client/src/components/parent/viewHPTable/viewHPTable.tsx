@@ -3,7 +3,7 @@ import { useFetchData } from "../../../hooks/useFetchData";
 import { PageLoading } from "../../pageLoading/pageLoading";
 import { ErrorHandlingUI } from "../../common/errorHandlingUI/errorHandlingUi";
 export const ViewHPTable = () => {
-  const { isLoading, data: allVCs, error } = useFetchData("/getAllApprovedHp");
+  const { isLoading, data: allHPs, error } = useFetchData("/getAllApprovedHp");
 
 
   const navigateToVCDetails = (id: string) => {
@@ -37,20 +37,21 @@ export const ViewHPTable = () => {
 
             <th>Phone Number</th>
             <th>Address</th>
-            <th>Category</th>
+            <th>Department</th>
             <th>View More</th>
           </tr>
         </thead>
 
         <tbody>
-          {allVCs.map((vc) => {
+          {allHPs.map((vc) => {
+            console.log("vc", vc)
             return (
               <tr key={vc._id}>
                 <td>{vc?.name}</td>
                 <td>{vc?.email}</td>
                 <td>{vc?.phoneNumber}</td>
                 <td>{vc?.address}</td>
-                <td>{vc?.category}</td>
+                <td>{vc?.department}</td>
                 <td>
                   <Button onClick={() => {
                     navigateToVCDetails(vc._id)

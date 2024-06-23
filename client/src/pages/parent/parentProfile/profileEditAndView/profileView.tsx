@@ -11,7 +11,6 @@ interface ProfileViewProps {
 }
 export const ProfileView: React.FC<ProfileViewProps> = ({ parentData , profilePicture}) => {
   
-    console.log('parnt dat', parentData);
   return (
     <div>
       <div className="profile-header">

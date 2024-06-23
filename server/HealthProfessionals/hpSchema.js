@@ -31,6 +31,11 @@ const hpSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      enum: ["Dietitian", "Psychiatrist", "Fitness Specialist", "Physician"],
+      required: true,
+    },
     profilePicture: {
       type: Object,
       default: null,
@@ -49,6 +54,7 @@ const hpSchema = mongoose.Schema(
       type: String,
       default: "pending",
     },
+
   },
   { timestamps: true }
 );
