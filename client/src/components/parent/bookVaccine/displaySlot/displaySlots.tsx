@@ -14,7 +14,7 @@ interface BookSlotType {
   vaccineId: string;
   bookingDate: string;
 }
-export const DisplaySlots = ({ slots }: any) => {
+export const DisplaySlots = ({ slots, findSlot }: any) => {
   const [show, setShow] = useState(false);
 
   const [bookSlotData, setBookSlotData] = useState<BookSlotType>({
@@ -94,8 +94,8 @@ export const DisplaySlots = ({ slots }: any) => {
     try {
       const res = await axiosInstance.post("bookSlot", data);
       if (res.status === 200) {
-        toast.success("Slot booked successfully");
         handleClose();
+        toast.success("Slot booked successfully");
       } else {
         toast.error("Some issues occured, please try again");
       }
@@ -107,6 +107,10 @@ export const DisplaySlots = ({ slots }: any) => {
       } else {
         toast.error("Something went wrong");
       }
+    } finally {
+      setTimeout(() => {
+        findSlot();
+      }, 1000);
     }
   };
 

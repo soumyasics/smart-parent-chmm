@@ -229,7 +229,7 @@ export const BookVaccine = () => {
           </Row>
         </div>
         <div>
-          <DisplaySlots slots={slots}/>
+          <DisplaySlots slots={slots} findSlot={findSlot} />
         </div>
       </div>
       <CommonFooter />
