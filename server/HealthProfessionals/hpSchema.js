@@ -44,6 +44,13 @@ const hpSchema = mongoose.Schema(
       type: Object,
       default: null,
     },
+    subscribers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Parent",
+        default: null,
+      },
+    ],
     isActive: {
       enum: ["active", "pending", "deactivated", "suspended"],
       type: String,
@@ -54,7 +61,6 @@ const hpSchema = mongoose.Schema(
       type: String,
       default: "pending",
     },
-
   },
   { timestamps: true }
 );

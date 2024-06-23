@@ -37,7 +37,7 @@ export const ViewHPTable = () => {
 
             <th>Phone Number</th>
             <th>Address</th>
-            <th>Department</th>
+            <th>Category</th>
             <th>View More</th>
           </tr>
         </thead>
@@ -51,7 +51,7 @@ export const ViewHPTable = () => {
                 <td>{vc?.email}</td>
                 <td>{vc?.phoneNumber}</td>
                 <td>{vc?.address}</td>
-                <td>{vc?.department}</td>
+                <td>{vc?.category}</td>
                 <td>
                   <Button onClick={() => {
                     navigateToVCDetails(vc._id)

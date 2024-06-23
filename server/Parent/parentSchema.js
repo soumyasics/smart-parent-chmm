@@ -41,6 +41,13 @@ const parentSchema = mongoose.Schema(
       type: Object,
       default: null,
     },
+    subscribedHPs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "healthprofessional",
+        default: null,
+      },
+    ],
     bookedVaccines: [
       {
         type: mongoose.Schema.Types.ObjectId,

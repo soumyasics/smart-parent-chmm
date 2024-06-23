@@ -28,7 +28,6 @@ export const AdminParentsTable: FC<AdminParentsTableProps> = ({
             <th>Date Of Birth</th>
             <th>Address</th>
             <th>Phone Number</th>
-            <th>Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -41,9 +40,6 @@ export const AdminParentsTable: FC<AdminParentsTableProps> = ({
                 <td>{p.dateOfBirth}</td>
                 <td>{p.address}</td>
                 <td>{p.phoneNumber}</td>
-                <td>
-                  <Button variant="danger">Remove</Button>
-                </td>
               </tr>
             );
           })}

@@ -153,7 +153,7 @@ const adminApprovedHPRequest = async (req, res) => {
     hp.isAdminApproved = "approved";
 
     await hp.save();
-
+    
     return res.status(200).json({
       message: "Health Professional approved successfully",
       data: hp,

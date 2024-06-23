@@ -6,21 +6,21 @@ import "./adminHP.css";
 import { AdminHPTable } from "../AdminHPTable/adminHPTable.tsx";
 
 export const AdminHP = () => {
-  const [parentsData, setparentsData] = useState([]);
+  const [HPsData, setHPsData] = useState([]);
   const [error, setError] = useState("");
 
   console.log("err", error)
 
   useEffect(() => {
-    getParentsData();
+    getHPsData();
   }, []);
 
-  const getParentsData = async () => {
+  const getHPsData = async () => {
     try {
-      const res = await axiosInstance.get("/getAllParents");
+      const res = await axiosInstance.get("/getAllApprovedHp");
       if (res.status === 200) {
         const data = res.data?.data;
-        setparentsData(data);
+        setHPsData(data);
       } else {
         throw new Error("Something went wrong");
       }
@@ -38,7 +38,7 @@ export const AdminHP = () => {
       <div className="admin-users-search-container"></div>
 
       <div className="mt-5">
-        <AdminHPTable parentsData={parentsData} />
+        <AdminHPTable HPsData={HPsData} />
       </div>
     </div>
   );
