@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 type ErrorsType = {
   vaccineName: string;
   vaccineDescription: string;
-  numberOfAvailableSlots: string;
+  totalSlots: string;
   expiryDate: string;
   ageGroup: string;
   dosageMl: string;
@@ -24,7 +24,7 @@ export const AddVaccineForm = () => {
   //   vaccinationCenterId: "",
   //   vaccineName: "",
   //   vaccineDescription: "",
-  //   numberOfAvailableSlots: "",
+  //   totalSlots: "",
   //   expiryDate: "",
   //   sideEffects: "",
   //   ageGroup: "",
@@ -34,7 +34,7 @@ export const AddVaccineForm = () => {
     vaccinationCenterId: "",
     vaccineName: "a",
     vaccineDescription: "des",
-    numberOfAvailableSlots: "3",
+    totalSlots: "3",
     expiryDate: "2026-01-01",
     sideEffects: "side",
     ageGroup: "18 above",
@@ -44,7 +44,7 @@ export const AddVaccineForm = () => {
   const [errors, setErrors] = useState<ErrorsType>({
     vaccineName: "",
     vaccineDescription: "",
-    numberOfAvailableSlots: "",
+    totalSlots: "",
     expiryDate: "",
     ageGroup: "",
     dosageMl: "",
@@ -77,7 +77,7 @@ export const AddVaccineForm = () => {
     const newErrors: ErrorsType = {
       vaccineName: "",
       vaccineDescription: "",
-      numberOfAvailableSlots: "",
+      totalSlots: "",
       expiryDate: "",
       ageGroup: "",
       dosageMl: "",
@@ -90,12 +90,12 @@ export const AddVaccineForm = () => {
     if (!formData.vaccineDescription) {
       newErrors.vaccineDescription = "Vaccine Description is required";
     }
-    if (formData.numberOfAvailableSlots === "") {
-      newErrors.numberOfAvailableSlots =
+    if (formData.totalSlots === "") {
+      newErrors.totalSlots =
         "Number of Available Slots is required";
     }
-    if (Number(formData.numberOfAvailableSlots) < 0) {
-      newErrors.numberOfAvailableSlots = "Cannot be negative";
+    if (Number(formData.totalSlots) < 0) {
+      newErrors.totalSlots = "Cannot be negative";
     }
     if (!formData.expiryDate) {
       newErrors.expiryDate = "Expiry Date is required";
@@ -154,7 +154,7 @@ export const AddVaccineForm = () => {
       console.log("respo", res);
       if (res.status === 200) {
         toast.success("Vaccine added successfully");
-        resetFields()
+        resetFields();
       } else {
         toast.error("Some issues occured, please try again");
       }
@@ -167,14 +167,14 @@ export const AddVaccineForm = () => {
       vaccinationCenterId: "",
       vaccineName: "",
       vaccineDescription: "",
-      numberOfAvailableSlots: "",
+      totalSlots: "",
       expiryDate: "",
       sideEffects: "",
       ageGroup: "",
       dosageMl: "",
     });
     setIsSubmitted(false);
-  }
+  };
   return (
     <Container>
       <Row className="my-5">
@@ -227,14 +227,14 @@ export const AddVaccineForm = () => {
                   <Form.Label>Number of Available Slots</Form.Label>
                   <Form.Control
                     type="number"
-                    name="numberOfAvailableSlots"
-                    value={formData.numberOfAvailableSlots}
+                    name="totalSlots"
+                    value={formData.totalSlots}
                     onChange={handleChange}
                     placeholder="Enter number of available slots"
-                    isInvalid={!!errors.numberOfAvailableSlots}
+                    isInvalid={!!errors.totalSlots}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.numberOfAvailableSlots}
+                    {errors.totalSlots}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
@@ -246,7 +246,6 @@ export const AddVaccineForm = () => {
                     name="expiryDate"
                     value={formData.expiryDate}
                     onChange={handleChange}
-
                     isInvalid={!!errors.expiryDate}
                   />
                   <Form.Control.Feedback type="invalid">

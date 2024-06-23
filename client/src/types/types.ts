@@ -9,7 +9,7 @@ export interface AddNewVaccineType {
   vaccinationCenterId: string;
   vaccineName: string;
   vaccineDescription: string;
-  numberOfAvailableSlots: string;
+  totalSlots: string;
   expiryDate: string;
   sideEffects: string;
   ageGroup: string;

@@ -17,9 +17,14 @@ const vaccineSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    numberOfAvailableSlots: {
+    totalSlots: {
       type: Number,
       required: true,
+      min: 0,
+    },
+    bookedSlots: {
+      type: Number,
+      default: 0,
       min: 0,
     },
     expiryDate: {
@@ -39,11 +44,11 @@ const vaccineSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    bookedSlots: {
-      type: Number,
-      default: 0,
-      min: 0,
+    isBookingAvailable: {
+      type: Boolean,
+      default: true,
     },
+
     bookedParents: [
       {
         type: mongoose.Schema.Types.ObjectId,

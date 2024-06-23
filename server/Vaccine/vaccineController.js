@@ -7,7 +7,7 @@ const addNewVaccine = async (req, res) => {
       vaccinationCenterId,
       vaccineName,
       vaccineDescription,
-      numberOfAvailableSlots,
+      totalSlots,
       expiryDate,
       sideEffects,
       ageGroup,
@@ -18,7 +18,7 @@ const addNewVaccine = async (req, res) => {
       !vaccinationCenterId ||
       !vaccineName ||
       !vaccineDescription ||
-      numberOfAvailableSlots === undefined ||
+      totalSlots === undefined ||
       !expiryDate ||
       !ageGroup ||
       !dosageMl
@@ -37,7 +37,7 @@ const addNewVaccine = async (req, res) => {
         message: "Vaccination center not found.",
       });
     }
-    if (numberOfAvailableSlots < 0) {
+    if (totalSlots < 0) {
       return res.status(400).json({
         success: false,
         message: "Number of available slots cannot be negative.",
@@ -55,7 +55,7 @@ const addNewVaccine = async (req, res) => {
       vaccinationCenterId,
       vaccineName,
       vaccineDescription,
-      numberOfAvailableSlots,
+      totalSlots,
       expiryDate,
       sideEffects,
       ageGroup,

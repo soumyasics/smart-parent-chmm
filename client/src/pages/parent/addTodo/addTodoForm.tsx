@@ -70,7 +70,7 @@ export const AddTodoForm = () => {
     try {
       let res = await axiosInstance.post("addToDo", serializedData);
       if (res.status === 201) {
-        toast.error("Item Added Successfully");
+        toast.success("Item Added Successfully");
         resetForm()
         return;
       }

@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { userLoggedOut } from "../../../../redux/reducers/userSlilce";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineVaccines } from "react-icons/md";
 
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
@@ -53,6 +54,12 @@ export const ParentProfileLeftSidebar: React.FC<
           onClick={() => changeActivePage("notifications")}
         >
           <FaBell className="sidebar-icon" /> Notifications
+        </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item d-flex"
+          onClick={() => changeActivePage("vaccine-booking")}
+        >
+          <MdOutlineVaccines className="sidebar-icon" /> Vaccine Booking
         </ListGroup.Item>
         <ListGroup.Item
           className="sidebar-item d-flex"

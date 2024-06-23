@@ -68,14 +68,14 @@ export const RegisterKidForm = () => {
       <h3 className="text-center mt-3"> Register your child details here.</h3>
       <Row className="justify-content-center mt-5 ">
         <Col
-          md={6}
+          md={5}
           className="d-flex align-items-center justify-content-center"
         >
           {/* Placeholder for Illustration Image */}
 
           <Image style={{ width: "60%" }} src={baby1Img} alt="baby-1img" />
         </Col>
-        <Col md={6}>
+        <Col md={7}>
           <Form
             style={{ minHeight: "450px" }}
             className="shadow p-3 mb-5   justify-content-between rounded d-flex flex-column"

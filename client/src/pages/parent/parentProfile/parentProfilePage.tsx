@@ -11,6 +11,7 @@ import { DisplayTodo } from "../displayTodo/displayTodo";
 import { AddTodo } from "../addTodo/addTodo";
 import { RegisterChild } from "../registerChild/registerChild";
 import "./parentProfilePage.css";
+import { DisplayVaccineBooking } from "../displayVaccineBooking/displayVaccineBooking";
 
 export const ParentProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -28,10 +29,11 @@ export const ParentProfilePage = () => {
           </Col>
           <Col md={9} className="profile-container">
             {activePage === "profile" && <ParentProfileSection />}
-            {activePage === "child" && <ViewChild />}
-            {activePage === "register-child" && <RegisterChild />}
             {activePage === "add-todo" && <AddTodo />}
+            {activePage === "vaccine-booking" && <DisplayVaccineBooking />}
             {activePage === "display-todo" && <DisplayTodo />}
+            {activePage === "register-child" && <RegisterChild />}
+            {activePage === "child" && <ViewChild />}
             {activePage === "reset-password" && <ParentResetPassword />}
           </Col>
         </Row>

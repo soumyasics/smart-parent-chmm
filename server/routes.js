@@ -8,6 +8,7 @@ const vcController = require("./VaccinationCenters/vcController");
 const parentAndVCChat = require("./MessageBwParentAndVC/messageController");
 const ashaWorker = require("./AshaWorker/AshaWorkerController");
 const vaccineController = require("./Vaccine/vaccineController");
+const bookSlotController = require("./BookSlot/bookSlotController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -173,4 +174,20 @@ router.post(
   "/getVaccinesByNameAndCenterName",
   vaccineController.getVaccinesByNameAndCenterName
 );
+
+// book slots
+router.post("/bookSlot", bookSlotController.bookSlot);
+router.get(
+  "/getBookedSlotsByParent/:id",
+  bookSlotController.getBookedSlotsByParent
+);
+router.get(
+  "/getBookedSlotByVaccineCenter/:id",
+  bookSlotController.getBookedSlotByVaccineCenter
+);
+router.get(
+  "/getBookedSlotByVaccineId/:id",
+  bookSlotController.getBookedSlotByVaccineId
+);
+
 module.exports = router;
