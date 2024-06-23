@@ -20,26 +20,26 @@ type ErrorsType = {
 
 export const AddVaccineForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  // const [formData, setFormData] = useState<AddNewVaccineType>({
-  //   vaccinationCenterId: "",
-  //   vaccineName: "",
-  //   vaccineDescription: "",
-  //   totalSlots: "",
-  //   expiryDate: "",
-  //   sideEffects: "",
-  //   ageGroup: "",
-  //   dosageMl: "",
-  // });
   const [formData, setFormData] = useState<AddNewVaccineType>({
     vaccinationCenterId: "",
-    vaccineName: "a",
-    vaccineDescription: "des",
-    totalSlots: "3",
-    expiryDate: "2026-01-01",
-    sideEffects: "side",
-    ageGroup: "18 above",
-    dosageMl: "5",
+    vaccineName: "",
+    vaccineDescription: "",
+    totalSlots: "",
+    expiryDate: "",
+    sideEffects: "",
+    ageGroup: "",
+    dosageMl: "",
   });
+  // const [formData, setFormData] = useState<AddNewVaccineType>({
+  //   vaccinationCenterId: "",
+  //   vaccineName: "a",
+  //   vaccineDescription: "des",
+  //   totalSlots: "3",
+  //   expiryDate: "2026-01-01",
+  //   sideEffects: "side",
+  //   ageGroup: "18 above",
+  //   dosageMl: "5",
+  // });
 
   const [errors, setErrors] = useState<ErrorsType>({
     vaccineName: "",

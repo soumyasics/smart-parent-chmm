@@ -13,14 +13,14 @@ import { userLoggedIn } from "../../../redux/reducers/userSlilce";
 import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
 import "./vcLogin.css";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export const VCLogin = () => {
   const [validated, setValidated] = useState<boolean>(false);
-  // const [email, setEmail] = useState<string>("");
-  // const [password, setPassword] = useState<string>("");
-  const [email, setEmail] = useState<string>("Eenjakal@gmail.com");
-  const [password, setPassword] = useState<string>("12341234");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  // const [email, setEmail] = useState<string>("Eenjakal@gmail.com");
+  // const [password, setPassword] = useState<string>("12341234");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -178,10 +178,7 @@ export const VCLogin = () => {
             </p>
             <p>
               Don’t have an account?{" "}
-              <span
-                className="user-forgot-password"
-                onClick={navigateVCSignup}
-              >
+              <span className="user-forgot-password" onClick={navigateVCSignup}>
                 {" "}
                 Sign Up{" "}
               </span>

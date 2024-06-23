@@ -163,6 +163,7 @@ router.patch(
 // add vaccines
 
 router.post("/addNewVaccine", vaccineController.addNewVaccine);
+router.get("/getVaccineById/:id", vaccineController.getVaccineById);
 router.get(
   "/getAllVaccinesByCenterId/:id",
   validateMongooseId,
