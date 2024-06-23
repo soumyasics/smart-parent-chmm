@@ -5,15 +5,17 @@ import { FC, useState } from "react";
 interface SlotBookModalProps {
   show: boolean;
   handleClose: () => void;
-  handleShow: () => void;
   confirmBooking: (value: string) => void;
+  bookingDate: string;
+  changeBookingDate: (value: string) => void;
 }
 export const SlotBookModal: FC<SlotBookModalProps> = ({
   show,
   handleClose,
   confirmBooking,
+  bookingDate,
+  changeBookingDate,
 }) => {
-  const [bookingDate, setBookingDate] = useState<string>("");
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (bookingDate) {
@@ -35,7 +37,7 @@ export const SlotBookModal: FC<SlotBookModalProps> = ({
                 placeholder="name@example.com"
                 autoFocus
                 required
-                onChange={(e) => setBookingDate(e.target.value)}
+                onChange={(e) => changeBookingDate(e.target.value)}
                 value={bookingDate}
               />
 

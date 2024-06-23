@@ -16,8 +16,7 @@ interface BookSlotType {
 }
 export const DisplaySlots = ({ slots }: any) => {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
   const [bookSlotData, setBookSlotData] = useState<BookSlotType>({
     parentId: "",
     vaccinationCenterId: "",
@@ -28,7 +27,18 @@ export const DisplaySlots = ({ slots }: any) => {
   const { isAuthenticated, userId, userType } = useSelector(
     (state: RootState) => state.user
   );
+  const handleClose = () => {
+    changeBookingDate("");
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
 
+  const changeBookingDate = (bookingDate: string) => {
+    setBookSlotData((prevData) => ({
+      ...prevData,
+      bookingDate: bookingDate,
+    }));
+  };
   useEffect(() => {
     if (isAuthenticated && userType === "parent" && userId) {
       setBookSlotData((prevData) => ({
@@ -60,7 +70,6 @@ export const DisplaySlots = ({ slots }: any) => {
   };
 
   const confirmBooking = (bookingDate: string) => {
-    console.log("booked", bookingDate);
     setBookSlotData((prevData) => ({
       ...prevData,
       bookingDate: bookingDate,
@@ -84,7 +93,6 @@ export const DisplaySlots = ({ slots }: any) => {
     console.log("data", data);
     try {
       const res = await axiosInstance.post("bookSlot", data);
-      console.log("respo", res);
       if (res.status === 200) {
         toast.success("Slot booked successfully");
         handleClose();
@@ -95,7 +103,7 @@ export const DisplaySlots = ({ slots }: any) => {
       if (axios.isAxiosError(error)) {
         const msg = error?.response?.data?.message || "Something went wrong";
         toast.error(msg);
-        handleClose()
+        handleClose();
       } else {
         toast.error("Something went wrong");
       }
@@ -121,7 +129,6 @@ export const DisplaySlots = ({ slots }: any) => {
             { length: totalSlots },
             (_, i) => i + 1
           );
-          console.log("slot => ", slot);
           return (
             <div key={slot._id}>
               <h5 className="text-center mt-4"> Section {index + 1}</h5>
@@ -157,8 +164,9 @@ export const DisplaySlots = ({ slots }: any) => {
       <SlotBookModal
         show={show}
         handleClose={handleClose}
-        handleShow={handleShow}
         confirmBooking={confirmBooking}
+        bookingDate={bookSlotData.bookingDate}
+        changeBookingDate={changeBookingDate}
       />
     </div>
   );
