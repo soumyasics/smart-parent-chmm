@@ -17,7 +17,7 @@ const vaccineSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    numberOfAvailableSlots: {
+    totalSlots: {
       type: Number,
       required: true,
       min: 0,

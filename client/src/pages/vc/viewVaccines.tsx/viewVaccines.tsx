@@ -48,8 +48,7 @@ export const ViewVaccines = () => {
           <tr>
             <th>Name</th>
             <th>Description</th>
-
-            <th>Total Slots</th>
+        <th>Total Slots</th>
             <th>Age Group</th>
             <th>Dosage (ml)</th>
           </tr>
@@ -61,7 +60,7 @@ export const ViewVaccines = () => {
               <tr key={vc._id}>
                 <td>{vc?.vaccineName}</td>
                 <td>{vc?.vaccineDescription}</td>
-                <td>{vc?.numberOfAvailableSlots}</td>
+                <td>{vc?.totalSlots}</td>
                 <td>{vc?.ageGroup}</td>
                 <td>{vc?.dosageMl}</td>
               </tr>

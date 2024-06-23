@@ -37,3 +37,13 @@
     cursor:pointer;
     
 }
+
+.booked {
+    background-color: #dc3545;
+    cursor: not-allowed;
+}
+
+.not-booked {
+    background-color: #198754;
+    cursor: pointer;
+}

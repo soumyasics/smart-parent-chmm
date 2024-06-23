@@ -12,15 +12,22 @@ export const DisplaySlots = ({ slots }: any) => {
 
       <div className="slot-parent">
         {slots.map((slot: any, index: number) => {
+          const totalSlots = slot.totalSlots;
+          const bookedSlots = slot.bookedSlots;
+          const availableSlots = totalSlots - bookedSlots; 
+
+          const totalSlotsArray = Array.from({length: totalSlots}, (_, i) => i + 1);
+          console.log('avail', slot.totalSlots)
           return (
             <div key={slot._id}>
-              <h5 className="text-center"> Section {index + 1}</h5>
+              <h5 className="text-center mt-4"> Section {index + 1}</h5>
 
               <div className="slot-box-container">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 3, 4, 5, 6, 7, 8, 9, 10].map(
-                  (i, ind) => {
+                {totalSlotsArray.map(
+                  (_, ind) => {
+                    const changeBGColor = ind > bookedSlots ? "not-booked" : "booked";
                     return (
-                      <div className="bg-danger slot-box"> {ind + 1}</div>
+                      <div className={`${changeBGColor} slot-box`}> {ind + 1}</div>
                     );
                   }
                 )}
