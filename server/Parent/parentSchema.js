@@ -33,14 +33,21 @@ const parentSchema = mongoose.Schema(
       default: "active",
     },
     parentalStatus: {
-      enum: ["Mother", "Father","Guardian","Expected"],
+      enum: ["Mother", "Father", "Guardian", "Expected"],
       type: String,
-      required: true
+      required: true,
     },
     profilePicture: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
+    bookedVaccines: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "BookSlot",
+        default: null,
+      },
+    ],
   },
   { timestamps: true }
 );
