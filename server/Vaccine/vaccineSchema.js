@@ -44,7 +44,11 @@ const vaccineSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-  
+    isBookingAvailable: {
+      type: Boolean,
+      default: true,
+    },
+
     bookedParents: [
       {
         type: mongoose.Schema.Types.ObjectId,

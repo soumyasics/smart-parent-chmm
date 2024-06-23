@@ -51,10 +51,10 @@ const bookSlot = async (req, res) => {
     }
 
     // check if slot is available
-    if (vaccine.bookedSlots >= vaccine.totalSlots) {
+    if (!vaccine?.isBookingAvailable) {
       return res.status(400).json({
         success: false,
-        message: "No slots available.",
+        message: "Slot booking is not available.",
       });
     }
 
@@ -67,9 +67,18 @@ const bookSlot = async (req, res) => {
     if (slot) {
       return res.status(400).json({
         success: false,
-        message: "Parent has already booked slot.",
+        message: "You are already booked the slot.",
       });
     }
+
+    // inc bookedSlots and add praent id to inside vaccine.bookedParents
+    vaccine.bookedSlots += 1;
+    vaccine.bookedParents.push(parentId);
+    if (vaccine.bookedSlots >= vaccine.totalSlots) {
+      vaccine.isBookingAvailable = false;
+    }
+    await vaccine.save();
+
 
     const newBookSlot = new BookSlotModel({
       vaccinationCenterId,

@@ -1,51 +1,58 @@
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { FC } from "react";
+import { FC, useState } from "react";
 interface SlotBookModalProps {
   show: boolean;
   handleClose: () => void;
   handleShow: () => void;
+  confirmBooking: (value: string) => void;
 }
 export const SlotBookModal: FC<SlotBookModalProps> = ({
   show,
   handleClose,
+  confirmBooking,
 }) => {
+  const [bookingDate, setBookingDate] = useState<string>("");
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (bookingDate) {
+      confirmBooking(bookingDate);
+    }
+  };
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Book slot</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form>
-           
-            <Form.Group className="mb-3" >
-              <Form.Label>Choose Date</Form.Label>
+        <Form onSubmit={handleSubmit}>
+          <Modal.Body>
+            <Form.Group className="mb-3">
+              <Form.Label>Choose slot booking date</Form.Label>
               <Form.Control
                 type="date"
                 placeholder="name@example.com"
                 autoFocus
+                required
+                onChange={(e) => setBookingDate(e.target.value)}
+                value={bookingDate}
               />
+
+              <Form.Control.Feedback type="invalid">
+                Please choose a valid date.
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="success" type="submit">
+              Confirm Booking
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );
