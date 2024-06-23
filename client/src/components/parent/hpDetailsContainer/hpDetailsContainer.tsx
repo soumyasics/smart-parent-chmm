@@ -1,17 +1,19 @@
 import { FC } from "react";
-import { Card, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import { HealthProfessionalData } from "../../../types/userTypes";
 import { IllustrationSection } from "../../common/illustration/illustration";
-import vcCenterImg from "../../../assets/vc-center.jpg";
 import { useProfilePicture } from "../../../hooks/useProfilePicture";
-
+import { useNavigate } from "react-router-dom";
 interface HPDetailsContainerProps {
   data: HealthProfessionalData;
 }
 
 export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const { profilePicture } = useProfilePicture(data?.profilePicture?.filename);
-  console.log("data", data);
+  const navigate = useNavigate();
+  const redirectToPaymentPage = (id: string) => {
+    navigate(`/parent/payment/${id}`);
+  }
   return (
     <Container className="mt-5">
       <h3 className="text-center text-primary shadow">Health Professional</h3>
@@ -51,6 +53,11 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                     <strong>Department:</strong> {data.department} <br />
                   </p>
                 </Card.Text>
+                <Button variant="primary" onClick={() => {
+                  redirectToPaymentPage(data._id)
+                }}> 
+                  Subscribe 
+                </Button>
               </div>
             </Card.Body>
           </Card>

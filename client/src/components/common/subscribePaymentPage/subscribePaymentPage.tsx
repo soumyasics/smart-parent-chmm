@@ -2,7 +2,7 @@ import { Image } from "react-bootstrap";
 import { PaymentForm } from "./paymentComponent.tsx";
 import { ParentNavbar } from "../../parent/parentNavbar/parentNavbar";
 import { CommonFooter } from "../footer/footer";
-export const PaymentPage = () => {
+export const PaymentPage = () => {``
   return (
     <div>
       <ParentNavbar />

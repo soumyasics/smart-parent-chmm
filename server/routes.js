@@ -9,6 +9,7 @@ const parentAndVCChat = require("./MessageBwParentAndVC/messageController");
 const ashaWorker = require("./AshaWorker/AshaWorkerController");
 const vaccineController = require("./Vaccine/vaccineController");
 const bookSlotController = require("./BookSlot/bookSlotController");
+const subscriptionController = require("./SubscribeHp/subscribeController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -189,6 +190,17 @@ router.get(
 router.get(
   "/getBookedSlotByVaccineId/:id",
   bookSlotController.getBookedSlotByVaccineId
+);
+
+router.post("/newSubscription", subscriptionController.newSubscription);
+router.get("/getAllSubscriptions", subscriptionController.getAllSubscriptions);
+router.get(
+  "/getAllSubscriptionByParentId/:id",
+  subscriptionController.getAllSubscriptionByParentId
+);
+router.get(
+  "/getAllSubscriptionByHPId/:id",
+  subscriptionController.getAllSubscriptionByHPId
 );
 
 module.exports = router;

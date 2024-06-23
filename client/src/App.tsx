@@ -83,7 +83,7 @@ function App() {
         />
 
         <Route path="/parent/vc-chart" element={<VaccinationChart />} />
-        <Route path="/parent/payment" element={<PaymentPage />} />
+        <Route path="/parent/payment/:id" element={<PaymentPage />} />
 
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
