@@ -40,6 +40,8 @@ import { ViewAW } from "./pages/parent/viewAW/viewAW.tsx";
 import { BookVaccine } from "./components/parent/bookVaccine/bookVaccine.tsx";
 import { AddVaccines } from "./pages/vc/addVaccines/addVaccines.tsx";
 import { VaccinationChart } from "./components/parent/vaccinationChart/vaccinationChart.tsx";
+import { ViewHPDeatils } from "./pages/parent/viewHP/viewHPDetails.tsx";
+import { PaymentPage } from "./components/common/subscribePaymentPage/subscribePaymentPage.tsx";
 
 function App() {
   return (
@@ -65,10 +67,11 @@ function App() {
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
         <Route path="/parent/chat-vc" element={<ChatWithVC />} />
-        <Route path="/parent/view-vc" element={<ViewVaccinationCenters />} />
-        <Route path="/parent/view-hp" element={<ViewHP />} />
         <Route path="/parent/view-aw" element={<ViewAW />} />
+        <Route path="/parent/view-vc" element={<ViewVaccinationCenters />} />
         <Route path="/parent/view-vc/:id" element={<ViewVCDeatils />} />
+        <Route path="/parent/view-hp" element={<ViewHP />} />
+        <Route path="/parent/view-hp/:id" element={<ViewHPDeatils />} />
         <Route path="/parent/book-vaccine" element={<BookVaccine />} />
         <Route
           path="/parent/reset-password"
@@ -80,6 +83,7 @@ function App() {
         />
 
         <Route path="/parent/vc-chart" element={<VaccinationChart />} />
+        <Route path="/parent/payment" element={<PaymentPage />} />
 
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />

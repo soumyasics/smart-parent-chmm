@@ -34,6 +34,7 @@ export interface HealthProfessionalData extends BaseData {
   password: string;
   phoneNumber: number;
   address: string;
+  category: string;
   department: string;
   qualification: string;
   profilePicture: ProfilePicture;
@@ -55,6 +56,7 @@ export interface VaccinationCenterData extends BaseData {
   isAdminApproved: string;
   createdAt: string;
   updatedAt: string;
+  district: string;
   __v: number;
 }
 

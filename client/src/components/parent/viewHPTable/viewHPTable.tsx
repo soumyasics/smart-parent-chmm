@@ -2,13 +2,17 @@ import { Button, Table } from "react-bootstrap";
 import { useFetchData } from "../../../hooks/useFetchData";
 import { PageLoading } from "../../pageLoading/pageLoading";
 import { ErrorHandlingUI } from "../../common/errorHandlingUI/errorHandlingUi";
+import { useNavigate } from "react-router-dom";
 export const ViewHPTable = () => {
   const { isLoading, data: allHPs, error } = useFetchData("/getAllApprovedHp");
+  const navigate = useNavigate();
 
-
-  const navigateToVCDetails = (id: string) => {
-    console.log("id", id)
-    // navigate(`/parent/view-vc/${id}`)
+  const navigateToHPDetails = (id: string) => {
+    if (id) {
+      navigate(`/parent/view-hp/${id}`);
+    }else {
+      console.log("Id not found!")
+    }
   };
 
   if (isLoading) {
@@ -43,19 +47,23 @@ export const ViewHPTable = () => {
         </thead>
 
         <tbody>
-          {allHPs.map((vc) => {
-            console.log("vc", vc)
+          {allHPs.map((hp) => {
             return (
-              <tr key={vc._id}>
-                <td>{vc?.name}</td>
-                <td>{vc?.email}</td>
-                <td>{vc?.phoneNumber}</td>
-                <td>{vc?.address}</td>
-                <td>{vc?.category}</td>
+              <tr key={hp._id}>
+                <td>{hp?.name}</td>
+                <td>{hp?.email}</td>
+                <td>{hp?.phoneNumber}</td>
+                <td>{hp?.address}</td>
+                <td>{hp?.category}</td>
                 <td>
-                  <Button onClick={() => {
-                    navigateToVCDetails(vc._id)
-                  }}> View More</Button>
+                  <Button
+                    onClick={() => {
+                      navigateToHPDetails(hp._id);
+                    }}
+                  >
+                    {" "}
+                    View More
+                  </Button>
                 </td>
               </tr>
             );

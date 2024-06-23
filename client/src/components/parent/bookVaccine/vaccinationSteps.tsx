@@ -13,24 +13,24 @@ export const VaccinationSteps = () => {
         <Col md={4}>
           <StepCard
             header="Step 1"
-            title="How to Book Your Appointment on Co-WIN?"
-            footer="Book an Appointment on Co-WIN or Walk into any Vaccination Center"
+            title="Search for Your Desired Vaccine"
+            footer="Search for the vaccine by name to find options available."
             imgPath={bookSlotImg1}
           />
         </Col>
         <Col md={4}>
           <StepCard
-            header="Step 1"
-            title="How to Book Your Appointment on Co-WIN?"
-            footer="Book an Appointment on Co-WIN or Walk into any Vaccination Center"
+            header="Step 2"
+            title="Select Your District and Vaccination Center"
+            footer="Choose your district to see available vaccination centers and select one."
             imgPath={bookSlotImg2}
           />
         </Col>
         <Col md={4}>
           <StepCard
-            header="Step 1"
-            title="How to Book Your Appointment on Co-WIN?"
-            footer="Book an Appointment on Co-WIN or Walk into any Vaccination Center"
+            header="Step 3"
+            title="Find and Book an Appointment Slot"
+            footer="Select an available slot and confirm your booking with a chosen date."
             imgPath={bookSlotImg3}
           />
         </Col>

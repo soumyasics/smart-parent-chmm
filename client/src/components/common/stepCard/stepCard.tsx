@@ -26,9 +26,9 @@ export const StepCard: FC<StepCardProps> = ({
         <Card.Text className="step-card-text">{title}</Card.Text>
       </Card.Body>
       <Card.Footer>
-        <Button variant="link" className="step-card-footer-text">
+        <p className="step-card-footer-text">
           {footer}
-        </Button>
+        </p>
       </Card.Footer>
     </Card>
   );

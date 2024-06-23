@@ -1,23 +1,23 @@
 import { FC } from "react";
 import { Card, Col, Container, Image, Row } from "react-bootstrap";
-import { VaccinationCenterData } from "../../../types/userTypes";
+import { HealthProfessionalData } from "../../../types/userTypes";
 import { IllustrationSection } from "../../common/illustration/illustration";
 import vcCenterImg from "../../../assets/vc-center.jpg";
 import { useProfilePicture } from "../../../hooks/useProfilePicture";
 
-interface VCDetailsContainerProps {
-  data: VaccinationCenterData;
+interface HPDetailsContainerProps {
+  data: HealthProfessionalData;
 }
 
-export const VCDetailsContainer: FC<VCDetailsContainerProps> = ({ data }) => {
+export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const { profilePicture } = useProfilePicture(data?.profilePicture?.filename);
-  console.log("data", data)
+  console.log("data", data);
   return (
     <Container className="mt-5">
-      <h3 className="text-center text-primary shadow">Vaccination Center Details</h3>
+      <h3 className="text-center text-primary shadow">Health Professional</h3>
       <Row>
         <Col md={6}>
-          <IllustrationSection imgPath={vcCenterImg} />
+          <IllustrationSection imgPath="https://img.freepik.com/free-vector/health-professional-team-concept-illustration_114360-1618.jpg" />
         </Col>
         <Col md={6}>
           <Card>
@@ -48,7 +48,7 @@ export const VCDetailsContainer: FC<VCDetailsContainerProps> = ({ data }) => {
                     <strong>Category:</strong> {data.category} <br />
                   </p>
                   <p>
-                    <strong>Distrcit:</strong> {data.district} <br />
+                    <strong>Department:</strong> {data.department} <br />
                   </p>
                 </Card.Text>
               </div>

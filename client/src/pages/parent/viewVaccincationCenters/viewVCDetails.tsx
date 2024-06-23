@@ -9,18 +9,16 @@ import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/erro
 import { isVaccinationCenterData } from "../../../types/typeGuard";
 export const ViewVCDeatils = () => {
   const { id } = useParams();
-  const { isLoading, error, data } = useGetSingleObjectData(
+  const {  data } = useGetSingleObjectData(
     `/getVCDataById/${id}`
   );
   const navigate = useNavigate();
-  console.log("data", isLoading, data, error);
+  
   useEffect(() => {
     if (!id) {
       navigate("/parent/view-vc");
     }
   }, [id]);
-
- 
 
   return (
     <div>
