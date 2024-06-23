@@ -1,6 +1,15 @@
+import { useState } from "react";
+import { SlotBookModal } from "../slotBookModal/slotBookModal";
 import "./displaySlots.css";
 export const DisplaySlots = ({ slots }: any) => {
-  console.log("slot", slots);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleBookSlot = () => {
+    handleShow();
+  };
   return (
     <div
       style={{ width: "90%", minHeight: "500px" }}
@@ -14,28 +23,42 @@ export const DisplaySlots = ({ slots }: any) => {
         {slots.map((slot: any, index: number) => {
           const totalSlots = slot.totalSlots;
           const bookedSlots = slot.bookedSlots;
-          const availableSlots = totalSlots - bookedSlots; 
+          const availableSlots = totalSlots - bookedSlots;
 
-          const totalSlotsArray = Array.from({length: totalSlots}, (_, i) => i + 1);
-          console.log('avail', slot.totalSlots)
+          const totalSlotsArray = Array.from(
+            { length: totalSlots },
+            (_, i) => i + 1
+          );
+          console.log("avail", slot.totalSlots);
           return (
             <div key={slot._id}>
               <h5 className="text-center mt-4"> Section {index + 1}</h5>
 
               <div className="slot-box-container">
-                {totalSlotsArray.map(
-                  (_, ind) => {
-                    const changeBGColor = ind > bookedSlots ? "not-booked" : "booked";
-                    return (
-                      <div className={`${changeBGColor} slot-box`}> {ind + 1}</div>
-                    );
-                  }
-                )}
+                {totalSlotsArray.map((_, ind) => {
+                  const changeBGColor =
+                    ind > bookedSlots ? "not-booked" : "booked";
+                  return (
+                    <div
+                      key={ind}
+                      onClick={handleBookSlot}
+                      className={`${changeBGColor} slot-box`}
+                    >
+                      {" "}
+                      {ind + 1}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );
         })}
       </div>
+      <SlotBookModal
+        show={show}
+        handleClose={handleClose}
+        handleShow={handleShow}
+      />
     </div>
   );
 };
