@@ -1,7 +1,7 @@
 import { Image } from "react-bootstrap";
 import addTutorialImg from "../../../assets/add-tutorial-img.jpg";
-import { useState, useEffect, useContext } from "react";
-import { Col, Form, Row, Button, Modal } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Col, Form, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import axiosMultipartInstance from "../../../apis/axiosMultipartInstance";
 import { CommonFooter } from "../../../components/common/footer/footer";
@@ -100,7 +100,6 @@ export const UploadVideo = () => {
       let res = await axiosMultipartInstance.post("uploadVideo", formData);
       if (res.status === 200) {
         toast.success("Tutorial uploaded successfully");
-        setTimeout(() => {}, 1000);
       } else {
         alert("Something went wrong");
       }

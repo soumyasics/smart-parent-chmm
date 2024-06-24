@@ -1,5 +1,7 @@
 const multer = require("multer");
 const { VideoTutorial } = require("./tutorialSchema");
+const { default: mongoose } = require("mongoose");
+const { HPModel } = require("../HealthProfessionals/hpSchema");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -18,6 +20,17 @@ const addTutorial = async (req, res) => {
 
     if (!title || !description || !HPId || !duration || !target) {
       return res.status(400).json({ message: "All fields are required." });
+    }
+
+    if (!mongoose.isValidObjectId(HPId)) {
+      return res.status(400).json({ message: "HP id is not valid" });
+    }
+
+    const hp = await HPModel.findById(HPId);
+    if (!hp) {
+      return res
+        .status(404)
+        .json({ message: "Health professional doesn't exist." });
     }
 
     const newVideoTutorial = await new VideoTutorial({
@@ -93,18 +106,15 @@ const getTutorialsByHPId = async (req, res) => {
       .populate("HPId")
       .exec();
 
-    console.log("vide", videoTutorials);
     return res.status(200).json({
       data: videoTutorials,
       message: "All HP Video Tutorials",
     });
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        message: "Failed to get video tutorials.",
-        error: error.message,
-      });
+    return res.status(500).json({
+      message: "Failed to get video tutorials.",
+      error: error.message,
+    });
   }
 };
 
