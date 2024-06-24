@@ -26,8 +26,7 @@ export const UploadVideo = () => {
   const [description, setDescription] = useState("desc");
   const [target, setTarget] = useState("3");
   const [duration, setDuration] = useState("3");
-  
-  
+
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
   const [HPId, setHPId] = useState("");
@@ -111,23 +110,25 @@ export const UploadVideo = () => {
     }
   };
 
-
   return (
     <>
       <HPNavbar />
       <div className="mt-5">
-        <h2 className="text-center">Upload Tutorials</h2>
+        <h2 className="text-center mb-3">Upload Tutorials</h2>
 
         <div
           style={{ height: "500px", width: "90%" }}
           className=" d-flex add-tutorial-form-container mx-auto"
         >
-          <div className="w-50 d-flex p-3 justify-content-center align-items-center">
-            <Image className="w-100" src={addTutorialImg} alt="add-tutorials" />
+          <div
+            style={{ width: "40%" }}
+            className="d-flex p-3 justify-content-center align-items-center"
+          >
+            <Image className="w-75" src={addTutorialImg} alt="add-tutorials" />
           </div>
-          <div className="p-3">
+          <div className="p-3 shadow">
             <Form
-              className="rp-video-upload-form p-5"
+              className="rp-video-upload-form p-5 "
               noValidate
               validated={validated}
               onSubmit={handleUploadTutorail}
