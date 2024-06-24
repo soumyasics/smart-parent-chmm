@@ -10,6 +10,7 @@ const ashaWorker = require("./AshaWorker/AshaWorkerController");
 const vaccineController = require("./Vaccine/vaccineController");
 const bookSlotController = require("./BookSlot/bookSlotController");
 const subscriptionController = require("./SubscribeHp/subscribeController");
+const tutroialController = require("./Tutorials/tutorialController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -208,4 +209,15 @@ router.post(
   subscriptionController.getSubscriptionStatus
 );
 
+// Tutorials upload
+
+router.post(
+  "/uploadVideo",
+  tutroialController.uploadVideo,
+  tutroialController.addTutorial
+);
+
+router.get("/getAllTutorials", tutroialController.getAllTutorials);
+router.get("/getTutorialsByHPId/:id", tutroialController.getTutorialsByHPId);
+router.get("/getTutorialById/:id", tutroialController.getTutorialById);
 module.exports = router;

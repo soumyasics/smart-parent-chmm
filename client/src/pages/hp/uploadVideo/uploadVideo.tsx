@@ -80,12 +80,12 @@ export const UploadVideo = () => {
     formData.append("description", videoObj.description);
 
     if (videoObj.thumbnail) {
-      formData.append("thumbnail", videoObj.thumbnail);
+      formData.append("files", videoObj.thumbnail);
     } else {
       toast.error("Thumbnail is required");
     }
     if (videoObj.video) {
-      formData.append("video", videoObj.video);
+      formData.append("files", videoObj.video);
     } else {
       toast.error("Video is required");
     }
