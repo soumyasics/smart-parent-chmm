@@ -36,7 +36,7 @@ export const DisplayVaccineBooking = () => {
     <Container className="my-5" style={{ minHeight: "300px" }}>
       <h2 className="text-center">Booked vaccine slot details </h2>
       {vaccineBooking.length === 0 ? (
-        <ItemsNotFound />
+        <ItemsNotFound title="You have not booked any vaccines yet." description=""/>
       ) : (
         <Table striped bordered hover>
           <thead>

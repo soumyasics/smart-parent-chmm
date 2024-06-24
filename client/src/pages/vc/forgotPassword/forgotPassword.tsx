@@ -3,13 +3,13 @@ import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import "./forgotPassword.css";
 
 import forgotPasswordImg from "../../../assets/forgot-password-img.png";
-import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput";
 import {toast} from "react-hot-toast";
+import { LandingPageNavbar } from "../../../components/landingPage/landingPageNavbar/landingPageNavbar";
 
 interface PasswordResetData {
   email: string;
@@ -85,7 +85,7 @@ export const VCForgotPassword: React.FC = () => {
   };
   return (
     <>
-      <ParentNavbar />
+      <LandingPageNavbar />
       <Container className="my-5 shadow forgot-password-container">
         <Row className="justify-content-center">
           <Col

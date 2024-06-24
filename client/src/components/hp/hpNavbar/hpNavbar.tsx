@@ -70,9 +70,9 @@ export const HPNavbar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto  text-white w-50 justify-content-between">
-              <p className="my-0 ms-4">Home</p>
-              <p className="my-0 ">Blog</p>
-              <p className="my-0 " onClick={redirectToTutorials}>Tutorials</p>
+              <p className="my-0 ms-4" style={{cursor: "pointer"}} onClick={navigateHPHome}>Home</p>
+              <p className="my-0 " style={{cursor: "pointer"}}>Blog</p>
+              <p className="my-0 " onClick={redirectToTutorials} style={{cursor: "pointer"}}>Tutorials</p>
               <p className="my-0 ">Link 2 </p>
               <p className="my-0 ">Link 3 </p>
               <p className="my-0 ">Link 4</p>
