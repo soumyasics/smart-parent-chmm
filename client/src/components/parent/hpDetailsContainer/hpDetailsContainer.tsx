@@ -1,19 +1,48 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import { HealthProfessionalData } from "../../../types/userTypes";
 import { IllustrationSection } from "../../common/illustration/illustration";
 import { useProfilePicture } from "../../../hooks/useProfilePicture";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { toast } from "react-hot-toast";
 interface HPDetailsContainerProps {
   data: HealthProfessionalData;
 }
 
+interface ParentHPIds {
+  parentId: string;
+  healthProfessionalId: string;
+}
+
 export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
+  const [parentHpIds, setParentHpIds] = useState<ParentHPIds>({
+    parentId: "",
+    healthProfessionalId: "",
+  });
+
+  const { userType, userId } = useSelector((state: RootState) => state.user);
+  const { id: healthProfessionalId } = useParams();
+  useEffect(() => {
+    if (userType === "parent" && userId && healthProfessionalId) {
+      setParentHpIds({
+        parentId: userId,
+        healthProfessionalId,
+      });
+      
+    } else {
+      toast.error("Please login again");
+      navigate("/parent/view-hp");
+    }
+  }, []);
+
   const { profilePicture } = useProfilePicture(data?.profilePicture?.filename);
   const navigate = useNavigate();
   const redirectToPaymentPage = (id: string) => {
     navigate(`/parent/payment/${id}`);
-  }
+  };
+
   return (
     <Container className="mt-5">
       <h3 className="text-center text-primary shadow">Health Professional</h3>
@@ -53,10 +82,13 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                     <strong>Department:</strong> {data.department} <br />
                   </p>
                 </Card.Text>
-                <Button variant="primary" onClick={() => {
-                  redirectToPaymentPage(data._id)
-                }}> 
-                  Subscribe 
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    redirectToPaymentPage(data._id);
+                  }}
+                >
+                  Subscribe
                 </Button>
               </div>
             </Card.Body>

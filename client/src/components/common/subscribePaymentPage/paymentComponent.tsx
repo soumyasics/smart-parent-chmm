@@ -1,84 +1,160 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./payment-page.css";
+import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import axiosInstance from "../../../apis/axiosInstance";
+import axios from "axios";
+interface SubscriptionDataType {
+  parentId: string;
+  healthProfessionalId: string;
+  cardHolderName: string;
+  cardNumber: string;
+  cardExpiry: string;
+  cardCVV: string;
+  subscriptionAmount: string;
+}
 export const PaymentForm = () => {
-  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
 
-  const [userAcDetails, setUserAcDetails] = useState({
-    acHolderName: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
-    amount: "999",
-  });
+  const navigate = useNavigate();
+  const [subscriptionData, setsubscriptionData] =
+    useState<SubscriptionDataType>({
+      parentId: "",
+      healthProfessionalId: "",
+      cardHolderName: "",
+      cardNumber: "",
+      cardExpiry: "",
+      cardCVV: "",
+      subscriptionAmount: "999",
+    });
+
+  const { id } = useParams();
+
+  const { userId, userType } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (!id || !userId || !userType) {
+      toast.error("Please login again");
+      navigate("/parent/login");
+      return;
+    }
+
+    setsubscriptionData({
+      ...subscriptionData,
+      parentId: userId,
+      healthProfessionalId: id,
+    });
+  }, [userId, userType, id]);
 
   const handleSubmitPayment = (event: any) => {
     event.preventDefault();
-
     const form = event.currentTarget;
-
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
 
     setValidated(true);
-    const { acHolderName, cardNumber, expiryDate, cvv } = userAcDetails;
+    if (checkTypes()) {
+      sendDataToServer();
+    }
+  };
 
-    const checkTypes = () => {
-      const convertCardNumber = Number(cardNumber);
-      if (isNaN(convertCardNumber)) {
-        console.log("Check your card number");
-        return false;
-      }
-      const convertCvv = Number(cvv);
-      if (isNaN(convertCvv)) {
-        console.log("Check your cvv");
-        return false;
-      }
-      return true;
-    };
-
-    if (
-      !acHolderName ||
-      !cardNumber ||
-      !expiryDate ||
-      !cvv ||
-      cvv.length !== 3 ||
-      cardNumber.length !== 16
-    ) {
-      console.log("all fields are mandatory");
-      return;
-    } else {
-      if (checkTypes()) {
-        // types are valide
+  const sendDataToServer = async () => {
+    try {
+      const res = await axiosInstance.post("newSubscription", subscriptionData);
+      if (res.status === 201) {
+        toast.success("Subscription successful");
+        // navigate("/parent/home");
       } else {
-        console.log("check types failed");
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errStatus = error?.response?.status;
+        if (
+          errStatus === 409 ||
+          errStatus === 400 ||
+          errStatus === 401 ||
+          errStatus === 404 ||
+          errStatus === 500
+        ) {
+          const errMsg =
+            error?.response?.data?.message ||
+            "Some issues occured, please try again";
+          toast.error(errMsg);
+        } else {
+          toast.error("Please login again");
+        }
+      } else {
+        toast.error("Please check your network.");
       }
     }
   };
 
-  const handleChange = (e: any) => {
-    setUserAcDetails((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleCancelAction = () => {
-    setUserAcDetails({
-      ...userAcDetails,
-      acHolderName: "",
+  const clearData = () => {
+    setsubscriptionData({
+      parentId: "",
+      healthProfessionalId: "",
+      cardHolderName: "",
       cardNumber: "",
-      expiryDate: "",
-      cvv: "",
-      amount: "999",
+      cardExpiry: "",
+      cardCVV: "",
+      subscriptionAmount: "999",
     });
+  };
+  const checkTypes = () => {
+    const {
+      cardCVV,
+      cardExpiry,
+      cardHolderName,
+      cardNumber,
+      healthProfessionalId,
+      parentId,
+      subscriptionAmount,
+    } = subscriptionData;
+    if (
+      !cardHolderName ||
+      !cardNumber ||
+      !cardExpiry ||
+      !cardCVV ||
+      !subscriptionAmount ||
+      !healthProfessionalId ||
+      !parentId
+    ) {
+      toast.error("Please fill all the fields");
+      return false;
+    }
 
-    setValidated(false);
+    const convertCardNumber = Number(cardNumber);
+    if (isNaN(convertCardNumber)) {
+      toast.error("Check your card number");
+      return false;
+    }
+
+    const convertCvv = Number(cardCVV);
+    if (isNaN(convertCvv)) {
+      toast.error("Check your cvv");
+      return false;
+    }
+    if (cardNumber.length !== 16 || cardCVV.length !== 3) {
+      return false;
+    }
+    return true;
+  };
+  const handleChange = (e: any) => {
+    setsubscriptionData((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
   };
 
+  console.log("data", subscriptionData);
   return (
     <div
       id="subscribe-payment-container"
@@ -94,8 +170,8 @@ export const PaymentForm = () => {
           <Form.Label>Card Holder Name</Form.Label>
           <Form.Control
             onChange={handleChange}
-            name="acHolderName"
-            value={userAcDetails.acHolderName}
+            name="cardHolderName"
+            value={subscriptionData.cardHolderName}
             type="text"
             placeholder="Card Holder Name"
             autoFocus
@@ -112,7 +188,7 @@ export const PaymentForm = () => {
               <Form.Label>Card Number</Form.Label>
               <Form.Control
                 name="cardNumber"
-                value={userAcDetails.cardNumber}
+                value={subscriptionData.cardNumber}
                 type="text"
                 placeholder="Card Number"
                 pattern="[0-9]{16}"
@@ -133,8 +209,8 @@ export const PaymentForm = () => {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Expiration Date</Form.Label>
               <Form.Control
-                value={userAcDetails.expiryDate}
-                name="expiryDate"
+                value={subscriptionData.cardExpiry}
+                name="cardExpiry"
                 type="date"
                 pattern="[0-9]{2}/[0-9]{2}"
                 required
@@ -150,10 +226,10 @@ export const PaymentForm = () => {
             <Form.Group className="mb-3">
               <Form.Label>CVV</Form.Label>
               <Form.Control
-                value={userAcDetails.cvv}
+                value={subscriptionData.cardCVV}
                 onChange={handleChange}
                 placeholder="CVV"
-                name="cvv"
+                name="cardCVV"
                 pattern="[0-9]{3}"
                 type="text"
                 required
@@ -171,10 +247,9 @@ export const PaymentForm = () => {
             style={{
               width: "10rem",
               height: "50px",
-
               fontSize: "20px",
             }}
-            onClick={handleCancelAction}
+            onClick={clearData}
             variant="warning"
           >
             {" "}
@@ -182,7 +257,7 @@ export const PaymentForm = () => {
           </Button>
           <Button type="submit" style={{ width: "10rem", height: "50px" }}>
             {" "}
-            Pay ₹ 999{" "}
+            Pay ₹ {subscriptionData.subscriptionAmount}{" "}
           </Button>
         </div>
       </Form>

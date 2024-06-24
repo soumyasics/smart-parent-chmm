@@ -203,4 +203,9 @@ router.get(
   subscriptionController.getAllSubscriptionByHPId
 );
 
+router.post(
+  "/getSubscriptionStatus",
+  subscriptionController.getSubscriptionStatus
+);
+
 module.exports = router;

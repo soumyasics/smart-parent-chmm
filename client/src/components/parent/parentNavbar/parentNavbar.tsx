@@ -95,9 +95,29 @@ export const ParentNavbar = () => {
               <p className="my-0" role="button" onClick={redirectToAW}>
                 Asha Workers
               </p>
-              <p className="my-0" role="button" onClick={redirectToHP}>
-                Health Professional
-              </p>
+
+              <div className="dropdown" role="button">
+                <button
+                  style={{ width: "180px", border: "none" }}
+                  className="btn d-flex btn-secondary bg-dark"
+                  id="dropdownMenuLink"
+                  role="button"
+                  data-toggle="dropdown"
+                >
+                  Health Professional
+                </button>
+
+                <div
+                  style={{ cursor: "pointer" }}
+                  className={`dropdown-menu ${styles.parentNavDropdown}`}
+                  aria-labelledby="dropdownMenuLink"
+                >
+                  <p className="dropdown-item mb-0" role="button" onClick={redirectToHP}>
+                    View all
+                  </p>
+                  
+                </div>
+              </div>
 
               <div className="dropdown" role="button">
                 <button

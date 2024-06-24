@@ -9,11 +9,10 @@ import { isHealthProfessionalData } from "../../../types/typeGuard";
 import { HPDetailsContainer } from "../../../components/parent/hpDetailsContainer/hpDetailsContainer";
 export const ViewHPDeatils = () => {
   const { id } = useParams();
-  const { isLoading, error, data } = useGetSingleObjectData(
+  const { data } = useGetSingleObjectData(
     `/getHPDataById/${id}`
   );
   const navigate = useNavigate();
-  console.log("data", isLoading, data, error);
   useEffect(() => {
     if (!id) {
       navigate("/parent/view-hp");

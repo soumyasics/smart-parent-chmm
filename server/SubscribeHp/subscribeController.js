@@ -136,9 +136,47 @@ const getAllSubscriptions = async (req, res) => {
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
+
+const getSubscriptionStatus = async (req, res) => {
+  try {
+    const { parentId, healthProfessionalId } = req.body;
+
+    if (!parentId || !healthProfessionalId) {
+      return res.status(400).json({ message: "Parent id and HP id required." });
+    }
+    if (!mongoose.Types.ObjectId.isValid(parentId)) {
+      return res.status(400).json({ message: "Invalid parentId" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(healthProfessionalId)) {
+      return res.status(400).json({ message: "Invalid healthProfessionalId" });
+    }
+
+    const isSubscribed = await SubscribeModel.findOne({
+      parentId,
+      healthProfessionalId,
+    });
+
+    if (isSubscribed) {
+      return res
+        .status(200)
+        .json({ suscriptionStatus: true, message: "Subscribed" });
+    } else {
+      return res
+        .status(200)
+        .json({ suscriptionStatus: false, message: "Not subscribed" });
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
 module.exports = {
   newSubscription,
   getAllSubscriptionByParentId,
   getAllSubscriptionByHPId,
+  getSubscriptionStatus,
   getAllSubscriptions,
 };
