@@ -43,6 +43,7 @@ import { VaccinationChart } from "./components/parent/vaccinationChart/vaccinati
 import { ViewHPDeatils } from "./pages/parent/viewHP/viewHPDetails.tsx";
 import { PaymentPage } from "./components/common/subscribePaymentPage/subscribePaymentPage.tsx";
 import { UploadVideo } from "./pages/hp/uploadVideo/uploadVideo.tsx";
+import { WatchTutorialFullScreen } from "./components/hp/view-tutorials/viewFullScreen.tsx";
 
 function App() {
   return (
@@ -93,6 +94,7 @@ function App() {
         <Route path="/hp/profile" element={<HPProfilePage />} />
         <Route path="/hp/forgot-password" element={<HPForgotPassword />} />
         <Route path="/hp/tutorials" element={<UploadVideo />} />
+        <Route path="/hp/full-screen/:id" element={<WatchTutorialFullScreen />} />
 
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />
