@@ -1,4 +1,4 @@
-import { Button, Table } from "react-bootstrap";
+import {  Table } from "react-bootstrap";
 import "./adminHPTable.css";
 
 export const AdminHPTable = ({ HPsData }: any) => {

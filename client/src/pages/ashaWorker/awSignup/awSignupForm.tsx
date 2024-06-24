@@ -313,7 +313,7 @@ export const AWSignupForm = () => {
               value={awData.experience}
             />
             <Form.Control.Feedback type="invalid">
-              Please enter your department.
+              Please enter your experience years.
             </Form.Control.Feedback>
           </Form.Group>
         </Col>

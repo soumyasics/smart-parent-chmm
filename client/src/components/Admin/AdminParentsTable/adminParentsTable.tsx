@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button, Table } from "react-bootstrap";
+import {  Table } from "react-bootstrap";
 import "./adminParentsTable.css";
 interface ParentData {
   _id: string;

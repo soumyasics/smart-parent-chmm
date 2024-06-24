@@ -5,7 +5,6 @@ import { AdminVCPending } from "../../../components/Admin/AdminVCPending/adminVC
 import "./adminDashboard.css";
 import { AdminHPPending } from "../../../components/Admin/AdminHpPending/adminHpPending.tsx";
 import { AdminAWPending } from "../../../components/Admin/AdminAWPending/adminAWPending.tsx";
-import { AdminHPTable } from "../../../components/Admin/AdminHPTable/adminHPTable.tsx";
 import { AdminHP } from "../../../components/Admin/AdminHP/adminHP.tsx";
 
 export const AdminDashboard = () => {
