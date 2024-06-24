@@ -10,10 +10,11 @@ interface VCDetailsContainerProps {
 }
 
 export const VCDetailsContainer: FC<VCDetailsContainerProps> = ({ data }) => {
-  const { profilePicture } = useProfilePicture(data.profilePicture.filename);
-  console.log("data", data);
+  const { profilePicture } = useProfilePicture(data?.profilePicture?.filename);
+  console.log("data", data)
   return (
     <Container className="mt-5">
+      <h3 className="text-center text-primary shadow">Vaccination Center Details</h3>
       <Row>
         <Col md={6}>
           <IllustrationSection imgPath={vcCenterImg} />
@@ -28,24 +29,27 @@ export const VCDetailsContainer: FC<VCDetailsContainerProps> = ({ data }) => {
                   src={profilePicture}
                 />
               </div>
-              <div className="bg-danger  pt-2 " style={{ minHeight: "300px" }}>
+              <div className="shadow p-2" style={{ minHeight: "300px" }}>
                 <Card.Title className="mt-3 text-center">
                   Name: {data.name}
                 </Card.Title>
                 <Card.Text>
-                  <h5>
+                  <p>
                     {" "}
                     <strong>Email:</strong> {data.email} <br />
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <strong>Phone Number:</strong> {data.phoneNumber} <br />
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <strong>Address:</strong> {data.address} <br />
-                  </h5>
-                  <h5>
+                  </p>
+                  <p>
                     <strong>Category:</strong> {data.category} <br />
-                  </h5>
+                  </p>
+                  <p>
+                    <strong>Distrcit:</strong> {data.district} <br />
+                  </p>
                 </Card.Text>
               </div>
             </Card.Body>

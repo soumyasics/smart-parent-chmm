@@ -7,21 +7,18 @@ import { useNavigate } from "react-router-dom";
 import { useGetSingleObjectData } from "../../../hooks/useGetSingleObjectData";
 import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/errorHandlingUi";
 import { isVaccinationCenterData } from "../../../types/typeGuard";
-import { PageLoadingDark } from "../../../components/pageLoading/pageLoading2";
 export const ViewVCDeatils = () => {
   const { id } = useParams();
-  const { isLoading, error, data } = useGetSingleObjectData(
+  const {  data } = useGetSingleObjectData(
     `/getVCDataById/${id}`
   );
   const navigate = useNavigate();
-  console.log("data", isLoading, data, error);
+  
   useEffect(() => {
     if (!id) {
       navigate("/parent/view-vc");
     }
   }, [id]);
-
- 
 
   return (
     <div>

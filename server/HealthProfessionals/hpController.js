@@ -12,7 +12,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).any();
 
-const uploadProfilePicture = multer({storage: storage}).single("profilePicture");
+const uploadProfilePicture = multer({ storage: storage }).single(
+  "profilePicture"
+);
 
 const {
   encryptPassword,
@@ -31,6 +33,7 @@ const registerHP = async (req, res) => {
       department,
       address,
       qualification,
+      category,
     } = req.body;
     if (
       !name ||
@@ -39,11 +42,26 @@ const registerHP = async (req, res) => {
       !phoneNumber ||
       !department ||
       !qualification ||
-      !address
+      !address ||
+      !category
     ) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await encryptPassword(password);
+
+    if (
+      category !== "Dietitian" &&
+      category !== "Psychiatrist" &&
+      category !== "Physician" &&
+      category !== "Fitness Specialist"
+    ) {
+      return res
+        .status(400)
+        .json({
+          message:
+            "Category must be Dietitian, Psychiatrist, Physician or Fitness Specialist",
+        });
+    }
 
     const certificateFile = req.files.find((file) => {
       return file.fieldname === "certificateImg";
@@ -52,6 +70,7 @@ const registerHP = async (req, res) => {
     const profilePictureFile = req.files.find((file) => {
       return file.fieldname === "profilePicture";
     });
+
     const newHP = new HPModel({
       name,
       email,
@@ -60,6 +79,7 @@ const registerHP = async (req, res) => {
       address,
       department,
       qualification,
+      category,
       profilePicture: profilePictureFile,
       certificateImg: certificateFile,
     });
@@ -72,7 +92,7 @@ const registerHP = async (req, res) => {
     });
   } catch (error) {
     console.error("Error in email Health Professional registration: ", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: error.message });
   }
 };
 const loginHP = async (req, res) => {
@@ -133,7 +153,7 @@ const adminApprovedHPRequest = async (req, res) => {
     hp.isAdminApproved = "approved";
 
     await hp.save();
-
+    
     return res.status(200).json({
       message: "Health Professional approved successfully",
       data: hp,
@@ -277,7 +297,8 @@ const updateHPById = async (req, res) => {
     if (!hp) {
       return res.status(404).json({ message: "Health professional not found" });
     }
-    const { name, email, phoneNumber, address, qualification, department } = req.body;
+    const { name, email, phoneNumber, address, qualification, department } =
+      req.body;
 
     let newValues = {};
     if (name) {
@@ -298,7 +319,7 @@ const updateHPById = async (req, res) => {
     if (department) {
       newValues.department = department;
     }
-    
+
     if (req.file?.path) {
       newValues.profilePicture = req.file;
     }
@@ -319,9 +340,6 @@ const updateHPById = async (req, res) => {
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
-
-
-
 
 const viewHps = (req, res) => {
   HPModel.find()
@@ -348,9 +366,6 @@ const viewHps = (req, res) => {
       });
     });
 };
-
-
-
 
 const editHPById = (req, res) => {
   HPModel.findByIdAndUpdate(
@@ -464,5 +479,5 @@ module.exports = {
   forgotPwd,
   deleteHpById,
   upload,
-  uploadProfilePicture
+  uploadProfilePicture,
 };

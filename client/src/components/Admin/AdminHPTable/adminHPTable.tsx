@@ -1,22 +1,7 @@
-import { FC } from "react";
-import { Button, Table } from "react-bootstrap";
+import {  Table } from "react-bootstrap";
 import "./adminHPTable.css";
-interface ParentData {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  phoneNumber: string;
-  address: string;
-  dateOfBirth: string;
-  profilePicture: File | null;
-}
-interface AdminParentsTableProps {
-  parentsData: ParentData[];
-}
-export const AdminHPTable: FC<AdminParentsTableProps> = ({
-  parentsData,
-}) => {
+
+export const AdminHPTable = ({ HPsData }: any) => {
   return (
     <>
       <Table striped bordered hover id="admin-users-table-container">
@@ -25,31 +10,26 @@ export const AdminHPTable: FC<AdminParentsTableProps> = ({
             <th>No</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Date Of Birth</th>
             <th>Address</th>
             <th>Phone Number</th>
-            <th>Remove</th>
+            <th>Category</th>
           </tr>
         </thead>
         <tbody>
-          {parentsData?.map((p, i) => {
+          {HPsData?.map((p: any, i: number) => {
             return (
               <tr key={p._id}>
                 <td>{i + 1}</td>
-                <td>{p.name}</td>
-                <td>{p.email}</td>
-                <td>{p.dateOfBirth}</td>
-                <td>{p.address}</td>
-                <td>{p.phoneNumber}</td>
-                <td>
-                  <Button variant="danger">Remove</Button>
-                </td>
+                <td>{p?.name}</td>
+                <td>{p?.email}</td>
+                <td>{p?.address}</td>
+                <td>{p?.phoneNumber}</td>
+                <td>{p?.category}</td>
               </tr>
             );
           })}
         </tbody>
       </Table>
-      {/* pagination buttons here */}
     </>
   );
 };

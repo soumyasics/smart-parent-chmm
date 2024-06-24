@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import styles from "./parentNavbar.module.css";
-import { Button, Form, Image } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import userPlaceholderImg from "../../../assets/user-placeholder.jpg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -70,6 +70,10 @@ export const ParentNavbar = () => {
     navigate("/parent/login");
   };
 
+  const redirectToVaccinationChart = () => {
+    navigate("/parent/vc-chart");
+  };
+
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className={`text-white pe-5 ${styles.parentNavbar}`}>
@@ -91,9 +95,29 @@ export const ParentNavbar = () => {
               <p className="my-0" role="button" onClick={redirectToAW}>
                 Asha Workers
               </p>
-              <p className="my-0" role="button" onClick={redirectToHP}>
-                Health Professional
-              </p>
+
+              <div className="dropdown" role="button">
+                <button
+                  style={{ width: "180px", border: "none" }}
+                  className="btn d-flex btn-secondary bg-dark"
+                  id="dropdownMenuLink"
+                  role="button"
+                  data-toggle="dropdown"
+                >
+                  Health Professional
+                </button>
+
+                <div
+                  style={{ cursor: "pointer" }}
+                  className={`dropdown-menu ${styles.parentNavDropdown}`}
+                  aria-labelledby="dropdownMenuLink"
+                >
+                  <p className="dropdown-item mb-0" role="button" onClick={redirectToHP}>
+                    View all
+                  </p>
+                  
+                </div>
+              </div>
 
               <div className="dropdown" role="button">
                 <button
@@ -117,7 +141,18 @@ export const ParentNavbar = () => {
                   >
                     Vaccination Center
                   </p>
-                  <p className="dropdown-item mb-0" onClick={redirectToBookVaccine}>Book Vaccine</p>
+                  <p
+                    className="dropdown-item mb-0"
+                    onClick={redirectToBookVaccine}
+                  >
+                    Book Vaccine
+                  </p>
+                  <p
+                    className="dropdown-item mb-0"
+                    onClick={redirectToVaccinationChart}
+                  >
+                    Vaccination Chart
+                  </p>
                 </div>
               </div>
             </Nav>

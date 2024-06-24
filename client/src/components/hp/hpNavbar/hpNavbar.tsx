@@ -54,6 +54,9 @@ export const HPNavbar = () => {
   const navigateToHPProfile = () => {
     navigate("/hp/profile");
   };
+  const redirectToTutorials = () => {
+    navigate('/hp/tutorials')
+  }
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
@@ -69,7 +72,7 @@ export const HPNavbar = () => {
             <Nav className="me-auto  text-white w-50 justify-content-between">
               <p className="my-0 ms-4">Home</p>
               <p className="my-0 ">Blog</p>
-              <p className="my-0 ">Link 1</p>
+              <p className="my-0 " onClick={redirectToTutorials}>Tutorials</p>
               <p className="my-0 ">Link 2 </p>
               <p className="my-0 ">Link 3 </p>
               <p className="my-0 ">Link 4</p>

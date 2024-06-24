@@ -31,6 +31,11 @@ const hpSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      enum: ["Dietitian", "Psychiatrist", "Fitness Specialist", "Physician"],
+      required: true,
+    },
     profilePicture: {
       type: Object,
       default: null,
@@ -39,6 +44,13 @@ const hpSchema = mongoose.Schema(
       type: Object,
       default: null,
     },
+    subscribers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Parent",
+        default: null,
+      },
+    ],
     isActive: {
       enum: ["active", "pending", "deactivated", "suspended"],
       type: String,

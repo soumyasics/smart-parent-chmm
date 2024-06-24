@@ -11,7 +11,7 @@ import axiosMultipartInstance from "../../../apis/axiosMultipartInstance.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 interface HPData {
   name: string;
   email: string;
@@ -21,6 +21,7 @@ interface HPData {
   address: string;
   department: string;
   qualification: string;
+  category: string;
   profilePicture: File | null;
   certificateImg: File | null;
 }
@@ -39,6 +40,7 @@ export const HPSignupForm = () => {
     qualification: "",
     profilePicture: null,
     certificateImg: null,
+    category: "",
   });
 
   // Development only
@@ -52,6 +54,7 @@ export const HPSignupForm = () => {
   //   department: "hp department",
   //   qualification: "hp qualification",
   //   profilePicture: null,
+  //   category: "Physician",
   //   certificateImg: null,
   // });
 
@@ -81,6 +84,7 @@ export const HPSignupForm = () => {
       phoneNumber,
       address,
       qualification,
+
       certificateImg,
       department,
     } = hpData;
@@ -132,6 +136,7 @@ export const HPSignupForm = () => {
       department,
       address,
       qualification,
+      category,
       certificateImg,
       profilePicture,
     } = hpData;
@@ -143,6 +148,7 @@ export const HPSignupForm = () => {
     formData.append("department", department);
     formData.append("address", address);
     formData.append("qualification", qualification);
+    formData.append("category", category);
 
     if (certificateImg) {
       formData.append("certificateImg", certificateImg);
@@ -198,8 +204,8 @@ export const HPSignupForm = () => {
       return;
     }
     setHpData((prevData) => ({ ...prevData, [name]: value }));
-    
-    console.log("values", hpData)
+
+    console.log("values", hpData);
   };
 
   const handleProfilePictureUpload = (e: any) => {
@@ -226,7 +232,7 @@ export const HPSignupForm = () => {
     >
       <div className="signup-form-flex-div">
         <Row className="mt-3">
-          <Col >
+          <Col>
             <Form.Group>
               <Form.Control
                 type="text"
@@ -242,7 +248,7 @@ export const HPSignupForm = () => {
             </Form.Group>
           </Col>
 
-          <Col >
+          <Col>
             <Form.Group>
               <Form.Control
                 type="email"
@@ -280,7 +286,7 @@ export const HPSignupForm = () => {
       </Row>
 
       <Row className="mt-3">
-        <Col >
+        <Col>
           <Form.Group>
             <Form.Control
               type="text"
@@ -299,7 +305,7 @@ export const HPSignupForm = () => {
           </Form.Group>
         </Col>
 
-        <Col >
+        <Col>
           <Form.Group>
             <Form.Control
               type="text"
@@ -318,7 +324,7 @@ export const HPSignupForm = () => {
       </Row>
 
       <Row className="mt-3">
-        <Col >
+        <Col>
           <Form.Group>
             <Form.Control
               type="text"
@@ -334,7 +340,7 @@ export const HPSignupForm = () => {
           </Form.Group>
         </Col>
 
-        <Col >
+        <Col>
           <Form.Group>
             <Form.Control
               type="text"
@@ -350,9 +356,30 @@ export const HPSignupForm = () => {
           </Form.Group>
         </Col>
       </Row>
+      <Row className="mt-3">
+        <Col>
+          <Form.Group>
+            <Form.Select
+              required
+              name="category"
+              onChange={handleChanges}
+              value={hpData.category}
+            >
+              <option value="">Select your category</option>
+              <option value="Dietitian">Dietitian</option>
+              <option value="Psychiatrist">Psychiatrist</option>
+              <option value="Fitness Specialist">Fitness Specialist</option>
+              <option value="Physician">Physician</option>
+            </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              Please enter your category
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+      </Row>
 
       <Row>
-        <Col >
+        <Col>
           <Form.Group className="position-relative mt-3">
             <Form.Label>Upload your photo </Form.Label>
             <Form.Control
@@ -363,7 +390,7 @@ export const HPSignupForm = () => {
             />
           </Form.Group>
         </Col>
-        <Col >
+        <Col>
           <Form.Group className="position-relative mt-3">
             <Form.Label>Upload your certificate image </Form.Label>
             <Form.Control

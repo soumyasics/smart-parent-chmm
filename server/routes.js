@@ -9,6 +9,8 @@ const parentAndVCChat = require("./MessageBwParentAndVC/messageController");
 const ashaWorker = require("./AshaWorker/AshaWorkerController");
 const vaccineController = require("./Vaccine/vaccineController");
 const bookSlotController = require("./BookSlot/bookSlotController");
+const subscriptionController = require("./SubscribeHp/subscribeController");
+const tutroialController = require("./Tutorials/tutorialController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -191,4 +193,31 @@ router.get(
   bookSlotController.getBookedSlotByVaccineId
 );
 
+router.post("/newSubscription", subscriptionController.newSubscription);
+router.get("/getAllSubscriptions", subscriptionController.getAllSubscriptions);
+router.get(
+  "/getAllSubscriptionByParentId/:id",
+  subscriptionController.getAllSubscriptionByParentId
+);
+router.get(
+  "/getAllSubscriptionByHPId/:id",
+  subscriptionController.getAllSubscriptionByHPId
+);
+
+router.post(
+  "/getSubscriptionStatus",
+  subscriptionController.getSubscriptionStatus
+);
+
+// Tutorials upload
+
+router.post(
+  "/uploadVideo",
+  tutroialController.uploadVideo,
+  tutroialController.addTutorial
+);
+
+router.get("/getAllTutorials", tutroialController.getAllTutorials);
+router.get("/getTutorialsByHPId/:id", tutroialController.getTutorialsByHPId);
+router.get("/getTutorialById/:id", tutroialController.getTutorialById);
 module.exports = router;
