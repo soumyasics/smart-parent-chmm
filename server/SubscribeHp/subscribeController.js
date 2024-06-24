@@ -7,7 +7,6 @@ const newSubscription = async (req, res) => {
     const {
       parentId,
       healthProfessionalId,
-      date,
       isActive,
       cardHolderName,
       cardNumber,
@@ -19,7 +18,6 @@ const newSubscription = async (req, res) => {
     if (
       !parentId ||
       !healthProfessionalId ||
-      !date ||
       !cardHolderName ||
       !cardNumber ||
       !cardExpiry ||
@@ -47,10 +45,18 @@ const newSubscription = async (req, res) => {
       return res.status(404).json({ message: "Health Professional not found" });
     }
 
+    const existingSubscription = await SubscribeModel.findOne({
+      parentId,
+      healthProfessionalId,
+    });
+
+    if (existingSubscription) {
+      return res.status(409).json({ message: "You alredy subscribed." });
+    }
+
     const newSubscription = new SubscribeModel({
       parentId,
       healthProfessionalId,
-      date,
       isActive,
       cardHolderName,
       cardNumber,
@@ -64,14 +70,15 @@ const newSubscription = async (req, res) => {
 
     await hp.save();
     await parent.save();
-
     await newSubscription.save();
-    return res.status(201).json({ message: "Subscribed", data: newSubscribe });
+    return res
+      .status(201)
+      .json({ message: "Subscribed", data: newSubscription });
   } catch (error) {
     console.error("Error in  subscribe: ", error);
     return res
       .status(500)
-      .json({ message: "Internal server error", error: error });
+      .json({ message: "Internal server error", error: error.message });
   }
 };
 
@@ -130,7 +137,7 @@ const getAllSubscriptions = async (req, res) => {
   }
 };
 module.exports = {
-    newSubscription,
+  newSubscription,
   getAllSubscriptionByParentId,
   getAllSubscriptionByHPId,
   getAllSubscriptions,
