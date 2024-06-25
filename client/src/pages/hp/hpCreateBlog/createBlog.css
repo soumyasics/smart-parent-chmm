@@ -1,0 +1,80 @@
+.Rpblog {
+  padding-top: 30px;
+  padding-bottom: 90px;
+}
+
+.blogbutton {
+  padding-top: 50px;
+}
+
+.blogbutton button {
+  color: #fff;
+  background-color: #1e90ff;
+  height: 35px;
+  width: 140px;
+  border: none;
+}
+
+.rpblogheading {
+  text-align: center;
+}
+
+.rpblogform {
+  padding: 0 430px;
+  padding-top: 20px;
+}
+
+.rpblogform input, .rpblogform textarea {
+    background-color: white;
+    color: black;
+}
+
+.bloglabel {
+  padding: 0 10px;
+  padding-bottom: 3px;
+}
+
+.rpbloginputs input {
+  height: 35px;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+  border: 1.5px solid #c7bebe;
+  border-top-width: 1.9px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.rpblogarea textarea {
+  height: 100px;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+  border: 1.5px solid #c7bebe;
+  border-top-width: 1.9px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.blogfiles input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+
+  transition: all 0.3s ease;
+}
+
+.rpblogfield {
+  padding-top: 15px;
+}
+
+.rpimg1 {
+  padding-bottom: 15px;
+}

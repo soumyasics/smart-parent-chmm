@@ -45,6 +45,7 @@ import { PaymentPage } from "./components/common/subscribePaymentPage/subscribeP
 import { UploadVideo } from "./pages/hp/uploadVideo/uploadVideo.tsx";
 import { WatchTutorialFullScreen } from "./components/hp/view-tutorials/viewFullScreen.tsx";
 import { ParentWatchTutorialFullScreen } from "./components/parent/view-tutorials/viewFullScreen.tsx";
+import { HPCreateBlog } from "./pages/hp/hpCreateBlog/createBlog.tsx";
 
 function App() {
   return (
@@ -97,6 +98,7 @@ function App() {
         <Route path="/hp/forgot-password" element={<HPForgotPassword />} />
         <Route path="/hp/tutorials" element={<UploadVideo />} />
         <Route path="/hp/full-screen/:id" element={<WatchTutorialFullScreen />} />
+        <Route path="/hp/create-blog" element={<HPCreateBlog />} />
 
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />
