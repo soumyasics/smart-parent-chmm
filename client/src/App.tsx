@@ -44,6 +44,8 @@ import { ViewHPDeatils } from "./pages/parent/viewHP/viewHPDetails.tsx";
 import { PaymentPage } from "./components/common/subscribePaymentPage/subscribePaymentPage.tsx";
 import { UploadVideo } from "./pages/hp/uploadVideo/uploadVideo.tsx";
 import { WatchTutorialFullScreen } from "./components/hp/view-tutorials/viewFullScreen.tsx";
+import { ParentWatchTutorialFullScreen } from "./components/parent/view-tutorials/viewFullScreen.tsx";
+import { HPCreateBlog } from "./pages/hp/hpCreateBlog/createBlog.tsx";
 
 function App() {
   return (
@@ -86,6 +88,7 @@ function App() {
 
         <Route path="/parent/vc-chart" element={<VaccinationChart />} />
         <Route path="/parent/payment/:id" element={<PaymentPage />} />
+        <Route path="/parent/full-screen/:id" element={<ParentWatchTutorialFullScreen />} />
 
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
@@ -95,6 +98,7 @@ function App() {
         <Route path="/hp/forgot-password" element={<HPForgotPassword />} />
         <Route path="/hp/tutorials" element={<UploadVideo />} />
         <Route path="/hp/full-screen/:id" element={<WatchTutorialFullScreen />} />
+        <Route path="/hp/create-blog" element={<HPCreateBlog />} />
 
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />

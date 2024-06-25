@@ -20,7 +20,7 @@ export const TutorialCard: FC<TutorialCardProps> = ({ video }) => {
         <Button
           variant="primary"
           onClick={() => {
-            navigate(`/hp/full-screen/${video._id}`);
+            navigate(`/parent/full-screen/${video._id}`);
           }}
         >
           Watch

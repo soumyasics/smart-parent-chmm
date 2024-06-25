@@ -55,8 +55,12 @@ export const HPNavbar = () => {
     navigate("/hp/profile");
   };
   const redirectToTutorials = () => {
-    navigate('/hp/tutorials')
-  }
+    navigate("/hp/tutorials");
+  };
+
+  const redirectToCreateBlog = () => {
+    navigate("/hp/create-blog");
+  };
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
@@ -70,12 +74,30 @@ export const HPNavbar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto  text-white w-50 justify-content-between">
-              <p className="my-0 ms-4" style={{cursor: "pointer"}} onClick={navigateHPHome}>Home</p>
-              <p className="my-0 " style={{cursor: "pointer"}}>Blog</p>
-              <p className="my-0 " onClick={redirectToTutorials} style={{cursor: "pointer"}}>Tutorials</p>
-              <p className="my-0 ">Link 2 </p>
+              <p
+                className="my-0 ms-5"
+                style={{ cursor: "pointer" }}
+                onClick={navigateHPHome}
+              >
+                Home
+              </p>
+              <p
+                className="my-0 "
+                onClick={redirectToCreateBlog}
+                style={{ cursor: "pointer" }}
+              >
+                Blog
+              </p>
+              <p
+                className="my-0 "
+                onClick={redirectToTutorials}
+                style={{ cursor: "pointer" }}
+              >
+                Tutorials
+              </p>
+              {/* <p className="my-0 ">Link 2 </p>
               <p className="my-0 ">Link 3 </p>
-              <p className="my-0 ">Link 4</p>
+              <p className="my-0 ">Link 4</p> */}
             </Nav>
           </Navbar.Collapse>
         </Container>

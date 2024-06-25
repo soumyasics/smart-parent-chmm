@@ -1,16 +1,19 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axiosInstance from "../../../apis/axiosInstance";
 import TutorialCard from "./tutorialCard";
 import { VideoType } from "./types.ts";
 import { ItemsNotFound } from "../../../pages/parent/itemsNotFound/itemsNotFound.tsx";
-export const ViewTutroials = () => {
+import { FC } from "react";
+
+interface ViewTutorialsProps {
+  healthProfessionalId: string;
+}
+
+export const ViewTutorials: FC<ViewTutorialsProps> = ({
+  healthProfessionalId,
+}) => {
   const [videos, setVideos] = useState<VideoType[]>([]);
-  const navigate = useNavigate();
-  const { userType, userId } = useSelector((state: RootState) => state.user);
   const getHPVideoTutorials = async (id: string) => {
     try {
       const res = await axiosInstance.get(`/getTutorialsByHPId/${id}`);
@@ -25,12 +28,7 @@ export const ViewTutroials = () => {
     }
   };
   useEffect(() => {
-    if (userType !== "healthProfessional" || !userId) {
-      toast.error("Please login again");
-      navigate("/hp/login");
-    } else {
-      getHPVideoTutorials(userId);
-    }
+    getHPVideoTutorials(healthProfessionalId);
   }, []);
   return (
     <>
