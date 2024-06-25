@@ -7,8 +7,8 @@ interface ItemsNotFoundProps {
   description?: string;
 }
 export const ItemsNotFound: React.FC<ItemsNotFoundProps> = ({
-  title = "No Todo Items Found",
-  description = "  You have no pending tasks. Enjoy your free time!",
+  title = "",
+  description = "  ",
 }) => {
   return (
     <Container className="no-todo-container text-center">

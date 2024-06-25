@@ -34,7 +34,7 @@ export const DisplayTodoTable = () => {
     <Container className="my-5" style={{ minHeight: "300px" }}>
       <h2 className="text-center">Todo List</h2>
       {todos.length === 0 ? (
-        <ItemsNotFound />
+        <ItemsNotFound title="No Todo Items Found" description="You have no pending tasks. Enjoy your free time!"/>
       ) : (
         <Table striped bordered hover>
           <thead>
