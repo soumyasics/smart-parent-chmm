@@ -8,6 +8,20 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { toast } from "react-hot-toast";
 import axiosInstance from "../../../apis/axiosInstance";
+import { VideoStructureType } from "../../../redux/types";
+import { ViewTutorials } from "../view-tutorials/viewTutorials";
+
+export interface VideoType {
+  title: string;
+  description: string;
+  thumbnail: VideoStructureType;
+  video: VideoStructureType;
+  HPId: string;
+  _id: string;
+  target: string;
+  duration: string;
+}
+
 interface HPDetailsContainerProps {
   data: HealthProfessionalData;
 }
@@ -22,7 +36,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     parentId: "",
     healthProfessionalId: "",
   });
-  console.log('pa', parentHpIds)
+  const [videos, setVideos] = useState<VideoType[]>([]);
   const [subscribed, setSubscribed] = useState(false);
   const { userType, userId } = useSelector((state: RootState) => state.user);
   const { id: healthProfessionalId } = useParams();
@@ -60,6 +74,31 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     }
   }, []);
 
+  // tutorials logic
+
+  useEffect(() => {
+    if (subscribed) {
+      getHPVideoTutorials(healthProfessionalId);
+    }
+  }, [subscribed]);
+
+  const getHPVideoTutorials = async (id: string | undefined) => {
+    if (!id) {
+      return;
+    }
+    try {
+      const res = await axiosInstance.get(`/getTutorialsByHPId/${id}`);
+      if (res.status === 200) {
+        setVideos(res.data.data);
+      } else {
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      console.log("Error in getHPVideoTutorials", error);
+      toast.error("Something went wrong");
+    }
+  };
+
   const { profilePicture } = useProfilePicture(data?.profilePicture?.filename);
   const navigate = useNavigate();
   const redirectToPaymentPage = (id: string) => {
@@ -87,7 +126,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                 <Card.Title className="mt-3 text-center">
                   Name: {data.name}
                 </Card.Title>
-                <Card.Text className='mt-5'>
+                <Card.Text className="mt-5">
                   <Row>
                     <Col>
                       <p>
@@ -102,7 +141,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                       </p>
                     </Col>
                     <Col>
-                      
                       <p>
                         <strong>Category:</strong> {data.category} <br />
                       </p>
@@ -131,6 +169,9 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
           </Card>
         </Col>
       </Row>
+      {healthProfessionalId && subscribed && (
+        <ViewTutorials healthProfessionalId={healthProfessionalId} />
+      )}
     </Container>
   );
 };

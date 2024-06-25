@@ -22,10 +22,10 @@ interface VideoDataType {
 
 export const UploadVideo = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("title");
-  const [description, setDescription] = useState("desc");
-  const [target, setTarget] = useState("3");
-  const [duration, setDuration] = useState("3");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [target, setTarget] = useState("");
+  const [duration, setDuration] = useState("");
 
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
@@ -75,6 +75,10 @@ export const UploadVideo = () => {
     sendDataToServer(videoObj);
   };
 
+  const resetFields = () => {
+    navigate("/hp/profile");
+  };
+
   const sendDataToServer = async (videoObj: VideoDataType) => {
     const formData = new FormData();
     formData.append("title", videoObj.title);
@@ -100,6 +104,7 @@ export const UploadVideo = () => {
       let res = await axiosMultipartInstance.post("uploadVideo", formData);
       if (res.status === 200) {
         toast.success("Tutorial uploaded successfully");
+        resetFields();
       } else {
         alert("Something went wrong");
       }

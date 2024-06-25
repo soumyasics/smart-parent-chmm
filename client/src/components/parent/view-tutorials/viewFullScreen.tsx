@@ -1,4 +1,3 @@
-import { HPNavbar } from "../hpNavbar/hpNavbar";
 import { CommonFooter } from "../../common/footer/footer";
 import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
@@ -7,8 +6,9 @@ import { BASE_URL } from "../../../apis/baseUrl";
 import toast from "react-hot-toast";
 import { capitalizeFirstLetter } from "../../../utils/modification/capitalizeFirstLetter";
 import { VideoType } from "./types";
+import { ParentNavbar } from "../parentNavbar/parentNavbar";
 
-export const WatchTutorialFullScreen = () => {
+export const ParentWatchTutorialFullScreen = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ export const WatchTutorialFullScreen = () => {
 
   return (
     <div>
-      <HPNavbar />
+      <ParentNavbar />
       <div style={{ minHeight: "700px" }} className="p-5">
         <h3 className="text-center">Watch Video Tutorials</h3>
         <div className="mt-5 d-flex gap-5 ">
