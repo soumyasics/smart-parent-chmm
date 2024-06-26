@@ -30,6 +30,21 @@ export const ViewTutorials: FC<ViewTutorialsProps> = ({
   useEffect(() => {
     getHPVideoTutorials(healthProfessionalId);
   }, []);
+
+  if (videos.length === 0) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <h3>No videos found</h3>
+      </div>
+    );
+  }
   return (
     <>
       {videos.length === 0 && (

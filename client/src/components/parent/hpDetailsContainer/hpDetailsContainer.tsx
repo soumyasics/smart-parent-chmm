@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 import axiosInstance from "../../../apis/axiosInstance";
 import { VideoStructureType } from "../../../redux/types";
 import { ViewTutorials } from "../view-tutorials/viewTutorials";
+import { ParentViewBlogs } from "../viewBlogs/viewBlogs";
 
 export interface VideoType {
   title: string;
@@ -38,7 +39,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   });
   console.log("parentHpIds", parentHpIds);
   const [videos, setVideos] = useState<VideoType[]>([]);
-  console.log("vide", videos)
+  console.log("vide", videos);
   const [subscribed, setSubscribed] = useState(false);
   const { userType, userId } = useSelector((state: RootState) => state.user);
   const { id: healthProfessionalId } = useParams();
@@ -107,6 +108,8 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     navigate(`/parent/payment/${id}`);
   };
 
+
+  
   return (
     <Container className="mt-5">
       <h3 className="text-center text-primary shadow">Health Professional</h3>
@@ -172,7 +175,14 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
         </Col>
       </Row>
       {healthProfessionalId && subscribed && (
-        <ViewTutorials healthProfessionalId={healthProfessionalId} />
+        <>
+          <div className="mt-5">
+            <ViewTutorials healthProfessionalId={healthProfessionalId} />
+          </div>
+          <div className="mt-5">
+            <ParentViewBlogs healthProfessionalId={healthProfessionalId} />
+          </div>
+        </>
       )}
     </Container>
   );

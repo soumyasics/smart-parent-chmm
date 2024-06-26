@@ -1,7 +1,7 @@
 import MessageInput from "./MessageInput";
 import { Messages } from "./Messages";
 import { TiMessages } from "react-icons/ti";
-import { VCData } from "../types.ts";
+import { ParentData } from "../types.ts";
 import { FC, useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../../../utils/modification/capitalizeFirstLetter.ts";
 import { useSelector } from "react-redux";
@@ -10,13 +10,12 @@ import { useCustomNavigate } from "../../../../hooks/useCustomNavigate.ts";
 import axiosInstance from "../../../../apis/axiosInstance.ts";
 import axios from "axios";
 import { ChatMessage } from "../types.ts";
-
 interface MessageContainerProps {
-  activeParticipant: VCData | null;
+  activeParticipant: ParentData | null;
 }
 
 interface GetConversation {
-  VCId: string;
+  HPId: string;
   parentId: string;
 }
 export const MessageContainer: FC<MessageContainerProps> = ({
@@ -27,27 +26,27 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const [error, setError] = useState("");
   const isChatSelected = activeParticipant ? true : null;
   const navigateTo = useCustomNavigate();
-  const { userId: parentId } = useSelector((state: RootState) => state.user);
+  const { userId: HPId } = useSelector((state: RootState) => state.user);
 
-  console.log("err", error)
   const { userData } = useSelector((state: RootState) => state.user);
   useEffect(() => {
-    const VCId = activeParticipant?._id;
-    if (VCId && parentId) {
+    const parentId = activeParticipant?._id;
+    if (HPId && parentId) {
       getConversation({
-        VCId,
+        HPId,
         parentId,
       });
     } else {
-      console.log("Choose a VC first");
+      console.log("Choose a parent first");
     }
-  }, [activeParticipant, parentId, message]);
+  }, [activeParticipant, HPId, message]);
 
   const getConversation = async (payload: GetConversation) => {
     try {
-      const res = await axiosInstance.post("getSingleConversation", payload);
+      const res = await axiosInstance.post("getSingleConversationOfHPAndParent", payload);
       if (res.status === 200) {
         let data: ChatMessage[] = res.data?.data?.messages || [];
+
         const reversedData = data.reverse();
 
         setConversation(reversedData);
@@ -70,7 +69,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   };
 
   const navigateToHome = () => {
-    navigateTo("/parent/home");
+    navigateTo("/hp/home");
   };
   return (
     <div className="tw-w-3/4 tw-flex tw-flex-col tw-bg-gray-900 tw-overflow-auto">

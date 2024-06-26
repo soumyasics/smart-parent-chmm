@@ -5,10 +5,11 @@ import { HPProfileSection } from "./profileSection/profileSection";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { useState } from "react";
 import { HPResetPassword } from "../resetPassword/resetPassword";
-import "./profilePage.css";
 import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
 import { ViewTutroials } from "../../../components/hp/view-tutorials/viewTutorials";
 import { ViewBlogs } from "../viewBlogs/viewBlogs";
+import "./profilePage.css";
+import { MySubscriptions } from "../mySubscriptions/mySubscriptions";
 
 export const HPProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -28,6 +29,7 @@ export const HPProfilePage = () => {
             {activePage === "reset-password" && <HPResetPassword />}
             {activePage === "My-Tutorials" && <ViewTutroials />}
             {activePage === "My-blogs" && <ViewBlogs />}
+            {activePage === "My-subscribers" && <MySubscriptions />}
           </Col>
         </Row>
       </Container>

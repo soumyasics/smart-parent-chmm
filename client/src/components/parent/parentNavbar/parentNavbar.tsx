@@ -61,6 +61,9 @@ export const ParentNavbar = () => {
   const redirectToHP = () => {
     navigate("/parent/view-hp");
   };
+  const redirectToSubscribedHP = () => {
+    navigate("/parent/view-subscribed-hp");
+  };
   const redirectToAW = () => {
     navigate("/parent/view-aw");
   };
@@ -112,10 +115,20 @@ export const ParentNavbar = () => {
                   className={`dropdown-menu ${styles.parentNavDropdown}`}
                   aria-labelledby="dropdownMenuLink"
                 >
-                  <p className="dropdown-item mb-0" role="button" onClick={redirectToHP}>
+                  <p
+                    className="dropdown-item mb-0"
+                    role="button"
+                    onClick={redirectToHP}
+                  >
                     View all
                   </p>
-                  
+                  <p
+                    className="dropdown-item mb-0"
+                    role="button"
+                    onClick={redirectToSubscribedHP}
+                  >
+                    View Subscribed
+                  </p>
                 </div>
               </div>
 

@@ -11,7 +11,8 @@ import { userLoggedOut } from "../../../../redux/reducers/userSlilce";
 import { useNavigate } from "react-router-dom";
 import { IoVideocamOutline } from "react-icons/io5";
 import { FaStickyNote } from "react-icons/fa";
-
+import { MdSubscriptions } from "react-icons/md";
+import { IoMdVideocam } from "react-icons/io";
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
 }
@@ -26,7 +27,7 @@ export const VCProfileLeftSidebar: React.FC<
   };
   return (
     <div className="left-sidebar">
-      <h2 className="sidebar-title">Vaccination Center</h2>
+      <h2 className="sidebar-title">Health Professional</h2>
       <ListGroup variant="flush" id="profile-page-sidebar">
         <ListGroup.Item
           className="sidebar-item d-flex"
@@ -47,13 +48,19 @@ export const VCProfileLeftSidebar: React.FC<
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("My-Tutorials")}
         >
-          <IoVideocamOutline className="sidebar-icon" /> My Tutorials
+          <IoMdVideocam className="sidebar-icon" /> My Tutorials
         </ListGroup.Item>
         <ListGroup.Item
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("My-blogs")}
         >
           <FaStickyNote className="sidebar-icon" /> My Blogs
+        </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item d-flex"
+          onClick={() => changeActivePage("My-subscribers")}
+        >
+          <MdSubscriptions className="sidebar-icon" /> My Subscribers
         </ListGroup.Item>
 
         <ListGroup.Item

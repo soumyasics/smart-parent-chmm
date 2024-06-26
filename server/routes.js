@@ -12,6 +12,8 @@ const bookSlotController = require("./BookSlot/bookSlotController");
 const subscriptionController = require("./SubscribeHp/subscribeController");
 const tutroialController = require("./Tutorials/tutorialController");
 const blogController = require("./blog/blogController");
+const parentAndHPChatController = require("./MessageBwParentAndHP/messageController");
+
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -80,6 +82,8 @@ router.get("/getAllPendingHp", hp.getAllPendingHP);
 router.get("/getAllApprovedHp", hp.getAllApprovedHP);
 router.get("/getAllRejectedHp", hp.getAllRejectedHP);
 router.get("/getHPDataById/:id", hp.getHPDataById);
+router.get("/getHPsAllSubscribers/:id", hp.getHPsAllSubscribers);
+
 router.patch("/updateHPById/:id", hp.uploadProfilePicture, hp.updateHPById);
 router.post("/viewHpById/:id", hp.viewHpById);
 router.post("/viewHps", hp.viewHps);
@@ -125,8 +129,13 @@ router.patch(
 );
 
 // Parent and vc conversation routes
+// Parent and vc conversation routes
 router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
 router.post("/getSingleConversation", parentAndVCChat.getSingleConversation);
+
+// Parent and hp routes
+router.post("/sendMessageParentAndHP", parentAndHPChatController.sendMessageParentAndHP);
+router.post("/getSingleConversationOfHPAndParent", parentAndHPChatController.getSingleConversation);
 
 // Asha workers
 

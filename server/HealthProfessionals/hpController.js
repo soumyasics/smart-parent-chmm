@@ -55,12 +55,10 @@ const registerHP = async (req, res) => {
       category !== "Physician" &&
       category !== "Fitness Specialist"
     ) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Category must be Dietitian, Psychiatrist, Physician or Fitness Specialist",
-        });
+      return res.status(400).json({
+        message:
+          "Category must be Dietitian, Psychiatrist, Physician or Fitness Specialist",
+      });
     }
 
     const certificateFile = req.files.find((file) => {
@@ -153,7 +151,7 @@ const adminApprovedHPRequest = async (req, res) => {
     hp.isAdminApproved = "approved";
 
     await hp.save();
-    
+
     return res.status(200).json({
       message: "Health Professional approved successfully",
       data: hp,
@@ -341,6 +339,50 @@ const updateHPById = async (req, res) => {
   }
 };
 
+const getHPsAllSubscribers = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+    const hp = await HPModel.findById(id);
+    if (!hp) {
+      return res.status(404).json({ message: "Health professional not found" });
+    }
+
+    const allHPSubscribers = await HPModel.findById(id)
+      .populate("subscribers")
+      .exec();
+
+    if (!allHPSubscribers) {
+      return res.status(404).json({ message: "Health professional not found" });
+    }
+
+    let subscribers = [];
+    if (
+      allHPSubscribers.subscribers &&
+      allHPSubscribers.subscribers?.length > 0
+    ) {
+      subscribers = allHPSubscribers.subscribers;
+    }
+    // Use a Set to remove duplicates
+    const uniqueSubscriberss = Array.from(
+      new Set(subscribers.map((subscribers) => subscribers._id.toString()))
+    ).map((id) =>
+      subscribers.find((subscribers) => subscribers._id.toString() === id)
+    );
+
+    return res.status(200).json({
+      message: "Health professional all subscribers.",
+      data: uniqueSubscriberss,
+    });
+  } catch (error) {
+    console.error("Error getting all health professional subscribers:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
 const viewHps = (req, res) => {
   HPModel.find()
     .exec()
@@ -480,4 +522,5 @@ module.exports = {
   deleteHpById,
   upload,
   uploadProfilePicture,
+  getHPsAllSubscribers,
 };

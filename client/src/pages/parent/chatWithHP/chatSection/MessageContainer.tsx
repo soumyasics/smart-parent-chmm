@@ -1,7 +1,7 @@
 import MessageInput from "./MessageInput";
 import { Messages } from "./Messages";
 import { TiMessages } from "react-icons/ti";
-import { VCData } from "../types.ts";
+import { HPData } from "../types.ts";
 import { FC, useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../../../utils/modification/capitalizeFirstLetter.ts";
 import { useSelector } from "react-redux";
@@ -12,16 +12,17 @@ import axios from "axios";
 import { ChatMessage } from "../types.ts";
 
 interface MessageContainerProps {
-  activeParticipant: VCData | null;
+  activeParticipant: HPData | null;
 }
 
 interface GetConversation {
-  VCId: string;
+  HPId: string;
   parentId: string;
 }
 export const MessageContainer: FC<MessageContainerProps> = ({
   activeParticipant,
 }) => {
+  console.log('acit', activeParticipant)
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState<ChatMessage[]>([]);
   const [error, setError] = useState("");
@@ -32,10 +33,10 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   console.log("err", error)
   const { userData } = useSelector((state: RootState) => state.user);
   useEffect(() => {
-    const VCId = activeParticipant?._id;
-    if (VCId && parentId) {
+    const HPId = activeParticipant?._id;
+    if (HPId && parentId) {
       getConversation({
-        VCId,
+        HPId,
         parentId,
       });
     } else {
@@ -45,7 +46,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
 
   const getConversation = async (payload: GetConversation) => {
     try {
-      const res = await axiosInstance.post("getSingleConversation", payload);
+      const res = await axiosInstance.post("getSingleConversationOfHPAndParent", payload);
       if (res.status === 200) {
         let data: ChatMessage[] = res.data?.data?.messages || [];
         const reversedData = data.reverse();

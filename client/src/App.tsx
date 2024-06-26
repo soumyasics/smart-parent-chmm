@@ -33,7 +33,6 @@ import { AWHome } from "./pages/ashaWorker/awHome/awHome.tsx";
 import { AWForgotPassword } from "./pages/ashaWorker/forgotPassword/forgotPassword.tsx";
 import { AWProfilePage } from "./pages/ashaWorker/awProfile/profilePage.tsx";
 import { Toaster } from "react-hot-toast";
-import "./App.css";
 import { ViewVCDeatils } from "./pages/parent/viewVaccincationCenters/viewVCDetails.tsx";
 import { ViewHP } from "./pages/parent/viewHP/viewHP.tsx";
 import { ViewAW } from "./pages/parent/viewAW/viewAW.tsx";
@@ -45,8 +44,13 @@ import { PaymentPage } from "./components/common/subscribePaymentPage/subscribeP
 import { UploadVideo } from "./pages/hp/uploadVideo/uploadVideo.tsx";
 import { WatchTutorialFullScreen } from "./components/hp/view-tutorials/viewFullScreen.tsx";
 import { ParentWatchTutorialFullScreen } from "./components/parent/view-tutorials/viewFullScreen.tsx";
-import { HPCreateBlog } from "./pages/hp/hpCreateBlog/createBlog.tsx";
 import { FullBlog } from "./pages/hp/viewBlogs/fullBlog.tsx";
+import { ParentFullBlog } from "./components/parent/viewBlogs/parentFullBlog.tsx";
+import {HPCreateBlog} from "./pages/hp/hpCreateBlog/createBlog.tsx";
+import "./App.css";
+import { ViewSubscribedHP } from "./pages/parent/viewSubscribedHP/viewHP.tsx";
+import { ChatWithParentAndHP } from "./pages/hp/chatWithParent/chatWithParent.tsx";
+import { ChatWithHP } from "./pages/parent/chatWithHP/chatWithHP.tsx";
 
 function App() {
   return (
@@ -72,10 +76,12 @@ function App() {
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
         <Route path="/parent/chat-vc" element={<ChatWithVC />} />
+        <Route path="/parent/chat-hp" element={<ChatWithHP />} />
         <Route path="/parent/view-aw" element={<ViewAW />} />
         <Route path="/parent/view-vc" element={<ViewVaccinationCenters />} />
         <Route path="/parent/view-vc/:id" element={<ViewVCDeatils />} />
         <Route path="/parent/view-hp" element={<ViewHP />} />
+        <Route path="/parent/view-subscribed-hp" element={<ViewSubscribedHP />} />
         <Route path="/parent/view-hp/:id" element={<ViewHPDeatils />} />
         <Route path="/parent/book-vaccine" element={<BookVaccine />} />
         <Route
@@ -90,6 +96,7 @@ function App() {
         <Route path="/parent/vc-chart" element={<VaccinationChart />} />
         <Route path="/parent/payment/:id" element={<PaymentPage />} />
         <Route path="/parent/full-screen/:id" element={<ParentWatchTutorialFullScreen />} />
+        <Route path="/parent/blog/:id" element={<ParentFullBlog />} />
 
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />
@@ -101,6 +108,7 @@ function App() {
         <Route path="/hp/full-screen/:id" element={<WatchTutorialFullScreen />} />
         <Route path="/hp/blog/:id" element={<FullBlog />} />
         <Route path="/hp/create-blog" element={<HPCreateBlog />} />
+        <Route path="/hp/chat" element={<ChatWithParentAndHP />} />
 
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />
