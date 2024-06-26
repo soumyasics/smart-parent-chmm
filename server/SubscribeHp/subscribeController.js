@@ -89,10 +89,15 @@ const getAllSubscriptionByParentId = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid parentId" });
     }
-    const subscriptions = await SubscribeModel.find({ parentId: id });
+    const subscriptions = await SubscribeModel.find({ parentId: id })
+      .populate("healthProfessionalId")
+      .exec();
+
+      // todo=>fix
+    const allHPs = subscriptions.map((subscription) => subscription.healthProfessionalId);
     return res
       .status(200)
-      .json({ message: "Subscriptions", data: subscriptions });
+      .json({ message: "Subscriptions", data: allHPs });
   } catch (error) {
     console.error("Error in getAllSubscriptionByParentId: ", error);
     return res

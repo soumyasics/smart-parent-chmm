@@ -47,12 +47,11 @@ export const HPCreateBlog = () => {
     setBlogData({ ...blogData, [name]: files[0] });
   };
 
-  console.log("blog data", blogData);
 
   const handleSubmit = () => {
     const { title, para1, para2, img } = blogData;
     if (!title || !para1 || !para2 || !img) {
-      alert("Please fill all the fields");
+      toast.error("Please fill all the fields");
       return;
     }
 
@@ -98,6 +97,7 @@ export const HPCreateBlog = () => {
               </div>
               <input
                 type="text"
+                placeholder="Enter Title"
                 name="title"
                 value={blogData.title}
                 onChange={handleChanges}
@@ -113,6 +113,7 @@ export const HPCreateBlog = () => {
               <textarea
                 rows={5}
                 name="para1"
+                placeholder="Enter Blog Content"
                 value={blogData.para1}
                 onChange={handleChanges}
               />
@@ -126,6 +127,8 @@ export const HPCreateBlog = () => {
               </div>
               <textarea
                 name="para2"
+                rows={5}
+                placeholder="Enter Conclusion"
                 value={blogData.para2}
                 onChange={handleChanges}
               />

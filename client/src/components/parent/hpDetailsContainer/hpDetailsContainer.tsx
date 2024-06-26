@@ -108,6 +108,8 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     navigate(`/parent/payment/${id}`);
   };
 
+
+  
   return (
     <Container className="mt-5">
       <h3 className="text-center text-primary shadow">Health Professional</h3>

@@ -44,10 +44,11 @@ import { PaymentPage } from "./components/common/subscribePaymentPage/subscribeP
 import { UploadVideo } from "./pages/hp/uploadVideo/uploadVideo.tsx";
 import { WatchTutorialFullScreen } from "./components/hp/view-tutorials/viewFullScreen.tsx";
 import { ParentWatchTutorialFullScreen } from "./components/parent/view-tutorials/viewFullScreen.tsx";
-import { HPCreateBlog } from "./pages/hp/hpCreateBlog/createBlog.tsx";
 import { FullBlog } from "./pages/hp/viewBlogs/fullBlog.tsx";
 import { ParentFullBlog } from "./components/parent/viewBlogs/parentFullBlog.tsx";
+import {HPCreateBlog} from "./pages/hp/hpCreateBlog/createBlog.tsx";
 import "./App.css";
+import { ViewSubscribedHP } from "./pages/parent/viewSubscribedHP/viewHP.tsx";
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
         <Route path="/parent/view-vc" element={<ViewVaccinationCenters />} />
         <Route path="/parent/view-vc/:id" element={<ViewVCDeatils />} />
         <Route path="/parent/view-hp" element={<ViewHP />} />
+        <Route path="/parent/view-subscribed-hp" element={<ViewSubscribedHP />} />
         <Route path="/parent/view-hp/:id" element={<ViewHPDeatils />} />
         <Route path="/parent/book-vaccine" element={<BookVaccine />} />
         <Route
