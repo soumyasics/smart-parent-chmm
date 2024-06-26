@@ -6,8 +6,8 @@ import { ViewSubscribedHPTable } from "../../../components/parent/viewSubscribed
 
 export const ViewSubscribedHP = () => {
   const navigateTo = useCustomNavigate();
-  const redirectToParentVCChat = () => {
-    navigateTo("/parent/chat-vc");
+  const redirectToParentHPChat = () => {
+    navigateTo("/parent/chat-hp");
   };
   return (
     <div>
@@ -18,7 +18,7 @@ export const ViewSubscribedHP = () => {
           <Button
             style={{ height: "35px", width: "100px" }}
             className="tw-ml-5"
-            onClick={redirectToParentVCChat}
+            onClick={redirectToParentHPChat}
           >
             {" "}
             Chat{" "}

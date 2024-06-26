@@ -50,6 +50,7 @@ import {HPCreateBlog} from "./pages/hp/hpCreateBlog/createBlog.tsx";
 import "./App.css";
 import { ViewSubscribedHP } from "./pages/parent/viewSubscribedHP/viewHP.tsx";
 import { ChatWithParentAndHP } from "./pages/hp/chatWithParent/chatWithParent.tsx";
+import { ChatWithHP } from "./pages/parent/chatWithHP/chatWithHP.tsx";
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
         <Route path="/parent/profile" element={<ParentProfilePage />} />
         <Route path="/parent/register-child" element={<RegisterChild />} />
         <Route path="/parent/chat-vc" element={<ChatWithVC />} />
+        <Route path="/parent/chat-hp" element={<ChatWithHP />} />
         <Route path="/parent/view-aw" element={<ViewAW />} />
         <Route path="/parent/view-vc" element={<ViewVaccinationCenters />} />
         <Route path="/parent/view-vc/:id" element={<ViewVCDeatils />} />
