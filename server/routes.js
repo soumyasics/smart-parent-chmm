@@ -12,6 +12,8 @@ const bookSlotController = require("./BookSlot/bookSlotController");
 const subscriptionController = require("./SubscribeHp/subscribeController");
 const tutroialController = require("./Tutorials/tutorialController");
 const blogController = require("./blog/blogController");
+const parentAndHPChatController = require("./MessageBwParentAndHP/messageController");
+
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -126,7 +128,11 @@ router.patch(
 
 // Parent and vc conversation routes
 router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
-router.post("/getSingleConversation", parentAndVCChat.getSingleConversation);
+router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
+
+// Parent and hp routes
+router.post("/sendMessageParentAndHP", parentAndHPChatController.sendMessageParentAndHP);
+router.post("/getSingleConversation", parentAndHPChatController.getSingleConversation);
 
 // Asha workers
 
