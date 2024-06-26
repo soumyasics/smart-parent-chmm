@@ -11,6 +11,7 @@ const vaccineController = require("./Vaccine/vaccineController");
 const bookSlotController = require("./BookSlot/bookSlotController");
 const subscriptionController = require("./SubscribeHp/subscribeController");
 const tutroialController = require("./Tutorials/tutorialController");
+const blogController = require("./blog/blogController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -220,4 +221,11 @@ router.post(
 router.get("/getAllTutorials", tutroialController.getAllTutorials);
 router.get("/getTutorialsByHPId/:id", tutroialController.getTutorialsByHPId);
 router.get("/getTutorialById/:id", tutroialController.getTutorialById);
+
+// blog
+
+router.post("/createBlog",  blogController.upload, blogController.createBlog);
+router.get("/getAllBlogs", blogController.getAllBlogs);
+router.get("/getBlogById/:id", blogController.getBlogById);
+router.get("/getBlogsByHPId/:id", blogController.getBlogsByHPId);
 module.exports = router;

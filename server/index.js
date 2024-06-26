@@ -18,7 +18,7 @@ app.use('/child_crescendo_api', router);
 
 // this route should be last for handling undefined routes
 app.all('/*', (req, res) => {
-  res.send("Please check the route")
+  res.status(500).json("Please check the route")
 })
 
 

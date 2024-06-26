@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { userLoggedOut } from "../../../../redux/reducers/userSlilce";
 import { useNavigate } from "react-router-dom";
 import { IoVideocamOutline } from "react-icons/io5";
+import { FaStickyNote } from "react-icons/fa";
 
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
@@ -47,6 +48,12 @@ export const VCProfileLeftSidebar: React.FC<
           onClick={() => changeActivePage("My-Tutorials")}
         >
           <IoVideocamOutline className="sidebar-icon" /> My Tutorials
+        </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item d-flex"
+          onClick={() => changeActivePage("My-blogs")}
+        >
+          <FaStickyNote className="sidebar-icon" /> My Blogs
         </ListGroup.Item>
 
         <ListGroup.Item

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
@@ -65,20 +65,21 @@ export const HPCreateBlog = () => {
     formData.append("para1", blogData.para1);
     formData.append("para2", blogData.para2);
     if (blogData.img) {
-      formData.append("files", blogData.img);
+      formData.append("img", blogData.img);
     }
     formData.append("HPId", blogData.HPId);
     try {
-      let res = await axiosMultipartInstance.post("addBlog", formData);
+      let res = await axiosMultipartInstance.post("createBlog", formData);
       if (res.status === 200) {
-        alert("Blog posted successfully");
-
+        toast.success("Blog posted successfully");
+        console.log("res ponse ", res);
         setTimeout(() => {
-          navigate("/rp-view-tutorials");
+          // navigate("/rp-view-tutorials");
         }, 1500);
       }
     } catch (error) {
       console.log("error on get task data", error);
+      toast.error("Something went wrong");
     }
   };
   return (
@@ -90,7 +91,6 @@ export const HPCreateBlog = () => {
         </div>
 
         <div className="rpblogform">
-            
           <div className="rpblogfield">
             <div className="rpbloginputs">
               <div className="bloglabel">
@@ -157,4 +157,3 @@ export const HPCreateBlog = () => {
     </>
   );
 };
-
