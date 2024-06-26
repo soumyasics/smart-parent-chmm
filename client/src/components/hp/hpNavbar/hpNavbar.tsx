@@ -61,6 +61,9 @@ export const HPNavbar = () => {
   const redirectToCreateBlog = () => {
     navigate("/hp/create-blog");
   };
+  const redirectToChatWithParent = () => {
+    navigate("/hp/chat")
+  }
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
@@ -94,6 +97,13 @@ export const HPNavbar = () => {
                 style={{ cursor: "pointer" }}
               >
                 Tutorials
+              </p>
+              <p
+                className="my-0 "
+                onClick={redirectToChatWithParent}
+                style={{ cursor: "pointer" }}
+              >
+                Chat
               </p>
               {/* <p className="my-0 ">Link 2 </p>
               <p className="my-0 ">Link 3 </p>

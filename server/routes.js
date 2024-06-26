@@ -127,12 +127,13 @@ router.patch(
 );
 
 // Parent and vc conversation routes
+// Parent and vc conversation routes
 router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
-router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
+router.post("/getSingleConversation", parentAndVCChat.getSingleConversation);
 
 // Parent and hp routes
 router.post("/sendMessageParentAndHP", parentAndHPChatController.sendMessageParentAndHP);
-router.post("/getSingleConversation", parentAndHPChatController.getSingleConversation);
+router.post("/getSingleConversationOfHPAndParent", parentAndHPChatController.getSingleConversation);
 
 // Asha workers
 

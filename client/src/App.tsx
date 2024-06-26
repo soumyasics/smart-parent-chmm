@@ -49,6 +49,7 @@ import { ParentFullBlog } from "./components/parent/viewBlogs/parentFullBlog.tsx
 import {HPCreateBlog} from "./pages/hp/hpCreateBlog/createBlog.tsx";
 import "./App.css";
 import { ViewSubscribedHP } from "./pages/parent/viewSubscribedHP/viewHP.tsx";
+import { ChatWithParentAndHP } from "./pages/hp/chatWithParent/chatWithParent.tsx";
 
 function App() {
   return (
@@ -105,6 +106,7 @@ function App() {
         <Route path="/hp/full-screen/:id" element={<WatchTutorialFullScreen />} />
         <Route path="/hp/blog/:id" element={<FullBlog />} />
         <Route path="/hp/create-blog" element={<HPCreateBlog />} />
+        <Route path="/hp/chat" element={<ChatWithParentAndHP />} />
 
         {/* vaccination center routes  */}
         <Route path="/vc/home" element={<VCHome />} />
