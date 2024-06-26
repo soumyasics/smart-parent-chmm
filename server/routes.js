@@ -82,6 +82,8 @@ router.get("/getAllPendingHp", hp.getAllPendingHP);
 router.get("/getAllApprovedHp", hp.getAllApprovedHP);
 router.get("/getAllRejectedHp", hp.getAllRejectedHP);
 router.get("/getHPDataById/:id", hp.getHPDataById);
+router.get("/getHPsAllSubscribers/:id", hp.getHPsAllSubscribers);
+
 router.patch("/updateHPById/:id", hp.uploadProfilePicture, hp.updateHPById);
 router.post("/viewHpById/:id", hp.viewHpById);
 router.post("/viewHps", hp.viewHps);

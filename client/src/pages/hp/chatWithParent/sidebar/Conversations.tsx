@@ -4,6 +4,8 @@ import { useCustomNavigate } from "../../../../hooks/useCustomNavigate";
 import { ParentData } from "../types.ts";
 import { FC, useEffect, useState } from "react";
 import { PageLoading2 } from "../../../../components/pageLoading/pageLoading2.tsx";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store.ts";
 interface ConversationProps {
   searchedParticipant: string;
   activeParticipant: ParentData | null;
@@ -17,10 +19,11 @@ const Conversations: FC<ConversationProps> = ({
   activeParticipant,
   chooseParticipant,
 }) => {
+  const {userId} = useSelector((state: RootState) => state.user)
   const [filteredParticipants, setFilteredParticipants] =
     useState<fetchDataType>([]);
     // todo=>chat with  only subscribed parents
-  const { isLoading, data: allParents, error } = useFetchData("/getAllParents");
+  const { isLoading, data: allParents, error } = useFetchData(`/getHPsAllSubscribers/${userId}`);
   const navigateTo = useCustomNavigate();
 
   useEffect(() => {
