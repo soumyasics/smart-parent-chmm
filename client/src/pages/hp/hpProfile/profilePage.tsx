@@ -8,6 +8,7 @@ import { HPResetPassword } from "../resetPassword/resetPassword";
 import "./profilePage.css";
 import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
 import { ViewTutroials } from "../../../components/hp/view-tutorials/viewTutorials";
+import { ViewBlogs } from "../viewBlogs/viewBlogs";
 
 export const HPProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -26,6 +27,7 @@ export const HPProfilePage = () => {
             {activePage === "profile" && <HPProfileSection />}
             {activePage === "reset-password" && <HPResetPassword />}
             {activePage === "My-Tutorials" && <ViewTutroials />}
+            {activePage === "My-blogs" && <ViewBlogs />}
           </Col>
         </Row>
       </Container>
