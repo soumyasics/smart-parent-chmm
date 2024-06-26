@@ -33,7 +33,6 @@ import { AWHome } from "./pages/ashaWorker/awHome/awHome.tsx";
 import { AWForgotPassword } from "./pages/ashaWorker/forgotPassword/forgotPassword.tsx";
 import { AWProfilePage } from "./pages/ashaWorker/awProfile/profilePage.tsx";
 import { Toaster } from "react-hot-toast";
-import "./App.css";
 import { ViewVCDeatils } from "./pages/parent/viewVaccincationCenters/viewVCDetails.tsx";
 import { ViewHP } from "./pages/parent/viewHP/viewHP.tsx";
 import { ViewAW } from "./pages/parent/viewAW/viewAW.tsx";
@@ -47,6 +46,8 @@ import { WatchTutorialFullScreen } from "./components/hp/view-tutorials/viewFull
 import { ParentWatchTutorialFullScreen } from "./components/parent/view-tutorials/viewFullScreen.tsx";
 import { HPCreateBlog } from "./pages/hp/hpCreateBlog/createBlog.tsx";
 import { FullBlog } from "./pages/hp/viewBlogs/fullBlog.tsx";
+import { ParentFullBlog } from "./components/parent/viewBlogs/parentFullBlog.tsx";
+import "./App.css";
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
         <Route path="/parent/vc-chart" element={<VaccinationChart />} />
         <Route path="/parent/payment/:id" element={<PaymentPage />} />
         <Route path="/parent/full-screen/:id" element={<ParentWatchTutorialFullScreen />} />
+        <Route path="/parent/blog/:id" element={<ParentFullBlog />} />
 
         {/* health professional routes */}
         <Route path="/hp/login" element={<HPLogin />} />

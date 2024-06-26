@@ -9,17 +9,13 @@ import { isHealthProfessionalData } from "../../../types/typeGuard";
 import { HPDetailsContainer } from "../../../components/parent/hpDetailsContainer/hpDetailsContainer";
 export const ViewHPDeatils = () => {
   const { id } = useParams();
-  const { data } = useGetSingleObjectData(
-    `/getHPDataById/${id}`
-  );
+  const { data } = useGetSingleObjectData(`/getHPDataById/${id}`);
   const navigate = useNavigate();
   useEffect(() => {
     if (!id) {
       navigate("/parent/view-hp");
     }
   }, [id]);
-
- 
 
   return (
     <div>
@@ -31,7 +27,9 @@ export const ViewHPDeatils = () => {
           <ErrorHandlingUI />
         )}
       </div>
-      <CommonFooter />
+      <div className="mt-5">
+        <CommonFooter />
+      </div>
     </div>
   );
 };
