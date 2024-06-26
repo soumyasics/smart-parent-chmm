@@ -26,7 +26,7 @@ export const VCProfileLeftSidebar: React.FC<
   };
   return (
     <div className="left-sidebar">
-      <h2 className="sidebar-title">Vaccination Center</h2>
+      <h2 className="sidebar-title">Health Professional</h2>
       <ListGroup variant="flush" id="profile-page-sidebar">
         <ListGroup.Item
           className="sidebar-item d-flex"
