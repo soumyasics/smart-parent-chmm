@@ -18,6 +18,7 @@ export const ViewVaccineDetails: FC<ViewVaccineDetails> = ({
   const [vaccineDetails, setVaccineDetails] = useState<any>(null);
   const [bookedParents, setBookedParents] = useState<any[]>([]);
   const [modalShow, setModalShow] = useState(false);
+  const [selectedParentId, setSelectedParentId] = useState<string>("");
 
   const getVaccineDetails = async () => {
     try {
@@ -109,33 +110,41 @@ export const ViewVaccineDetails: FC<ViewVaccineDetails> = ({
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
+                <th>Address</th>
                 <th>Vaccinated</th>
-                <th>Not Vaccinated</th>
+                {/* <th>Not Vaccinated</th> */}
               </tr>
             </thead>
             <tbody>
               {bookedParents.map((p) => {
                 return (
                   <tr key={p._id}>
-                    <td>{p.name}</td>
-                    <td>{p.email}</td>
-                    <td>{p.phoneNumber}</td>
+                    <td>{p?.name}</td>
+                    <td>{p?.email}</td>
+                    <td>{p?.phoneNumber}</td>
+                    <td>{p?.address.substring(0, 20)}</td>
                     <td>
                       <Button
                         variant="success"
-                        onClick={() => setModalShow(true)}
+                        onClick={() => {
+                          setSelectedParentId(() => p._id);
+                          setModalShow(true);
+                        }}
                       >
                         Vaccinated
                       </Button>
                     </td>
-                    <td>
+                    {/* <td>
                       <Button
                         variant="warning"
-                        onClick={() => setModalShow(true)}
+                        onClick={() => {
+                          setSelectedParentId(() => p._id);
+                          setModalShow(true);
+                        }}
                       >
                         Not Vaccinated
                       </Button>
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}
@@ -144,7 +153,11 @@ export const ViewVaccineDetails: FC<ViewVaccineDetails> = ({
         </div>
       </div>
 
-      <ScheduleModal show={modalShow} onHide={() => setModalShow(false)} />
+      <ScheduleModal
+        parentId={selectedParentId}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </>
   );
 };
