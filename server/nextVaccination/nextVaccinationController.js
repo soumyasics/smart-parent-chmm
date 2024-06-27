@@ -32,8 +32,8 @@ const createVaccinationSchedule = async (req, res) => {
     }
 
     // older parents don't have this fields
-    if (typeof parent.isVaccinated === 'undefined') {
-        parent.isVaccinated = true
+    if (typeof parent.isVaccinated === "undefined") {
+      parent.isVaccinated = true;
     }
     const nextVaccination = new NextVaccinationModel({
       vaccinationCenterId,
@@ -82,13 +82,16 @@ const getVaccinationScheduleByParentId = async (req, res) => {
     if (!parent) {
       return res.status(404).json({ message: "Parent not found" });
     }
-    const nextVaccination = await NextVaccinationModel.find({ parentId: id });
-    return res
-      .status(200)
-      .json({
-        message: "Next vaccination schedule by parent id",
-        data: nextVaccination,
-      });
+    const nextVaccination = await NextVaccinationModel.find({
+      parentId: id,
+    })
+      .populate("vaccinationCenterId")
+      .populate("parentId")
+      .exec();
+    return res.status(200).json({
+      message: "Next vaccination schedule by parent id",
+      data: nextVaccination,
+    });
   } catch (error) {
     return res.status(500).json({
       message: "Error on get vaccination schedule by parent id.",

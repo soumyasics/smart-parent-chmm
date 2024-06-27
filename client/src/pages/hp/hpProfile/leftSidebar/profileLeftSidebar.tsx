@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { userLoggedOut } from "../../../../redux/reducers/userSlilce";
 import { useNavigate } from "react-router-dom";
-import { IoVideocamOutline } from "react-icons/io5";
 import { FaStickyNote } from "react-icons/fa";
 import { MdSubscriptions } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
