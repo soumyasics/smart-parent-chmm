@@ -51,6 +51,8 @@ import "./App.css";
 import { ViewSubscribedHP } from "./pages/parent/viewSubscribedHP/viewHP.tsx";
 import { ChatWithParentAndHP } from "./pages/hp/chatWithParent/chatWithParent.tsx";
 import { ChatWithHP } from "./pages/parent/chatWithHP/chatWithHP.tsx";
+import { ViewParentTable } from "./pages/ashaWorker/viewParentTable/viewParentTable.tsx";
+import { ViewParentAW } from "./pages/ashaWorker/viewParentTable/viewParentAW.tsx";
 
 function App() {
   return (
@@ -125,6 +127,8 @@ function App() {
         <Route path="/aw/home" element={<AWHome />} />
         <Route path="/aw/forgot-password" element={<AWForgotPassword />} />
         <Route path="/aw/profile" element={<AWProfilePage />} />
+        <Route path="/aw/view-parents" element={<ViewParentAW />} />
+
 
         {/* common pages  */}
         <Route path="/footer" element={<CommonFooter />} />
