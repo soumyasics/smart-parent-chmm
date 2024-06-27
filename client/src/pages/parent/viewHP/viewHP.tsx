@@ -14,14 +14,12 @@ export const ViewHP = () => {
       <div style={{ minHeight: "600px" }}>
         <div className="tw-my-10  tw-flex tw-justify-center tw-align-middle">
           <h4> Health Professionals</h4>
-          <Button
+          {/* <Button
             style={{ height: "35px", width: "100px" }}
             className="tw-ml-5"
             onClick={redirectToParentVCChat}
           >
-            {" "}
-            Chat{" "}
-          </Button>
+          </Button> */}
         </div>
         <ViewHPTable />
       </div>

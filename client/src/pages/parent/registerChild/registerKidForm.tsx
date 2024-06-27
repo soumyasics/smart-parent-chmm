@@ -7,9 +7,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import {toast} from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 export const RegisterKidForm = () => {
   const [parentId, setParentId] = useState<string>("");
-
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -47,7 +48,8 @@ export const RegisterKidForm = () => {
       const res = await axiosMultipartInstance.post("/addKid", formData);
       if (res.status === 201) {
         toast.success("Child registration successfull.");
-        //todo => navigate to profile page
+        
+        navigate('/parent/home')
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {

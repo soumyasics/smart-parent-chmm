@@ -8,7 +8,6 @@ const bookSlot = async (req, res) => {
   try {
     const { vaccinationCenterId, parentId, vaccineId, bookingDate, kidId } =
       req.body;
-    console.log("kidd id", kidId);
     if (!vaccinationCenterId || !parentId || !vaccineId || !bookingDate) {
       return res.status(400).json({
         success: false,
