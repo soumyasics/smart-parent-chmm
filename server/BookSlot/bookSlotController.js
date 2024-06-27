@@ -90,7 +90,6 @@ const bookSlot = async (req, res) => {
       kidId,
     });
 
-    console.log("new book slot", newBookSlot)
     await newBookSlot.save();
 
     return res.status(200).json({

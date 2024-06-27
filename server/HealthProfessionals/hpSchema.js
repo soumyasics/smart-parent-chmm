@@ -44,6 +44,10 @@ const hpSchema = mongoose.Schema(
       type: Object,
       default: null,
     },
+    rating: {
+      type: Number,
+      default: 0,
+    },
     subscribers: [
       {
         type: mongoose.Schema.Types.ObjectId,

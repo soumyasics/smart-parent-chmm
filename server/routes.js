@@ -14,6 +14,7 @@ const tutroialController = require("./Tutorials/tutorialController");
 const blogController = require("./blog/blogController");
 const parentAndHPChatController = require("./MessageBwParentAndHP/messageController");
 const vaccinationScheduleController = require("./nextVaccination/nextVaccinationController");
+const hpRatingController = require("./rateHP/rateHPController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -253,5 +254,10 @@ router.get(
   "/getVaccinationScheduleByParentId/:id",
   vaccinationScheduleController.getVaccinationScheduleByParentId
 );
+
+// rating 
+
+router.post("/addRating", hpRatingController.addRating);
+router.get("/getAllRating", hpRatingController.getAllRating);
 
 module.exports = router;
