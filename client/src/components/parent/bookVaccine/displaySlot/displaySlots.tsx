@@ -13,6 +13,7 @@ interface BookSlotType {
   parentId: string;
   vaccineId: string;
   bookingDate: string;
+  kidId?: string;
 }
 export const DisplaySlots = ({ slots, findSlot }: any) => {
   const [show, setShow] = useState(false);

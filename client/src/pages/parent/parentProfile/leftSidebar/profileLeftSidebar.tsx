@@ -1,11 +1,5 @@
 import { ListGroup } from "react-bootstrap";
-import {
-  FaUser,
-  FaStar,
-  FaCog,
-  FaBell,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { FaUser, FaStar, FaCog, FaBell, FaSignOutAlt } from "react-icons/fa";
 import { RiTodoFill } from "react-icons/ri";
 import { CgDisplayGrid } from "react-icons/cg";
 import { useDispatch } from "react-redux";

@@ -1,7 +1,6 @@
 import { ItemsNotFound } from "../itemsNotFound/itemsNotFound";
 import { BASE_URL } from "../../../apis/baseUrl";
 import { Col, Image, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
 interface Child {
   _id: string;
   name: string;
@@ -36,9 +35,6 @@ export const DisplayChildDetails: React.FC<DisplayChildDetailsProps> = ({
   childData,
 }) => {
 
-  useEffect(() => {
-    console.log("child data", childData);
-  }, []);
 
   if (childData.length === 0) {
     return (
