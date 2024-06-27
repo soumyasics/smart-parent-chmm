@@ -43,6 +43,7 @@ export interface HealthProfessionalData extends BaseData {
   isAdminApproved: string;
   createdAt: string;
   updatedAt: string;
+  rating: number;
   __v: number;
 }
 

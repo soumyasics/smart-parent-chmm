@@ -3,9 +3,12 @@ import ReactStars from "react-rating-stars-component";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-
+import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import axiosInstance from "../../../apis/axiosInstance";
 export const ViewHPRating = () => {
   const { userType, userId } = useSelector((state: RootState) => state.user);
+  const { id } = useParams();
   const [reviewData, setReviewData] = useState({
     rating: 0,
     review: "",
@@ -14,8 +17,12 @@ export const ViewHPRating = () => {
   });
 
   useEffect(() => {
-    if (userType === "parent" && userId) {
-      setReviewData({ ...reviewData, parentId: userId });
+    if (userType === "parent" && userId && id) {
+      setReviewData({
+        ...reviewData,
+        parentId: userId,
+        healthProfessionalId: id,
+      });
     }
   }, [userType, userId]);
   const changeReview = (e: any) => {
@@ -29,8 +36,26 @@ export const ViewHPRating = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if (reviewData.review !== "" && reviewData.rating !== 0) {
+      console.log("review dat", reviewData);
+      sendDataToServer();
+    } else {
+      toast.error("Please provide a review and rating");
+    }
   };
-  console.log("review dat", reviewData);
+
+  const sendDataToServer = async () => {
+    try {
+      const res = await axiosInstance.post("addRating", reviewData);
+      if (res.status === 200) {
+        toast.success("Review added successfully");
+      } else {
+        throw new Error("Couldn't add review");
+      }
+    } catch (error) {
+      toast.error("Couldn't add review");
+    }
+  };
   return (
     <div className="">
       <div

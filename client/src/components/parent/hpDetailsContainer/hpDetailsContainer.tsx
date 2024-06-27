@@ -107,8 +107,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     navigate(`/parent/payment/${id}`);
   };
 
-
-  
   return (
     <Container className="mt-5">
       <h3 className="text-center text-primary shadow">Health Professional</h3>
@@ -151,6 +149,9 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                       <p>
                         <strong>Department:</strong> {data.department} <br />
                       </p>
+                      <p>
+                        <strong>Rating:</strong> {data?.rating || 0} <br />
+                      </p>
                     </Col>
                   </Row>
                 </Card.Text>
@@ -176,11 +177,10 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
 
       {healthProfessionalId && subscribed && (
         <>
-
           <div>
             <ViewHPRating />
           </div>
-        
+
           <div className="mt-5">
             <ViewTutorials healthProfessionalId={healthProfessionalId} />
           </div>
