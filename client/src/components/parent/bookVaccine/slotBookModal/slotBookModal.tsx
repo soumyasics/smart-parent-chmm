@@ -28,6 +28,7 @@ export const SlotBookModal: FC<SlotBookModalProps> = ({
   const { userId, userType } = useSelector((state: RootState) => state.user);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  console.log("=>", error, isLoading)
 
   useEffect(() => {
     if (userId && userType === "parent") {

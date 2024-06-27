@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { Form } from "react-bootstrap";
 import axiosInstance from "../../../apis/axiosInstance";
@@ -14,8 +13,7 @@ interface ScheduleDataType {
   message: string;
 }
 export const ScheduleModal = ({ show, onHide, parentId }: any) => {
-  const { userId, userType } = useSelector((state: RootState) => state.user);
-  const navigate = useNavigate();
+  const { userId } = useSelector((state: RootState) => state.user);
   const propsObj = { show, onHide };
   const [scheduleType, setScheduleType] = useState<ScheduleDataType>({
     vaccinationCenterId: "",

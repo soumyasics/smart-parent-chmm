@@ -10,7 +10,6 @@ import { ViewTutroials } from "../../../components/hp/view-tutorials/viewTutoria
 import { ViewBlogs } from "../viewBlogs/viewBlogs";
 import { MySubscriptions } from "../mySubscriptions/mySubscriptions";
 import "./profilePage.css";
-import { ParentNotification } from "../../parent/notification/parentNotification";
 
 export const HPProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");

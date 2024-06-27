@@ -24,6 +24,7 @@ export const MessageContainer: FC<MessageContainerProps> = ({
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState<ChatMessage[]>([]);
   const [error, setError] = useState("");
+  console.log("=>", error);
   const isChatSelected = activeParticipant ? true : null;
   const navigateTo = useCustomNavigate();
   const { userId: HPId } = useSelector((state: RootState) => state.user);
