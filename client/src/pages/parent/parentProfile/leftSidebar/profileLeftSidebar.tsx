@@ -8,12 +8,14 @@ import {
 } from "react-icons/fa";
 import { RiTodoFill } from "react-icons/ri";
 import { CgDisplayGrid } from "react-icons/cg";
-import "./profileLeftSidebar.css";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { userLoggedOut } from "../../../../redux/reducers/userSlilce";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineVaccines } from "react-icons/md";
+import { MdChildCare } from "react-icons/md";
+import { PiCashRegisterFill } from "react-icons/pi";
+import "./profileLeftSidebar.css";
 
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
@@ -65,13 +67,13 @@ export const ParentProfileLeftSidebar: React.FC<
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("register-child")}
         >
-          <FaStar className="sidebar-icon" /> Register Child
+          <PiCashRegisterFill className="sidebar-icon" /> Register Child
         </ListGroup.Item>
         <ListGroup.Item
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("child")}
         >
-          <FaStar className="sidebar-icon" /> Child
+          <MdChildCare className="sidebar-icon" /> My children
         </ListGroup.Item>
         <ListGroup.Item
           className="sidebar-item d-flex"
