@@ -23,6 +23,7 @@ export const DisplaySlots = ({ slots, findSlot }: any) => {
     vaccinationCenterId: "",
     vaccineId: "",
     bookingDate: "",
+    kidId: "",
   });
   const navigate = useNavigate();
   const { isAuthenticated, userId, userType } = useSelector(
@@ -40,6 +41,12 @@ export const DisplaySlots = ({ slots, findSlot }: any) => {
       bookingDate: bookingDate,
     }));
   };
+  const changeKidId = (kidId: string) => {
+    setBookSlotData((prevData) => ({
+      ...prevData,
+      kidId: kidId,
+    }));
+  }
   useEffect(() => {
     if (isAuthenticated && userType === "parent" && userId) {
       setBookSlotData((prevData) => ({
@@ -70,14 +77,16 @@ export const DisplaySlots = ({ slots, findSlot }: any) => {
     handleShow();
   };
 
-  const confirmBooking = (bookingDate: string) => {
+  const confirmBooking = (bookingDate: string, kidId: string) => {
     setBookSlotData((prevData) => ({
       ...prevData,
       bookingDate: bookingDate,
+      kidId: kidId,
     }));
     let serializedData = {
       ...bookSlotData,
       bookingDate,
+      kidId,
     };
     if (
       serializedData.parentId &&
