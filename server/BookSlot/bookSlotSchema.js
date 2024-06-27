@@ -15,6 +15,11 @@ const BookSlot = new mongoose.Schema({
         ref: 'Vaccine',
         required: true
     },
+    KidId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Kids',
+        default: null
+    },
     bookingDate: {
         type: Date,
         required: true

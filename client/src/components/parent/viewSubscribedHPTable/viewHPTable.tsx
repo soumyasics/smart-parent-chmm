@@ -35,6 +35,13 @@ export const ViewSubscribedHPTable = () => {
       </div>
     );
   }
+  if (allHPs && allHPs.length === 0) {
+    return (
+      <div>
+        <h3 style={{ textAlign: "center" }}>You haven't subscribed any health professional</h3>
+      </div>
+    );
+  }
 
   return (
     <div>

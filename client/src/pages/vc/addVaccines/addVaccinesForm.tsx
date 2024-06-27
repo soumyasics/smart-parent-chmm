@@ -151,10 +151,9 @@ export const AddVaccineForm = () => {
   const sendDataToServer = async (data: AddNewVaccineType) => {
     try {
       const res = await axiosInstance.post("addNewVaccine", data);
-      console.log("respo", res);
       if (res.status === 200) {
         toast.success("Vaccine added successfully");
-        resetFields();
+        navigate('/vc/profile')
       } else {
         toast.error("Some issues occured, please try again");
       }

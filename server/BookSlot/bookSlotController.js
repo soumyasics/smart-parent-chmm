@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 
 const bookSlot = async (req, res) => {
   try {
-    const { vaccinationCenterId, parentId, vaccineId, bookingDate } = req.body;
+    const { vaccinationCenterId, parentId, vaccineId, bookingDate, kidId } =
+      req.body;
     if (!vaccinationCenterId || !parentId || !vaccineId || !bookingDate) {
       return res.status(400).json({
         success: false,
@@ -59,11 +60,13 @@ const bookSlot = async (req, res) => {
     }
 
     // check if parent has already booked slot
-    const slot = await BookSlotModel.findOne({
+    let slot = await BookSlotModel.findOne({
       vaccinationCenterId,
       parentId,
       vaccineId,
     });
+
+    
     if (slot) {
       return res.status(400).json({
         success: false,
@@ -79,13 +82,15 @@ const bookSlot = async (req, res) => {
     }
     await vaccine.save();
 
-
     const newBookSlot = new BookSlotModel({
       vaccinationCenterId,
       parentId,
       vaccineId,
       bookingDate,
+      kidId,
     });
+
+    console.log("new book slot", newBookSlot)
     await newBookSlot.save();
 
     return res.status(200).json({

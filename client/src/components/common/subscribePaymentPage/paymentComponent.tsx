@@ -68,7 +68,7 @@ export const PaymentForm = () => {
       const res = await axiosInstance.post("newSubscription", subscriptionData);
       if (res.status === 201) {
         toast.success("Subscription successful");
-        // navigate("/parent/home");
+        navigate("/parent/view-subscribed-hp");
       } else {
         throw new Error("Something went wrong");
       }

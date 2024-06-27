@@ -71,9 +71,8 @@ export const HPCreateBlog = () => {
       let res = await axiosMultipartInstance.post("createBlog", formData);
       if (res.status === 200) {
         toast.success("Blog posted successfully");
-        console.log("res ponse ", res);
         setTimeout(() => {
-          // navigate("/rp-view-tutorials");
+          navigate("/hp/profile");
         }, 1500);
       }
     } catch (error) {

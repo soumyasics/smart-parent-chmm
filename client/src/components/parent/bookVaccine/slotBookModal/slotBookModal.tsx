@@ -12,7 +12,7 @@ import { capitalizeFirstLetter } from "../../../../utils/modification/capitalize
 interface SlotBookModalProps {
   show: boolean;
   handleClose: () => void;
-  confirmBooking: (value: string) => void;
+  confirmBooking: (value: string, kidId: string) => void;
   bookingDate: string;
   changeBookingDate: (value: string) => void;
 }
@@ -28,7 +28,8 @@ export const SlotBookModal: FC<SlotBookModalProps> = ({
   const { userId, userType } = useSelector((state: RootState) => state.user);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  console.log("=>", error, isLoading)
+  console.log("=>", error, isLoading);
+  const [kidId, setKidId] = useState<string>("");
 
   useEffect(() => {
     if (userId && userType === "parent") {
@@ -68,10 +69,12 @@ export const SlotBookModal: FC<SlotBookModalProps> = ({
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (bookingDate) {
-      confirmBooking(bookingDate);
+      confirmBooking(bookingDate, kidId);
     }
   };
+  console.log("=>kidid", kidId);
   return (
+    
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -89,15 +92,23 @@ export const SlotBookModal: FC<SlotBookModalProps> = ({
                 onChange={(e) => changeBookingDate(e.target.value)}
                 value={bookingDate}
               />
-              <Form.Label className="mt-3">Choose your kid</Form.Label>
 
-              <Form.Select>
-                {childData?.map((child: any) => (
-                  <option key={child?._id} value={child?._id}>
-                    {capitalizeFirstLetter(child?.name)}
-                  </option>
-                ))}
-              </Form.Select>
+              {childData.length > 0 && (
+                <>
+                  <Form.Label className="mt-3">Choose your kid</Form.Label>
+                  <Form.Select
+                    value={kidId}
+                    onChange={(e) => setKidId(e.target.value)}
+                  >
+                    <option value="">Choose your kid</option>
+                    {childData?.map((child: any) => (
+                      <option key={child?._id} value={child?._id}>
+                        {capitalizeFirstLetter(child?.name)}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </>
+              )}
 
               <Form.Control.Feedback type="invalid">
                 Please choose a valid date.

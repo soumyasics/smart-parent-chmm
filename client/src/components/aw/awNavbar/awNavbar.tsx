@@ -25,7 +25,6 @@ export const AWNavbar = () => {
   let pic = userData?.profilePicture?.filename || null;
   const { profilePicture } = useProfilePicture(pic);
 
-
   useEffect(() => {
     if (isAuthenticated && userType === "ashaWorker" && userData) {
       setAshaWorkerLogin(true);
@@ -45,6 +44,9 @@ export const AWNavbar = () => {
     navigate("/aw/login");
   };
 
+  const navigateToViewParent = () => {
+    navigate("/aw/view-parents");
+  };
   const navigateAWHome = () => {
     navigate("/aw/home");
   };
@@ -68,13 +70,13 @@ export const AWNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto  text-white w-50 justify-content-between">
-              <p className="my-0 ms-4">Home</p>
-              <p className="my-0 ">Blog</p>
-              <p className="my-0 ">Link 1</p>
-              <p className="my-0 ">Link 2 </p>
-              <p className="my-0 ">Link 3 </p>
-              <p className="my-0 ">Link 4</p>
+            <Nav className="me-auto text-white w-50 ms-5 justify-content-start">
+              <p className="my-0 ms-4" onClick={navigateAWHome} style={{cursor: "pointer"}}>
+                Home
+              </p>
+              <p className="my-0 ms-5" onClick={navigateToViewParent} style={{cursor: "pointer"}}>
+                Parent
+              </p>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -119,7 +121,10 @@ export const AWNavbar = () => {
                 >
                   Profile
                 </p>
-                <p className="text-danger dropdown-item mb-0" onClick={handleAWLogout}>
+                <p
+                  className="text-danger dropdown-item mb-0"
+                  onClick={handleAWLogout}
+                >
                   Logout
                 </p>
               </div>
