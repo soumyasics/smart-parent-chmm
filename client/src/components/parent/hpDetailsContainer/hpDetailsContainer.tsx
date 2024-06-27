@@ -11,6 +11,7 @@ import axiosInstance from "../../../apis/axiosInstance";
 import { VideoStructureType } from "../../../redux/types";
 import { ViewTutorials } from "../view-tutorials/viewTutorials";
 import { ParentViewBlogs } from "../viewBlogs/viewBlogs";
+import { ViewHPRating } from "../../../pages/parent/viewHP/viewHPRating";
 
 export interface VideoType {
   title: string;
@@ -37,9 +38,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     parentId: "",
     healthProfessionalId: "",
   });
-  console.log("parentHpIds", parentHpIds);
   const [videos, setVideos] = useState<VideoType[]>([]);
-  console.log("vide", videos);
   const [subscribed, setSubscribed] = useState(false);
   const { userType, userId } = useSelector((state: RootState) => state.user);
   const { id: healthProfessionalId } = useParams();
@@ -174,8 +173,14 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
           </Card>
         </Col>
       </Row>
+
       {healthProfessionalId && subscribed && (
         <>
+
+          <div>
+            <ViewHPRating />
+          </div>
+        
           <div className="mt-5">
             <ViewTutorials healthProfessionalId={healthProfessionalId} />
           </div>
