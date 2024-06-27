@@ -30,7 +30,8 @@ export const MySubscriptions = () => {
   return (
     <div>
       <h4 className="text-center text-primary">Subscribers Data</h4>
-      <Table responsive className="my-subscriptions-table mt-5" bordered striped hover >
+      <Table responsive className="my-subscriptions-table mt-5
+      " bordered striped hover >
         <thead>
           <tr>
             <th>Name</th>

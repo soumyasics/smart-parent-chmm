@@ -13,7 +13,7 @@ const subscriptionController = require("./SubscribeHp/subscribeController");
 const tutroialController = require("./Tutorials/tutorialController");
 const blogController = require("./blog/blogController");
 const parentAndHPChatController = require("./MessageBwParentAndHP/messageController");
-
+const vaccinationScheduleController = require("./nextVaccination/nextVaccinationController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -134,8 +134,14 @@ router.post("/sendMessageParentAndVC", parentAndVCChat.sendMessageParentAndVC);
 router.post("/getSingleConversation", parentAndVCChat.getSingleConversation);
 
 // Parent and hp routes
-router.post("/sendMessageParentAndHP", parentAndHPChatController.sendMessageParentAndHP);
-router.post("/getSingleConversationOfHPAndParent", parentAndHPChatController.getSingleConversation);
+router.post(
+  "/sendMessageParentAndHP",
+  parentAndHPChatController.sendMessageParentAndHP
+);
+router.post(
+  "/getSingleConversationOfHPAndParent",
+  parentAndHPChatController.getSingleConversation
+);
 
 // Asha workers
 
@@ -233,8 +239,19 @@ router.get("/getTutorialById/:id", tutroialController.getTutorialById);
 
 // blog
 
-router.post("/createBlog",  blogController.upload, blogController.createBlog);
+router.post("/createBlog", blogController.upload, blogController.createBlog);
 router.get("/getAllBlogs", blogController.getAllBlogs);
 router.get("/getBlogById/:id", blogController.getBlogById);
 router.get("/getBlogsByHPId/:id", blogController.getBlogsByHPId);
+
+// route for vaccination schedule
+router.post(
+  "/vaccinationScheduleController",
+  vaccinationScheduleController.createVaccinationSchedule
+);
+router.get(
+  "/getVaccinationScheduleByParentId/:id",
+  vaccinationScheduleController.getVaccinationScheduleByParentId
+);
+
 module.exports = router;

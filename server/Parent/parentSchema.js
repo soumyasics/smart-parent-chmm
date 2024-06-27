@@ -41,6 +41,10 @@ const parentSchema = mongoose.Schema(
       type: Object,
       default: null,
     },
+    isVaccinated: {
+      type: Boolean,
+      default: false,
+    },
     subscribedHPs: [
       {
         type: mongoose.Schema.Types.ObjectId,

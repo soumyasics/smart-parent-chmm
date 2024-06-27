@@ -77,7 +77,7 @@ export const VCNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-n av">
-            <Nav className="ms-5 text-white w-75 justify-content-between">
+            <Nav className="ms-5 text-white w-75 justify-content-start gap-5">
               <p className="my-0" role="button" onClick={redirectVCHome}>
                 Home
               </p>
@@ -93,15 +93,6 @@ export const VCNavbar = () => {
               </p>
               <p className="my-0" role="button" onClick={redirectToAddVaccines}>
                 Add Vaccines
-              </p>
-              <p className="my-0" role="button">
-                Link 3
-              </p>
-              <p className="my-0" role="button">
-                Link 4
-              </p>
-              <p className="my-0" role="button">
-                Link 5
               </p>
             </Nav>
           </Navbar.Collapse>

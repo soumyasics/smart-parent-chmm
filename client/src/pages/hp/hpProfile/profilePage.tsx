@@ -8,8 +8,8 @@ import { HPResetPassword } from "../resetPassword/resetPassword";
 import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
 import { ViewTutroials } from "../../../components/hp/view-tutorials/viewTutorials";
 import { ViewBlogs } from "../viewBlogs/viewBlogs";
-import "./profilePage.css";
 import { MySubscriptions } from "../mySubscriptions/mySubscriptions";
+import "./profilePage.css";
 
 export const HPProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");

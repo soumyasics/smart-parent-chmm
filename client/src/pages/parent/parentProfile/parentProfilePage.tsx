@@ -10,8 +10,9 @@ import { ParentResetPassword } from "../resetPassword/resetPassword";
 import { DisplayTodo } from "../displayTodo/displayTodo";
 import { AddTodo } from "../addTodo/addTodo";
 import { RegisterChild } from "../registerChild/registerChild";
-import "./parentProfilePage.css";
 import { DisplayVaccineBooking } from "../displayVaccineBooking/displayVaccineBooking";
+import "./parentProfilePage.css";
+import { ParentNotification } from "../notification/parentNotification";
 
 export const ParentProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -33,6 +34,7 @@ export const ParentProfilePage = () => {
             {activePage === "vaccine-booking" && <DisplayVaccineBooking />}
             {activePage === "display-todo" && <DisplayTodo />}
             {activePage === "register-child" && <RegisterChild />}
+            {activePage === "notifications" && <ParentNotification />}
             {activePage === "child" && <ViewChild />}
             {activePage === "reset-password" && <ParentResetPassword />}
           </Col>

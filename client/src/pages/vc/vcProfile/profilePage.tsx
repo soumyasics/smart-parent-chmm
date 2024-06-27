@@ -5,13 +5,13 @@ import { VCProfileSection } from "./profileSection/profileSection";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { useState } from "react";
 import { VCResetPassword } from "../resetPassword/resetPassword";
-import "./profilePage.css";
 import { VCNavbar } from "../../../components/vc/vcNavbar/vcNavbar";
 import { ViewVaccines } from "../viewVaccines.tsx/viewVaccines";
 import { ViewVaccineDetails } from "../viewVaccineDetails/viewVaccineDetails";
+import "./profilePage.css";
 
 export const VCProfilePage = () => {
-  const [activePage, setActivePage] = useState<string>("profile");
+  const [activePage, setActivePage] = useState<string>("view-vaccines");
   const [vaccineId, setVaccineId] = useState<string>("");
   const changeActivePage = (page: string) => {
     setActivePage(page);
