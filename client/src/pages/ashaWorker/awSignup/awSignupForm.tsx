@@ -308,7 +308,7 @@ export const AWSignupForm = () => {
               required
               name="experience"
               maxLength={2}
-              pattern="[0-9]{2}"
+              minLength={1}
               onChange={handleChanges}
               value={awData.experience}
             />

@@ -17,7 +17,7 @@ export const AWSignup = () => {
           <div className="user-signup-form">
             <div className="user-signup-form-heading">
               {" "}
-              <h3 className="text-center">Register as Asha Worker</h3>{" "}
+              <h3 className="text-center"> Asha Worker Registration</h3>{" "}
             </div>
 
             <div className="user-signup-input-container">
