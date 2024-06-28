@@ -18,7 +18,7 @@ export const HPSignup = () => {
             <div className="user-signup-form-heading">
               {" "}
               <h3 className="text-center">
-                Register as Health Professional
+                 Health Professional Registration
               </h3>{" "}
             </div>
 

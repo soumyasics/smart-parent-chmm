@@ -18,7 +18,7 @@ export const VCSignup = () => {
             <div className="user-signup-form-heading">
               {" "}
               <h3 className="text-center">
-                Register as Vaccination Center
+                Vaccination Center Registration
               </h3>{" "}
             </div>
 

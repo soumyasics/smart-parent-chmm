@@ -20,7 +20,7 @@ export const ParentSignupPage = () => {
           <div className="user-signup-form">
             <div className="user-signup-form-heading">
               {" "}
-              <h3 className="text-center">Register as Parent</h3>{" "}
+              <h3 className="text-center">Parent Registration</h3>{" "}
             </div>
 
             <div className="user-signup-input-container">
