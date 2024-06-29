@@ -90,6 +90,12 @@ const loginParent = async (req, res) => {
         .json({ message: "Please check your email and password" });
     }
 
+    // check suspended status
+    if (parent.isActive === "suspended") {
+      return res
+        .status(401)
+        .json({ message: "Your account has been suspended" });
+    }
     const parentCopy = parent.toObject();
     delete parentCopy.password;
 
@@ -232,6 +238,76 @@ const viewAllParents = async (req, res) => {
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
+
+const makeParentDeactivate = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const parent = await ParentModel.findById(id);
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found" });
+    }
+
+    const deactivatedParent = await ParentModel.findByIdAndUpdate(
+      id,
+      { isActive: "suspended" },
+      { new: true } // Return the updated document
+    );
+
+    if (deactivatedParent) {
+      return res.status(200).json({
+        message: "Parent deactivated successfully",
+        data: deactivatedParent,
+      });
+    } else {
+      throw new Error("Failed to deactivate parent");
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+const makeParentActivate = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const parent = await ParentModel.findById(id);
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found" });
+    }
+
+    const activatedParent = await ParentModel.findByIdAndUpdate(
+      id,
+      { isActive: "active" },
+      { new: true } // Return the updated document
+    );
+
+    if (activatedParent) {
+      return res.status(200).json({
+        message: "Parent activated successfully",
+        data: activatedParent,
+      });
+    } else {
+      throw new Error("Failed to activate parent");
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
 const viewParents = (req, res) => {
   ParentModel.find()
     .exec()
@@ -340,4 +416,6 @@ module.exports = {
   loginParent,
   getParentDataWithToken,
   upload,
+  makeParentDeactivate,
+  makeParentActivate,
 };

@@ -1,1 +1,0 @@
-1. remove exising db. (those who don't have district field for vaccinatino center)

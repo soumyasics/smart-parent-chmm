@@ -41,6 +41,7 @@ export const HPComplaints = () => {
           <tr>
             <th>No.</th>
             <th>Complainor name</th>
+            <th>Complaint</th>
 
             <th>Complainor Email</th>
             <th>Complainor Phone number</th>

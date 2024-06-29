@@ -270,4 +270,15 @@ router.get(
   "/getAllComplaintsByHPId/:id",
   complaintController.getAllComplaintsByHPId
 );
+
+// parent activate and deactivate routes
+
+router.patch(
+  "/parentDeactivate/:id",
+  parent.makeParentDeactivate
+);
+router.patch(
+  "/parentActivate/:id",
+  parent.makeParentActivate
+);
 module.exports = router;
