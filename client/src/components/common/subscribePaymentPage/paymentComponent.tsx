@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
+import { isOnlyAlphabets, isOnlyNumbers } from "../../../utils/validation";
 interface SubscriptionDataType {
   parentId: string;
   healthProfessionalId: string;
@@ -146,6 +147,16 @@ export const PaymentForm = () => {
     return true;
   };
   const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    if (name === "cardHolderName") {
+      if (value.length !== 0 && !isOnlyAlphabets(value)) {
+        return;
+      }
+    }
+
+    if (name === "cardNumber" && value.length !== 0 && !isOnlyNumbers(value)) {
+      return;
+    }
     setsubscriptionData((prev) => {
       return {
         ...prev,
