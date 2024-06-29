@@ -62,7 +62,7 @@ export const HPForgotPassword: React.FC = () => {
     try {
       let res = await axiosInstance.patch("resetHPPasswordByEmail", data);
       if (res.status === 200) {
-        toast.error("Password reset successfully");
+        toast.success("Password reset successfully");
         redirectToHPLogin();
       } else {
         throw new Error("Something went wrong.");
