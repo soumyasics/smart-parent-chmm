@@ -7,6 +7,7 @@ import { AdminHPPending } from "../../../components/Admin/AdminHpPending/adminHp
 import { AdminAWPending } from "../../../components/Admin/AdminAWPending/adminAWPending.tsx";
 import { AdminHP } from "../../../components/Admin/AdminHP/adminHP.tsx";
 import { AdminViewComplaints } from "../../../components/Admin/AdminViewComplaints/adminViewComplaints.tsx";
+import { AdminViewReviews } from "../../../components/Admin/AdminViewReviews/adminViewReviews.tsx";
 
 export const AdminDashboard = () => {
   const [activePage, setActivePage] = useState("parents");
@@ -29,6 +30,7 @@ export const AdminDashboard = () => {
           {activePage === "HPPending" && <AdminHPPending />}
           {activePage === "awPending" && <AdminAWPending />}
           {activePage === "complaints" && <AdminViewComplaints />}
+          {activePage === "reviews" && <AdminViewReviews />}
         </div>
       </div>
     </Fragment>

@@ -2,18 +2,18 @@ import { Table } from "react-bootstrap";
 import "./adminUserTable.css";
 import { useFetchData } from "../../../hooks/useFetchData";
 
-export const AdminViewComplaintsTable = ({}) => {
-  const { data } = useFetchData(`getAllComplaints`);
+export const AdminViewReviewsTable = ({}) => {
+  const { data } = useFetchData(`getAllRating`);
   return (
     <>
       <Table striped bordered hover id="admin-users-table-container">
         <thead>
           <tr>
             <th>No.</th>
-            <th>Complainor name</th>
+            <th>Reviewer name</th>
             <th>Health Professional Name</th>
-            <th>Complaint</th>
-            <th>Health Professional Email</th>
+            <th>Review </th>
+            <th>Rating</th>
           </tr>
         </thead>
         <tbody>
@@ -22,8 +22,8 @@ export const AdminViewComplaintsTable = ({}) => {
               <td>{i + 1}</td>
               <td>{rev?.parentId?.name}</td>
               <td>{rev?.healthProfessionalId?.name}</td>
-              <td>{rev?.complaint}</td>
-              <td>{rev?.healthProfessionalId?.email}</td>
+              <td>{rev?.review}</td>
+              <td>{rev?.rating}</td>
             </tr>
           ))}
         </tbody>
