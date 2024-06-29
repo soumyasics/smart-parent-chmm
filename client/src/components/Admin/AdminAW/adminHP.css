@@ -1,0 +1,52 @@
+.admin-users-container {
+  padding-left: 30px;
+}
+.admin-user-title-container {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 47px;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.admin-user-title-container > button {
+  align-items: center;
+  border: none;
+  width: 8rem;
+  letter-spacing: 2px;
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  min-width: 64px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(99, 102, 241);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 5px;
+  border-radius: 5px;
+  text-transform: none;
+  padding: 8px 20px;
+}
+.admin-user-title-container > svg {
+    font-size: 20px;
+}
+.admin-users-title {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.admin-users-search-container {
+    width: 400px;
+}
+.admin-users-search-container>.input-group {
+    width: 400px;
+    border-radius: 5px;
+}
+
+.admin-users-search-container>.input-group>input {
+    letter-spacing: 1.5px;
+
+}
