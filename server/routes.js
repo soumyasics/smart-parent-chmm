@@ -37,7 +37,6 @@ router.post(
   parent.loginParent
 );
 
-
 router.get("/getParentDataById/:id", parent.getParentDataById);
 router.patch(
   "/updateParentDataById/:id",
@@ -257,15 +256,18 @@ router.get(
   vaccinationScheduleController.getVaccinationScheduleByParentId
 );
 
-// rating 
+// rating
 
 router.post("/addRating", hpRatingController.addRating);
 router.get("/getAllRating", hpRatingController.getAllRating);
 router.get("/getAllRatingByHPId/:id", hpRatingController.getAllRatingByHPId);
 
-// complaints 
+// complaints
 
 router.post("/addComplaint", complaintController.addComplaint);
 router.get("/getAllComplaints", complaintController.getAllComplaints);
-router.get("/getAllComplaints", complaintController.getAllComplaintsByHPId);
+router.get(
+  "/getAllComplaintsByHPId/:id",
+  complaintController.getAllComplaintsByHPId
+);
 module.exports = router;

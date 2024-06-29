@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const addComplaint = async (req, res) => {
   try {
     const { parentId, healthProfessionalId, complaint } = req.body;
-    if (!parentId || !healthProfessionalId || complaint) {
+    if (!parentId || !healthProfessionalId || !complaint) {
       return res.status(400).json({
         success: false,
         message: "All fields are required.",

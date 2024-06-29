@@ -9,6 +9,7 @@ import { FaStickyNote } from "react-icons/fa";
 import { MdSubscriptions } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
 import { MdOutlineRateReview } from "react-icons/md";
+import { FaCommentDots } from "react-icons/fa";
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
 }
@@ -60,7 +61,13 @@ export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("My-review")}
         >
-          <MdOutlineRateReview className="sidebar-icon" /> My Review
+          <MdOutlineRateReview className="sidebar-icon" /> Review
+        </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item d-flex"
+          onClick={() => changeActivePage("complaints")}
+        >
+          <FaCommentDots className="sidebar-icon" /> Complaints
         </ListGroup.Item>
 
         <ListGroup.Item
