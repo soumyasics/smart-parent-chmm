@@ -41,12 +41,12 @@ export const DisplaySlots = ({ slots, findSlot }: any) => {
       bookingDate: bookingDate,
     }));
   };
-  const changeKidId = (kidId: string) => {
-    setBookSlotData((prevData) => ({
-      ...prevData,
-      kidId: kidId,
-    }));
-  }
+  // const changeKidId = (kidId: string) => {
+  //   setBookSlotData((prevData) => ({
+  //     ...prevData,
+  //     kidId: kidId,
+  //   }));
+  // }
   useEffect(() => {
     if (isAuthenticated && userType === "parent" && userId) {
       setBookSlotData((prevData) => ({

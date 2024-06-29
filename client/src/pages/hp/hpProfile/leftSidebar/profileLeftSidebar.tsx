@@ -1,9 +1,5 @@
 import { ListGroup } from "react-bootstrap";
-import {
-  FaUser,
-  FaCog,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
 import "./profileLeftSidebar.css";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -12,12 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { FaStickyNote } from "react-icons/fa";
 import { MdSubscriptions } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
+import { MdOutlineRateReview } from "react-icons/md";
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
 }
-export const VCProfileLeftSidebar: React.FC<
-  ParentProfileLeftSidebarProps
-> = ({ changeActivePage }) => {
+export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
+  changeActivePage,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleParentLogout = () => {
@@ -34,9 +31,7 @@ export const VCProfileLeftSidebar: React.FC<
         >
           <FaUser className="sidebar-icon" /> Profile
         </ListGroup.Item>
-    
-       
-      
+
         <ListGroup.Item
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("reset-password")}
@@ -61,6 +56,12 @@ export const VCProfileLeftSidebar: React.FC<
         >
           <MdSubscriptions className="sidebar-icon" /> My Subscribers
         </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item d-flex"
+          onClick={() => changeActivePage("My-review")}
+        >
+          <MdOutlineRateReview className="sidebar-icon" /> My Review
+        </ListGroup.Item>
 
         <ListGroup.Item
           className="sidebar-item logout text-danger fw-bold d-flex"
@@ -72,7 +73,6 @@ export const VCProfileLeftSidebar: React.FC<
     </div>
   );
 };
-
 
 VCProfileLeftSidebar.propTypes = {
   changeActivePage: PropTypes.func.isRequired,

@@ -10,6 +10,7 @@ import { ViewTutroials } from "../../../components/hp/view-tutorials/viewTutoria
 import { ViewBlogs } from "../viewBlogs/viewBlogs";
 import { MySubscriptions } from "../mySubscriptions/mySubscriptions";
 import "./profilePage.css";
+import { MyReviewAndRating } from "../myReviewAndRating/myReview";
 
 export const HPProfilePage = () => {
   const [activePage, setActivePage] = useState<string>("profile");
@@ -30,6 +31,7 @@ export const HPProfilePage = () => {
             {activePage === "My-Tutorials" && <ViewTutroials />}
             {activePage === "My-blogs" && <ViewBlogs />}
             {activePage === "My-subscribers" && <MySubscriptions />}
+            {activePage === "My-review" && <MyReviewAndRating />}
           </Col>
         </Row>
       </Container>

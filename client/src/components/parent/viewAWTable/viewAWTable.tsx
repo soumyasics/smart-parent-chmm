@@ -1,14 +1,10 @@
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { useFetchData } from "../../../hooks/useFetchData";
 import { PageLoading } from "../../pageLoading/pageLoading";
 import { ErrorHandlingUI } from "../../common/errorHandlingUI/errorHandlingUi";
 export const ViewAWTable = () => {
   const { isLoading, data: allVCs, error } = useFetchData("/getAllApprovedAw");
 
-  const navigateToVCDetails = (id: string) => {
-    // navigate(`/parent/view-vc/${id}`)
-    console.log("id", id)
-  };
 
   if (isLoading) {
     return (
@@ -33,11 +29,11 @@ export const ViewAWTable = () => {
           <tr>
             <th>Name</th>
             <th>Email</th>
-
             <th>Phone Number</th>
             <th>Address</th>
-            <th>Category</th>
-            <th>View More</th>
+            <th>Gender</th>
+            <th>Qualification</th>
+            <th>Date of Birth</th>
           </tr>
         </thead>
 
@@ -49,12 +45,9 @@ export const ViewAWTable = () => {
                 <td>{vc?.email}</td>
                 <td>{vc?.phoneNumber}</td>
                 <td>{vc?.address}</td>
-                <td>{vc?.category}</td>
-                <td>
-                  <Button onClick={() => {
-                    navigateToVCDetails(vc._id)
-                  }}> View More</Button>
-                </td>
+                <td>{vc?.gender}</td>
+                <td>{vc?.qualification}</td>
+                <td>{vc?.dateOfBirth.substring(0, 10)}</td>
               </tr>
             );
           })}

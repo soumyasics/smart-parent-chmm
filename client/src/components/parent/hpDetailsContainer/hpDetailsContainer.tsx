@@ -38,7 +38,9 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     parentId: "",
     healthProfessionalId: "",
   });
+  console.log("parnt dat", parentHpIds)
   const [videos, setVideos] = useState<VideoType[]>([]);
+  console.log("videos", videos)
   const [subscribed, setSubscribed] = useState(false);
   const { userType, userId } = useSelector((state: RootState) => state.user);
   const { id: healthProfessionalId } = useParams();

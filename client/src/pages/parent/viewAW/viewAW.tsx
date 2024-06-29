@@ -1,10 +1,7 @@
-import { Button } from "react-bootstrap";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
-import { useCustomNavigate } from "../../../hooks/useCustomNavigate";
 import { ViewAWTable } from "../../../components/parent/viewAWTable/viewAWTable";
 export const ViewAW = () => {
-  const navigateTo = useCustomNavigate();
   
   return (
     <div>
