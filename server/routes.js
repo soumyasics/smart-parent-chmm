@@ -259,5 +259,5 @@ router.get(
 
 router.post("/addRating", hpRatingController.addRating);
 router.get("/getAllRating", hpRatingController.getAllRating);
-
+router.get("/getAllRatingByHPId/:id", hpRatingController.getAllRatingByHPId);
 module.exports = router;

@@ -117,6 +117,7 @@ export const RegisterKidForm = () => {
                   <Form.Label>Birth Weight (kg)</Form.Label>
                   <Form.Control
                     type="number"
+                    step="0.01"
                     placeholder="Enter birth weight"
                     {...register("birthWeight", { required: true })}
                   />
@@ -130,6 +131,7 @@ export const RegisterKidForm = () => {
                   <Form.Label>Weight (kg)</Form.Label>
                   <Form.Control
                     type="number"
+                    step="0.01"
                     placeholder="Enter weight"
                     {...register("weight", { required: true })}
                   />

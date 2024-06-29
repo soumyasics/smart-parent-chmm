@@ -51,7 +51,7 @@ import "./App.css";
 import { ViewSubscribedHP } from "./pages/parent/viewSubscribedHP/viewHP.tsx";
 import { ChatWithParentAndHP } from "./pages/hp/chatWithParent/chatWithParent.tsx";
 import { ChatWithHP } from "./pages/parent/chatWithHP/chatWithHP.tsx";
-import { ViewParentTable } from "./pages/ashaWorker/viewParentTable/viewParentTable.tsx";
+// import { ViewParentTable } from "./pages/ashaWorker/viewParentTable/viewParentTable.tsx";
 import { ViewParentAW } from "./pages/ashaWorker/viewParentTable/viewParentAW.tsx";
 
 function App() {

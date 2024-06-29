@@ -82,4 +82,24 @@ const getAllRating = async (req, res) => {
   }
 };
 
-module.exports = { addRating, getAllRating };
+const getAllRatingByHPId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const rating = await RateHPModel.find({ healthProfessionalId: id })
+      .populate("parentId")
+      .populate("healthProfessionalId")
+      .exec();
+    return res.status(200).json({
+      message: "Rating fetched successfully",
+      success: true,
+      data: rating,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
+
+module.exports = { addRating, getAllRating, getAllRatingByHPId };

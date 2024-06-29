@@ -161,19 +161,19 @@ export const AddVaccineForm = () => {
       console.log("Error on add vaccine", error);
     }
   };
-  const resetFields = () => {
-    setFormData({
-      vaccinationCenterId: "",
-      vaccineName: "",
-      vaccineDescription: "",
-      totalSlots: "",
-      expiryDate: "",
-      sideEffects: "",
-      ageGroup: "",
-      dosageMl: "",
-    });
-    setIsSubmitted(false);
-  };
+  // const resetFields = () => {
+  //   setFormData({
+  //     vaccinationCenterId: "",
+  //     vaccineName: "",
+  //     vaccineDescription: "",
+  //     totalSlots: "",
+  //     expiryDate: "",
+  //     sideEffects: "",
+  //     ageGroup: "",
+  //     dosageMl: "",
+  //   });
+  //   setIsSubmitted(false);
+  // };
   return (
     <Container>
       <Row className="my-5">
