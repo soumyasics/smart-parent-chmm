@@ -28,7 +28,7 @@ export const AdminParents = () => {
   };
 
   return (
-    <div className="admin-users-container ">
+    <div className="admin-users-container " style={{minHeight: "100vh"}}>
       <AdminDashboardNav />
       <div className="admin-user-title-container">
         <h1 className="admin-users-title"> All Parents</h1>

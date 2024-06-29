@@ -29,7 +29,7 @@ export const AdminVC = () => {
   };
 
   return (
-    <div className="admin-users-container ">
+    <div className="admin-users-container " style={{ minHeight: "100vh" }}>
       <AdminDashboardNav />
       <div className="admin-user-title-container">
         <h1 className="admin-users-title"> Vaccination Centers</h1>

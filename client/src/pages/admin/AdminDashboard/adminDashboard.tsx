@@ -17,8 +17,6 @@ export const AdminDashboard = () => {
     setActivePage(page);
   };
 
-  
-
   return (
     <Fragment>
       <div className="admin-dashboard-container">
@@ -27,9 +25,9 @@ export const AdminDashboard = () => {
         <div className="admin-dashboard-main-bar">
           {/* {activePage === "parents" && <} */}
           {activePage === "parents" && <AdminParents />}
-          {activePage === "hp" && <AdminHP/>}
-          {activePage === "vc" && <AdminVC/>}
-          {activePage === "aw" && <AdminAW/>}
+          {activePage === "hp" && <AdminHP />}
+          {activePage === "vc" && <AdminVC />}
+          {activePage === "aw" && <AdminAW />}
           {activePage === "vcPending" && <AdminVCPending />}
           {activePage === "HPPending" && <AdminHPPending />}
           {activePage === "awPending" && <AdminAWPending />}
