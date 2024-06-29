@@ -19,7 +19,7 @@ interface ParentProfileLeftSidebarProps {
 export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
   changeActivePage,
 }) => {
-  const { isAuthenticated, userData, userType } = useSelector(
+  const { userData } = useSelector(
     (state: RootState) => state.user
   );
   const dispatch = useDispatch();

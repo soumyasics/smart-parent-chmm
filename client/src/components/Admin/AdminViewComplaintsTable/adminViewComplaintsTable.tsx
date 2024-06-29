@@ -1,6 +1,5 @@
 import { Button, Table } from "react-bootstrap";
 import "./adminUserTable.css";
-import { useFetchData } from "../../../hooks/useFetchData";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../apis/axiosInstance";
