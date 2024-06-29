@@ -47,6 +47,13 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
           <FcBusinessman />
           <h5>Health Professionals</h5>
         </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("vc")}
+        >
+          <FcBusinessman />
+          <h5>Vaccination Centers</h5>
+        </div>
 
         <div
           className="admin-sidebar-link"
