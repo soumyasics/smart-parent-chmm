@@ -281,4 +281,17 @@ router.patch(
   "/parentActivate/:id",
   parent.makeParentActivate
 );
+
+// health professional activate and deactivate routes
+
+router.patch(
+  "/healthProfessionalDeactivate/:id",
+  hp.makeHPDeactivate
+);
+router.patch(
+  "/healthProfessionalActivate/:id",
+  hp.makeHPActivate
+);
+
+
 module.exports = router;
