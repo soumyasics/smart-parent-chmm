@@ -131,7 +131,7 @@ const NoChatSelected = ({ username }: { username: string }) => {
     <div className="tw-flex tw-items-center tw-justify-center tw-w-full tw-h-full">
       <div className="tw-px-4 tw-text-center tw-sm:text-lg tw-md:text-xl tw-text-gray-200 tw-font-semibold tw-flex tw-flex-col tw-items-center tw-gap-2">
         <p>Welcome 👋 {username} ❄</p>
-        <p>Select a chat to start messaging</p>
+        <p>You can only chat with subscribers.</p>
         <TiMessages className="tw-text-3xl tw-md:text-6xl tw-text-center" />
       </div>
     </div>

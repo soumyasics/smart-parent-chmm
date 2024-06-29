@@ -70,6 +70,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               </p>
             </Form.Group>
           </Col>
+          <Col md={6}>
+            <Form.Group controlId="formLocation">
+              <Form.Label className="fw-bold">Category</Form.Label>
+              <p>
+                <em>{hpData?.category}</em>
+              </p>
+            </Form.Group>
+          </Col>
         </Row>
       </div>
     </div>

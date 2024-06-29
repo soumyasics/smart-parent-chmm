@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
+import { isOnlyAlphabets, isOnlyNumbers } from "../../../utils/validation";
 interface SubscriptionDataType {
   parentId: string;
   healthProfessionalId: string;
@@ -35,7 +36,13 @@ export const PaymentForm = () => {
   const { id } = useParams();
 
   const { userId, userType } = useSelector((state: RootState) => state.user);
-
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
   useEffect(() => {
     if (!id || !userId || !userType) {
       toast.error("Please login again");
@@ -96,15 +103,7 @@ export const PaymentForm = () => {
   };
 
   const clearData = () => {
-    setsubscriptionData({
-      parentId: "",
-      healthProfessionalId: "",
-      cardHolderName: "",
-      cardNumber: "",
-      cardExpiry: "",
-      cardCVV: "",
-      subscriptionAmount: "999",
-    });
+    navigate('/parent/view-hp')
   };
   const checkTypes = () => {
     const {
@@ -125,6 +124,7 @@ export const PaymentForm = () => {
       !healthProfessionalId ||
       !parentId
     ) {
+      console.log("subs data", subscriptionData);
       toast.error("Please fill all the fields");
       return false;
     }
@@ -146,6 +146,19 @@ export const PaymentForm = () => {
     return true;
   };
   const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    if (name === "cardHolderName") {
+      if (value.length !== 0 && !isOnlyAlphabets(value)) {
+        return;
+      }
+    }
+
+    if (name === "cardNumber" && value.length !== 0 && !isOnlyNumbers(value)) {
+      return;
+    }
+    if (name === "cardCVV" && value.length !== 0 && !isOnlyNumbers(value)) {
+      return;
+    }
     setsubscriptionData((prev) => {
       return {
         ...prev,
@@ -213,6 +226,7 @@ export const PaymentForm = () => {
                 name="cardExpiry"
                 type="date"
                 pattern="[0-9]{2}/[0-9]{2}"
+                min={getCurrentDate()}
                 required
                 placeholder="MM/YY"
                 onChange={handleChange}
@@ -253,7 +267,7 @@ export const PaymentForm = () => {
             variant="warning"
           >
             {" "}
-            Cancel
+            Back
           </Button>
           <Button type="submit" style={{ width: "10rem", height: "50px" }}>
             {" "}

@@ -9,18 +9,39 @@ import { FaStickyNote } from "react-icons/fa";
 import { MdSubscriptions } from "react-icons/md";
 import { IoMdVideocam } from "react-icons/io";
 import { MdOutlineRateReview } from "react-icons/md";
+import { FaCommentDots } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+import { useEffect, useState } from "react";
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
 }
 export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
   changeActivePage,
 }) => {
+  const { isAuthenticated, userData, userType } = useSelector(
+    (state: RootState) => state.user
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleParentLogout = () => {
     dispatch(userLoggedOut());
     navigate("/hp/login");
   };
+
+  const [isFitnessSpecialist, setIsFitnessSpecialist] = useState(false);
+
+  useEffect(() => {
+    if (
+      userData &&
+      userData.category &&
+      userData.category === "Fitness Specialist"
+    ) {
+      setIsFitnessSpecialist(true);
+    } else {
+      setIsFitnessSpecialist(false);
+    }
+  }, [userData]);
   return (
     <div className="left-sidebar">
       <h2 className="sidebar-title">Health Professional</h2>
@@ -38,18 +59,23 @@ export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
         >
           <FaCog className="sidebar-icon" /> Reset Password
         </ListGroup.Item>
-        <ListGroup.Item
-          className="sidebar-item d-flex"
-          onClick={() => changeActivePage("My-Tutorials")}
-        >
-          <IoMdVideocam className="sidebar-icon" /> My Tutorials
-        </ListGroup.Item>
-        <ListGroup.Item
-          className="sidebar-item d-flex"
-          onClick={() => changeActivePage("My-blogs")}
-        >
-          <FaStickyNote className="sidebar-icon" /> My Blogs
-        </ListGroup.Item>
+        {isFitnessSpecialist && (
+          <ListGroup.Item
+            className="sidebar-item d-flex"
+            onClick={() => changeActivePage("My-Tutorials")}
+          >
+            <IoMdVideocam className="sidebar-icon" /> My Tutorials
+          </ListGroup.Item>
+        )}
+        {isFitnessSpecialist && (
+          <ListGroup.Item
+            className="sidebar-item d-flex"
+            onClick={() => changeActivePage("My-blogs")}
+          >
+            <FaStickyNote className="sidebar-icon" /> My Blogs
+          </ListGroup.Item>
+        )}
+
         <ListGroup.Item
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("My-subscribers")}
@@ -60,7 +86,13 @@ export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("My-review")}
         >
-          <MdOutlineRateReview className="sidebar-icon" /> My Review
+          <MdOutlineRateReview className="sidebar-icon" /> Review
+        </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item d-flex"
+          onClick={() => changeActivePage("complaints")}
+        >
+          <FaCommentDots className="sidebar-icon" /> Complaints
         </ListGroup.Item>
 
         <ListGroup.Item

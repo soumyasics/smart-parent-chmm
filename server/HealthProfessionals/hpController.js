@@ -121,6 +121,12 @@ const loginHP = async (req, res) => {
         .json({ message: "Your account has been rejected by admin" });
     }
 
+    if (hp.isActive === "suspended") {
+      return res
+        .status(403)
+        .json({ message: "Your account has been suspended" });
+    }
+
     const hpCopy = hp.toObject();
     delete hpCopy.password;
     const token = generateToken(hpCopy);
@@ -281,6 +287,77 @@ const resetHPPasswordByEmail = async (req, res) => {
     return res.status(500).json({ message: "Internal server error", error });
   }
 };
+
+const makeHPDeactivate = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const hp = await HPModel.findById(id);
+    if (!hp) {
+      return res.status(404).json({ message: "Health professional not found" });
+    }
+
+    const deactivatedHP = await HPModel.findByIdAndUpdate(
+      id,
+      { isActive: "suspended" },
+      { new: true } // Return the updated document
+    );
+
+    if (deactivatedHP) {
+      return res.status(200).json({
+        message: "Health professional deactivated successfully",
+        data: deactivatedHP,
+      });
+    } else {
+      throw new Error("Failed to deactivate health professional");
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+const makeHPActivate = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ message: "Id is not valid" });
+    }
+
+    const hp = await HPModel.findById(id);
+    if (!hp) {
+      return res.status(404).json({ message: "Health professional not found" });
+    }
+
+    const deactivatedHP = await HPModel.findByIdAndUpdate(
+      id,
+      { isActive: "active" },
+      { new: true } // Return the updated document
+    );
+
+    if (deactivatedHP) {
+      return res.status(200).json({
+        message: "Health professional activated successfully",
+        data: deactivatedHP,
+      });
+    } else {
+      throw new Error("Failed to activate health professional");
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
 
 const updateHPById = async (req, res) => {
   try {
@@ -523,4 +600,6 @@ module.exports = {
   upload,
   uploadProfilePicture,
   getHPsAllSubscribers,
+  makeHPActivate,
+  makeHPDeactivate
 };

@@ -12,6 +12,7 @@ import { VideoStructureType } from "../../../redux/types";
 import { ViewTutorials } from "../view-tutorials/viewTutorials";
 import { ParentViewBlogs } from "../viewBlogs/viewBlogs";
 import { ViewHPRating } from "../../../pages/parent/viewHP/viewHPRating";
+import { HPComplaint } from "../../../pages/parent/viewHP/hpComplaint";
 
 export interface VideoType {
   title: string;
@@ -38,9 +39,9 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     parentId: "",
     healthProfessionalId: "",
   });
-  console.log("parnt dat", parentHpIds)
+  console.log("parnt dat", parentHpIds);
   const [videos, setVideos] = useState<VideoType[]>([]);
-  console.log("videos", videos)
+  console.log("videos", videos);
   const [subscribed, setSubscribed] = useState(false);
   const { userType, userId } = useSelector((state: RootState) => state.user);
   const { id: healthProfessionalId } = useParams();
@@ -152,7 +153,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                         <strong>Department:</strong> {data.department} <br />
                       </p>
                       <p>
-                        <strong>Rating:</strong> {data?.rating || 0} <br />
+                        <strong>Rating:</strong> {data?.rating.toFixed(1) || 0} <br />
                       </p>
                     </Col>
                   </Row>
@@ -179,9 +180,14 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
 
       {healthProfessionalId && subscribed && (
         <>
-          <div>
-            <ViewHPRating />
-          </div>
+          <Row className="d-flex justify-content-between">
+            <Col>
+              <ViewHPRating />
+            </Col>
+            <Col>
+              <HPComplaint />
+            </Col>
+          </Row>
 
           <div className="mt-5">
             <ViewTutorials healthProfessionalId={healthProfessionalId} />

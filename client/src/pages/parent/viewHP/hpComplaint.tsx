@@ -6,20 +6,19 @@ import { RootState } from "../../../redux/store";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axiosInstance from "../../../apis/axiosInstance";
-export const ViewHPRating = () => {
+export const HPComplaint = () => {
   const { userType, userId } = useSelector((state: RootState) => state.user);
   const { id } = useParams();
-  const [reviewData, setReviewData] = useState({
-    rating: 0,
-    review: "",
+  const [complaintData, setComplaintData] = useState({
+    complaint: "",
     parentId: "",
     healthProfessionalId: "",
   });
 
   useEffect(() => {
     if (userType === "parent" && userId && id) {
-      setReviewData({
-        ...reviewData,
+      setComplaintData({
+        ...complaintData,
         parentId: userId,
         healthProfessionalId: id,
       });
@@ -27,38 +26,35 @@ export const ViewHPRating = () => {
   }, [userType, userId]);
   const changeReview = (e: any) => {
     const { name, value } = e.target;
-    setReviewData({ ...reviewData, [name]: value });
+    setComplaintData({ ...complaintData, [name]: value });
   };
 
-  const ratingChanged = (newRating: number) => {
-    setReviewData({ ...reviewData, rating: newRating });
-  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (reviewData.review !== "" && reviewData.rating !== 0) {
-      console.log("review dat", reviewData);
+    if (complaintData.complaint !== "" ) {
+      console.log("review dat", complaintData);
       sendDataToServer();
     } else {
-      toast.error("Please provide a review and rating");
+      toast.error("Please enter your complaint");
     }
   };
 
   const sendDataToServer = async () => {
     try {
-      const res = await axiosInstance.post("addRating", reviewData);
+      const res = await axiosInstance.post("addComplaint", complaintData);
       if (res.status === 200) {
-        toast.success("Review added successfully");
-        setReviewData({ ...reviewData, review: "", rating: 0 });
+        toast.success("Complaint sent successfully. We will resolve it soon");
+        setComplaintData({ ...complaintData, complaint: "" });
       } else {
-        throw new Error("Couldn't add review");
+        throw new Error("Couldn't complaint. Try again later");
       }
     } catch (error) {
       toast.error("Couldn't add review");
     }
   };
   return (
-    <div >
+    <div className="">
       <div
         className="mt-3 mx-auto shadow p-3"
         style={{
@@ -70,14 +66,9 @@ export const ViewHPRating = () => {
         }}
       >
         <div>
-          <h5 className="text-center ">Review your experience </h5>
+          <h5 className="text-center ">Write your Complaint here </h5>
         </div>
-        <ReactStars
-          count={5}
-          onChange={ratingChanged}
-          size={30}
-          activeColor="#ffd700"
-        />
+       
         <form
           className="d-flex justify-content-center align-items-center mt-4"
           onSubmit={handleSubmit}
@@ -85,14 +76,14 @@ export const ViewHPRating = () => {
           <input
             type="text"
             style={{ height: "33px", width: "75%" }}
-            value={reviewData.review}
+            value={complaintData.complaint}
             id="review"
-            name="review"
+            name="complaint"
             onChange={changeReview}
-            placeholder="Write a review"
+            placeholder="Write your complaint"
             className="form-control"
           />
-          <button type="submit" className="btn ms-5 btn-success ">
+          <button type="submit" className="btn ms-5 btn-danger ">
             Submit
           </button>
         </form>

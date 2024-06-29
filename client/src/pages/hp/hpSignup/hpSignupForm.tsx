@@ -375,6 +375,7 @@ export const HPSignupForm = () => {
               Please enter your category
             </Form.Control.Feedback>
           </Form.Group>
+          <p style={{color: "gray"}}>Note: Only Fitness Specialist can add blog and video tutorials.</p>
         </Col>
       </Row>
 

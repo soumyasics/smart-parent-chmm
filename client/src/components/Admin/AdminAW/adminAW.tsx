@@ -1,24 +1,26 @@
+
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../apis/axiosInstance.ts";
-import { AdminParentsTable } from "../AdminParentsTable/adminParentsTable.tsx";
 import AdminDashboardNav from "../AdminDashboardNav/adminDashboardNav.tsx";
-import "./adminParents.css";
+import "./adminHP.css";
+import { AdminAWTable } from "../AdminAWTable/adminAWTable.tsx";
 
-export const AdminParents = () => {
-  const [parentsData, setparentsData] = useState([]);
+export const AdminAW = () => {
+  const [AWsData, setAWsData] = useState([]);
   const [error, setError] = useState("");
-  console.log("err", error);
+
+  console.log("err", error)
 
   useEffect(() => {
-    getParentsData();
+    getAWsData();
   }, []);
 
-  const getParentsData = async () => {
+  const getAWsData = async () => {
     try {
-      const res = await axiosInstance.get("/getAllParents");
+      const res = await axiosInstance.get("/getAllApprovedAw");
       if (res.status === 200) {
         const data = res.data?.data;
-        setparentsData(data);
+        setAWsData(data);
       } else {
         throw new Error("Something went wrong");
       }
@@ -31,12 +33,12 @@ export const AdminParents = () => {
     <div className="admin-users-container " style={{minHeight: "100vh"}}>
       <AdminDashboardNav />
       <div className="admin-user-title-container">
-        <h1 className="admin-users-title"> All Parents</h1>
+        <h1 className="admin-users-title"> Asha Workers </h1>
       </div>
       <div className="admin-users-search-container"></div>
 
-      <div style={{ minHeight: "600px" }} className="mt-5">
-        <AdminParentsTable parentsData={parentsData} />
+      <div className="mt-5">
+        <AdminAWTable AWsData={AWsData} />
       </div>
     </div>
   );

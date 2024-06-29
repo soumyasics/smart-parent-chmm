@@ -25,6 +25,8 @@ export interface UserData {
     name: string,
     email: string,
     phoneNumber: number,
+    address: string,
+    category?: string,
     profilePicture: Image | null, 
 }
 export type UserType = 'parent' | 'healthProfessional' | 'ashaWorker' | 'vaccineCenter';

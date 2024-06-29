@@ -19,6 +19,15 @@ export const HPNavbar = () => {
   const { isAuthenticated, userData, userType } = useSelector(
     (state: RootState) => state.user
   );
+  const [isFitnessSpecialist, setIsFitnessSpecialist] = useState(false);
+
+  useEffect(() => {
+    if (userData && userData.category && userData.category === "Fitness Specialist") {
+      setIsFitnessSpecialist(true);
+    } else {
+      setIsFitnessSpecialist(false);
+    }
+  }, [userData]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -62,8 +71,8 @@ export const HPNavbar = () => {
     navigate("/hp/create-blog");
   };
   const redirectToChatWithParent = () => {
-    navigate("/hp/chat")
-  }
+    navigate("/hp/chat");
+  };
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
@@ -76,7 +85,11 @@ export const HPNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto  text-white w-50 justify-content-between">
+            <Nav
+              className={`me-auto  text-white  justify-content-between ${
+                isFitnessSpecialist ? "w-50" : "w-25"
+              }`}
+            >
               <p
                 className="my-0 ms-5"
                 style={{ cursor: "pointer" }}
@@ -86,25 +99,31 @@ export const HPNavbar = () => {
               </p>
               <p
                 className="my-0 "
-                onClick={redirectToCreateBlog}
-                style={{ cursor: "pointer" }}
-              >
-                Blog
-              </p>
-              <p
-                className="my-0 "
-                onClick={redirectToTutorials}
-                style={{ cursor: "pointer" }}
-              >
-                Tutorials
-              </p>
-              <p
-                className="my-0 "
                 onClick={redirectToChatWithParent}
                 style={{ cursor: "pointer" }}
               >
                 Chat
               </p>
+              {isFitnessSpecialist && (
+                <p
+                  className="my-0 "
+                  onClick={redirectToCreateBlog}
+                  style={{ cursor: "pointer" }}
+                >
+                  Blog
+                </p>
+              )}
+
+              {isFitnessSpecialist && (
+                <p
+                  className="my-0 "
+                  onClick={redirectToTutorials}
+                  style={{ cursor: "pointer" }}
+                >
+                  Tutorials
+                </p>
+              )}
+
               {/* <p className="my-0 ">Link 2 </p>
               <p className="my-0 ">Link 3 </p>
               <p className="my-0 ">Link 4</p> */}

@@ -30,6 +30,7 @@ export interface HPData {
   profilePicture: Picture | null;
   certificateImg: Picture | null;
   createdAt: string;
+  category: string;
 }
 export const HPProfileSection = () => {
   const [hpData, setHPData] = useState<null | HPData>(null);

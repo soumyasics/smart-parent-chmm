@@ -11,9 +11,12 @@ import { ViewBlogs } from "../viewBlogs/viewBlogs";
 import { MySubscriptions } from "../mySubscriptions/mySubscriptions";
 import "./profilePage.css";
 import { MyReviewAndRating } from "../myReviewAndRating/myReview";
+import { HPComplaints } from "../hpComplaints/hpComplaints";
 
 export const HPProfilePage = () => {
+  
   const [activePage, setActivePage] = useState<string>("profile");
+
   const changeActivePage = (page: string) => {
     setActivePage(page);
   };
@@ -32,6 +35,7 @@ export const HPProfilePage = () => {
             {activePage === "My-blogs" && <ViewBlogs />}
             {activePage === "My-subscribers" && <MySubscriptions />}
             {activePage === "My-review" && <MyReviewAndRating />}
+            {activePage === "complaints" && <HPComplaints />}
           </Col>
         </Row>
       </Container>

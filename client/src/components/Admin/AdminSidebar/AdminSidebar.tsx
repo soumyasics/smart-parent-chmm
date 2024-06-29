@@ -47,6 +47,20 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
           <FcBusinessman />
           <h5>Health Professionals</h5>
         </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("vc")}
+        >
+          <FcBusinessman />
+          <h5>Vaccination Centers</h5>
+        </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("aw")}
+        >
+          <FcBusinessman />
+          <h5>Asha Workers</h5>
+        </div>
 
         <div
           className="admin-sidebar-link"
@@ -68,6 +82,20 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         >
           <FcBusinessman />
           <h5>Pending Asha Workers</h5>
+        </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("complaints")}
+        >
+          <FcBusinessman />
+          <h5>View Complaints</h5>
+        </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("reviews")}
+        >
+          <FcBusinessman />
+          <h5>View Reviews</h5>
         </div>
 
         <div className="admin-sidebar-link" onClick={handleLogout}>

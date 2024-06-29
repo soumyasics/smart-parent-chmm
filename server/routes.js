@@ -15,6 +15,7 @@ const blogController = require("./blog/blogController");
 const parentAndHPChatController = require("./MessageBwParentAndHP/messageController");
 const vaccinationScheduleController = require("./nextVaccination/nextVaccinationController");
 const hpRatingController = require("./rateHP/rateHPController");
+const complaintController = require("./complaintHP/complaintHPController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -255,9 +256,42 @@ router.get(
   vaccinationScheduleController.getVaccinationScheduleByParentId
 );
 
-// rating 
+// rating
 
 router.post("/addRating", hpRatingController.addRating);
 router.get("/getAllRating", hpRatingController.getAllRating);
 router.get("/getAllRatingByHPId/:id", hpRatingController.getAllRatingByHPId);
+
+// complaints
+
+router.post("/addComplaint", complaintController.addComplaint);
+router.get("/getAllComplaints", complaintController.getAllComplaints);
+router.get(
+  "/getAllComplaintsByHPId/:id",
+  complaintController.getAllComplaintsByHPId
+);
+
+// parent activate and deactivate routes
+
+router.patch(
+  "/parentDeactivate/:id",
+  parent.makeParentDeactivate
+);
+router.patch(
+  "/parentActivate/:id",
+  parent.makeParentActivate
+);
+
+// health professional activate and deactivate routes
+
+router.patch(
+  "/healthProfessionalDeactivate/:id",
+  hp.makeHPDeactivate
+);
+router.patch(
+  "/healthProfessionalActivate/:id",
+  hp.makeHPActivate
+);
+
+
 module.exports = router;
