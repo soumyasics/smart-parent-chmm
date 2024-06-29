@@ -15,6 +15,7 @@ const blogController = require("./blog/blogController");
 const parentAndHPChatController = require("./MessageBwParentAndHP/messageController");
 const vaccinationScheduleController = require("./nextVaccination/nextVaccinationController");
 const hpRatingController = require("./rateHP/rateHPController");
+const complaintController = require("./complaintHP/complaintHPController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -35,6 +36,7 @@ router.post(
   validatePassword,
   parent.loginParent
 );
+
 
 router.get("/getParentDataById/:id", parent.getParentDataById);
 router.patch(
@@ -260,4 +262,10 @@ router.get(
 router.post("/addRating", hpRatingController.addRating);
 router.get("/getAllRating", hpRatingController.getAllRating);
 router.get("/getAllRatingByHPId/:id", hpRatingController.getAllRatingByHPId);
+
+// complaints 
+
+router.post("/addComplaint", complaintController.addComplaint);
+router.get("/getAllComplaints", complaintController.getAllComplaints);
+router.get("/getAllComplaints", complaintController.getAllComplaintsByHPId);
 module.exports = router;
