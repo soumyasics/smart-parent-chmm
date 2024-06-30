@@ -4,7 +4,7 @@ function Freev() {
     <div className="mb-5">
       <div className="fvt mb-5">
         <p className="mt-5 ms-3">
-          <b>Free Videos And Tutorials</b>
+          <b>Videos And Tutorials</b>
         </p>
       </div>
       <div className="free-container container">

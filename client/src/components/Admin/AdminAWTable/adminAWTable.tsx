@@ -12,7 +12,6 @@ export const AdminAWTable = ({ AWsData }: any) => {
             <th>Email</th>
             <th>Address</th>
             <th>Phone Number</th>
-            <th>Category</th>
           </tr>
         </thead>
         <tbody>
@@ -24,7 +23,6 @@ export const AdminAWTable = ({ AWsData }: any) => {
                 <td>{p?.email}</td>
                 <td>{p?.address}</td>
                 <td>{p?.phoneNumber}</td>
-                <td>{p?.category}</td>
               </tr>
             );
           })}

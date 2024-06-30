@@ -3,8 +3,8 @@ import { useFetchData } from "../../../hooks/useFetchData";
 import { PageLoading } from "../../../components/pageLoading/pageLoading";
 import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/errorHandlingUi";
 export const ViewParentTable = () => {
-  const { isLoading, data: allParents, error } = useFetchData("/getAllParents");
-
+  const { isLoading, data: allParents, error } = useFetchData("/viewKids");
+  console.log("dataa", allParents);
   if (isLoading) {
     return (
       <div>
@@ -27,8 +27,9 @@ export const ViewParentTable = () => {
       <Table className="tw-m-auto mt-5" bordered striped style={{ width: "90%" }}>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
+            <th>Kid Name</th>
+            <th>Parent Name</th>
+            <th>Parnet Email</th>
 
             <th>Phone Number</th>
             <th>Address</th>
@@ -41,10 +42,11 @@ export const ViewParentTable = () => {
             return (
               <tr key={p?._id}>
                 <td>{p?.name}</td>
-                <td>{p?.email}</td>
-                <td>{p?.phoneNumber}</td>
-                <td>{p?.address}</td>
-                <td>{p?.isVaccinated ? "Vaccinated" : "Not Vaccinated"}</td>
+                <td>{p?.parentId?.name}</td>
+                <td>{p?.parentId?.email}</td>
+                <td>{p?.parentId?.phoneNumber}</td>
+                <td>{p?.parentId?.address}</td>
+                <td>{p?.parentId?.isVaccinated ? "Vaccinated" : "Not Vaccinated"}</td>
               </tr>
             );
           })}

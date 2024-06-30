@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../apis/axiosInstance.ts";
-import { AdminParentsTable } from "../AdminParentsTable/adminParentsTable.tsx";
 import AdminDashboardNav from "../AdminDashboardNav/adminDashboardNav.tsx";
 import "./adminParents.css";
 import { AdminVCTable } from "../AdminVCTable/adminVCTable.tsx";

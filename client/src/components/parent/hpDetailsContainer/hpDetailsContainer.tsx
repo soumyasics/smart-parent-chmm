@@ -110,6 +110,8 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     navigate(`/parent/payment/${id}`);
   };
 
+  console.log("dataa hp", data)
+
   return (
     <Container className="mt-5">
       <h3 className="text-center text-primary shadow">Health Professional</h3>
@@ -147,13 +149,13 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                     </Col>
                     <Col>
                       <p>
-                        <strong>Category:</strong> {data.category} <br />
+                        <strong>Category:</strong> {data?.category} <br />
                       </p>
                       <p>
-                        <strong>Department:</strong> {data.department} <br />
+                        <strong>Department:</strong> {data?.department} <br />
                       </p>
                       <p>
-                        <strong>Rating:</strong> {data?.rating.toFixed(1) || 0} <br />
+                        <strong>Rating:</strong> {data?.rating?.toFixed(1) || 0} <br />
                       </p>
                     </Col>
                   </Row>
