@@ -21,6 +21,7 @@ app.all('/*', (req, res) => {
   res.status(500).json("Please check the route")
 })
 
+// backend code 
 
 
 app.listen(PORT, () => {
