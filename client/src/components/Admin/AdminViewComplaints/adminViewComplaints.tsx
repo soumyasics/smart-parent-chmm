@@ -3,7 +3,7 @@ import { AdminViewComplaintsTable } from "../AdminViewComplaintsTable/adminViewC
 
 export const AdminViewComplaints = () => {
   return (
-    <div className="admin-users-container ">
+    <div className="admin-users-container " style={{minHeight: "100vh"}}>
       <div className="admin-user-title-container">
         <h1 className="admin-users-title"> All Complaints </h1>
       </div>

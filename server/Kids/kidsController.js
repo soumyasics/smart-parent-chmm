@@ -89,7 +89,7 @@ const getAllKidsByParentId = async (req, res) => {
 //View all Users
 
 const viewKids = (req, res) => {
-  KidModel.find()
+  KidModel.find().populate("parentId")
     .exec()
     .then((data) => {
       if (data.length > 0) {

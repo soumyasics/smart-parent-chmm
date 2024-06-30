@@ -42,10 +42,6 @@ export const LandingPageNavbar = () => {
               className={`me-auto text-white w-50 ms-5 justify-content-between ${styles.commonNavbarItemsContainer}`}
             >
               <p className="my-0">Home</p>
-              <p className="my-0">About Us</p>
-              <p className="my-0">Contact</p>
-              <p className="my-0">Services</p>
-              <p className="my-0">Blogs</p>
             </Nav>
           </Navbar.Collapse>
         </Container>

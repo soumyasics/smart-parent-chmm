@@ -62,6 +62,11 @@ export const UploadVideo = () => {
       return;
     }
 
+    if (!video.type.startsWith('video/')) {
+      toast.error("Please upload a valid video file.");
+      return;
+    }
+
     let videoObj: VideoDataType = {
       title,
       description,
@@ -106,7 +111,7 @@ export const UploadVideo = () => {
         toast.success("Tutorial uploaded successfully");
         resetFields();
       } else {
-        alert("Something went wrong");
+        toast.error("Something went wrong");
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -251,6 +256,7 @@ export const UploadVideo = () => {
                       }}
                       name="video"
                       type="file"
+                      accept="video/*"
                       required
                       placeholder="Video"
                     />
