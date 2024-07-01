@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetSingleObjectData } from "../../../hooks/useGetSingleObjectData";
-import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/errorHandlingUi";
 import { isHealthProfessionalData } from "../../../types/typeGuard";
 import { HPDetailsContainer } from "../../../components/parent/hpDetailsContainer/hpDetailsContainer";
+import { PageLoading2 } from "../../../components/pageLoading/pageLoading2";
 export const ViewHPDeatils = () => {
   const { id } = useParams();
   const { data } = useGetSingleObjectData(`/getHPDataById/${id}`);
@@ -24,7 +24,7 @@ export const ViewHPDeatils = () => {
         {data && isHealthProfessionalData(data) ? (
           <HPDetailsContainer data={data} />
         ) : (
-          <ErrorHandlingUI />
+          <PageLoading2 />
         )}
       </div>
       <div className="mt-5">

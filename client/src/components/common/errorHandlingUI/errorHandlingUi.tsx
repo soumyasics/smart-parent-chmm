@@ -1,7 +1,7 @@
 import { Alert, Image } from "react-bootstrap";
 import errorImg from "../../../assets/error-1.jpg";
 export const ErrorHandlingUI = ({
-  error = "Something went wrong, please try again.",
+  error = "Loading...",
 }) => {
   return (
     <div>
@@ -14,7 +14,7 @@ export const ErrorHandlingUI = ({
           className=""
         />
       </div>
-      <Alert variant="danger" className="text-center">
+      <Alert variant="info" className="text-center">
         {error}
       </Alert>
     </div>
