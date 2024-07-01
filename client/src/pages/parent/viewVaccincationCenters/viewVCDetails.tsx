@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetSingleObjectData } from "../../../hooks/useGetSingleObjectData";
-import { ErrorHandlingUI } from "../../../components/common/errorHandlingUI/errorHandlingUi";
 import { isVaccinationCenterData } from "../../../types/typeGuard";
+import { PageLoading2 } from "../../../components/pageLoading/pageLoading2";
 export const ViewVCDeatils = () => {
   const { id } = useParams();
   const {  data } = useGetSingleObjectData(
@@ -27,7 +27,7 @@ export const ViewVCDeatils = () => {
         {data && isVaccinationCenterData(data) ? (
           <VCDetailsContainer data={data} />
         ) : (
-          <ErrorHandlingUI />
+          <PageLoading2 />
         )}
       </div>
       <CommonFooter />
