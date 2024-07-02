@@ -6,11 +6,11 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 export const RegisterKidForm = () => {
   const [parentId, setParentId] = useState<string>("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -18,15 +18,17 @@ export const RegisterKidForm = () => {
     watch,
   } = useForm();
 
-  const {isAuthenticated, userType, userId} = useSelector((state: RootState) => state.user);
+  const { isAuthenticated, userType, userId } = useSelector(
+    (state: RootState) => state.user
+  );
   useEffect(() => {
     if (isAuthenticated && userType === "parent" && userId !== null) {
-      setParentId(userId)
-    }else {
-      toast.error("Please Login again. ")
+      setParentId(userId);
+    } else {
+      toast.error("Please Login again. ");
       //todo=> navigate to parent login page here.
     }
-  }, [])
+  }, []);
   const onSubmit = (data: any) => {
     // convert data to form data
     const formData = new FormData();
@@ -42,14 +44,13 @@ export const RegisterKidForm = () => {
     sendDataToServer(formData);
   };
 
-
   const sendDataToServer = async (formData: any) => {
     try {
       const res = await axiosMultipartInstance.post("/addKid", formData);
       if (res.status === 201) {
         toast.success("Child registration successfull.");
-        
-        navigate('/parent/home')
+
+        navigate("/parent/home");
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -102,6 +103,7 @@ export const RegisterKidForm = () => {
                   <Form.Label>Date of Birth</Form.Label>
                   <Form.Control
                     type="date"
+                    max={new Date().toISOString().split("T")[0]} 
                     {...register("dob", { required: true })}
                   />
                   {errors.dob && (
@@ -119,10 +121,18 @@ export const RegisterKidForm = () => {
                     type="number"
                     step="0.01"
                     placeholder="Enter birth weight"
-                    {...register("birthWeight", { required: true })}
+                    {...register("birthWeight", {
+                      required: true,
+                      pattern: {
+                        value: /^\d{1,2}(\.\d{1,2})?$/,
+                        message: "Enter a valid birth weight (e.g., 12.34)",
+                      },
+                    })}
                   />
                   {errors.birthWeight && (
-                    <p className="text-danger">Birth Weight is required</p>
+                    <p className="text-danger">
+                      Enter a valid birth weight (e.g., 12.34)
+                    </p>
                   )}
                 </Form.Group>
               </Col>
@@ -133,10 +143,18 @@ export const RegisterKidForm = () => {
                     type="number"
                     step="0.01"
                     placeholder="Enter weight"
-                    {...register("weight", { required: true })}
+                    {...register("weight", {
+                      required: true,
+                      pattern: {
+                        value: /^\d{1,2}(\.\d{1,2})?$/,
+                        message: "Enter a valid current weight (e.g., 15.20)",
+                      },
+                    })}
                   />
                   {errors.weight && (
-                    <p className="text-danger">Weight is required</p>
+                    <p className="text-danger">
+                      Enter a valid current weight (e.g., 15.20)
+                    </p>
                   )}
                 </Form.Group>
               </Col>
@@ -149,10 +167,17 @@ export const RegisterKidForm = () => {
                   <Form.Control
                     type="number"
                     placeholder="Enter height"
-                    {...register("height", { required: true })}
+                    maxLength={3}
+                    {...register("height", {
+                      required: true,
+                      pattern: {
+                        value: /^\d{1,3}$/,
+                        message: "Enter a valid height (up to 3 digits)",
+                      },
+                    })}
                   />
                   {errors.height && (
-                    <p className="text-danger">Height is required</p>
+                    <p className="text-danger">Enter a valid height (up to 3 digits)</p>
                   )}
                 </Form.Group>
               </Col>
@@ -183,6 +208,7 @@ export const RegisterKidForm = () => {
                   <Form.Label>Upload your kid photo</Form.Label>
                   <Form.Control
                     type="file"
+                    accept="image/*"
                     {...register("image", { required: true })}
                   />
                   {errors.image && (

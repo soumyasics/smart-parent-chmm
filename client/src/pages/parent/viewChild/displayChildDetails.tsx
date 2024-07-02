@@ -34,8 +34,6 @@ interface DisplayChildDetailsProps {
 export const DisplayChildDetails: React.FC<DisplayChildDetailsProps> = ({
   childData,
 }) => {
-
-
   if (childData.length === 0) {
     return (
       <div>
@@ -53,7 +51,8 @@ export const DisplayChildDetails: React.FC<DisplayChildDetailsProps> = ({
       <div>
         {childData.map((child: any) => {
           const imgFilename = child.image?.filename || "";
-          let imageLink = "https://t3.ftcdn.net/jpg/01/28/56/34/360_F_128563455_bGrVZnfDCL0PxH1sU33NpOhGcCc1M7qo.jpg";
+          let imageLink =
+            "https://t3.ftcdn.net/jpg/01/28/56/34/360_F_128563455_bGrVZnfDCL0PxH1sU33NpOhGcCc1M7qo.jpg";
           if (imgFilename) {
             imageLink = `${BASE_URL}${imgFilename}`;
           }
@@ -80,7 +79,7 @@ export const DisplayChildDetails: React.FC<DisplayChildDetailsProps> = ({
                       <span className="fw-bold">Date Of Birth: </span>
                       {child.dob.substring(0, 10)}
                     </p>
-               
+
                     <p className="card-text">
                       <span className="fw-bold">Birth Weight: </span>
                       {child.birthWeight}
