@@ -80,10 +80,7 @@ export const DisplayChildDetails: React.FC<DisplayChildDetailsProps> = ({
                       <span className="fw-bold">Date Of Birth: </span>
                       {child.dob.substring(0, 10)}
                     </p>
-                    <p className="card-text">
-                      <span className="fw-bold">Weight: </span>
-                      {child.weight}
-                    </p>
+               
                     <p className="card-text">
                       <span className="fw-bold">Birth Weight: </span>
                       {child.birthWeight}
