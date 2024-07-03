@@ -148,6 +148,7 @@ export const AdminViewComplaintsTable = ({}) => {
                   <td>{findStatus()}</td>
                   <td>
                     <Button
+                    variant={"warning"}
                       onClick={() => {
                         sendWarning(rev?.healthProfessionalId?._id);
                       }}

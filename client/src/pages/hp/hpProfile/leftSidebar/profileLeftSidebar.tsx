@@ -20,9 +20,7 @@ interface ParentProfileLeftSidebarProps {
 export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
   changeActivePage,
 }) => {
-  const { userData } = useSelector(
-    (state: RootState) => state.user
-  );
+  const { userData } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleParentLogout = () => {
@@ -57,7 +55,8 @@ export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("warning")}
         >
-          <IoWarningOutline className="sidebar-icon" /> Caution Messages
+          <IoWarningOutline className="sidebar-icon" />
+          <span className="text-danger fw-bold">  Caution Messages </span>
         </ListGroup.Item>
 
         <ListGroup.Item

@@ -31,7 +31,7 @@ export const HPWarnings = () => {
 
   return (
     <div>
-      <h4 className="text-center text-primary">Warning messages from admin</h4>
+      <h4 className="text-center text-primary">Caution messages from admin</h4>
       <div>
         {data.map((w: any, i) => (
           <Card key={i} className="mt-4">
