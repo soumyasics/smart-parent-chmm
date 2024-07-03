@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import {
-  FcBusinessman,
-  FcShop,
-  FcVoicePresentation,
-} from "react-icons/fc";
+import { FcBusinessman, FcShop, FcVoicePresentation } from "react-icons/fc";
 import { adminLoggedOut } from "../../../redux/reducers/adminSlice";
 import { useDispatch } from "react-redux";
 import { FcManager } from "react-icons/fc";
 import { LuLogOut } from "react-icons/lu";
+import { PiWarningCircleBold } from "react-icons/pi";
+import { VscOpenPreview } from "react-icons/vsc";
+import { RiHospitalFill } from "react-icons/ri";
 import "./AdminSidebar.css";
 
 interface AdminSidebarProps {
@@ -51,7 +50,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
           className="admin-sidebar-link"
           onClick={() => changeActivePage("vc")}
         >
-          <FcBusinessman />
+          <RiHospitalFill />
           <h5>Vaccination Centers</h5>
         </div>
         <div
@@ -87,14 +86,14 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
           className="admin-sidebar-link"
           onClick={() => changeActivePage("complaints")}
         >
-          <FcBusinessman />
+          <PiWarningCircleBold />
           <h5>View Complaints</h5>
         </div>
         <div
           className="admin-sidebar-link"
           onClick={() => changeActivePage("reviews")}
         >
-          <FcBusinessman />
+          <VscOpenPreview />
           <h5>View Reviews</h5>
         </div>
 
