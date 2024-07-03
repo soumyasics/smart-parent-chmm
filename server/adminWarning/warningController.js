@@ -30,7 +30,7 @@ const sendWarning = async (req, res) => {
 
 const getAllWarningByHPId = async (req, res) => {
   try {
-    const { HPId } = req.params;
+    const { id: HPId } = req.params;
     if (!HPId) {
       return res
         .status(400)

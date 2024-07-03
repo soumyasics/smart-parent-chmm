@@ -13,6 +13,7 @@ import { FaCommentDots } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import { useEffect, useState } from "react";
+import { IoWarningOutline } from "react-icons/io5";
 interface ParentProfileLeftSidebarProps {
   changeActivePage: (page: string) => void;
 }
@@ -51,6 +52,12 @@ export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
           onClick={() => changeActivePage("profile")}
         >
           <FaUser className="sidebar-icon" /> Profile
+        </ListGroup.Item>
+        <ListGroup.Item
+          className="sidebar-item d-flex"
+          onClick={() => changeActivePage("warning")}
+        >
+          <IoWarningOutline className="sidebar-icon" /> Caution Messages
         </ListGroup.Item>
 
         <ListGroup.Item

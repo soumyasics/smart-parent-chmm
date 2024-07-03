@@ -29,6 +29,8 @@ export const ParentNotification = () => {
       console.log("Eror on getting parent notification", err);
     }
   };
+
+ 
   return (
     <div>
       <h3 className="text-center">Notifications </h3>

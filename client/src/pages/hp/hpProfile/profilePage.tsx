@@ -12,6 +12,7 @@ import { MySubscriptions } from "../mySubscriptions/mySubscriptions";
 import "./profilePage.css";
 import { MyReviewAndRating } from "../myReviewAndRating/myReview";
 import { HPComplaints } from "../hpComplaints/hpComplaints";
+import { HPWarnings } from "../hpWarnings/hpWarnings";
 
 export const HPProfilePage = () => {
   
@@ -30,6 +31,7 @@ export const HPProfilePage = () => {
           </Col>
           <Col md={9} className="profile-container">
             {activePage === "profile" && <HPProfileSection />}
+            {activePage === "warning" && <HPWarnings />}
             {activePage === "reset-password" && <HPResetPassword />}
             {activePage === "My-Tutorials" && <ViewTutroials />}
             {activePage === "My-blogs" && <ViewBlogs />}
