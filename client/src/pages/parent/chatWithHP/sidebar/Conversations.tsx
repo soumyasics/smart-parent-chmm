@@ -22,8 +22,9 @@ const Conversations: FC<ConversationProps> = ({
   const {userId} = useSelector((state: RootState) => state.user)
   const [filteredParticipants, setFilteredParticipants] =
     useState<fetchDataType>([]);
-  const { isLoading, data: allHPs, error } = useFetchData(`getAllSubscriptionByParentId/${userId}`);
+  let { isLoading, data: allHPs, error } = useFetchData(`getAllSubscriptionByParentId/${userId}`);
   const navigateTo = useCustomNavigate();
+  console.log("allPH", allHPs)
 
   
   useEffect(() => {

@@ -16,6 +16,7 @@ export interface HPData {
   password: string;
   phoneNumber: string;
   address: string;
+  isActive: string;
   profilePicture: any;
 }
 

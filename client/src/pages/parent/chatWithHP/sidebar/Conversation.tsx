@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useProfilePicture } from "../../../../hooks/useProfilePicture";
 import { HPData } from "../types";
+import {toast} from "react-hot-toast";
 interface ConversationProps {
   hp: HPData;
   activeParticipant: HPData | null;
@@ -20,6 +21,10 @@ export const Conversation: FC<ConversationProps> = ({
   };
 
   const chooseActiveParticipant = () => {
+    if (hp.isActive === "suspended") {
+      toast.error("This health professional has been suspended");
+      return;
+    }
     chooseParticipant(hp);
   };
 
