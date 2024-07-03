@@ -1,9 +1,39 @@
 import { Button, Table } from "react-bootstrap";
 import "./adminHPPendingTable.css";
+import { useState } from "react";
+import { ViewCertificateModal } from "./certificateModal";
+import { BASE_URL } from "../../../apis/baseUrl";
 
-export const AdminHPPendingTable = ({ hpPendingData, rejectHP, approveHP }: any) => {
+export const AdminHPPendingTable = ({
+  hpPendingData,
+  rejectHP,
+  approveHP,
+}: any) => {
+  const [certificateImg, setCertificateImg] = useState("");
+  const [modalShow, setModalShow] = useState(false);
+
+  const viewCert = (hp: any) => {
+    console.log("hp", hp)
+    if (!hp?.certificateImg) {
+      return;
+    }
+    
+
+    const path = hp?.certificateImg?.filename || null;
+    console.log("patth", path)
+    if (path) {
+      setCertificateImg(BASE_URL + path);
+    }
+    setModalShow(true);
+  }
+  
   return (
-    <>
+    <div className="hp-table-container">
+      <ViewCertificateModal
+        certificateImg={certificateImg}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
       <Table striped bordered hover id="admin-users-table-container">
         <thead>
           <tr>
@@ -12,6 +42,7 @@ export const AdminHPPendingTable = ({ hpPendingData, rejectHP, approveHP }: any)
             <th>Email</th>
             <th>Address</th>
             <th>Phone Number</th>
+            <th>View Certificate</th>
             <th>Approve</th>
             <th>Reject</th>
           </tr>
@@ -25,6 +56,11 @@ export const AdminHPPendingTable = ({ hpPendingData, rejectHP, approveHP }: any)
                 <td>{h.email}</td>
                 <td>{h.address}</td>
                 <td>{h.phoneNumber}</td>
+                <td>
+                  <Button onClick={() => {
+                    viewCert(h)
+                  }}> View </Button>
+                </td>
                 <td>
                   <Button
                     onClick={() => {
@@ -51,6 +87,6 @@ export const AdminHPPendingTable = ({ hpPendingData, rejectHP, approveHP }: any)
         </tbody>
       </Table>
       {/* pagination buttons here */}
-    </>
+    </div>
   );
 };

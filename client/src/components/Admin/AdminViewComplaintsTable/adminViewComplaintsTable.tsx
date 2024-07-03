@@ -97,6 +97,7 @@ export const AdminViewComplaintsTable = ({}) => {
             <th>Complaint</th>
             <th>Health Professional Email</th>
             <th>Health Professional Status</th>
+            <th>Send Warning</th>
             <th>Take Action</th>
           </tr>
         </thead>
@@ -119,6 +120,9 @@ export const AdminViewComplaintsTable = ({}) => {
                 <td>{rev?.complaint}</td>
                 <td>{rev?.healthProfessionalId?.email}</td>
                 <td>{findStatus()}</td>
+                <td>
+                  <Button>Send Warning</Button>
+                </td>
                 <td>
                   {findStatus() === "Active" ? (
                     <Button

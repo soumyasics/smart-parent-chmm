@@ -1,3 +1,6 @@
 #admin-users-table-container {
     width: 95%;
 }
+.hp-table-container {
+    overflow-x: auto;
+}
