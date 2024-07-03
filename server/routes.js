@@ -16,6 +16,7 @@ const parentAndHPChatController = require("./MessageBwParentAndHP/messageControl
 const vaccinationScheduleController = require("./nextVaccination/nextVaccinationController");
 const hpRatingController = require("./rateHP/rateHPController");
 const complaintController = require("./complaintHP/complaintHPController");
+const warningController = require("./adminWarning/warningController");
 const {
   validateEmailForLogin,
   validateEmailForRegistration,
@@ -291,6 +292,12 @@ router.patch(
 router.patch(
   "/healthProfessionalActivate/:id",
   hp.makeHPActivate
+);
+
+router.post("/sendWarning", warningController.sendWarning);
+router.get(
+  "/getAllWarningByHPId/:id",
+  warningController.getAllWarningByHPId
 );
 
 

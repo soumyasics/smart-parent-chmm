@@ -98,7 +98,6 @@ export const AdminViewComplaintsTable = ({}) => {
       handleShow();
     }
   }, [warningHPId]);
-  console.log("sdfdid", warningHPId);
   return (
     <>
       <div style={{ display: "none" }}>
