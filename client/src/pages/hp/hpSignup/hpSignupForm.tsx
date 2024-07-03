@@ -369,7 +369,7 @@ export const HPSignupForm = () => {
               <option value="Dietitian">Dietitian</option>
               <option value="Psychiatrist">Psychiatrist</option>
               <option value="Fitness Specialist">Fitness Specialist</option>
-              <option value="Physician">Physician</option>
+              {/* <option value="Physician">Physician</option> */}
             </Form.Select>
             <Form.Control.Feedback type="invalid">
               Please enter your category

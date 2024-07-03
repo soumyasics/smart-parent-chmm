@@ -39,8 +39,12 @@ const addRating = async (req, res) => {
     }
 
     let currentRating = hp?.rating || 0;
-    let newRating = (currentRating + rating) / 2;
-
+    let newRating = 0;
+    if (currentRating == 0) {
+      newRating = rating;
+    } else {
+      newRating = (currentRating + rating) / 2;
+    }
     hp.rating = newRating;
 
     const rateHP = new RateHPModel({
@@ -54,7 +58,11 @@ const addRating = async (req, res) => {
     await rateHP.save();
     return res
       .status(200)
-      .json({ message: "Rating added successfully", success: true, currentRating: newRating });
+      .json({
+        message: "Rating added successfully",
+        success: true,
+        currentRating: newRating,
+      });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -100,6 +108,6 @@ const getAllRatingByHPId = async (req, res) => {
       message: error.message,
     });
   }
-}
+};
 
 module.exports = { addRating, getAllRating, getAllRatingByHPId };

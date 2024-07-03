@@ -220,7 +220,7 @@ export const PaymentForm = () => {
         <Row>
           <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Expiration Date</Form.Label>
+              <Form.Label>Expiry Date</Form.Label>
               <Form.Control
                 value={subscriptionData.cardExpiry}
                 name="cardExpiry"

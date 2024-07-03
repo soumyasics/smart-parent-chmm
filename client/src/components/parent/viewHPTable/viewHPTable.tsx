@@ -48,6 +48,10 @@ export const ViewHPTable = () => {
 
         <tbody>
           {allHPs.map((hp) => {
+            console.log("hpp", hp)
+            if (hp.isActive === "suspended") {
+              return null;
+            }
             return (
               <tr key={hp._id}>
                 <td>{hp?.name}</td>

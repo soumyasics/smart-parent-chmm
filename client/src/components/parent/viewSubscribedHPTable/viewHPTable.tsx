@@ -50,7 +50,6 @@ export const ViewSubscribedHPTable = () => {
           <tr>
             <th>Name</th>
             <th>Email</th>
-
             <th>Phone Number</th>
             <th>Address</th>
             <th>Category</th>
@@ -60,6 +59,9 @@ export const ViewSubscribedHPTable = () => {
 
         <tbody>
           {allHPs.map((hp) => {
+            if (hp.isActive === "suspended") {
+              return null;
+            }
             return (
               <tr key={hp._id}>
                 <td>{hp?.name}</td>

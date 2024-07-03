@@ -13,8 +13,6 @@ export const ViewSubscribedHP = () => {
     <div>
       <ParentNavbar />
 
-
-      
       <div style={{ minHeight: "600px" }}>
         <div className="tw-my-10  tw-flex tw-justify-center tw-align-middle">
           <h4 className="text-success"> Subscribed Health Professionals</h4>
