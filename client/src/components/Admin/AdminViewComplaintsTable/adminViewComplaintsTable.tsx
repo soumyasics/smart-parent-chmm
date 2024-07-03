@@ -4,11 +4,20 @@ import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
+import { WarningModal } from "./warningModal";
 
 export const AdminViewComplaintsTable = ({}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [warningHPId, setWarningHPId] = useState("");
+  const [show, setShow] = useState(false);
+  
+  const handleClose = () =>{
+    setWarningHPId('')
+    setShow(false)
+  } ;
+  const handleShow = () => setShow(true);
 
   const fetchData = async () => {
     try {
@@ -80,8 +89,26 @@ export const AdminViewComplaintsTable = ({}) => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const sendWarning = (id: string) => {
+    setWarningHPId((prev) => (prev = id));
+  };
+  useEffect(() => {
+    if (warningHPId) {
+      handleShow();
+    }
+  }, [warningHPId]);
+  console.log("sdfdid", warningHPId);
   return (
     <>
+      <div style={{ display: "none" }}>
+        <WarningModal
+          HPId={warningHPId}
+          handleClose={handleClose}
+          handleShow={handleShow}
+          show={show}
+        />
+      </div>
       <Table
         striped
         bordered
@@ -121,7 +148,13 @@ export const AdminViewComplaintsTable = ({}) => {
                 <td>{rev?.healthProfessionalId?.email}</td>
                 <td>{findStatus()}</td>
                 <td>
-                  <Button>Send Warning</Button>
+                  <Button
+                    onClick={() => {
+                      sendWarning(rev?.healthProfessionalId?._id);
+                    }}
+                  >
+                    Send{" "}
+                  </Button>
                 </td>
                 <td>
                   {findStatus() === "Active" ? (
