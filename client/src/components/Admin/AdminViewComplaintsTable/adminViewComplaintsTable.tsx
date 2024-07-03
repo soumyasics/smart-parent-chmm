@@ -91,7 +91,7 @@ export const AdminViewComplaintsTable = ({}) => {
   }, []);
 
   const sendWarning = (id: string) => {
-    setWarningHPId((prev) => (prev = id));
+    setWarningHPId(id);
   };
   useEffect(() => {
     if (warningHPId) {
