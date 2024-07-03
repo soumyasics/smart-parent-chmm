@@ -4,8 +4,8 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { FC } from "react";
 import toast from "react-hot-toast";
-import { GiConsoleController } from "react-icons/gi";
-
+import axiosInstance from "../../../apis/axiosInstance";
+import { useNavigate } from "react-router-dom";
 interface WarningModelProps {
   HPId: string;
   handleClose: () => void;
@@ -19,7 +19,7 @@ export const WarningModal: FC<WarningModelProps> = ({
   show,
 }) => {
   const [warningMsg, setWarningMsg] = useState("");
-
+  const navigate = useNavigate();
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (!warningMsg) {
@@ -37,9 +37,19 @@ export const WarningModal: FC<WarningModelProps> = ({
     HPId: string;
     warningMsg: string;
   }) => {
-    console.log("data", data);
-    // try {
-    //   const res = await axiosInstance.patch(
+    try {
+      const res = await axiosInstance.post("sendWarning", data);
+      console.log("ress", res);
+      if (res.status === 200) {
+        toast.success("Warning sent successfully");
+      }
+    } catch (error) {
+      console.log("error ", error);
+      toast.error("Please try again.");
+      navigate("/admin/dashboard");
+    } finally {
+      handleClose();
+    }
   };
 
   return (

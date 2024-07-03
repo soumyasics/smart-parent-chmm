@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { HPModel } = require("../HealthProfessionals/hpSchema");
+const { WarningModel } = require("./WarningSchema");
 
 const sendWarning = async (req, res) => {
   try {
@@ -22,7 +24,7 @@ const sendWarning = async (req, res) => {
 
     return res.status(200).json({ message: "Warning sent successfully" });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: error.message });
   }
 };
 

@@ -1,3 +1,6 @@
-#admin-users-table-container {
+/* #admin-users-table-container {
     width: 95%;
+} */
+.admin-users-table-container {
+  overflow-x: auto;
 }

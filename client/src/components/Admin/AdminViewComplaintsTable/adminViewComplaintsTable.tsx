@@ -12,11 +12,11 @@ export const AdminViewComplaintsTable = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [warningHPId, setWarningHPId] = useState("");
   const [show, setShow] = useState(false);
-  
-  const handleClose = () =>{
-    setWarningHPId('')
-    setShow(false)
-  } ;
+
+  const handleClose = () => {
+    setWarningHPId("");
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   const fetchData = async () => {
@@ -108,80 +108,80 @@ export const AdminViewComplaintsTable = ({}) => {
           show={show}
         />
       </div>
-      <Table
-        striped
-        bordered
-        hover
-        id="admin-users-table-container"
-        style={{ overflowX: "auto" }}
-      >
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Complainor name</th>
-            <th>Health Professional Name</th>
-            <th>Complaint</th>
-            <th>Health Professional Email</th>
-            <th>Health Professional Status</th>
-            <th>Send Warning</th>
-            <th>Take Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((rev: any, i) => {
-            const findStatus = () => {
-              const hp = rev?.healthProfessionalId;
-              console.log("hpp", hp);
-              const isActive = hp?.isActive === "active";
-              if (isActive) {
-                return "Active";
-              }
-              return "Suspended";
-            };
-            return (
-              <tr>
-                <td>{i + 1}</td>
-                <td>{rev?.parentId?.name}</td>
-                <td>{rev?.healthProfessionalId?.name}</td>
-                <td>{rev?.complaint}</td>
-                <td>{rev?.healthProfessionalId?.email}</td>
-                <td>{findStatus()}</td>
-                <td>
-                  <Button
-                    onClick={() => {
-                      sendWarning(rev?.healthProfessionalId?._id);
-                    }}
-                  >
-                    Send{" "}
-                  </Button>
-                </td>
-                <td>
-                  {findStatus() === "Active" ? (
+      <div className="admin-users-table-container">
+        <Table
+          striped
+          bordered
+          hover
+          id="admin-users-table-container"
+        >
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Complainor name</th>
+              <th>Health Professional Name</th>
+              <th>Complaint</th>
+              <th>Health Professional Email</th>
+              <th>Health Professional Status</th>
+              <th>Send Warning</th>
+              <th>Take Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((rev: any, i) => {
+              const findStatus = () => {
+                const hp = rev?.healthProfessionalId;
+                console.log("hpp", hp);
+                const isActive = hp?.isActive === "active";
+                if (isActive) {
+                  return "Active";
+                }
+                return "Suspended";
+              };
+              return (
+                <tr>
+                  <td>{i + 1}</td>
+                  <td>{rev?.parentId?.name}</td>
+                  <td>{rev?.healthProfessionalId?.name}</td>
+                  <td>{rev?.complaint}</td>
+                  <td>{rev?.healthProfessionalId?.email}</td>
+                  <td>{findStatus()}</td>
+                  <td>
                     <Button
-                      variant={"danger"}
                       onClick={() => {
-                        suspendHP(rev?.healthProfessionalId?._id);
+                        sendWarning(rev?.healthProfessionalId?._id);
                       }}
                     >
-                      Suspend
+                      Send{" "}
                     </Button>
-                  ) : (
-                    <Button
-                      variant={"success"}
-                      onClick={() => {
-                        reactivateHP(rev?.healthProfessionalId?._id);
-                      }}
-                    >
-                      Activate
-                    </Button>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-      {/* pagination buttons here */}
+                  </td>
+                  <td>
+                    {findStatus() === "Active" ? (
+                      <Button
+                        variant={"danger"}
+                        onClick={() => {
+                          suspendHP(rev?.healthProfessionalId?._id);
+                        }}
+                      >
+                        Suspend
+                      </Button>
+                    ) : (
+                      <Button
+                        variant={"success"}
+                        onClick={() => {
+                          reactivateHP(rev?.healthProfessionalId?._id);
+                        }}
+                      >
+                        Activate
+                      </Button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
     </>
   );
 };
