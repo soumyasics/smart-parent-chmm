@@ -58,6 +58,7 @@ export interface VaccinationCenterData extends BaseData {
   createdAt: string;
   updatedAt: string;
   district: string;
+  vaccines: any[];
   __v: number;
 }
 

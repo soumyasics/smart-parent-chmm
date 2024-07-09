@@ -9,11 +9,9 @@ import { isVaccinationCenterData } from "../../../types/typeGuard";
 import { PageLoading2 } from "../../../components/pageLoading/pageLoading2";
 export const ViewVCDeatils = () => {
   const { id } = useParams();
-  const {  data } = useGetSingleObjectData(
-    `/getVCDataById/${id}`
-  );
+  const { data } = useGetSingleObjectData(`/getVCDataById/${id}`);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (!id) {
       navigate("/parent/view-vc");
@@ -30,7 +28,9 @@ export const ViewVCDeatils = () => {
           <PageLoading2 />
         )}
       </div>
-      <CommonFooter />
+      <div className="mt-5">
+        <CommonFooter />
+      </div>
     </div>
   );
 };
