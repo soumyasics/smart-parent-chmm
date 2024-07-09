@@ -38,31 +38,32 @@ const addRating = async (req, res) => {
       });
     }
 
-    let currentRating = hp?.rating || 0;
-    let newRating = 0;
-    if (currentRating == 0) {
-      newRating = rating;
-    } else {
-      newRating = (currentRating + rating) / 2;
-    }
-    hp.rating = newRating;
-
     const rateHP = new RateHPModel({
       parentId,
       healthProfessionalId,
       rating,
       review,
     });
+    await rateHP.save();
+
+    const prevRatings = await RateHPModel.find({ healthProfessionalId });
+    let newRating = 0;
+   
+    if (prevRatings.length > 0) {
+      const totalRates = prevRatings.reduce((acc, curr) => {
+        return acc + curr.rating;
+      }, 0);
+      newRating = totalRates / prevRatings.length;
+    }
+
+    hp.rating = newRating;
 
     await hp.save();
-    await rateHP.save();
-    return res
-      .status(200)
-      .json({
-        message: "Rating added successfully",
-        success: true,
-        currentRating: newRating,
-      });
+    return res.status(200).json({
+      message: "Rating added successfully",
+      success: true,
+      currentRating: newRating,
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
