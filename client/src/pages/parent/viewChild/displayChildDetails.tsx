@@ -73,31 +73,39 @@ export const DisplayChildDetails: React.FC<DisplayChildDetailsProps> = ({
                   <Col>
                     <p className="card-title">
                       {" "}
-                      <span className="fw-bold"> Name:</span> {child.name}
+                      <span className="fw-bold"> Name:</span> {child?.name}
                     </p>
                     <p className="card-text">
                       <span className="fw-bold">Date Of Birth: </span>
-                      {child.dob.substring(0, 10)}
+                      {child?.dob?.substring(0, 10)}
                     </p>
 
                     <p className="card-text">
                       <span className="fw-bold">Birth Weight: </span>
-                      {child.birthWeight}
+                      {child?.birthWeight}
+                    </p>
+                    <p className="card-text">
+                      <span className="fw-bold">Gender: </span>
+                      {child?.gender}
                     </p>
                   </Col>
                   <Col>
                     <p className="card-text">
                       <span className="fw-bold"> Weight: </span>
 
-                      {child.weight}
+                      {child?.weight}
                     </p>
                     <p className="card-text">
                       <span className="fw-bold">Height: </span>
-                      {child.height}
+                      {child?.height}
                     </p>
                     <p className="card-text">
                       <span className="fw-bold">Blood Group: </span>
-                      {child.bloodGroup}
+                      {child?.bloodGroup}
+                    </p>
+                    <p className="card-text">
+                      <span className="fw-bold">Description: </span>
+                      {child?.description}
                     </p>
                   </Col>
                 </Row>

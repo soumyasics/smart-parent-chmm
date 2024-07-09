@@ -35,6 +35,14 @@ const kidSchema = mongoose.Schema(
       type: Object,
       default: null
     },
+    gender: {
+      type: String,
+      default: "",
+    },
+    description: {
+      type: String,
+      default: ""
+    }
   },
   { timestamps: true }
 );

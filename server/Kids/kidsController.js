@@ -15,7 +15,7 @@ const upload = multer({ storage: storage }).single("image");
 
 const addKid = async (req, res) => {
   try {
-    const { name, dob, birthWeight, weight, height, parentId, bloodGroup } =
+    const { name, dob, birthWeight, weight, height, parentId, bloodGroup, gender, description } =
       req.body;
     if (
       !name ||
@@ -24,7 +24,9 @@ const addKid = async (req, res) => {
       !weight ||
       !height ||
       !parentId ||
-      !bloodGroup
+      !bloodGroup ||
+      !gender ||
+      !description
     ) {
       return res.status(400).json({
         message: "All fields are required",
@@ -38,6 +40,8 @@ const addKid = async (req, res) => {
       height,
       parentId,
       bloodGroup,
+      gender,
+      description,
       image: req.file?.path ? req.file : null,
     });
 

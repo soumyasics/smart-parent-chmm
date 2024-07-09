@@ -39,6 +39,8 @@ export const RegisterKidForm = () => {
     formData.append("weight", data.weight);
     formData.append("height", data.height);
     formData.append("bloodGroup", data.bloodGroup);
+    formData.append("gender", data.gender);
+    formData.append("description", data.description);
     formData.append("image", data.image[0]);
     // todo=>dob validation here
     sendDataToServer(formData);
@@ -103,7 +105,7 @@ export const RegisterKidForm = () => {
                   <Form.Label>Date of Birth</Form.Label>
                   <Form.Control
                     type="date"
-                    max={new Date().toISOString().split("T")[0]} 
+                    max={new Date().toISOString().split("T")[0]}
                     {...register("dob", { required: true })}
                   />
                   {errors.dob && (
@@ -177,7 +179,9 @@ export const RegisterKidForm = () => {
                     })}
                   />
                   {errors.height && (
-                    <p className="text-danger">Enter a valid height (up to 3 digits)</p>
+                    <p className="text-danger">
+                      Enter a valid height (up to 3 digits)
+                    </p>
                   )}
                 </Form.Group>
               </Col>
@@ -201,8 +205,20 @@ export const RegisterKidForm = () => {
                 </Form.Group>
               </Col>
             </Row>
-
             <Row>
+              <Col>
+                <Form.Group controlId="formGender">
+                  <Form.Label>Gender</Form.Label>
+                  <Form.Select {...register("gender", { required: true })}>
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </Form.Select>
+                  {errors.gender && (
+                    <p className="text-danger">Gender is required</p>
+                  )}
+                </Form.Group>
+              </Col>
               <Col>
                 <Form.Group controlId="formImage">
                   <Form.Label>Upload your kid photo</Form.Label>
@@ -214,6 +230,22 @@ export const RegisterKidForm = () => {
                   {errors.image && (
                     <p className="text-danger">Image is required</p>
                   )}
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <Form.Group controlId="formDescription">
+                  <Form.Label>
+                    Description (mention any health issues){" "}
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Description (mention any health issues)"
+                    {...register("description", { required: true })}
+                  />
+                  {errors.description && <p className="text-danger">Description is required.</p>}
                 </Form.Group>
               </Col>
             </Row>
