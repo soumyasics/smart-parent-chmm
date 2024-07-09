@@ -45,7 +45,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
         <Row>
           <Col md={6}>
             <Form.Group controlId="formLocation">
-              <Form.Label className="fw-bold">Department</Form.Label>
+              <Form.Label className="fw-bold">Experience in years</Form.Label>
               <p>
                 <em>{hpData?.department}</em>
               </p>

@@ -253,16 +253,15 @@ export const ProfileEdit: React.FC<ProfileViewProps> = ({
           </Col>
           <Col md={6}>
             <Form.Group>
-              <Form.Label className="fw-bold">Department</Form.Label>
+              <Form.Label className="fw-bold">Experience  </Form.Label>
 
               <Form.Control
                 type="text"
-                placeholder="New department"
+                placeholder="Experience"
                 name="department"
                 value={newHPData?.department}
                 onChange={handleChanges}
-                maxLength={10}
-                minLength={10}
+                maxLength={2}
               />
             </Form.Group>
           </Col>

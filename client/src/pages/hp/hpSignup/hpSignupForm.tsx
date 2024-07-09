@@ -203,6 +203,9 @@ export const HPSignupForm = () => {
     if (name === "name" && value.length !== 0 && !isOnlyAlphabets(value)) {
       return;
     }
+    if (name === "department" && value.length !== 0 && !isOnlyNumbers(value)) {
+      return;
+    }
     setHpData((prevData) => ({ ...prevData, [name]: value }));
 
     console.log("values", hpData);
@@ -309,15 +312,15 @@ export const HPSignupForm = () => {
           <Form.Group>
             <Form.Control
               type="text"
-              placeholder="Enter your department."
+              placeholder="Enter your experience in years."
               required
               name="department"
-              minLength={3}
+              maxLength={2}
               onChange={handleChanges}
               value={hpData.department}
             />
             <Form.Control.Feedback type="invalid">
-              Please enter your department.
+              Please enter your experience in years.
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
