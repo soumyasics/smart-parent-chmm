@@ -31,8 +31,7 @@ export const MyReviewAndRating = () => {
       <h4 className="text-center text-primary">Reviews and ratings</h4>
       <Table
         responsive
-        className="my-subscriptions-table mt-5
-      "
+        className="my-subscriptions-table mt-5"
         bordered
         striped
         hover

@@ -13,6 +13,7 @@ import { ViewTutorials } from "../view-tutorials/viewTutorials";
 import { ParentViewBlogs } from "../viewBlogs/viewBlogs";
 import { ViewHPRating } from "../../../pages/parent/viewHP/viewHPRating";
 import { HPComplaint } from "../../../pages/parent/viewHP/hpComplaint";
+import { ReviewModal } from "./reviewModal";
 
 export interface VideoType {
   title: string;
@@ -45,7 +46,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const [subscribed, setSubscribed] = useState(false);
   const { userType, userId } = useSelector((state: RootState) => state.user);
   const { id: healthProfessionalId } = useParams();
-
+  const [showReview, setShowReview] = useState(false);
   const getSubscriptionStatus = async (
     parentId: string,
     healthProfessionalId: string
@@ -110,95 +111,119 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     navigate(`/parent/payment/${id}`);
   };
 
-  console.log("dataa hp", data)
+  const handleClose = () => {
+    setShowReview(false);
+  };
+  const handleOpen = () => {
+    setShowReview(true);
+  };
+  console.log("dataa hp", data);
 
   return (
-    <Container className="mt-5">
-      <h3 className="text-center text-primary shadow">Health Professional</h3>
-      <Row>
-        <Col md={4}>
-          <IllustrationSection imgPath="https://img.freepik.com/free-vector/health-professional-team-concept-illustration_114360-1618.jpg" />
-        </Col>
-        <Col md={8}>
-          <Card>
-            <Card.Body>
-              <div className="d-flex justify-content-center align-items-center">
-                <Image
-                  style={{ width: "100px", height: "100px" }}
-                  rounded
-                  src={profilePicture}
-                />
-              </div>
-              <div className="shadow p-2" style={{ minHeight: "300px" }}>
-                <Card.Title className="mt-3 text-center">
-                  Name: {data.name}
-                </Card.Title>
-                <Card.Text className="mt-5">
-                  <Row>
-                    <Col>
-                      <p>
-                        {" "}
-                        <strong>Email:</strong> {data.email} <br />
-                      </p>
-                      <p>
-                        <strong>Phone Number:</strong> {data.phoneNumber} <br />
-                      </p>
-                      <p>
-                        <strong>Address:</strong> {data.address} <br />
-                      </p>
-                    </Col>
-                    <Col>
-                      <p>
-                        <strong>Category:</strong> {data?.category} <br />
-                      </p>
-                      <p>
-                        <strong>Department:</strong> {data?.department} <br />
-                      </p>
-                      <p>
-                        <strong>Rating:</strong> {data?.rating?.toFixed(1) || 0} <br />
-                      </p>
-                    </Col>
-                  </Row>
-                </Card.Text>
-                <div className="d-flex justify-content-center">
-                  {subscribed ? (
-                    <h5 className="text-success">Subscribed</h5>
-                  ) : (
-                    <Button
-                      variant="primary"
-                      onClick={() => {
-                        redirectToPaymentPage(data._id);
-                      }}
-                    >
-                      Subscribe
-                    </Button>
-                  )}
+    <>
+      <ReviewModal
+        show={showReview}
+        handleClose={handleClose}
+        id={healthProfessionalId}
+      />
+      <Container className="mt-5">
+        <h3 className="text-center text-primary shadow">Health Professional</h3>
+        <Row>
+          <Col md={4}>
+            <IllustrationSection imgPath="https://img.freepik.com/free-vector/health-professional-team-concept-illustration_114360-1618.jpg" />
+          </Col>
+          <Col md={8}>
+            <Card>
+              <Card.Body>
+                <div className="d-flex justify-content-center align-items-center">
+                  <Image
+                    style={{ width: "100px", height: "100px" }}
+                    rounded
+                    src={profilePicture}
+                  />
                 </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+                <div className="shadow p-2" style={{ minHeight: "300px" }}>
+                  <Card.Title className="mt-3 text-center">
+                    Name: {data.name}
+                  </Card.Title>
+                  <Card.Text className="mt-5">
+                    <Row>
+                      <Col>
+                        <p>
+                          {" "}
+                          <strong>Email:</strong> {data.email} <br />
+                        </p>
+                        <p>
+                          <strong>Phone Number:</strong> {data.phoneNumber}{" "}
+                          <br />
+                        </p>
+                        <p>
+                          <strong>Address:</strong> {data.address} <br />
+                        </p>
+                      </Col>
+                      <Col>
+                        <p>
+                          <strong>Category:</strong> {data?.category} <br />
+                        </p>
+                        <p>
+                          <strong>Department:</strong> {data?.department} <br />
+                        </p>
+                        <p>
+                          <strong>Rating:</strong>{" "}
+                          {data?.rating?.toFixed(1) || 0} <br />
+                        </p>
+                      </Col>
+                    </Row>
+                  </Card.Text>
+                  <div className="d-flex justify-content-around">
+                    {subscribed ? (
+                      <h5 className="text-success">Subscribed</h5>
+                    ) : (
+                      <div className="d-flex justify-content-center ">
+                        <Button
+                          variant="primary"
+                          onClick={() => {
+                            redirectToPaymentPage(data._id);
+                          }}
+                        >
+                          Subscribe
+                        </Button>
+                      </div>
+                    )}
+                    <Button
+                      className="ms-5"
+                      variant="success"
+                      onClick={handleOpen}
+                    >
+                      View Reviews
+                    </Button>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
 
-      {healthProfessionalId && subscribed && (
-        <>
-          <Row className="d-flex justify-content-between">
-            <Col>
-              <ViewHPRating />
-            </Col>
-            <Col>
-              <HPComplaint />
-            </Col>
-          </Row>
+        {healthProfessionalId && subscribed && (
+          <>
+            <Row className="d-flex justify-content-between">
+              <Col>
+                <ViewHPRating />
+              </Col>
+              <Col>
+                <HPComplaint />
+              </Col>
+            </Row>
 
-          <div className="mt-5">
-            <ViewTutorials healthProfessionalId={healthProfessionalId} />
-          </div>
-          <div className="mt-5">
-            <ParentViewBlogs healthProfessionalId={healthProfessionalId} />
-          </div>
-        </>
-      )}
-    </Container>
+            <div className="mt-5">
+              <ViewTutorials healthProfessionalId={healthProfessionalId} />
+            </div>
+            <div className="mt-5">
+              <ParentViewBlogs healthProfessionalId={healthProfessionalId} />
+            </div>
+          </>
+        )}
+      </Container>
+    </>
   );
 };
