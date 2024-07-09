@@ -33,7 +33,7 @@ export const ViewAWTable = () => {
             <th>Address</th>
             <th>Gender</th>
             <th>Qualification</th>
-            <th>Date of Birth</th>
+            <th>Year of experience</th>
           </tr>
         </thead>
 
@@ -47,7 +47,7 @@ export const ViewAWTable = () => {
                 <td>{vc?.address}</td>
                 <td>{vc?.gender}</td>
                 <td>{vc?.qualification}</td>
-                <td>{vc?.dateOfBirth.substring(0, 10)}</td>
+                <td>{vc?.experience}</td>
               </tr>
             );
           })}

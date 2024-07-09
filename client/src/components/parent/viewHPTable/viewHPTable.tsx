@@ -1,19 +1,30 @@
-import { Button, Table } from "react-bootstrap";
+import { Button, Form, Table } from "react-bootstrap";
 import { useFetchData } from "../../../hooks/useFetchData";
 import { PageLoading } from "../../pageLoading/pageLoading";
 import { ErrorHandlingUI } from "../../common/errorHandlingUI/errorHandlingUi";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 export const ViewHPTable = () => {
   const { isLoading, data: allHPs, error } = useFetchData("/getAllApprovedHp");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [filteredHPs, setFilteredHPs] = useState<any>([]);
   const navigate = useNavigate();
 
   const navigateToHPDetails = (id: string) => {
     if (id) {
       navigate(`/parent/view-hp/${id}`);
-    }else {
-      console.log("Id not found!")
+    } else {
+      console.log("Id not found!");
     }
   };
+
+  useEffect(() => {
+    const hpFilter = selectedCategory
+      ? allHPs.filter((hp) => hp.category === selectedCategory)
+      : allHPs;
+
+    setFilteredHPs(hpFilter);
+  }, [selectedCategory, allHPs]);
 
   if (isLoading) {
     return (
@@ -33,12 +44,28 @@ export const ViewHPTable = () => {
 
   return (
     <div>
-      <Table className="tw-m-auto" bordered striped style={{ width: "90%" }}>
+      <div className="w-25 mx-auto">
+        <Form.Select
+          onChange={(e) => {
+            setSelectedCategory(e.target.value);
+          }}
+        >
+          <option value="">Filter By Category</option>
+          <option value="Dietitian">Dietitian</option>
+          <option value="Psychiatrist">Psychiatrist</option>
+          <option value="Fitness Specialist">Fitness Specialist</option>
+        </Form.Select>
+      </div>
+      <Table
+        className="tw-m-auto mt-5"
+        bordered
+        striped
+        style={{ width: "90%" }}
+      >
         <thead>
           <tr>
             <th>Name</th>
             <th>Email</th>
-
             <th>Phone Number</th>
             <th>Address</th>
             <th>Category</th>
@@ -47,8 +74,7 @@ export const ViewHPTable = () => {
         </thead>
 
         <tbody>
-          {allHPs.map((hp) => {
-            console.log("hpp", hp)
+          {filteredHPs.map((hp: any) => {
             if (hp.isActive === "suspended") {
               return null;
             }
