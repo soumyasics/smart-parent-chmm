@@ -71,7 +71,7 @@ export const ReviewModal: FC<ReviewModalProps> = ({
               </tr>
             </thead>
             <tbody>
-              {review.map((rev: any, i) => (
+              {review.map((rev: any) => (
                 <tr>
                   <td>{rev?.parentId?.name}</td>
                   <td>{rev?.rating}</td>

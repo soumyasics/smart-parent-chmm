@@ -2,3 +2,8 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 10px 15px;
 }
+
+/* Change the color of the calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* This will invert the colors of the icon */
+}

@@ -40,7 +40,8 @@ export const AdminHPPendingTable = ({
             <th>No</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Address</th>
+            {/* <th>Address</th> */}
+            <th>Category</th>
             <th>Phone Number</th>
             <th>View Certificate</th>
             <th>Approve</th>
@@ -54,7 +55,8 @@ export const AdminHPPendingTable = ({
                 <td>{i + 1}</td>
                 <td>{h.name}</td>
                 <td>{h.email}</td>
-                <td>{h.address}</td>
+                {/* <td>{h.address}</td> */}
+                <td>{h.category}</td>
                 <td>{h.phoneNumber}</td>
                 <td>
                   <Button onClick={() => {
