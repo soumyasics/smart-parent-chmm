@@ -3,6 +3,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import {
   isOnlyAlphabets,
   isOnlyNumbers,
+  isValidDob,
   validateEmail,
   validatePassword,
   validatePhoneNumber,
@@ -12,6 +13,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
 import { toast } from "react-hot-toast";
+
 interface AWData {
   name: string;
   email: string;
@@ -125,6 +127,10 @@ export const AWSignupForm = () => {
       return;
     }
 
+    if (!isValidDob(dateOfBirth) ) {
+      toast.error("Please provide a valid date of birth");
+      return;
+    }
     sendDataToServer();
   };
   const sendDataToServer = async () => {
