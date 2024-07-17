@@ -3,6 +3,15 @@ input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
   display: none;
 }
+/* Change the color of the calendar icon */
+
+  
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+
 
 input[type="password"]::-webkit-input-security {
   display: none;

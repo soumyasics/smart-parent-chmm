@@ -5,5 +5,5 @@
 
 /* Change the color of the calendar icon */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* This will invert the colors of the icon */
+  filter: invert(1); 
 }
