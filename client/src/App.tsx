@@ -53,6 +53,8 @@ import { ChatWithParentAndHP } from "./pages/hp/chatWithParent/chatWithParent.ts
 import { ChatWithHP } from "./pages/parent/chatWithHP/chatWithHP.tsx";
 // import { ViewParentTable } from "./pages/ashaWorker/viewParentTable/viewParentTable.tsx";
 import { ViewParentAW } from "./pages/ashaWorker/viewParentTable/viewParentAW.tsx";
+import { AWViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/awviewVaccinnationCenteres.tsx";
+import { AWViewVCDeatils } from "./pages/parent/viewVaccincationCenters/awviewVCDetails.tsx";
 
 function App() {
   return (
@@ -82,6 +84,8 @@ function App() {
         <Route path="/parent/view-aw" element={<ViewAW />} />
         <Route path="/parent/view-vc" element={<ViewVaccinationCenters />} />
         <Route path="/parent/view-vc/:id" element={<ViewVCDeatils />} />
+        <Route path="/aw/view-vc/:id" element={<AWViewVCDeatils />} />
+        <Route path="/aw/view-vc" element={<AWViewVaccinationCenters />} />
         <Route path="/parent/view-hp" element={<ViewHP />} />
         <Route path="/parent/view-subscribed-hp" element={<ViewSubscribedHP />} />
         <Route path="/parent/view-hp/:id" element={<ViewHPDeatils />} />

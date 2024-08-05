@@ -58,6 +58,9 @@ export const AWNavbar = () => {
   const navigateToAWProfile = () => {
     navigate("/aw/profile");
   };
+  const navigateVCs = () => {
+    navigate("/aw/view-vc");
+  }
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
@@ -76,6 +79,9 @@ export const AWNavbar = () => {
               </p>
               <p className="my-0 ms-5" onClick={navigateToViewParent} style={{cursor: "pointer"}}>
                 Parent
+              </p>
+              <p className="my-0 ms-5" onClick={navigateVCs} style={{cursor: "pointer"}}>
+                Vaccination centers
               </p>
             </Nav>
           </Navbar.Collapse>
