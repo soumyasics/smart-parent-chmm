@@ -166,7 +166,8 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                           <strong>Category:</strong> {data?.category} <br />
                         </p>
                         <p>
-                          <strong>Year of experience:</strong> {data?.department} <br />
+                          <strong>Year of experience:</strong>{" "}
+                          {data?.department} <br />
                         </p>
                         <p>
                           <strong>Rating:</strong>{" "}
@@ -214,13 +215,16 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                 <HPComplaint />
               </Col>
             </Row>
-
-            <div className="mt-5">
-              <ViewTutorials healthProfessionalId={healthProfessionalId} />
-            </div>
-            <div className="mt-5">
-              <ParentViewBlogs healthProfessionalId={healthProfessionalId} />
-            </div>
+            {data?.category === "Fitness Specialist" && (
+              <div className="mt-5">
+                <ViewTutorials healthProfessionalId={healthProfessionalId} />
+              </div>
+            )}
+            {data?.category === "Fitness Specialist" && (
+              <div className="mt-5">
+                <ParentViewBlogs healthProfessionalId={healthProfessionalId} />
+              </div>
+            )}
           </>
         )}
       </Container>
