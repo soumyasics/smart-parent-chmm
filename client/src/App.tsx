@@ -55,6 +55,7 @@ import { ChatWithHP } from "./pages/parent/chatWithHP/chatWithHP.tsx";
 import { ViewParentAW } from "./pages/ashaWorker/viewParentTable/viewParentAW.tsx";
 import { AWViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/awviewVaccinnationCenteres.tsx";
 import { AWViewVCDeatils } from "./pages/parent/viewVaccincationCenters/awviewVCDetails.tsx";
+import { MyAppointments } from "./pages/hp/myAppointments/myAppointments.tsx";
 
 function App() {
   return (
@@ -108,6 +109,7 @@ function App() {
         <Route path="/hp/login" element={<HPLogin />} />
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
+        <Route path="/hp/appointments" element={<MyAppointments />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
         <Route path="/hp/forgot-password" element={<HPForgotPassword />} />
         <Route path="/hp/tutorials" element={<UploadVideo />} />

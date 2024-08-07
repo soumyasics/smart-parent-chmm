@@ -48,6 +48,10 @@ const hpSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    appointmentFee: {
+      type: Number,
+      required: true,
+    },
     subscribers: [
       {
         type: mongoose.Schema.Types.ObjectId,

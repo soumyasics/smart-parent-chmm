@@ -82,12 +82,12 @@ export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
           </ListGroup.Item>
         )}
 
-        <ListGroup.Item
+        {/* <ListGroup.Item
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("My-subscribers")}
         >
           <MdSubscriptions className="sidebar-icon" /> My Subscribers
-        </ListGroup.Item>
+        </ListGroup.Item> */}
         <ListGroup.Item
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("My-review")}

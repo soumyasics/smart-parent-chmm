@@ -47,6 +47,8 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const { userType, userId } = useSelector((state: RootState) => state.user);
   const { id: healthProfessionalId } = useParams();
   const [showReview, setShowReview] = useState(false);
+  const [appointmentDate, setAppointmentDate] = useState("");
+  console.log("appo", appointmentDate);
   const getSubscriptionStatus = async (
     parentId: string,
     healthProfessionalId: string
@@ -59,6 +61,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
 
       if (res.status === 200) {
         setSubscribed(res.data?.suscriptionStatus);
+        setAppointmentDate(res.data.appointmentDate);
       } else {
         toast.error("Couldn't get subscription status");
       }
@@ -117,7 +120,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const handleOpen = () => {
     setShowReview(true);
   };
-  console.log("dataa hp", data);
 
   return (
     <>
@@ -160,6 +162,10 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                         <p>
                           <strong>Address:</strong> {data.address} <br />
                         </p>
+                        <p>
+                          <strong>Appointment Fee:</strong>{" "}
+                          {data?.appointmentFee || 0} <br />
+                        </p>
                       </Col>
                       <Col>
                         <p>
@@ -176,18 +182,23 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                       </Col>
                     </Row>
                   </Card.Text>
-                  <div className="d-flex justify-content-around">
+                  <div className="d-flex justify-content-between px-5 align-items-center">
                     {subscribed ? (
-                      <h5 className="text-success">Subscribed</h5>
+                      <div >
+                        <h6>Appointment booked on </h6>
+                        <p className="mb-0">Date: {appointmentDate.substring(0, 10)}</p>
+                        <p>Time: {appointmentDate.substring(11, 16)}</p>
+                      </div>
                     ) : (
-                      <div className="d-flex justify-content-center ">
+                      <div className="d-flex justify-content-center align-items-center">
                         <Button
                           variant="primary"
+                          style={{ height: "40px" }}
                           onClick={() => {
                             redirectToPaymentPage(data._id);
                           }}
                         >
-                          Subscribe
+                          Book an Appointment
                         </Button>
                       </div>
                     )}

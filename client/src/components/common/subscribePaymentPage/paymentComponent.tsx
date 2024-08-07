@@ -9,6 +9,8 @@ import { RootState } from "../../../redux/store";
 import axiosInstance from "../../../apis/axiosInstance";
 import axios from "axios";
 import { isOnlyAlphabets, isOnlyNumbers } from "../../../utils/validation";
+import { HPData } from "../../../pages/parent/chatWithHP/types";
+
 interface SubscriptionDataType {
   parentId: string;
   healthProfessionalId: string;
@@ -16,10 +18,15 @@ interface SubscriptionDataType {
   cardNumber: string;
   cardExpiry: string;
   cardCVV: string;
-  subscriptionAmount: string;
+  date: string;
+  subscriptionAmount: number;
 }
 export const PaymentForm = () => {
   const [validated, setValidated] = useState(false);
+  const [hpData, setHPData] = useState<null | HPData>(null);
+
+  const { id } = useParams();
+  const { userId, userType } = useSelector((state: RootState) => state.user);
 
   const navigate = useNavigate();
   const [subscriptionData, setsubscriptionData] =
@@ -29,13 +36,37 @@ export const PaymentForm = () => {
       cardHolderName: "",
       cardNumber: "",
       cardExpiry: "",
+      date: "",
       cardCVV: "",
-      subscriptionAmount: "999",
+      subscriptionAmount: 0,
     });
 
-  const { id } = useParams();
+  useEffect(() => {
+    if (id) {
+      getHPData(id);
+    }
+  }, [id]);
 
-  const { userId, userType } = useSelector((state: RootState) => state.user);
+  const getHPData = async (userId: string) => {
+    try {
+      const res = await axiosInstance.get(`/getHPDataById/${userId}`);
+      if (res.status === 200) {
+        let fee = res?.data?.data?.appointmentFee || 0;
+        setsubscriptionData((prev) => {
+          return {
+            ...prev,
+            subscriptionAmount: fee,
+          };
+        });
+        setHPData(res.data.data);
+      } else {
+        throw new Error(`Unexpected error occurred, status: ${res.status}`);
+      }
+    } catch (error: unknown) {
+      console.log("error on get hp data", error);
+    }
+  };
+
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -103,7 +134,7 @@ export const PaymentForm = () => {
   };
 
   const clearData = () => {
-    navigate('/parent/view-hp')
+    navigate("/parent/view-hp");
   };
   const checkTypes = () => {
     const {
@@ -167,6 +198,16 @@ export const PaymentForm = () => {
     });
   };
 
+  const getCurrentDateTime = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    const hours = String(today.getHours()).padStart(2, "0");
+    const minutes = String(today.getMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
   console.log("data", subscriptionData);
   return (
     <div
@@ -179,6 +220,25 @@ export const PaymentForm = () => {
         <p className="text-center text-dark">
           Please fill your payment details.
         </p>
+
+        <Row>
+          <Col>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Appointment Date and time</Form.Label>
+              <Form.Control
+                value={subscriptionData.date}
+                name="date"
+                type="datetime-local"
+                required
+                min={getCurrentDateTime()}
+                onChange={handleChange}
+              />  
+              <Form.Control.Feedback type="invalid">
+                Please provide appointment date and time.
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+        </Row>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Card Holder Name</Form.Label>
           <Form.Control

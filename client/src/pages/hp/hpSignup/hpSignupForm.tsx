@@ -22,6 +22,7 @@ interface HPData {
   department: string;
   qualification: string;
   category: string;
+  appointmentFee: number;
   profilePicture: File | null;
   certificateImg: File | null;
 }
@@ -29,34 +30,37 @@ export const HPSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
   const navigate = useNavigate();
-  const [hpData, setHpData] = useState<HPData>({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    phoneNumber: "",
-    address: "",
-    department: "",
-    qualification: "",
-    profilePicture: null,
-    certificateImg: null,
-    category: "",
-  });
+  // const [hpData, setHpData] = useState<HPData>({
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  //   confirmPassword: "",
+  //   phoneNumber: "",
+  //   address: "",
+  //   department: "",
+  //   qualification: "",
+  //   profilePicture: null,
+  //   certificateImg: null,
+  //   appointmentFee: 0,
+  //   category: "",
+  // });
 
   // Development only
-  // const [hpData, setHpData] = useState<HPData>({
-  //   name: "hp",
-  //   email: "hp@gmail.com",
-  //   password: "12341234",
-  //   confirmPassword: "12341234",
-  //   address: "hp address",
-  //   phoneNumber: "1234123412",
-  //   department: "hp department",
-  //   qualification: "hp qualification",
-  //   profilePicture: null,
-  //   category: "Physician",
-  //   certificateImg: null,
-  // });
+  const [hpData, setHpData] = useState<HPData>({
+    name: "hp",
+    email: "hp@gmail.com",
+    password: "12341234",
+    confirmPassword: "12341234",
+    address: "hp address",
+    phoneNumber: "1234123412",
+    department: "hp department",
+    qualification: "hp qualification",
+    appointmentFee: 0,
+    profilePicture: null,
+    category: "Physician",
+    certificateImg: null,
+    
+  });
 
   useEffect(() => {
     const password = hpData.password;
@@ -84,7 +88,7 @@ export const HPSignupForm = () => {
       phoneNumber,
       address,
       qualification,
-
+      appointmentFee,
       certificateImg,
       department,
     } = hpData;
@@ -96,6 +100,7 @@ export const HPSignupForm = () => {
       !confirmPassword ||
       !phoneNumber ||
       !address ||
+      !appointmentFee ||
       !qualification ||
       !department ||
       !certificateImg
@@ -123,7 +128,10 @@ export const HPSignupForm = () => {
       toast.error("Passwords do not match");
       return;
     }
-
+    if (!appointmentFee) {
+      toast.error("Please provide appointment fee");
+      return;
+    }
     sendDataToServer();
   };
   const sendDataToServer = async () => {
@@ -136,6 +144,7 @@ export const HPSignupForm = () => {
       department,
       address,
       qualification,
+      appointmentFee,
       category,
       certificateImg,
       profilePicture,
@@ -149,6 +158,7 @@ export const HPSignupForm = () => {
     formData.append("address", address);
     formData.append("qualification", qualification);
     formData.append("category", category);
+    formData.append("appointmentFee", appointmentFee.toString());
 
     if (certificateImg) {
       formData.append("certificateImg", certificateImg);
@@ -197,6 +207,9 @@ export const HPSignupForm = () => {
   const handleChanges = (e: any) => {
     const { name, value } = e.target;
     if (name === "phoneNumber" && value.length !== 0 && !isOnlyNumbers(value)) {
+      return;
+    }
+    if (name === "appointmentFee" && value.length !== 0 && !isOnlyNumbers(value)) {
       return;
     }
 
@@ -378,8 +391,30 @@ export const HPSignupForm = () => {
               Please enter your category
             </Form.Control.Feedback>
           </Form.Group>
-          <p style={{color: "gray"}}>Note: Only Fitness Specialist can add blog and video tutorials.</p>
+          <p style={{ color: "gray" }}>
+            Note: Only Fitness Specialist can add blog and video tutorials.
+          </p>
         </Col>
+
+        <Col>
+          <Form.Group>
+            <Form.Control
+              type="text"
+              placeholder="Enter your appointment fee."
+              required
+              name="appointmentFee"
+              maxLength={6}
+              minLength={1}
+              pattern="[0-9]+"
+              onChange={handleChanges}
+              value={hpData.appointmentFee}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please enter your appointment fee.
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
+     
       </Row>
 
       <Row>

@@ -34,6 +34,7 @@ const registerHP = async (req, res) => {
       address,
       qualification,
       category,
+      appointmentFee,
     } = req.body;
     if (
       !name ||
@@ -43,7 +44,8 @@ const registerHP = async (req, res) => {
       !department ||
       !qualification ||
       !address ||
-      !category
+      !category ||
+      !appointmentFee
     ) {
       return res.status(400).json({ message: "All fields are required." });
     }
@@ -69,6 +71,7 @@ const registerHP = async (req, res) => {
       return file.fieldname === "profilePicture";
     });
 
+    let convertFeeIntoNumber = Number(appointmentFee);
     const newHP = new HPModel({
       name,
       email,
@@ -78,6 +81,7 @@ const registerHP = async (req, res) => {
       department,
       qualification,
       category,
+      appointmentFee: convertFeeIntoNumber,
       profilePicture: profilePictureFile,
       certificateImg: certificateFile,
     });

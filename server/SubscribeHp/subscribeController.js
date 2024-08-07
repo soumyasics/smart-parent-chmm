@@ -13,6 +13,7 @@ const newSubscription = async (req, res) => {
       cardExpiry,
       cardCVV,
       subscriptionAmount,
+      date,
     } = req.body;
 
     if (
@@ -22,7 +23,8 @@ const newSubscription = async (req, res) => {
       !cardNumber ||
       !cardExpiry ||
       !cardCVV ||
-      !subscriptionAmount
+      !subscriptionAmount ||
+      !date
     ) {
       return res.status(400).json({ message: "All fields are required." });
     }
@@ -45,6 +47,7 @@ const newSubscription = async (req, res) => {
       return res.status(404).json({ message: "Health Professional not found" });
     }
 
+    // todo check if already subscribed (appointment taken)
     const existingSubscription = await SubscribeModel.findOne({
       parentId,
       healthProfessionalId,
@@ -61,6 +64,7 @@ const newSubscription = async (req, res) => {
       cardHolderName,
       cardNumber,
       cardExpiry,
+      date,
       cardCVV,
       subscriptionAmount,
     });
@@ -119,7 +123,9 @@ const getAllSubscriptionByHPId = async (req, res) => {
     }
     const subscriptions = await SubscribeModel.find({
       healthProfessionalId: id,
-    });
+    })
+      .populate("parentId")
+      .exec();
     return res
       .status(200)
       .json({ message: "Subscriptions", data: subscriptions });
@@ -169,7 +175,11 @@ const getSubscriptionStatus = async (req, res) => {
     if (isSubscribed) {
       return res
         .status(200)
-        .json({ suscriptionStatus: true, message: "Subscribed" });
+        .json({
+          suscriptionStatus: true,
+          message: "Subscribed",
+          appointmentDate: isSubscribed.date || "2024-01-01T11:49:00.000Z",
+        });
     } else {
       return res
         .status(200)
