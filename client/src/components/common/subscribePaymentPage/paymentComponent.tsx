@@ -97,8 +97,23 @@ export const PaymentForm = () => {
 
     setValidated(true);
     if (checkTypes()) {
+      // const istDate = convertToIST(subscriptionData.date); // Convert to IST
+      // console.log("date", subscriptionData.date);
+      // console.log("is da", istDate);
+      // return;
+      // setsubscriptionData({
+      //   ...subscriptionData,
+      //   date: istDate,
+      // });
       sendDataToServer();
     }
+  };
+  const convertToIST = (dateTime: string) => {
+    const localDate = new Date(dateTime);
+    const offset = localDate.getTimezoneOffset() * 60000; // Offset in milliseconds
+    const istOffset = 19800000; // IST offset in milliseconds (+5:30)
+    const istDate = new Date(localDate.getTime() + offset + istOffset);
+    return istDate.toISOString(); // Return in ISO format
   };
 
   const sendDataToServer = async () => {
@@ -228,11 +243,12 @@ export const PaymentForm = () => {
               <Form.Control
                 value={subscriptionData.date}
                 name="date"
+                autoFocus
                 type="datetime-local"
                 required
                 min={getCurrentDateTime()}
                 onChange={handleChange}
-              />  
+              />
               <Form.Control.Feedback type="invalid">
                 Please provide appointment date and time.
               </Form.Control.Feedback>
@@ -247,7 +263,6 @@ export const PaymentForm = () => {
             value={subscriptionData.cardHolderName}
             type="text"
             placeholder="Card Holder Name"
-            autoFocus
             required
           />
           <Form.Control.Feedback type="invalid">

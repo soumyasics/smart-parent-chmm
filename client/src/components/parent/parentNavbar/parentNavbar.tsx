@@ -95,9 +95,9 @@ export const ParentNavbar = () => {
                 Home
               </p>
 
-              <p className="my-0" role="button" onClick={redirectToAW}>
+              {/* <p className="my-0" role="button" onClick={redirectToAW}>
                 Asha Workers
-              </p>
+              </p> */}
 
               <div className="dropdown" role="button">
                 <button
@@ -127,7 +127,7 @@ export const ParentNavbar = () => {
                     role="button"
                     onClick={redirectToSubscribedHP}
                   >
-                    View Subscribed
+                    View appointments
                   </p>
                 </div>
               </div>

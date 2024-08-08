@@ -15,7 +15,7 @@ export const ViewSubscribedHP = () => {
 
       <div style={{ minHeight: "600px" }}>
         <div className="tw-my-10  tw-flex tw-justify-center tw-align-middle">
-          <h4 className="text-success"> Subscribed Health Professionals</h4>
+          <h4 className="text-success"> My appointments</h4>
           <Button
             style={{ height: "35px", width: "100px" }}
             className="tw-ml-5"

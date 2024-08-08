@@ -30,37 +30,37 @@ export const HPSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
   const navigate = useNavigate();
-  // const [hpData, setHpData] = useState<HPData>({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  //   phoneNumber: "",
-  //   address: "",
-  //   department: "",
-  //   qualification: "",
-  //   profilePicture: null,
-  //   certificateImg: null,
-  //   appointmentFee: 0,
-  //   category: "",
-  // });
+  const [hpData, setHpData] = useState<HPData>({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    address: "",
+    department: "",
+    qualification: "",
+    profilePicture: null,
+    certificateImg: null,
+    appointmentFee: 0,
+    category: "",
+  });
 
   // Development only
-  const [hpData, setHpData] = useState<HPData>({
-    name: "hp",
-    email: "hp@gmail.com",
-    password: "12341234",
-    confirmPassword: "12341234",
-    address: "hp address",
-    phoneNumber: "1234123412",
-    department: "hp department",
-    qualification: "hp qualification",
-    appointmentFee: 0,
-    profilePicture: null,
-    category: "Physician",
-    certificateImg: null,
+  // const [hpData, setHpData] = useState<HPData>({
+  //   name: "hp",
+  //   email: "hp@gmail.com",
+  //   password: "12341234",
+  //   confirmPassword: "12341234",
+  //   address: "hp address",
+  //   phoneNumber: "1234123412",
+  //   department: "hp department",
+  //   qualification: "hp qualification",
+  //   appointmentFee: 0,
+  //   profilePicture: null,
+  //   category: "Physician",
+  //   certificateImg: null,
     
-  });
+  // });
 
   useEffect(() => {
     const password = hpData.password;
@@ -79,7 +79,6 @@ export const HPSignupForm = () => {
       e.stopPropagation();
     }
     setValidated(true);
-
     const {
       name,
       email,
@@ -90,6 +89,7 @@ export const HPSignupForm = () => {
       qualification,
       appointmentFee,
       certificateImg,
+      profilePicture,
       department,
     } = hpData;
 
@@ -100,11 +100,24 @@ export const HPSignupForm = () => {
       !confirmPassword ||
       !phoneNumber ||
       !address ||
-      !appointmentFee ||
       !qualification ||
       !department ||
       !certificateImg
     ) {
+      toast.error("Please provide all required fields.");
+      return;
+    }
+
+    if (!appointmentFee || appointmentFee <= 0) {
+      toast.error("Please provide valid appointment fee.");
+      return;
+    }
+    if (appointmentFee > 100000) {
+      toast.error("Appointment fee cannot be greater than 100000.");
+      return;
+    }
+    if (!profilePicture) {
+      toast.error("Please upload your photo.");
       return;
     }
     const isEmailValid = validateEmail(email);
@@ -117,6 +130,7 @@ export const HPSignupForm = () => {
       toast.error("Please provide a valid phone number.");
       return;
     }
+
 
     const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
@@ -166,6 +180,7 @@ export const HPSignupForm = () => {
     if (profilePicture) {
       formData.append("profilePicture", profilePicture);
     }
+    console.log('workd', formData)
 
     try {
       let res = await axiosMultipartInstance.post("registerHP", formData);

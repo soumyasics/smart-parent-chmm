@@ -53,13 +53,13 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
           <RiHospitalFill />
           <h5>Vaccination Centers</h5>
         </div>
-        <div
+        {/* <div
           className="admin-sidebar-link"
           onClick={() => changeActivePage("aw")}
         >
           <FcBusinessman />
           <h5>Asha Workers</h5>
-        </div>
+        </div> */}
 
         <div
           className="admin-sidebar-link"
@@ -75,13 +75,13 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
           <FcManager />
           <h5>Pending Health Professionals</h5>
         </div>
-        <div
+        {/* <div
           className="admin-sidebar-link"
           onClick={() => changeActivePage("awPending")}
         >
           <FcBusinessman />
           <h5>Pending Asha Workers</h5>
-        </div>
+        </div> */}
         <div
           className="admin-sidebar-link"
           onClick={() => changeActivePage("complaints")}

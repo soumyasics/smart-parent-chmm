@@ -48,6 +48,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const { id: healthProfessionalId } = useParams();
   const [showReview, setShowReview] = useState(false);
   const [appointmentDate, setAppointmentDate] = useState("");
+  const [isAppointmentExpired, setIsAppointmentExpired] = useState(false);
   console.log("appo", appointmentDate);
   const getSubscriptionStatus = async (
     parentId: string,
@@ -90,6 +91,18 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
       getHPVideoTutorials(healthProfessionalId);
     }
   }, [subscribed]);
+  useEffect(() => {
+    if (appointmentDate) {
+      const appointment = new Date(appointmentDate);
+      const now = new Date();
+
+      if (appointment < now) {
+        setIsAppointmentExpired(true);
+      } else {
+        setIsAppointmentExpired(false);
+      }
+    }
+  }, [appointmentDate]);
 
   const getHPVideoTutorials = async (id: string | undefined) => {
     if (!id) {
@@ -183,7 +196,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                     </Row>
                   </Card.Text>
                   <div className="d-flex justify-content-between px-5 align-items-center">
-                    {subscribed ? (
+                    {subscribed && !isAppointmentExpired ? (
                       <div >
                         <h6>Appointment booked on </h6>
                         <p className="mb-0">Date: {appointmentDate.substring(0, 10)}</p>

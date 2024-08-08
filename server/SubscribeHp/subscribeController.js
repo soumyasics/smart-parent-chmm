@@ -53,9 +53,9 @@ const newSubscription = async (req, res) => {
       healthProfessionalId,
     });
 
-    if (existingSubscription) {
-      return res.status(409).json({ message: "You alredy subscribed." });
-    }
+    // if (existingSubscription) {
+    //   return res.status(409).json({ message: "You alredy subscribed." });
+    // }
 
     const newSubscription = new SubscribeModel({
       parentId,
@@ -87,6 +87,33 @@ const newSubscription = async (req, res) => {
 };
 
 const getAllSubscriptionByParentId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid parentId" });
+    }
+    const subscriptions = await SubscribeModel.find({ parentId: id })
+      .populate("healthProfessionalId")
+      .exec();
+
+    const allHPs = subscriptions.map(
+      (subscription) => subscription.healthProfessionalId
+    );
+    // Use a Set to remove duplicates
+    const uniqueHPs = Array.from(
+      new Set(allHPs.map((hp) => hp._id.toString()))
+    ).map((id) => allHPs.find((hp) => hp._id.toString() === id));
+
+    return res.status(200).json({ message: "Subscriptions", data: uniqueHPs });
+  } catch (error) {
+    console.error("Error in getAllSubscriptionByParentId: ", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error });
+  }
+};
+const getAllSubscriptionByParentId2 = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -195,6 +222,7 @@ const getSubscriptionStatus = async (req, res) => {
 module.exports = {
   newSubscription,
   getAllSubscriptionByParentId,
+  getAllSubscriptionByParentId2,
   getAllSubscriptionByHPId,
   getSubscriptionStatus,
   getAllSubscriptions,

@@ -14,6 +14,7 @@ export const ViewSubscribedHPTable = () => {
     data: allHPs,
     error,
   } = useFetchData(`/getAllSubscriptionByParentId/${userId}`);
+  console.log("all hps 17", allHPs);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filteredHPs, setFilteredHPs] = useState<any>([]);
   const navigate = useNavigate();

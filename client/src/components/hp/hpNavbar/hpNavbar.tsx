@@ -90,7 +90,7 @@ export const HPNavbar = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav
               className={`me-auto  text-white  justify-content-between ${
-                isFitnessSpecialist ? "w-50" : "w-25"
+                isFitnessSpecialist ? "w-75" : "w-50"
               }`}
             >
               <p
@@ -101,7 +101,7 @@ export const HPNavbar = () => {
                 Home
               </p>
               <p
-                className="my-0 mx-5"
+                className="my-0"
                 style={{ cursor: "pointer" }}
                 onClick={navigateHPAppointments}
               >
