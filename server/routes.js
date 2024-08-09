@@ -213,6 +213,7 @@ router.get(
 );
 
 router.post("/newSubscription", subscriptionController.newSubscription);
+router.post("/fit-newSubscription", subscriptionController.fitnessSubscription);
 router.get("/getAllSubscriptions", subscriptionController.getAllSubscriptions);
 router.get(
   "/getAllSubscriptionByParentId/:id",
@@ -278,31 +279,15 @@ router.get(
 
 // parent activate and deactivate routes
 
-router.patch(
-  "/parentDeactivate/:id",
-  parent.makeParentDeactivate
-);
-router.patch(
-  "/parentActivate/:id",
-  parent.makeParentActivate
-);
+router.patch("/parentDeactivate/:id", parent.makeParentDeactivate);
+router.patch("/parentActivate/:id", parent.makeParentActivate);
 
 // health professional activate and deactivate routes
 
-router.patch(
-  "/healthProfessionalDeactivate/:id",
-  hp.makeHPDeactivate
-);
-router.patch(
-  "/healthProfessionalActivate/:id",
-  hp.makeHPActivate
-);
+router.patch("/healthProfessionalDeactivate/:id", hp.makeHPDeactivate);
+router.patch("/healthProfessionalActivate/:id", hp.makeHPActivate);
 
 router.post("/sendWarning", warningController.sendWarning);
-router.get(
-  "/getAllWarningByHPId/:id",
-  warningController.getAllWarningByHPId
-);
-
+router.get("/getAllWarningByHPId/:id", warningController.getAllWarningByHPId);
 
 module.exports = router;

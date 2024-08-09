@@ -85,6 +85,90 @@ const newSubscription = async (req, res) => {
       .json({ message: "Internal server error", error: error.message });
   }
 };
+const fitnessSubscription = async (req, res) => {
+  try {
+    const {
+      parentId,
+      healthProfessionalId,
+      isActive,
+      cardHolderName,
+      cardNumber,
+      cardExpiry,
+      cardCVV,
+      subscriptionAmount,
+      date,
+    } = req.body;
+
+    if (
+      !parentId ||
+      !healthProfessionalId ||
+      !cardHolderName ||
+      !cardNumber ||
+      !cardExpiry ||
+      !cardCVV ||
+      !subscriptionAmount ||
+      !date
+    ) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(parentId)) {
+      return res.status(400).json({ message: "Invalid parentId" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(healthProfessionalId)) {
+      return res.status(400).json({ message: "Invalid healthProfessionalId" });
+    }
+
+    const parent = await ParentModel.findById(parentId);
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found" });
+    }
+
+    const hp = await HPModel.findById(healthProfessionalId);
+    if (!hp) {
+      return res.status(404).json({ message: "Health Professional not found" });
+    }
+
+    // todo check if already subscribed (appointment taken)
+    const existingSubscription = await SubscribeModel.findOne({
+      parentId,
+      healthProfessionalId,
+    });
+
+    if (existingSubscription) {
+      return res.status(409).json({ message: "You alredy subscribed." });
+    }
+
+    const newSubscription = new SubscribeModel({
+      parentId,
+      healthProfessionalId,
+      isActive,
+      cardHolderName,
+      cardNumber,
+      cardExpiry,
+      date,
+      cardCVV,
+      type: "subscription",
+      subscriptionAmount,
+    });
+
+    parent.subscribedHPs.push(healthProfessionalId);
+    hp.subscribers.push(parentId);
+
+    await hp.save();
+    await parent.save();
+    await newSubscription.save();
+    return res
+      .status(201)
+      .json({ message: "Subscribed", data: newSubscription });
+  } catch (error) {
+    console.error("Error in  subscribe: ", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
 
 const getAllSubscriptionByParentId = async (req, res) => {
   try {
@@ -197,7 +281,9 @@ const getSubscriptionStatus = async (req, res) => {
       return res.status(200).json({
         suscriptionStatus: true,
         message: "Subscribed",
-        appointmentDate: isSubscribed[isSubscribed.length - 1].date || "2024-01-01T11:49:00.000Z",
+        appointmentDate:
+          isSubscribed[isSubscribed.length - 1].date ||
+          "2024-01-01T11:49:00.000Z",
       });
     } else {
       return res
@@ -218,4 +304,5 @@ module.exports = {
   getAllSubscriptionByHPId,
   getSubscriptionStatus,
   getAllSubscriptions,
+  fitnessSubscription,
 };

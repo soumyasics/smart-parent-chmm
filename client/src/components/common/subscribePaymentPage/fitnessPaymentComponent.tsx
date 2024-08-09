@@ -21,7 +21,7 @@ interface SubscriptionDataType {
   date: string;
   subscriptionAmount: number;
 }
-export const PaymentForm = () => {
+export const FitnessPaymentForm = () => {
   const [validated, setValidated] = useState(false);
   const [hpData, setHPData] = useState<null | HPData>(null);
 
@@ -83,6 +83,7 @@ export const PaymentForm = () => {
 
     setsubscriptionData({
       ...subscriptionData,
+      date: new Date().toISOString(),
       parentId: userId,
       healthProfessionalId: id,
     });
@@ -118,9 +119,9 @@ export const PaymentForm = () => {
 
   const sendDataToServer = async () => {
     try {
-      const res = await axiosInstance.post("newSubscription", subscriptionData);
+      const res = await axiosInstance.post("fit-newSubscription", subscriptionData);
       if (res.status === 201) {
-        toast.success("Appointment booked successfully");
+        toast.success("Subscription successful");
         navigate("/parent/view-subscribed-hp");
       } else {
         throw new Error("Something went wrong");
@@ -223,7 +224,6 @@ export const PaymentForm = () => {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
 
-  console.log("data", subscriptionData);
   return (
     <div
       id="subscribe-payment-container"
@@ -236,7 +236,7 @@ export const PaymentForm = () => {
           Please fill your payment details.
         </p>
 
-        <Row>
+        {/* <Row>
           <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Appointment Date and time</Form.Label>
@@ -254,7 +254,7 @@ export const PaymentForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
-        </Row>
+        </Row> */}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Card Holder Name</Form.Label>
           <Form.Control

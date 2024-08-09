@@ -56,7 +56,7 @@ export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
           onClick={() => changeActivePage("warning")}
         >
           <IoWarningOutline className="sidebar-icon" />
-          <span className="text-danger fw-bold">  Caution Messages </span>
+          <span className="text-danger fw-bold"> Caution Messages </span>
         </ListGroup.Item>
 
         <ListGroup.Item
@@ -81,13 +81,14 @@ export const VCProfileLeftSidebar: React.FC<ParentProfileLeftSidebarProps> = ({
             <FaStickyNote className="sidebar-icon" /> My Blogs
           </ListGroup.Item>
         )}
-
-        {/* <ListGroup.Item
-          className="sidebar-item d-flex"
-          onClick={() => changeActivePage("My-subscribers")}
-        >
-          <MdSubscriptions className="sidebar-icon" /> My Subscribers
-        </ListGroup.Item> */}
+        {isFitnessSpecialist && (
+          <ListGroup.Item
+            className="sidebar-item d-flex"
+            onClick={() => changeActivePage("My-subscribers")}
+          >
+            <MdSubscriptions className="sidebar-icon" /> My Subscribers
+          </ListGroup.Item>
+        )}
         <ListGroup.Item
           className="sidebar-item d-flex"
           onClick={() => changeActivePage("My-review")}

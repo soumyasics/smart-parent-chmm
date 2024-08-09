@@ -9,7 +9,7 @@ import { ParentData } from "../chatWithParent/types";
 export const MySubscriptions = () => {
   const { userId, userType } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
-  const { data } = useFetchData(`/getHPsAllSubscribers/${userId}`);
+  const { data } = useFetchData(`/getAllSubscriptionByHPId/${userId}`);
   useEffect(() => {
     if (userId && userType === "healthProfessional") {
       // todo => do something
@@ -30,26 +30,31 @@ export const MySubscriptions = () => {
   return (
     <div>
       <h4 className="text-center text-primary">Subscribers Data</h4>
-      <Table responsive className="my-subscriptions-table mt-5
-      " bordered striped hover >
+      <Table
+        responsive
+        className="my-subscriptions-table mt-5
+      "
+        bordered
+        striped
+        hover
+      >
         <thead>
           <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Phone Number</th>
-            <th>Address</th>
-            <th>Date of Birth</th>
+            <th>DOB</th>
+            <th>Payment amount </th>
           </tr>
         </thead>
         <tbody>
-          {data.map((parent: ParentData) => (
+          {data.map((sub: any) => (
             <tr>
-              <td>{parent?.name}</td>
-              <td>{parent?.email}</td>
-              <td>{parent?.phoneNumber}</td>
-              <td>{parent?.address}</td>
-              <td>{parent?.dateOfBirth}</td>
-              <td></td>
+              <td>{sub?.parentId?.name}</td>
+              <td>{sub?.parentId?.email}</td>
+              <td>{sub?.parentId?.phoneNumber}</td>
+              <td>{sub?.parentId?.dateOfBirth}</td>
+              <td>{sub?.subscriptionAmount}</td>
             </tr>
           ))}
         </tbody>

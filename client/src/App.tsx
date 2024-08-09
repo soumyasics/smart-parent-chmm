@@ -57,6 +57,7 @@ import { AWViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters
 import { AWViewVCDeatils } from "./pages/parent/viewVaccincationCenters/awviewVCDetails.tsx";
 import { MyAppointments } from "./pages/hp/myAppointments/myAppointments.tsx";
 import { ViewFitnessHPDeatils } from "./pages/parent/viewHP/viewFitnessHPDetails.tsx";
+import { FitnessPaymentPage } from "./components/common/subscribePaymentPage/fitnessSubscribePaymentPage.tsx";
 
 function App() {
   return (
@@ -104,6 +105,7 @@ function App() {
 
         <Route path="/parent/vc-chart" element={<VaccinationChart />} />
         <Route path="/parent/payment/:id" element={<PaymentPage />} />
+        <Route path="/parent/fit-payment/:id" element={<FitnessPaymentPage />} />
         <Route path="/parent/full-screen/:id" element={<ParentWatchTutorialFullScreen />} />
         <Route path="/parent/blog/:id" element={<ParentFullBlog />} />
 

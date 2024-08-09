@@ -41,6 +41,11 @@ const subscribeSchema = new Schema(
       type: Number,
       required: true,
     },
+    type: {
+      enum: ["appointment", "subscription"],
+      type: String,
+      default: "appointment",
+    }
   },
   { timestamps: true }
 );

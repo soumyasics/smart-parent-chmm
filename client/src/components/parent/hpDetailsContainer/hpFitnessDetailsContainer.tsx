@@ -130,7 +130,7 @@ export const FitnessHPDetailsContainer: FC<HPDetailsContainerProps> = ({
   const { profilePicture } = useProfilePicture(data?.profilePicture?.filename);
   const navigate = useNavigate();
   const redirectToPaymentPage = (id: string) => {
-    navigate(`/parent/payment/${id}`);
+    navigate(`/parent/fit-payment/${id}`);
   };
 
   const handleClose = () => {
@@ -204,9 +204,7 @@ export const FitnessHPDetailsContainer: FC<HPDetailsContainerProps> = ({
                   <div className="d-flex justify-content-between px-5 align-items-center">
                     {subscribed ? (
                       <div>
-                        <h6 className="text-success">
-                          Subscribed
-                        </h6>
+                        <h6 className="text-success">Subscribed</h6>
                       </div>
                     ) : (
                       <div className="d-flex justify-content-center align-items-center">
