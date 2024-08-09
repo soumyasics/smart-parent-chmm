@@ -48,7 +48,7 @@ import { FullBlog } from "./pages/hp/viewBlogs/fullBlog.tsx";
 import { ParentFullBlog } from "./components/parent/viewBlogs/parentFullBlog.tsx";
 import {HPCreateBlog} from "./pages/hp/hpCreateBlog/createBlog.tsx";
 import "./App.css";
-import { ViewSubscribedHP } from "./pages/parent/viewSubscribedHP/viewHP.tsx";
+import { ViewAppointmentHPs } from "./pages/parent/viewSubscribedHP/viewHP.tsx";
 import { ChatWithParentAndHP } from "./pages/hp/chatWithParent/chatWithParent.tsx";
 import { ChatWithHP } from "./pages/parent/chatWithHP/chatWithHP.tsx";
 // import { ViewParentTable } from "./pages/ashaWorker/viewParentTable/viewParentTable.tsx";
@@ -58,6 +58,7 @@ import { AWViewVCDeatils } from "./pages/parent/viewVaccincationCenters/awviewVC
 import { MyAppointments } from "./pages/hp/myAppointments/myAppointments.tsx";
 import { ViewFitnessHPDeatils } from "./pages/parent/viewHP/viewFitnessHPDetails.tsx";
 import { FitnessPaymentPage } from "./components/common/subscribePaymentPage/fitnessSubscribePaymentPage.tsx";
+import { ViewSubscribedHPNew } from "./pages/parent/viewSubscribedHP/viewSubHP.tsx";
 
 function App() {
   return (
@@ -90,7 +91,8 @@ function App() {
         <Route path="/aw/view-vc/:id" element={<AWViewVCDeatils />} />
         <Route path="/aw/view-vc" element={<AWViewVaccinationCenters />} />
         <Route path="/parent/view-hp" element={<ViewHP />} />
-        <Route path="/parent/view-subscribed-hp" element={<ViewSubscribedHP />} />
+        <Route path="/parent/view-appointments-hp" element={<ViewAppointmentHPs />} />
+        <Route path="/parent/view-subscribed-hp" element={<ViewSubscribedHPNew />} />
         <Route path="/parent/view-hp/:id" element={<ViewHPDeatils />} />
         <Route path="/parent/view-hp-fitness/:id" element={<ViewFitnessHPDeatils />} />
         <Route path="/parent/book-vaccine" element={<BookVaccine />} />

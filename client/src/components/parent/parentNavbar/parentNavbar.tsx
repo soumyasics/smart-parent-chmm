@@ -61,11 +61,16 @@ export const ParentNavbar = () => {
   const redirectToHP = () => {
     navigate("/parent/view-hp");
   };
-  const redirectToSubscribedHP = () => {
-    navigate("/parent/view-subscribed-hp");
+
+  const redirectToAppointmentHP = () => {
+    navigate("/parent/view-appointments-hp");
   };
-  const redirectToAW = () => {
-    navigate("/parent/view-aw");
+  // const redirectToAW = () => {
+  //   navigate("/parent/view-aw");
+  // };
+
+  const redirectToSubscribeHP = () => {
+    navigate("/parent/view-subscribed-hp");
   };
 
   const handleLogout = () => {
@@ -125,9 +130,16 @@ export const ParentNavbar = () => {
                   <p
                     className="dropdown-item mb-0"
                     role="button"
-                    onClick={redirectToSubscribedHP}
+                    onClick={redirectToAppointmentHP}
                   >
                     View appointments
+                  </p>
+                  <p
+                    className="dropdown-item mb-0"
+                    role="button"
+                    onClick={redirectToSubscribeHP}
+                  >
+                    View Subscriptions
                   </p>
                 </div>
               </div>

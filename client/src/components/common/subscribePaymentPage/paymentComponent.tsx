@@ -121,7 +121,7 @@ export const PaymentForm = () => {
       const res = await axiosInstance.post("newSubscription", subscriptionData);
       if (res.status === 201) {
         toast.success("Appointment booked successfully");
-        navigate("/parent/view-subscribed-hp");
+        navigate("/parent/view-appointments-hp");
       } else {
         throw new Error("Something went wrong");
       }

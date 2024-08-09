@@ -2,9 +2,9 @@ import { Button } from "react-bootstrap";
 import { CommonFooter } from "../../../components/common/footer/footer";
 import { ParentNavbar } from "../../../components/parent/parentNavbar/parentNavbar";
 import { useCustomNavigate } from "../../../hooks/useCustomNavigate";
-import { ViewAppointmentHPTable } from "../../../components/parent/viewSubscribedHPTable/viewHPTable";
+import { ViewSubscribedHPTable } from "../../../components/parent/viewSubscribedHPTable/subviewHPTable";
 
-export const ViewAppointmentHPs = () => {
+export const ViewSubscribedHPNew = () => {
   const navigateTo = useCustomNavigate();
   const redirectToParentHPChat = () => {
     navigateTo("/parent/chat-hp");
@@ -15,7 +15,7 @@ export const ViewAppointmentHPs = () => {
 
       <div style={{ minHeight: "600px" }}>
         <div className="tw-my-10  tw-flex tw-justify-center tw-align-middle">
-          <h4 className="text-success"> My appointments</h4>
+          <h4 className="text-success"> My Subscriptions</h4>
           <Button
             style={{ height: "35px", width: "100px" }}
             className="tw-ml-5"
@@ -25,7 +25,7 @@ export const ViewAppointmentHPs = () => {
             Chat{" "}
           </Button>
         </div>
-        <ViewAppointmentHPTable />
+        <ViewSubscribedHPTable />
       </div>
       <CommonFooter />
     </div>

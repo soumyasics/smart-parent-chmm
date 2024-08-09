@@ -14,7 +14,6 @@ export const Sidebar: FC<SidebarProps> = ({
 }) => {
   const [searchedParticipant, setSearchedParticipant] = useState<string>("");
 
-
   const updateSearchedParticipant = (name: string) => {
     setSearchedParticipant(name);
   };
