@@ -14,8 +14,8 @@ const subscribeSchema = new Schema(
       required: true,
     },
     date: {
-      type: Date,
-      default: Date.now(),
+      type: String,
+      required: true,
     },
     isActive: {
       type: Boolean,

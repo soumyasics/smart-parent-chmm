@@ -13,8 +13,8 @@ export const ViewSubscribedHPTable = () => {
     isLoading,
     data: allHPs,
     error,
-  } = useFetchData(`/getAllSubscriptionByParentId/${userId}`);
-  console.log("all hps 17", allHPs);
+  } = useFetchData(`/getAllSubscriptionByParentId2/${userId}`);
+  console.log("all hp", allHPs);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filteredHPs, setFilteredHPs] = useState<any>([]);
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export const ViewSubscribedHPTable = () => {
 
   useEffect(() => {
     const hpFilter = selectedCategory
-      ? allHPs.filter((hp) => hp.category === selectedCategory)
+      ? allHPs.filter((hp) => hp.healthProfessionalId.category === selectedCategory)
       : allHPs;
 
     setFilteredHPs(hpFilter);
@@ -54,9 +54,7 @@ export const ViewSubscribedHPTable = () => {
   if (allHPs && allHPs.length === 0) {
     return (
       <div>
-        <h3 style={{ textAlign: "center" }}>
-          You haven't subscribed any health professional
-        </h3>
+        <h3 style={{ textAlign: "center" }}>You don't have any appointments</h3>
       </div>
     );
   }
@@ -75,34 +73,41 @@ export const ViewSubscribedHPTable = () => {
           <option value="Fitness Specialist">Fitness Specialist</option>
         </Form.Select>
       </div>
-      <Table className="tw-m-auto mt-5" bordered striped style={{ width: "90%" }}>
+      <Table
+        className="tw-m-auto mt-5"
+        bordered
+        striped
+        style={{ width: "90%" }}
+      >
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Address</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
             <th>Category</th>
+            <th>Phone Number</th>
+            <th>Payment</th>
             <th>View More</th>
           </tr>
         </thead>
 
         <tbody>
           {filteredHPs.map((hp: any) => {
-            if (hp.isActive === "suspended") {
+            if (hp?.healthProfessionalId.isActive === "suspended") {
               return null;
             }
             return (
               <tr key={hp._id}>
-                <td>{hp?.name}</td>
-                <td>{hp?.email}</td>
-                <td>{hp?.phoneNumber}</td>
-                <td>{hp?.address}</td>
-                <td>{hp?.category}</td>
+                <td>{hp?.healthProfessionalId?.name}</td>
+                <td>{hp?.date?.substring(0, 10)}</td>
+                <td>{hp?.date?.substring(11, 16)}</td>
+                <td>{hp?.healthProfessionalId?.category}</td>
+                <td>{hp?.healthProfessionalId?.phoneNumber}</td>
+                <td>{hp?.subscriptionAmount}</td>
                 <td>
                   <Button
                     onClick={() => {
-                      navigateToHPDetails(hp._id);
+                      navigateToHPDetails(hp?.healthProfessionalId?._id);
                     }}
                   >
                     {" "}

@@ -30,6 +30,7 @@ export const HPSignupForm = () => {
   const [validated, setValidated] = useState<boolean>(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [feeDescription, setFeeDescription] = useState("Appointment Fee");
   const [hpData, setHpData] = useState<HPData>({
     name: "",
     email: "",
@@ -59,7 +60,7 @@ export const HPSignupForm = () => {
   //   profilePicture: null,
   //   category: "Physician",
   //   certificateImg: null,
-    
+
   // });
 
   useEffect(() => {
@@ -131,7 +132,6 @@ export const HPSignupForm = () => {
       return;
     }
 
-
     const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
       toast.error("Please provide valid password");
@@ -180,7 +180,6 @@ export const HPSignupForm = () => {
     if (profilePicture) {
       formData.append("profilePicture", profilePicture);
     }
-    console.log('workd', formData)
 
     try {
       let res = await axiosMultipartInstance.post("registerHP", formData);
@@ -224,7 +223,11 @@ export const HPSignupForm = () => {
     if (name === "phoneNumber" && value.length !== 0 && !isOnlyNumbers(value)) {
       return;
     }
-    if (name === "appointmentFee" && value.length !== 0 && !isOnlyNumbers(value)) {
+    if (
+      name === "appointmentFee" &&
+      value.length !== 0 &&
+      !isOnlyNumbers(value)
+    ) {
       return;
     }
 
@@ -234,9 +237,15 @@ export const HPSignupForm = () => {
     if (name === "department" && value.length !== 0 && !isOnlyNumbers(value)) {
       return;
     }
-    setHpData((prevData) => ({ ...prevData, [name]: value }));
 
-    console.log("values", hpData);
+    if (name === "category") {
+      if (value === "Fitness Specialist") {
+        setFeeDescription("Subscription Fee");
+      } else {
+        setFeeDescription("Appointment Fee");
+      }
+    }
+    setHpData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleProfilePictureUpload = (e: any) => {
@@ -415,7 +424,7 @@ export const HPSignupForm = () => {
           <Form.Group>
             <Form.Control
               type="text"
-              placeholder="Enter your appointment fee."
+              placeholder={feeDescription}
               required
               name="appointmentFee"
               maxLength={6}
@@ -425,11 +434,11 @@ export const HPSignupForm = () => {
               value={hpData.appointmentFee}
             />
             <Form.Control.Feedback type="invalid">
-              Please enter your appointment fee.
+              Please enter {feeDescription}
             </Form.Control.Feedback>
           </Form.Group>
+          <p style={{ color: "gray" }}>{feeDescription}</p>
         </Col>
-     
       </Row>
 
       <Row>

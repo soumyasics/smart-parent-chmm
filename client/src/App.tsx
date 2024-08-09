@@ -56,6 +56,7 @@ import { ViewParentAW } from "./pages/ashaWorker/viewParentTable/viewParentAW.ts
 import { AWViewVaccinationCenters } from "./pages/parent/viewVaccincationCenters/awviewVaccinnationCenteres.tsx";
 import { AWViewVCDeatils } from "./pages/parent/viewVaccincationCenters/awviewVCDetails.tsx";
 import { MyAppointments } from "./pages/hp/myAppointments/myAppointments.tsx";
+import { ViewFitnessHPDeatils } from "./pages/parent/viewHP/viewFitnessHPDetails.tsx";
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
         <Route path="/parent/view-hp" element={<ViewHP />} />
         <Route path="/parent/view-subscribed-hp" element={<ViewSubscribedHP />} />
         <Route path="/parent/view-hp/:id" element={<ViewHPDeatils />} />
+        <Route path="/parent/view-hp-fitness/:id" element={<ViewFitnessHPDeatils />} />
         <Route path="/parent/book-vaccine" element={<BookVaccine />} />
         <Route
           path="/parent/reset-password"

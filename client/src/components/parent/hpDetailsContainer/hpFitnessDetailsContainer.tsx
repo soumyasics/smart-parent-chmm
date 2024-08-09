@@ -35,7 +35,9 @@ interface ParentHPIds {
   healthProfessionalId: string;
 }
 
-export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
+export const FitnessHPDetailsContainer: FC<HPDetailsContainerProps> = ({
+  data,
+}) => {
   const [parentHpIds, setParentHpIds] = useState<ParentHPIds>({
     parentId: "",
     healthProfessionalId: "",
@@ -49,6 +51,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const [showReview, setShowReview] = useState(false);
   const [appointmentDate, setAppointmentDate] = useState("");
   const [isAppointmentExpired, setIsAppointmentExpired] = useState(false);
+
   const getSubscriptionStatus = async (
     parentId: string,
     healthProfessionalId: string
@@ -94,7 +97,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     if (appointmentDate) {
       // Convert appointmentDate (IST) to a JavaScript Date object
       const appointmentDateTime = new Date(appointmentDate);
-      
+
       // Get the current date and time
       const currentDateTime = new Date();
 
@@ -107,7 +110,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     }
   }, [appointmentDate]);
 
-  
   const getHPVideoTutorials = async (id: string | undefined) => {
     if (!id) {
       return;
@@ -180,7 +182,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                           <strong>Address:</strong> {data.address} <br />
                         </p>
                         <p>
-                          <strong>Appointment Fee:</strong>{" "}
+                          <strong>Subscription Fee:</strong>{" "}
                           {data?.appointmentFee || 0} <br />
                         </p>
                       </Col>
@@ -200,11 +202,11 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                     </Row>
                   </Card.Text>
                   <div className="d-flex justify-content-between px-5 align-items-center">
-                    {subscribed && !isAppointmentExpired  ? (
-                      <div >
-                        <h6>Appointment booked on </h6>
-                        <p className="mb-0">Date: {appointmentDate.substring(0, 10)}</p>
-                        <p>Time: {appointmentDate.substring(11, 16)}</p>
+                    {subscribed ? (
+                      <div>
+                        <h6 className="text-success">
+                          Subscribed
+                        </h6>
                       </div>
                     ) : (
                       <div className="d-flex justify-content-center align-items-center">
@@ -215,7 +217,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                             redirectToPaymentPage(data._id);
                           }}
                         >
-                          Book an Appointment
+                          Subscribe
                         </Button>
                       </div>
                     )}
@@ -243,16 +245,14 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                 <HPComplaint />
               </Col>
             </Row>
-            {/* {data?.category === "Fitness Specialist" && (
-              <div className="mt-5">
-                <ViewTutorials healthProfessionalId={healthProfessionalId} />
-              </div>
-            )}
-            {data?.category === "Fitness Specialist" && (
-              <div className="mt-5">
-                <ParentViewBlogs healthProfessionalId={healthProfessionalId} />
-              </div>
-            )} */}
+
+            <div className="mt-5">
+              <ViewTutorials healthProfessionalId={healthProfessionalId} />
+            </div>
+
+            <div className="mt-5">
+              <ParentViewBlogs healthProfessionalId={healthProfessionalId} />
+            </div>
           </>
         )}
       </Container>

@@ -124,15 +124,9 @@ const getAllSubscriptionByParentId2 = async (req, res) => {
       .populate("healthProfessionalId")
       .exec();
 
-    const allHPs = subscriptions.map(
-      (subscription) => subscription.healthProfessionalId
-    );
-    // Use a Set to remove duplicates
-    const uniqueHPs = Array.from(
-      new Set(allHPs.map((hp) => hp._id.toString()))
-    ).map((id) => allHPs.find((hp) => hp._id.toString() === id));
-
-    return res.status(200).json({ message: "Subscriptions", data: uniqueHPs });
+    return res
+      .status(200)
+      .json({ message: "Subscriptions", data: subscriptions });
   } catch (error) {
     console.error("Error in getAllSubscriptionByParentId: ", error);
     return res
@@ -194,19 +188,17 @@ const getSubscriptionStatus = async (req, res) => {
       return res.status(400).json({ message: "Invalid healthProfessionalId" });
     }
 
-    const isSubscribed = await SubscribeModel.findOne({
+    const isSubscribed = await SubscribeModel.find({
       parentId,
       healthProfessionalId,
     });
 
-    if (isSubscribed) {
-      return res
-        .status(200)
-        .json({
-          suscriptionStatus: true,
-          message: "Subscribed",
-          appointmentDate: isSubscribed.date || "2024-01-01T11:49:00.000Z",
-        });
+    if (isSubscribed.length > 0) {
+      return res.status(200).json({
+        suscriptionStatus: true,
+        message: "Subscribed",
+        appointmentDate: isSubscribed[isSubscribed.length - 1].date || "2024-01-01T11:49:00.000Z",
+      });
     } else {
       return res
         .status(200)

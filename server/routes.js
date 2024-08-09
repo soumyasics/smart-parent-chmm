@@ -219,6 +219,10 @@ router.get(
   subscriptionController.getAllSubscriptionByParentId
 );
 router.get(
+  "/getAllSubscriptionByParentId2/:id",
+  subscriptionController.getAllSubscriptionByParentId2
+);
+router.get(
   "/getAllSubscriptionByHPId/:id",
   subscriptionController.getAllSubscriptionByHPId
 );

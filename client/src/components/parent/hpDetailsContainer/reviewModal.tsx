@@ -76,7 +76,6 @@ export const ReviewModal: FC<ReviewModalProps> = ({
                   <td>{rev?.parentId?.name}</td>
                   <td>{rev?.rating}</td>
                   <td>{rev?.review}</td>
-                  <td></td>
                 </tr>
               ))}
             </tbody>

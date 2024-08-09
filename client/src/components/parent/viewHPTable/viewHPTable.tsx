@@ -17,6 +17,13 @@ export const ViewHPTable = () => {
       console.log("Id not found!");
     }
   };
+  const navigateToFitnessHPDetails = (id: string) => {
+    if (id) {
+      navigate(`/parent/view-hp-fitness/${id}`);
+    } else {
+      console.log("Id not found!");
+    }
+  };
 
   useEffect(() => {
     const hpFilter = selectedCategory
@@ -88,7 +95,11 @@ export const ViewHPTable = () => {
                 <td>
                   <Button
                     onClick={() => {
-                      navigateToHPDetails(hp._id);
+                      if (hp?.category !== "Fitness Specialist") {
+                        navigateToHPDetails(hp._id);
+                      } else {
+                        navigateToFitnessHPDetails(hp._id);
+                      }
                     }}
                   >
                     {" "}
