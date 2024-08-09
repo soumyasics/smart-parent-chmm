@@ -7,6 +7,8 @@ import { LuLogOut } from "react-icons/lu";
 import { PiWarningCircleBold } from "react-icons/pi";
 import { VscOpenPreview } from "react-icons/vsc";
 import { RiHospitalFill } from "react-icons/ri";
+import { IoTicketOutline } from "react-icons/io5";
+import { MdOutlineSubscriptions } from "react-icons/md";
 import "./AdminSidebar.css";
 
 interface AdminSidebarProps {
@@ -82,6 +84,20 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
           <FcBusinessman />
           <h5>Pending Asha Workers</h5>
         </div> */}
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("appointments")}
+        >
+          <IoTicketOutline />
+          <h5>View Appointments</h5>
+        </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("subscriptions")}
+        >
+          <MdOutlineSubscriptions />
+          <h5>View Subscriptions</h5>
+        </div>
         <div
           className="admin-sidebar-link"
           onClick={() => changeActivePage("complaints")}

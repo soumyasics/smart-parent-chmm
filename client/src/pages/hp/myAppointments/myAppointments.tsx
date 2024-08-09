@@ -52,6 +52,7 @@ export const MyAppointments = () => {
                 <th>Name</th>
                 <th>Appointment Date</th>
                 <th>Appointment Time</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Payment Amount</th>
@@ -66,6 +67,7 @@ export const MyAppointments = () => {
                     <td>{parent?.parentId?.name}</td>
                     <td>{parent?.date?.substring(0, 10)}</td>
                     <td>{parent?.date?.substring(11, 16)}</td>
+                    <td>{parent?.parentId?.name}</td>
                     <td>{parent?.parentId?.email}</td>
                     <td>{parent?.parentId?.phoneNumber}</td>
                     <td>{parent?.subscriptionAmount}</td>

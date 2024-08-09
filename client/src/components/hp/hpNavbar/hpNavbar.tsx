@@ -22,7 +22,11 @@ export const HPNavbar = () => {
   const [isFitnessSpecialist, setIsFitnessSpecialist] = useState(false);
 
   useEffect(() => {
-    if (userData && userData.category && userData.category === "Fitness Specialist") {
+    if (
+      userData &&
+      userData.category &&
+      userData.category === "Fitness Specialist"
+    ) {
       setIsFitnessSpecialist(true);
     } else {
       setIsFitnessSpecialist(false);
@@ -100,13 +104,15 @@ export const HPNavbar = () => {
               >
                 Home
               </p>
-              <p
-                className="my-0"
-                style={{ cursor: "pointer" }}
-                onClick={navigateHPAppointments}
-              >
-                Appointments
-              </p>
+              {!isFitnessSpecialist && (
+                <p
+                  className="my-0"
+                  style={{ cursor: "pointer" }}
+                  onClick={navigateHPAppointments}
+                >
+                  Appointments
+                </p>
+              )}
               <p
                 className="my-0 "
                 onClick={redirectToChatWithParent}

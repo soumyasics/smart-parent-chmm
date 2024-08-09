@@ -6,8 +6,7 @@ import "./adminParents.css";
 
 export const AdminParents = () => {
   const [parentsData, setparentsData] = useState([]);
-  const [error, setError] = useState("");
-  console.log("err", error);
+  
 
   useEffect(() => {
     getParentsData();
@@ -23,7 +22,7 @@ export const AdminParents = () => {
         throw new Error("Something went wrong");
       }
     } catch (err) {
-      setError("Something went wrong. Please check your internet connection");
+      console.log("err ", err)
     }
   };
 

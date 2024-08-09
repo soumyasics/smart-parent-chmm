@@ -10,6 +10,8 @@ import { AdminViewComplaints } from "../../../components/Admin/AdminViewComplain
 import { AdminViewReviews } from "../../../components/Admin/AdminViewReviews/adminViewReviews.tsx";
 import { AdminVC } from "../../../components/Admin/AdminVC/adminVC.tsx";
 import { AdminAW } from "../../../components/Admin/AdminAW/adminAW.tsx";
+import { AdminViewSubscriptions } from "../../../components/Admin/AdminViewSubscriptions/adminViewSubs.tsx";
+import { AdminViewAppointments } from "../../../components/Admin/AdminViewAppointments/adminViewAppo.tsx";
 
 export const AdminDashboard = () => {
   const [activePage, setActivePage] = useState("parents");
@@ -33,6 +35,8 @@ export const AdminDashboard = () => {
           {activePage === "awPending" && <AdminAWPending />}
           {activePage === "complaints" && <AdminViewComplaints />}
           {activePage === "reviews" && <AdminViewReviews />}
+          {activePage === "subscriptions" && <AdminViewSubscriptions />}
+          {activePage === "appointments" && <AdminViewAppointments />}
         </div>
       </div>
     </Fragment>

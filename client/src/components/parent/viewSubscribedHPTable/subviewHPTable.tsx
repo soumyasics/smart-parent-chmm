@@ -81,8 +81,6 @@ export const ViewSubscribedHPTable = () => {
         <thead>
           <tr>
             <th>Name</th>
-            {/* <th>Appointment Date</th>
-            <th>Appointment Time</th> */}
             <th>Category</th>
             <th>Phone Number</th>
             <th>Email</th>
@@ -104,8 +102,6 @@ export const ViewSubscribedHPTable = () => {
             return (
               <tr key={hp._id}>
                 <td>{hp?.healthProfessionalId?.name}</td>
-                {/* <td>{hp?.date?.substring(0, 10)}</td>
-                <td>{hp?.date?.substring(11, 16)}</td> */}
                 <td>{hp?.healthProfessionalId?.category}</td>
                 <td>{hp?.healthProfessionalId?.phoneNumber}</td>
                 <td>{hp?.healthProfessionalId?.email}</td>
