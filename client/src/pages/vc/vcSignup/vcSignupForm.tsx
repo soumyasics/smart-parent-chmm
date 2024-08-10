@@ -332,11 +332,16 @@ export const VCSignupForm = () => {
           <Form.Group className="position-relative">
             <Form.Label>Upload vaccination center photo </Form.Label>
             <Form.Control
+              required
               type="file"
               name="file"
               accept="image/*"
               onChange={handleProfilePictureUpload}
             />
+
+            <Form.Control.Feedback type="invalid">
+              Please upload vaccination center photo
+            </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>

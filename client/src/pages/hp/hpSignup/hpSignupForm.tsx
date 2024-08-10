@@ -448,9 +448,13 @@ export const HPSignupForm = () => {
             <Form.Control
               type="file"
               name="file"
+              required
               accept="image/*"
               onChange={handleProfilePictureUpload}
             />
+              <Form.Control.Feedback type="invalid">
+              Please upload your photo
+            </Form.Control.Feedback>
           </Form.Group>
         </Col>
         <Col>
