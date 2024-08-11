@@ -122,7 +122,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
         setIsAppointmentExpired(false);
       }
     }
-    
   }, [appointmentDate]);
 
   const getCurrentDateTime = () => {
@@ -154,7 +153,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
 
   const { profilePicture } = useProfilePicture(data?.profilePicture?.filename);
   const navigate = useNavigate();
-  
 
   const handleClose = () => {
     setShowReview(false);
@@ -178,10 +176,10 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     e.preventDefault();
     if (!subscriptionData.date) {
       toast.error("Choose appointment date and time");
-      return
+      return;
     }
-    sendDataToServer()
-  }
+    sendDataToServer();
+  };
   const sendDataToServer = async () => {
     try {
       const res = await axiosInstance.post("appointmentReq", subscriptionData);
@@ -213,7 +211,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
       }
     }
   };
-
 
   return (
     <>
@@ -277,71 +274,60 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                     </Row>
                   </Card.Text>
                   <div className="d-flex justify-content-between px-5 align-items-center">
-                    {subscribed && !isAppointmentExpired && !isRejected ? (
-                      <div>
-                        <h6>Appointment booked on </h6>
-                        <p className="mb-0">
-                          Date: {appointmentDate.substring(0, 10)}
-                        </p>
-                        <p>Time: {appointmentDate.substring(11, 16)}</p>
-                      </div>
-                    ) : (
-                      <div className="d-flex justify-content-center align-items-center">
-                        {bookAppointmentClicked ? (
-                          <div className="d-flex justify-content-center align-items-center">
-                            <form onSubmit={handleReqSend}>
-                              <Form.Group
-                                className="mb-3"
-                                controlId="exampleForm.ControlInput1"
-                              >
-                                <Form.Label>
-                                  Appointment Date and time
-                                </Form.Label>
-                                <Form.Control
-                                  value={subscriptionData.date}
-                                  name="date"
-                                  autoFocus
-                                  type="datetime-local"
-                                  required
-                                  min={getCurrentDateTime()}
-                                  onChange={(e) => {
-                                    setsubscriptionData((prev) => {
-                                      return {
-                                        ...prev,
-                                        date: e.target.value,
-                                      };
-                                    });
-                                  }}
-                                />
-                              </Form.Group>
-                              <input
-                                className="btn btn-success"
-                                type="submit"
-                                value="Send Request"
-                              />
-                            </form>
-                            <button
-                              className="btn btn-warning h-50 ms-3 mb-3"
-                              onClick={() => {
-                                setBookAppointmentClicked(false);
-                              }}
+                    <div className="d-flex justify-content-center align-items-center">
+                      {bookAppointmentClicked ? (
+                        <div className="d-flex justify-content-center align-items-center">
+                          <form onSubmit={handleReqSend}>
+                            <Form.Group
+                              className="mb-3"
+                              controlId="exampleForm.ControlInput1"
                             >
-                              Cancel
-                            </button>
-                          </div>
-                        ) : (
-                          <Button
-                            variant="primary"
-                            style={{ height: "40px" }}
+                              <Form.Label>Appointment Date and time</Form.Label>
+                              <Form.Control
+                                value={subscriptionData.date}
+                                name="date"
+                                autoFocus
+                                type="datetime-local"
+                                required
+                                min={getCurrentDateTime()}
+                                onChange={(e) => {
+                                  setsubscriptionData((prev) => {
+                                    return {
+                                      ...prev,
+                                      date: e.target.value,
+                                    };
+                                  });
+                                }}
+                              />
+                            </Form.Group>
+                            <input
+                              className="btn btn-success"
+                              type="submit"
+                              value="Send Request"
+                            />
+                          </form>
+                          <button
+                            className="btn btn-warning h-50 ms-3 mb-3"
                             onClick={() => {
-                              setBookAppointmentClicked(true);
+                              setBookAppointmentClicked(false);
                             }}
                           >
-                            Book an Appointment
-                          </Button>
-                        )}
-                      </div>
-                    )}
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <Button
+                          variant="primary"
+                          style={{ height: "40px" }}
+                          onClick={() => {
+                            setBookAppointmentClicked(true);
+                          }}
+                        >
+                          Book an Appointment
+                        </Button>
+                      )}
+                    </div>
+
                     <Button
                       className="ms-5"
                       variant="success"

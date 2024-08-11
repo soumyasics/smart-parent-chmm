@@ -116,8 +116,8 @@ export const HPNavbar = () => {
               {!isFitnessSpecialist && (
                 <div className="dropdown" role="button">
                   <button
-                    style={{ width: "180px", border: "none" }}
-                    className="btn d-flex btn-secondary bg-dark"
+                    style={{  border: "none" }}
+                    className="btn d-flex btn-secondary bg-dark pt-0"
                     id="dropdownMenuLink"
                     role="button"
                     data-toggle="dropdown"
