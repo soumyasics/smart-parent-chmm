@@ -323,7 +323,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                             setBookAppointmentClicked(true);
                           }}
                         >
-                          Book an Appointment
+                          Book Appointment
                         </Button>
                       )}
                     </div>
