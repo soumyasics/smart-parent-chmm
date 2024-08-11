@@ -62,6 +62,7 @@ import { ViewSubscribedHPNew } from "./pages/parent/viewSubscribedHP/viewSubHP.t
 import { MyApprovedAppointments } from "./pages/hp/myAppointments/myApprovedAppointments.tsx";
 import { MyPendingAppointments } from "./pages/hp/myAppointments/myPendingAppointments.tsx";
 import { MyRejectedAppointments } from "./pages/hp/myAppointments/myRejectedAppointments.tsx";
+import { ApprovedPaymentPage } from "./components/common/subscribePaymentPage/approvedSubscribePaymentPage.tsx";
 
 function App() {
   return (
@@ -110,6 +111,7 @@ function App() {
 
         <Route path="/parent/vc-chart" element={<VaccinationChart />} />
         <Route path="/parent/payment/:id" element={<PaymentPage />} />
+        <Route path="/parent/approved-payment/:id" element={<ApprovedPaymentPage />} />
         <Route path="/parent/fit-payment/:id" element={<FitnessPaymentPage />} />
         <Route path="/parent/full-screen/:id" element={<ParentWatchTutorialFullScreen />} />
         <Route path="/parent/blog/:id" element={<ParentFullBlog />} />

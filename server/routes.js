@@ -237,6 +237,10 @@ router.post(
   "/getSubscriptionStatus",
   subscriptionController.getSubscriptionStatus
 );
+router.get(
+  "/getReqById/:id",
+  subscriptionController.getReqById
+);
 
 // Tutorials upload
 

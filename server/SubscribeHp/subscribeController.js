@@ -432,6 +432,8 @@ const getSubscriptionStatus = async (req, res) => {
       return res.status(200).json({
         suscriptionStatus: true,
         message: "Subscribed",
+        appointmentStatus:
+          isSubscribed[isSubscribed.length - 1].appointmentStatus,
         appointmentDate:
           isSubscribed[isSubscribed.length - 1].date ||
           "2024-01-01T11:49:00.000Z",
@@ -448,6 +450,29 @@ const getSubscriptionStatus = async (req, res) => {
   }
 };
 
+const getReqById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const subscription = await SubscribeModel.findById(id)
+      .populate("parentId")
+      .populate("healthProfessionalId")
+      .exec();
+
+    if (!subscription) {
+      return res.status(500).json({ message: "not found appointment" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Subscription data", data: subscription });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   newSubscription,
   getAllSubscriptionByParentId,
@@ -460,4 +485,5 @@ module.exports = {
   rejectAppointment,
   approvedAppointment,
   payAppointmentFee,
+  getReqById
 };

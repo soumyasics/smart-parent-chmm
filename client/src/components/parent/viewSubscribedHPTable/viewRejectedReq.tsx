@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 
-export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
+export const ViewRejectedReqs = ({  changeStatus }: any) => {
   const { userId } = useSelector((state: RootState) => state.user);
   const {
     isLoading,
@@ -15,7 +15,7 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
     error,
   } = useFetchData(`/getAllSubscriptionByParentId2/${userId}`);
   const navigate = useNavigate();
-  const [filterReq, setFilterReq] = useState<any>([]);
+  const [filterReq, setFilterReq] = useState<any>([])
   const navigateToHPDetails = (id: string) => {
     if (id) {
       navigate(`/parent/view-hp/${id}`);
@@ -26,15 +26,16 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
 
   useEffect(() => {
     if (allHPs && allHPs.length > 0) {
-      filterData();
+      filterData()
     }
-  }, [allHPs]);
+  }, [allHPs])
   const filterData = () => {
     const pendingApp = allHPs.filter(
-      (req) => req.appointmentStatus === "pending"
+      (req) => req.appointmentStatus === "rejected"
     );
     setFilterReq(pendingApp);
   };
+
 
   if (isLoading) {
     return (
@@ -52,34 +53,18 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
     );
   }
 
-
   return (
     <div>
       <div className="w-75 mx-auto d-flex justify-content-around">
-        <Button
-          onClick={() => {
-            changeStatus("pending");
-          }}
-          variant="dark"
-        >
-          Pending
-        </Button>
-        <Button
-          onClick={() => {
-            changeStatus("approved");
-          }}
-          variant="success"
-        >
-          Approved
-        </Button>
-        <Button
-          onClick={() => {
-            changeStatus("rejected");
-          }}
-          variant="danger"
-        >
-          Rejected
-        </Button>
+        <Button onClick={() => {
+          changeStatus("pending")
+        }} variant="dark">Pending</Button>
+        <Button onClick={() => {
+          changeStatus("approved")
+        }} variant="success">Approved</Button>
+        <Button onClick={() => {
+          changeStatus("rejected")
+        }} variant="danger">Rejected</Button>
       </div>
       <Table
         className="tw-m-auto mt-5"
@@ -90,11 +75,11 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
             <th>Phone Number</th>
             <th>Appointment Date</th>
             <th>Appointment Time</th>
             <th>Category</th>
+            <th>Rejected Reason</th>
             <th>View More</th>
           </tr>
         </thead>
@@ -107,15 +92,15 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
             if (hp?.healthProfessionalId.category === "Fitness Specialist") {
               return null;
             }
-            console.log("hp", hp);
+            console.log("hp", hp)
             return (
               <tr key={hp._id}>
                 <td>{hp?.healthProfessionalId?.name}</td>
-                <td>{hp?.healthProfessionalId?.email}</td>
                 <td>{hp?.healthProfessionalId?.phoneNumber}</td>
                 <td>{hp?.date?.substring(0, 10)}</td>
                 <td>{hp?.date?.substring(11, 16)}</td>
                 <td>{hp?.healthProfessionalId?.category}</td>
+                <td>{hp?.reasonForRejection}</td>
                 <td>
                   <Button
                     onClick={() => {

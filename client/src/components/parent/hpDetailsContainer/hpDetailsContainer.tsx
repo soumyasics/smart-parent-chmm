@@ -63,6 +63,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const [showReview, setShowReview] = useState(false);
   const [appointmentDate, setAppointmentDate] = useState("");
   const [isAppointmentExpired, setIsAppointmentExpired] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
   const [bookAppointmentClicked, setBookAppointmentClicked] = useState(false);
   const [subscriptionData, setsubscriptionData] = useState<AppointmentReq>({
     parentId: "",
@@ -70,7 +71,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     date: "",
     subscriptionAmount: 0,
   });
-  console.log('subs', subscriptionData)
 
   const getSubscriptionStatus = async (
     parentId: string,
@@ -85,6 +85,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
       if (res.status === 200) {
         setSubscribed(res.data?.suscriptionStatus);
         setAppointmentDate(res.data.appointmentDate);
+        setIsRejected(res.data.appointmentStatus === "rejected");
       } else {
         toast.error("Couldn't get subscription status");
       }
@@ -121,6 +122,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
         setIsAppointmentExpired(false);
       }
     }
+    
   }, [appointmentDate]);
 
   const getCurrentDateTime = () => {
@@ -152,9 +154,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
 
   const { profilePicture } = useProfilePicture(data?.profilePicture?.filename);
   const navigate = useNavigate();
-  const redirectToPaymentPage = (id: string) => {
-    navigate(`/parent/payment/${id}`);
-  };
+  
 
   const handleClose = () => {
     setShowReview(false);
@@ -213,6 +213,8 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
       }
     }
   };
+
+
   return (
     <>
       <ReviewModal
@@ -275,7 +277,7 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                     </Row>
                   </Card.Text>
                   <div className="d-flex justify-content-between px-5 align-items-center">
-                    {subscribed && !isAppointmentExpired ? (
+                    {subscribed && !isAppointmentExpired && !isRejected ? (
                       <div>
                         <h6>Appointment booked on </h6>
                         <p className="mb-0">

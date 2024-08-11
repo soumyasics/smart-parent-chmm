@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 
-export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
+export const ViewApprovedAppointmentHPTable = ({ changeStatus }: any) => {
   const { userId } = useSelector((state: RootState) => state.user);
   const {
     isLoading,
@@ -31,7 +31,7 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
   }, [allHPs]);
   const filterData = () => {
     const pendingApp = allHPs.filter(
-      (req) => req.appointmentStatus === "pending"
+      (req) => req.appointmentStatus === "approved"
     );
     setFilterReq(pendingApp);
   };
@@ -51,7 +51,6 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
       </div>
     );
   }
-
 
   return (
     <div>
@@ -90,11 +89,11 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
             <th>Phone Number</th>
+            <th>Category</th>
             <th>Appointment Date</th>
             <th>Appointment Time</th>
-            <th>Category</th>
+            <th>Payment</th>
             <th>View More</th>
           </tr>
         </thead>
@@ -111,11 +110,24 @@ export const ViewAppointmentHPTable = ({ changeStatus }: any) => {
             return (
               <tr key={hp._id}>
                 <td>{hp?.healthProfessionalId?.name}</td>
-                <td>{hp?.healthProfessionalId?.email}</td>
                 <td>{hp?.healthProfessionalId?.phoneNumber}</td>
+                <td>{hp?.healthProfessionalId?.category}</td>
                 <td>{hp?.date?.substring(0, 10)}</td>
                 <td>{hp?.date?.substring(11, 16)}</td>
-                <td>{hp?.healthProfessionalId?.category}</td>
+                <td>
+                  {hp?.paymentStatus === "pending" ? (
+                    <Button
+                      variant="success"
+                      onClick={() => {
+                        navigate(`/parent/approved-payment/${hp._id}`);
+                      }}
+                    >
+                      Pay {hp?.subscriptionAmount}
+                    </Button>
+                  ) : (
+                    <h6>Paid</h6>
+                  )}
+                </td>
                 <td>
                   <Button
                     onClick={() => {

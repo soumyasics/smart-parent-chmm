@@ -29,9 +29,7 @@ export const useFetchData = (url: string) => {
           setError("Check your network connection!");
         }
       } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
+        setIsLoading(false);
       }
     };
 
