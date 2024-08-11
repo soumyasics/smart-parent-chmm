@@ -13,6 +13,7 @@ export const AdminViewAppoTable = () => {
             <th>Professional Email</th>
             <th>Parent Name</th>
             <th>Parent Email</th>
+            <th>Status</th>
             <th>Date</th>
             <th>Time</th>
             <th>Fee</th>
@@ -32,6 +33,7 @@ export const AdminViewAppoTable = () => {
                 <td>{hp?.healthProfessionalId?.email}</td>
                 <td>{hp?.parentId?.name}</td>
                 <td>{hp?.parentId?.email}</td>
+                <td>{hp?.appointmentStatus}</td>
                 <td>{hp?.date?.substring(0, 10)}</td>
                 <td>{hp?.date?.substring(11, 16)}</td>
                 <td>{hp?.subscriptionAmount}</td>
