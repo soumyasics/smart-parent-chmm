@@ -212,6 +212,11 @@ router.get(
   bookSlotController.getBookedSlotByVaccineId
 );
 
+// subscriptions 
+router.post('/appointmentReq', subscriptionController.appointmentReq)
+router.post('/rejectAppointment/:id', subscriptionController.rejectAppointment)
+router.post('/approvedAppointment/:id', subscriptionController.approvedAppointment)
+router.post('/payAppointmentFee/:id', subscriptionController.payAppointmentFee)
 router.post("/newSubscription", subscriptionController.newSubscription);
 router.post("/fit-newSubscription", subscriptionController.fitnessSubscription);
 router.get("/getAllSubscriptions", subscriptionController.getAllSubscriptions);

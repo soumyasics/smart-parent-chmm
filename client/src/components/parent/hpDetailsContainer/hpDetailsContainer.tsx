@@ -1,5 +1,13 @@
 import { FC, useEffect, useState } from "react";
-import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Image,
+  Row,
+} from "react-bootstrap";
 import { HealthProfessionalData } from "../../../types/userTypes";
 import { IllustrationSection } from "../../common/illustration/illustration";
 import { useProfilePicture } from "../../../hooks/useProfilePicture";
@@ -9,11 +17,10 @@ import { RootState } from "../../../redux/store";
 import { toast } from "react-hot-toast";
 import axiosInstance from "../../../apis/axiosInstance";
 import { VideoStructureType } from "../../../redux/types";
-import { ViewTutorials } from "../view-tutorials/viewTutorials";
-import { ParentViewBlogs } from "../viewBlogs/viewBlogs";
 import { ViewHPRating } from "../../../pages/parent/viewHP/viewHPRating";
 import { HPComplaint } from "../../../pages/parent/viewHP/hpComplaint";
 import { ReviewModal } from "./reviewModal";
+import axios from "axios";
 
 export interface VideoType {
   title: string;
@@ -35,6 +42,13 @@ interface ParentHPIds {
   healthProfessionalId: string;
 }
 
+interface AppointmentReq {
+  parentId: string;
+  healthProfessionalId: string;
+  date: string;
+  subscriptionAmount: number;
+}
+
 export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const [parentHpIds, setParentHpIds] = useState<ParentHPIds>({
     parentId: "",
@@ -49,6 +63,15 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   const [showReview, setShowReview] = useState(false);
   const [appointmentDate, setAppointmentDate] = useState("");
   const [isAppointmentExpired, setIsAppointmentExpired] = useState(false);
+  const [bookAppointmentClicked, setBookAppointmentClicked] = useState(false);
+  const [subscriptionData, setsubscriptionData] = useState<AppointmentReq>({
+    parentId: "",
+    healthProfessionalId: "",
+    date: "",
+    subscriptionAmount: 0,
+  });
+  console.log('subs', subscriptionData)
+
   const getSubscriptionStatus = async (
     parentId: string,
     healthProfessionalId: string
@@ -83,8 +106,6 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     }
   }, []);
 
-  // tutorials logic
-
   useEffect(() => {
     if (subscribed) {
       getHPVideoTutorials(healthProfessionalId);
@@ -92,13 +113,8 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
   }, [subscribed]);
   useEffect(() => {
     if (appointmentDate) {
-      // Convert appointmentDate (IST) to a JavaScript Date object
       const appointmentDateTime = new Date(appointmentDate);
-      
-      // Get the current date and time
       const currentDateTime = new Date();
-
-      // Check if the appointmentDateTime is in the past
       if (appointmentDateTime < currentDateTime) {
         setIsAppointmentExpired(true);
       } else {
@@ -107,7 +123,16 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     }
   }, [appointmentDate]);
 
-  
+  const getCurrentDateTime = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    const hours = String(today.getHours()).padStart(2, "0");
+    const minutes = String(today.getMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
   const getHPVideoTutorials = async (id: string | undefined) => {
     if (!id) {
       return;
@@ -138,6 +163,56 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
     setShowReview(true);
   };
 
+  useEffect(() => {
+    if (healthProfessionalId && userId) {
+      setsubscriptionData({
+        ...subscriptionData,
+        healthProfessionalId,
+        parentId: userId,
+        subscriptionAmount: data?.appointmentFee || 0,
+      });
+    }
+  }, [healthProfessionalId, userId, data?.appointmentFee]);
+
+  const handleReqSend = (e: any) => {
+    e.preventDefault();
+    if (!subscriptionData.date) {
+      toast.error("Choose appointment date and time");
+      return
+    }
+    sendDataToServer()
+  }
+  const sendDataToServer = async () => {
+    try {
+      const res = await axiosInstance.post("appointmentReq", subscriptionData);
+      if (res.status === 201) {
+        toast.success("Appointment request send successfully.");
+        navigate("/parent/view-appointments-hp");
+      } else {
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errStatus = error?.response?.status;
+        if (
+          errStatus === 409 ||
+          errStatus === 400 ||
+          errStatus === 401 ||
+          errStatus === 404 ||
+          errStatus === 500
+        ) {
+          const errMsg =
+            error?.response?.data?.message ||
+            "Some issues occured, please try again";
+          toast.error(errMsg);
+        } else {
+          toast.error("Please login again");
+        }
+      } else {
+        toast.error("Please check your network.");
+      }
+    }
+  };
   return (
     <>
       <ReviewModal
@@ -200,23 +275,69 @@ export const HPDetailsContainer: FC<HPDetailsContainerProps> = ({ data }) => {
                     </Row>
                   </Card.Text>
                   <div className="d-flex justify-content-between px-5 align-items-center">
-                    {subscribed && !isAppointmentExpired  ? (
-                      <div >
+                    {subscribed && !isAppointmentExpired ? (
+                      <div>
                         <h6>Appointment booked on </h6>
-                        <p className="mb-0">Date: {appointmentDate.substring(0, 10)}</p>
+                        <p className="mb-0">
+                          Date: {appointmentDate.substring(0, 10)}
+                        </p>
                         <p>Time: {appointmentDate.substring(11, 16)}</p>
                       </div>
                     ) : (
                       <div className="d-flex justify-content-center align-items-center">
-                        <Button
-                          variant="primary"
-                          style={{ height: "40px" }}
-                          onClick={() => {
-                            redirectToPaymentPage(data._id);
-                          }}
-                        >
-                          Book an Appointment
-                        </Button>
+                        {bookAppointmentClicked ? (
+                          <div className="d-flex justify-content-center align-items-center">
+                            <form onSubmit={handleReqSend}>
+                              <Form.Group
+                                className="mb-3"
+                                controlId="exampleForm.ControlInput1"
+                              >
+                                <Form.Label>
+                                  Appointment Date and time
+                                </Form.Label>
+                                <Form.Control
+                                  value={subscriptionData.date}
+                                  name="date"
+                                  autoFocus
+                                  type="datetime-local"
+                                  required
+                                  min={getCurrentDateTime()}
+                                  onChange={(e) => {
+                                    setsubscriptionData((prev) => {
+                                      return {
+                                        ...prev,
+                                        date: e.target.value,
+                                      };
+                                    });
+                                  }}
+                                />
+                              </Form.Group>
+                              <input
+                                className="btn btn-success"
+                                type="submit"
+                                value="Send Request"
+                              />
+                            </form>
+                            <button
+                              className="btn btn-warning h-50 ms-3 mb-3"
+                              onClick={() => {
+                                setBookAppointmentClicked(false);
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        ) : (
+                          <Button
+                            variant="primary"
+                            style={{ height: "40px" }}
+                            onClick={() => {
+                              setBookAppointmentClicked(true);
+                            }}
+                          >
+                            Book an Appointment
+                          </Button>
+                        )}
                       </div>
                     )}
                     <Button

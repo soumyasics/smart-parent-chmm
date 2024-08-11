@@ -14,8 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "../../../components/common/passwordInput/passwordInput.tsx";
 import "./parentSignup.css";
 import {toast} from "react-hot-toast";
-import { ProfileEdit } from "../parentProfile/profileEditAndView/profileEdit.tsx";
-import { useProfilePicture } from "../../../hooks/useProfilePicture.ts";
 
 interface ParentData {
   name: string;
@@ -113,10 +111,10 @@ export const ParentSignupForm = () => {
       toast.error("Please provide a valid password");
       return;
     }
-    if (!profilePicture) {
-      toast.error("Please upload your photo.");
-      return;
-    }
+    // if (!profilePicture) {
+    //   toast.error("Please upload your photo.");
+    //   return;
+    // }
 
     if (dobError) {
       toast.error("Please provide a valid date of birth");
@@ -374,15 +372,11 @@ export const ParentSignupForm = () => {
         <Form.Group className="position-relative mt-3">
           <Form.Label>Upload your photo </Form.Label>
           <Form.Control
-          required
             type="file"
             name="file"
             accept="image/*"
             onChange={handleProfilePictureUpload}
           />
-          <Form.Control.Feedback type="invalid">
-            Please upload your profile picture
-          </Form.Control.Feedback>
         </Form.Group>
       </div>
 

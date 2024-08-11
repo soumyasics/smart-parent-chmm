@@ -2,6 +2,158 @@ const { SubscribeModel } = require("./subscribeSchema");
 const mongoose = require("mongoose");
 const { ParentModel } = require("../Parent/parentSchema");
 const { HPModel } = require("../HealthProfessionals/hpSchema");
+
+const appointmentReq = async (req, res) => {
+  try {
+    const { parentId, healthProfessionalId, subscriptionAmount, date } =
+      req.body;
+
+    if (!parentId || !healthProfessionalId || !subscriptionAmount || !date) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(parentId)) {
+      return res.status(400).json({ message: "Invalid parentId" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(healthProfessionalId)) {
+      return res.status(400).json({ message: "Invalid healthProfessionalId" });
+    }
+
+    const parent = await ParentModel.findById(parentId);
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found" });
+    }
+
+    const hp = await HPModel.findById(healthProfessionalId);
+    if (!hp) {
+      return res.status(404).json({ message: "Health Professional not found" });
+    }
+
+    const isAlreadyBookedAppointment = await SubscribeModel.findOne({
+      parentId,
+      healthProfessionalId,
+      date,
+    });
+    if (isAlreadyBookedAppointment) {
+      return res
+        .status(400)
+        .json({ message: "Appointment already booked for this date" });
+    }
+    const appointmentReq = new SubscribeModel({
+      parentId,
+      healthProfessionalId,
+      subscriptionAmount,
+      date,
+    });
+
+    parent.subscribedHPs.push(healthProfessionalId);
+    hp.subscribers.push(parentId);
+
+    await appointmentReq.save();
+    await hp.save();
+    await parent.save();
+    return res
+      .status(201)
+      .json({ message: "Appointment request created", data: appointmentReq });
+  } catch (error) {
+    console.error("Error in  appointment req: ", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
+const rejectAppointment = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { reasonForRejection } = req.body;
+    if (!reasonForRejection) {
+      return res
+        .status(404)
+        .json({ message: "Reason for rejection is required." });
+    }
+    const subscribe = await SubscribeModel.findById(id);
+    if (!subscribe) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    const update = await SubscribeModel.findByIdAndUpdate(
+      id,
+      {
+        reasonForRejection,
+        appointmentStatus: "rejected",
+        paymentStatus: "cancelled",
+      },
+      { new: true }
+    );
+    return res
+      .status(200)
+      .json({ message: "Appointment rejected", data: update });
+  } catch (error) {
+    console.error("Error in  appointment req: ", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+const approvedAppointment = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const subscribe = await SubscribeModel.findById(id);
+    if (!subscribe) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    const update = await SubscribeModel.findByIdAndUpdate(
+      id,
+      {
+        appointmentStatus: "approved",
+        paymentStatus: "completed",
+      },
+      { new: true }
+    );
+    return res
+      .status(200)
+      .json({ message: "Appointment approved", data: update });
+  } catch (error) {
+    console.error("Error in  appointment req: ", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
+const payAppointmentFee = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const subscribe = await SubscribeModel.findById(id);
+    if (!subscribe) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    const { cardHolderName, cardNumber, cardExpiry, cardCVV } = req.body;
+
+    const update = await SubscribeModel.findByIdAndUpdate(
+      id,
+      {
+        cardHolderName,
+        cardNumber,
+        cardExpiry,
+        cardCVV,
+        paymentStatus: "completed",
+      },
+      { new: true }
+    );
+    return res.status(200).json({ message: "Payment completed", data: update });
+  } catch (error) {
+    console.error("Error in  appointment req: ", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
 const newSubscription = async (req, res) => {
   try {
     const {
@@ -305,4 +457,8 @@ module.exports = {
   getSubscriptionStatus,
   getAllSubscriptions,
   fitnessSubscription,
+  appointmentReq,
+  rejectAppointment,
+  approvedAppointment,
+  payAppointmentFee,
 };

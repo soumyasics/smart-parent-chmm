@@ -23,23 +23,37 @@ const subscribeSchema = new Schema(
     },
     cardHolderName: {
       type: String,
-      required: true,
+      default: ""
     },
     cardNumber: {
       type: String,
-      required: true,
+      default: ""
     },
     cardExpiry: {
       type: String,
-      required: true,
+      default: ""
     },
     cardCVV: {
       type: String,
-      required: true,
+      default: ""
     },
     subscriptionAmount: {
       type: Number,
       required: true,
+    },
+    appointmentStatus: {
+      enum: ["pending", "approved", "rejected"],
+      type: String,
+      default: "pending",
+    },
+    reasonForRejection: {
+      type: String,
+      default: "",
+    },
+    paymentStatus: {
+      enum: ["pending", "completed", "cancelled"],
+      type: String,
+      default: "pending",
     },
     type: {
       enum: ["appointment", "subscription"],
