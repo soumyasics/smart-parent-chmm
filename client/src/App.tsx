@@ -59,6 +59,9 @@ import { MyAppointments } from "./pages/hp/myAppointments/myAppointments.tsx";
 import { ViewFitnessHPDeatils } from "./pages/parent/viewHP/viewFitnessHPDetails.tsx";
 import { FitnessPaymentPage } from "./components/common/subscribePaymentPage/fitnessSubscribePaymentPage.tsx";
 import { ViewSubscribedHPNew } from "./pages/parent/viewSubscribedHP/viewSubHP.tsx";
+import { MyApprovedAppointments } from "./pages/hp/myAppointments/myApprovedAppointments.tsx";
+import { MyPendingAppointments } from "./pages/hp/myAppointments/myPendingAppointments.tsx";
+import { MyRejectedAppointments } from "./pages/hp/myAppointments/myRejectedAppointments.tsx";
 
 function App() {
   return (
@@ -116,6 +119,9 @@ function App() {
         <Route path="/hp/signup" element={<HPSignup />} />
         <Route path="/hp/home" element={<HpHome />} />
         <Route path="/hp/appointments" element={<MyAppointments />} />
+        <Route path="/hp/pending-ap" element={<MyPendingAppointments />} />
+        <Route path="/hp/approved-ap" element={<MyApprovedAppointments />} />
+        <Route path="/hp/rejected-ap" element={<MyRejectedAppointments />} />
         <Route path="/hp/profile" element={<HPProfilePage />} />
         <Route path="/hp/forgot-password" element={<HPForgotPassword />} />
         <Route path="/hp/tutorials" element={<UploadVideo />} />

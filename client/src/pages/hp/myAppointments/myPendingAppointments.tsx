@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useFetchData } from "../../../hooks/useFetchData";
 import { HPNavbar } from "../../../components/hp/hpNavbar/hpNavbar";
-export const MyAppointments = () => {
+export const MyPendingAppointments = () => {
   const { userId, userType } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const { data } = useFetchData(`/getAllSubscriptionByHPId/${userId}`);
@@ -32,11 +32,11 @@ export const MyAppointments = () => {
       <HPNavbar />
       {data.length === 0 ? (
         <div className="tw-flex tw-flex-col tw-items-center mt-5">
-          <p className="tw-text-red-500 tw-font-bold">No appointments found</p>
+          <p className="tw-text-red-500 tw-font-bold">No pending appointments found</p>
         </div>
       ) : (
         <>
-          <h4 className="text-center text-primary mt-5">Appointments date</h4>
+          <h4 className="text-center text-primary mt-5">Pending Appointments</h4>
 
           <Table
             responsive

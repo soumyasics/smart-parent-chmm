@@ -80,6 +80,15 @@ export const HPNavbar = () => {
   const navigateHPAppointments = () => {
     navigate("/hp/appointments");
   };
+  const redirectPendingAppointment = () => {
+    navigate("/hp/pending-ap");
+  };
+  const redirectApprovedAppointment = () => {
+    navigate("/hp/approved-ap");
+  };
+  const redirectRejectedAppointment = () => {
+    navigate("/hp/rejected-ap");
+  };
   return (
     <div className="bg-dark text-white px-4">
       <Navbar expand="lg" className="text-white pe-5">
@@ -105,13 +114,44 @@ export const HPNavbar = () => {
                 Home
               </p>
               {!isFitnessSpecialist && (
-                <p
-                  className="my-0"
-                  style={{ cursor: "pointer" }}
-                  onClick={navigateHPAppointments}
-                >
-                  Appointments
-                </p>
+                <div className="dropdown" role="button">
+                  <button
+                    style={{ width: "180px", border: "none" }}
+                    className="btn d-flex btn-secondary bg-dark"
+                    id="dropdownMenuLink"
+                    role="button"
+                    data-toggle="dropdown"
+                  >
+                    Appointments
+                  </button>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    className={`dropdown-menu ${styles.parentNavDropdown}`}
+                    aria-labelledby="dropdownMenuLink"
+                  >
+                    <p
+                      className="dropdown-item mb-0"
+                      role="button"
+                      onClick={redirectPendingAppointment}
+                    >
+                      Pending
+                    </p>
+                    <p
+                      className="dropdown-item mb-0"
+                      role="button"
+                      onClick={redirectApprovedAppointment}
+                    >
+                      Approved
+                    </p>
+                    <p
+                      className="dropdown-item mb-0"
+                      role="button"
+                      onClick={redirectRejectedAppointment}
+                    >
+                      Rejected
+                    </p>
+                  </div>
+                </div>
               )}
               <p
                 className="my-0 "
