@@ -109,7 +109,6 @@ const approvedAppointment = async (req, res) => {
       id,
       {
         appointmentStatus: "approved",
-        paymentStatus: "completed",
       },
       { new: true }
     );
