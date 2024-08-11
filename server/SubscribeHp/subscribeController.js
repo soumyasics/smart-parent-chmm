@@ -38,7 +38,7 @@ const appointmentReq = async (req, res) => {
     if (isAlreadyBookedAppointment) {
       return res
         .status(400)
-        .json({ message: "Appointment already booked for this date" });
+        .json({ message: "Appointment already booked for this date and time" });
     }
     const appointmentReq = new SubscribeModel({
       parentId,
