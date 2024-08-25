@@ -111,7 +111,7 @@ export const ViewVaccineDetails: FC<ViewVaccineDetails> = ({
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Address</th>
-                <th>Vaccinated</th>
+                <th>Confirm</th>
                 {/* <th>Not Vaccinated</th> */}
               </tr>
             </thead>
@@ -131,7 +131,7 @@ export const ViewVaccineDetails: FC<ViewVaccineDetails> = ({
                           setModalShow(true);
                         }}
                       >
-                        Vaccinated
+                        Confirm Vaccinated
                       </Button>
                     </td>
                     {/* <td>

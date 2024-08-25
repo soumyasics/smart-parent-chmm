@@ -6,6 +6,7 @@ import { RootState } from "../../../redux/store";
 import { toast } from "react-hot-toast";
 import { Form } from "react-bootstrap";
 import axiosInstance from "../../../apis/axiosInstance";
+import { isPastDay } from "../../../utils/validation/dateValidation";
 interface ScheduleDataType {
   vaccinationCenterId: string;
   parentId: string;
@@ -45,6 +46,11 @@ export const ScheduleModal = ({ show, onHide, parentId }: any) => {
       toast.error("Please enter next vaccination date");
       return;
     }
+     if (isPastDay(scheduleType.nextBookingDate)) {
+      toast.error("Date cannot be a past date");
+      return;
+    }
+
     if (!scheduleType.message) {
       toast.error("Please enter message");
       return;

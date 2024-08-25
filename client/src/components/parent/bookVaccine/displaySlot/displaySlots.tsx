@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axiosInstance from "../../../../apis/axiosInstance";
 import axios from "axios";
+import { isPastDay } from "../../../../utils/validation/dateValidation";
 
 interface BookSlotType {
   vaccinationCenterId: string;
@@ -94,6 +95,10 @@ export const DisplaySlots = ({ slots, findSlot }: any) => {
       serializedData.bookingDate &&
       serializedData.vaccinationCenterId
     ) {
+      if (isPastDay(serializedData.bookingDate)) {
+        toast.error("Date cannot be in the past");
+        return;
+      }
       sendDataToServer(serializedData);
     } else {
       console.log("book slot data is not sufficient", bookSlotData);
