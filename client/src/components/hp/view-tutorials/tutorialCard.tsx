@@ -15,9 +15,20 @@ export const TutorialCard: FC<TutorialCardProps> = ({ video }) => {
         <Card.Img className="w-100 h-100" variant="top" src={profilePicture} />
       </div>
       <Card.Body>
-        <Card.Title>{video.title}</Card.Title>
-        <Card.Text>{video.description}</Card.Text>
+        <Card.Title>
+          {video.title?.length > 25
+            ? video?.title?.substring(0, 25) + "..."
+            : video?.title}
+        </Card.Title>
+
+        <Card.Text>
+          {video?.description?.length > 100
+            ? video?.description?.substring(0, 100) + "..."
+            : video?.description}
+        </Card.Text>
+        <div className="d-flex justify-content-center">
         <Button
+          className="w-75 mx-auto"
           variant="primary"
           onClick={() => {
             navigate(`/hp/full-screen/${video._id}`);
@@ -25,6 +36,8 @@ export const TutorialCard: FC<TutorialCardProps> = ({ video }) => {
         >
           Watch
         </Button>
+
+        </div>
       </Card.Body>
     </Card>
   );

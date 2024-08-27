@@ -76,10 +76,11 @@ export const ParentWatchTutorialFullScreen = () => {
       <div style={{ minHeight: "700px" }} className="p-5">
         <h3 className="text-center">Watch Video Tutorials</h3>
         <div className="mt-5 d-flex gap-5 ">
-          <div className="w-75">
-            <h1 className="text-dark">
+          <div className="w-100">
+            <br />
+            <h3 className="text-dark">
               {capitalizeFirstLetter(tutorial?.title) || "Video title"}
-            </h1>
+            </h3>
 
             <iframe
               width="100%"
@@ -90,18 +91,12 @@ export const ParentWatchTutorialFullScreen = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-            <h3 className="mt-2 text-dark">
+            <p className="mt-2 text-dark">
               {capitalizeFirstLetter(tutorial?.description) ||
                 "Video Description"}
-            </h3>
+            </p>
           </div>
-          <div className="d-flex justify-content-center align-items-center w-50">
-            <img
-              className="w-75"
-              src="https://img.freepik.com/premium-vector/hand-holding-phone-watching-video-streaming-online-social-media-smartphone-with-video-player-screen-watch-movies-educational-materials-web-courses-vector-illustration_401949-374.jpg"
-              alt="watch-video"
-            />
-          </div>
+   
         </div>
       </div>
       <div className="mt-5">

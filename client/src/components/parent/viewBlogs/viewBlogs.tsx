@@ -67,8 +67,8 @@ export const ParentViewBlogs: FC<ParentViewBlogsProps> = ({
             >
               <Card.Header as="h5">Blog</Card.Header>
               <Card.Body>
-                <Card.Title>{blog?.title || ""}</Card.Title>
-                <Card.Text>{blog?.para1.substring(0, 10) || ""}</Card.Text>
+                <Card.Title>{blog?.title.substring(0, 10) || ""}</Card.Title>
+                <Card.Text>{blog?.para1.substring(0, 15) || ""}</Card.Text>
               </Card.Body>
             </Card>
           );
